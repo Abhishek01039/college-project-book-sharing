@@ -1,0 +1,187 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:booksharing/UI/views/shared_pref.dart';
+import 'package:booksharing/core/models/image.dart';
+import 'package:booksharing/core/models/student.dart';
+import 'package:booksharing/locator.dart';
+
+import 'package:booksharing/core/models/book.dart';
+import 'package:http/http.dart' as http;
+
+class Api {
+  String api = "http://192.168.43.182:8000/booksharing/";
+  basicAuth() {
+    String username = 'abhishek';
+    String password = 'ABHI01039';
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    return basicAuth;
+  }
+
+  Future<List<Book>> getBooks() async {
+    List<Book> book = new List();
+    // List<BookImage> image = new List();
+    var response =
+        await http.get(api + 'book/', headers: {'authorization': basicAuth()});
+
+    var parsed = jsonDecode(response.body);
+    // print(parsed);
+    // return Book
+    for (var i in parsed) {
+      book.add(Book.fromJson(i));
+
+      // for (var j in i['Book_Image']) {
+      //   // image.add(
+      //   //   BookImage.fromJson(j),
+      //   // );
+
+      // }
+    }
+    // await getBookImage();
+    // for (var i in )
+    // print(image[0].image);
+    return book;
+  }
+
+  getBooksById(int id) async {
+    Book book = locator<Book>();
+    // Student student = locator<Student>();
+    var response = await http
+        .get(api + 'book/$id', headers: {'authorization': basicAuth()});
+
+    var parsed = jsonDecode(response.body);
+    // print(parsed);
+    // return Book
+    for (var i in parsed) {
+      book = Book.fromJson(i);
+    }
+    // student = getStudentById(book.postedBy);
+    // await getBookImage();
+    // for (var i in )
+    return book;
+  }
+
+  Future<Student> getStudentById(int id) async {
+    Student student = locator<Student>();
+
+    http.Response response = await http
+        .get(api + 'student/$id', headers: {'authorization': basicAuth()});
+    // print(response.body);
+    var parsed = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      student = Student.fromJson(parsed);
+      return student;
+      // return parsed;
+    } else if (response.statusCode == 400) {
+      log("User doesn't exist");
+    }
+    return null;
+  }
+
+  getBookImage(int id) async {
+    List<BookImage> image = List<BookImage>();
+    http.Response response = await http
+        .get(api + 'imagebyid/$id', headers: {'authorization': basicAuth()});
+    // print(response.body);
+    var parsed = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      for (var i in parsed) {
+        image.add(BookImage.fromJson(i));
+      }
+      return image;
+      // return parsed;
+    } else if (response.statusCode == 400) {
+      log("Book Image is not exist");
+    }
+    return null;
+  }
+
+  Future<Student> logIn(String enrollment, String pass) async {
+    Student student = locator<Student>();
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // SPHelper.setPref(sharedPreferences);
+    // SPHelper.enrollmentNo=;
+    http.Response response = await http.post(api + 'login/',
+        body: {'enrollmentNo': enrollment, "password": pass},
+        headers: {'authorization': basicAuth()});
+    // print(response.body);
+    var parsed = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      for (var i in parsed) {
+        student = Student.fromJson(i);
+      }
+      SPHelper.setInt("ID", student.id);
+      SPHelper.setString("enrollmentNo", enrollment);
+
+      SPHelper.setString("studentName", student.firstName);
+      SPHelper.setString("studentPhoto", student.photo);
+      return student;
+      // return parsed;
+    } else if (response.statusCode == 400) {
+      log("Enter Valid UserName or password");
+    }
+    return null;
+  }
+
+  getPurchasedBook(String studId) async {
+    http.Response response = await http.post(api + 'student/',
+        body: {'studentId': studId}, headers: {'authorization': basicAuth()});
+    var parsed = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      return parsed;
+    }
+    return null;
+  }
+
+  registerStudent(
+      String enrollmentNo,
+      String firstName,
+      String lastName,
+      String email,
+      String age,
+      String password,
+      String collegeName,
+      String collegeYear,
+      String course,
+      String address,
+      String number,
+      String base64Image) async {
+    Student student = locator<Student>();
+    http.Response response = await http.post(api + 'student/', body: {
+      "enrollmentNo": enrollmentNo,
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "age": age,
+      "password": password,
+      "collegeName": collegeName,
+      "collegeYear": collegeYear,
+      "address": address,
+      "course": course ?? 0,
+      "contactNo": number,
+      "photo": base64Image ?? "",
+    }, headers: {
+      'authorization': basicAuth(),
+    });
+    var parsed = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      // return parsed;
+      student = Student.fromJson(parsed);
+      SPHelper.setInt("ID", student.id);
+      SPHelper.setString("enrollmentNo", student.enrollmentNo);
+
+      SPHelper.setString("studentName", student.firstName);
+      SPHelper.setString("studentPhoto", student.photo);
+
+      return true;
+    }
+    return false;
+    // print(response.body);
+  }
+}
