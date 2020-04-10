@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:booksharing/UI/shared/textStyle.dart';
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/viewModels/studentLogInModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -102,14 +102,7 @@ class LogIn extends StatelessWidget {
                         if (val) {
                           Navigator.pushReplacementNamed(context, 'home');
                         } else {
-                          Fluttertoast.showToast(
-                              msg: "Invalid Enrollment Number or Password",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
+                          showFlutterToast("Invalid Enrollment Number or Password");
                         }
                         studentModel.username.clear();
                         studentModel.pass.clear();

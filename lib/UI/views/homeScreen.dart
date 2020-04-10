@@ -31,16 +31,38 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (con, int index) {
                       return ListTile(
                         // leading: bookImage != null
-                        leading: ClipRRect(
-                          child: FadeInImage(
-                            fit: BoxFit.cover,
-                            width: 70,
-                            placeholder: AssetImage("assets/book_logo.jpg"),
-                            image: NetworkImage(snapshot
-                                .data[index].bookImage[0].image
-                                .toString()),
-                          ),
-                        ),
+
+                        leading: snapshot.data[index].bookImage.length != 0
+                            ? ClipRRect(
+                                child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  width: 70,
+                                  placeholder:
+                                      AssetImage("assets/book_logo.jpg"),
+                                  image: NetworkImage(snapshot
+                                      .data[index].bookImage[0].image
+                                      .toString()),
+                                ),
+                              )
+                            // : Container(width: 70,height: 40,),
+                            // : ClipRRect(
+
+                            //     child: Image.asset(
+                            //       "assets/book_logo.jpg",
+                            //       height: 40,
+                            //       width: 70,
+                            //     ),
+                            //   )
+                            : Container(
+                                width: 70,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image:
+                                          AssetImage("assets/book_logo.jpg")),
+                                ),
+                              ),
                         //     : Image.asset("assets/book_logo.jpg"),
                         title: Text(snapshot.data[index].bookName),
                         subtitle:

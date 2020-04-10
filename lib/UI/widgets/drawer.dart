@@ -77,6 +77,16 @@ class DrawerMenu extends StatelessWidget {
                   title: Text("Profile"),
                 ),
               ),
+               InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, "changePassword");
+                },
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.key),
+                  title: Text("Change Password"),
+                ),
+              ),
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
@@ -87,6 +97,7 @@ class DrawerMenu extends StatelessWidget {
                   title: Text("Post Your Book"),
                 ),
               ),
+
               InkWell(
                 onTap: () {
                   Navigator.pop(context);

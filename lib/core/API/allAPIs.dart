@@ -184,4 +184,97 @@ class Api {
     return false;
     // print(response.body);
   }
+
+  Future<bool> registeredBook(String body) async {
+    http.Response response = await http.post(api + "postbook/",
+        body: body,
+        headers: {
+          'authorization': basicAuth(),
+          "Content-Type": "application/json"
+        });
+
+    var parsed = jsonDecode(response.body);
+
+    if (parsed == "success") {
+      return true;
+      // Future.wait(base64Image.map((e) => http.post(api+"imagebook")));
+    }
+
+    return false;
+  }
+
+  Future<bool> updateStudent(int id, String studentInfo) async {
+    http.Response response = await http.put(api + "student/$id/",
+        body: studentInfo,
+        headers: {
+          'authorization': basicAuth(),
+          "Content-Type": "application/json"
+        });
+    var parsed = jsonDecode(response.body);
+    if (parsed == "success") {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateStudentPhoto(int id, String studentInfo) async {
+    http.Response response = await http.put(api + "updatestudentphoto/$id/",
+        body: studentInfo,
+        headers: {
+          'authorization': basicAuth(),
+          "Content-Type": "application/json"
+        });
+    var parsed = jsonDecode(response.body);
+    if (parsed == "success") {
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<Book>> getBookByPosted(int id) async {
+    List<Book> bookList = new List();
+    http.Response response =
+        await http.get(api + 'bookbyposted/$id/', headers: {
+      'authorization': basicAuth(),
+    });
+    var parsed = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      for (var i in parsed) {
+        bookList.add(Book.fromJson(i));
+      }
+    }
+    return bookList;
+  }
+
+  Future<bool> editBook(int bookId, String editBookData) async {
+    http.Response response = await http.put(api + 'book/$bookId/',
+        body: editBookData,
+        headers: {
+          'authorization': basicAuth(),
+          "Content-Type": "application/json"
+        });
+    var parsed = jsonDecode(response.body);
+    if (parsed == "Success") {
+      return true;
+    }
+    return false;
+  }
+
+  changePassword(int studId,String password,String newpassword) async {
+    http.Response response = await http.post(api + 'changepass/$studId/',
+        body: {
+          "password":password,
+          "newpassword":newpassword
+        },
+        headers: {
+          'authorization': basicAuth(),
+        });
+    var parsed = jsonDecode(response.body);
+    if (parsed == "Success") {
+      return  ;
+    }else if(parsed == "Enter Right Old Password"){
+      return "Enter Right Old Password";
+    }
+    return "Fail";
+  }
 }

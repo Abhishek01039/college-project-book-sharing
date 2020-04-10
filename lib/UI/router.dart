@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
+import 'package:booksharing/UI/views/bookEdit.dart';
 import 'package:booksharing/UI/views/homeScreen.dart';
 import 'package:booksharing/UI/views/loginScreen.dart';
 import 'package:booksharing/UI/views/myPostedBook.dart';
@@ -7,7 +8,9 @@ import 'package:booksharing/UI/views/postedByProfile.dart';
 import 'package:booksharing/UI/views/profilePage.dart';
 import 'package:booksharing/UI/views/registration.dart';
 import 'package:booksharing/UI/views/splashScreen.dart';
+import 'package:booksharing/UI/views/studentEdit.dart';
 import 'package:flutter/material.dart';
+import 'package:booksharing/UI/views/changePassword.dart';
 
 const String initialRoute = "/";
 
@@ -32,6 +35,12 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyPostedBook());
       case 'postedBook':
         return MaterialPageRoute(builder: (_) => PostedBook());
+      case 'studentEdit':
+        return MaterialPageRoute(builder: (_) => StudentEdit());
+      case 'bookedit':
+        return MaterialPageRoute(builder: (_) => BookEdit());
+      case 'changePassword':
+        return MaterialPageRoute(builder: (_) => ChangePassword());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

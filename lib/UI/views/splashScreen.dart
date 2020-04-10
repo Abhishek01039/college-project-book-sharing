@@ -18,7 +18,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
-
+    SPHelper.logout();
     Timer(Duration(seconds: 3), () {
       // navigating to Home Screen
       // Navigator.pushReplacement(

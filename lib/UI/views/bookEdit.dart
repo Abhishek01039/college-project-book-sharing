@@ -1,17 +1,29 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/postedBookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class PostedBook extends StatelessWidget {
+class BookEdit extends StatelessWidget {
   static final tag = "postedBook";
+  final Book book;
+
+  const BookEdit({Key key, this.book}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    PostedBookModel postedBookModel = Provider.of(context);
+    postedBookModel.bookName.text = book.bookName;
+    postedBookModel.isbnNo.text = book.isbnNo;
+    postedBookModel.authorName.text = book.authorName;
+    postedBookModel.pubName.text = book.pubName;
+    postedBookModel.mrpPrice.text = book.originalPrice.toString();
+    postedBookModel.price.text = book.price.toString();
+    postedBookModel.bookCatgName.text = book.bookCatgName;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Post Book"),
+        title: Text("Edit Book"),
       ),
       body: Consumer<PostedBookModel>(
         builder: (context, postedBookModel, child) {
@@ -140,33 +152,43 @@ class PostedBook extends StatelessWidget {
                     SizedBox(
                       height: 40,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text("Choose Book Image"),
-                        InkWell(
-                          onTap: () {
-                            postedBookModel.chooseBookImage();
-                          },
-                          child: Icon(Icons.image),
-                        )
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: <Widget>[
+                    //     Text("Choose Book Image"),
+                    //     InkWell(
+                    //       onTap: () {
+                    //         postedBookModel.chooseBookImage();
+                    //       },
+                    //       child: Icon(Icons.image),
+                    //     )
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 40,
                     ),
                     RaisedButton(
                       onPressed: () async {
-                         await postedBookModel.registeredBook();
-                         if(postedBookModel.isPosted){
-                           Navigator.pop(context);
-                           showFlutterToast("Book Posted Successfully");
-                         }else{
-                           showFlutterToast("Somthing went wrong Please try again");
-                         }  
+                        await postedBookModel.editBook(book.bookId);
+                        if (postedBookModel.isEdited) {
+                          postedBookModel.bookName.clear();
+                          postedBookModel.isbnNo.clear();
+                          postedBookModel.authorName.clear();
+                          postedBookModel.pubName.clear();
+                          postedBookModel.mrpPrice.clear();
+                          postedBookModel.price.clear();
+                          postedBookModel.bookCatgName.clear();
+                          // postedBookModel.bookName.clear();
+                          // postedBookModel.bookName.clear();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'home', (Route<dynamic> route) => false);
+                          showFlutterToast("Book Edit Successfully");
+                        } else {
+                          showFlutterToast(
+                              "Somthing went wrong Please try again");
+                        }
                       },
-
-                      child: Text("Post Book"),
+                      child: Text("Edit Book"),
                     )
                   ],
                 ),

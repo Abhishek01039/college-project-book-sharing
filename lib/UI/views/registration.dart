@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:booksharing/UI/shared/textStyle.dart';
+import 'package:booksharing/UI/shared/commonUtility.dart';
 
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
 import 'package:flutter/material.dart';
@@ -235,6 +235,7 @@ class Registration extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             studentRegModel.chooseImage();
+                            
                           },
                           child: Icon(Icons.photo_album),
                         ),
@@ -261,7 +262,10 @@ class Registration extends StatelessWidget {
                             studentRegModel.number = "";
 
                             Navigator.pushReplacementNamed(context, 'home');
-                          } else {}
+                            showFlutterToast("Registration Successfully");
+                          } else {
+                            showFlutterToast("Somthing went wrong Please try again");
+                          }
                         });
                       },
                       child: Container(

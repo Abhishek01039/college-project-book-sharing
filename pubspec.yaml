@@ -34,9 +34,9 @@ dependencies:
   carousel_slider: ^1.4.1
   font_awesome_flutter: ^8.8.1
   intl_phone_number_input: ^0.3.0
-  image_picker: ^0.6.4
   fluttertoast: ^4.0.1
   file_picker: ^1.6.0
+  country_pickers: ^1.2.0
 
 
 

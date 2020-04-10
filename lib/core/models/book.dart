@@ -11,9 +11,9 @@ class Book {
   final String pubName;
   final String edition;
   final String isbnNo;
-  final int orginialPrice;
+  final int originalPrice;
   final int price;
-  final String bookPhoto;
+
   final String bookCatgName;
   final int postedBy;
   final List<BookImage> bookImage;
@@ -25,9 +25,8 @@ class Book {
       this.pubName,
       this.edition,
       this.isbnNo,
-      this.orginialPrice,
+      this.originalPrice,
       this.price,
-      this.bookPhoto,
       this.bookCatgName,
       this.postedBy,
       this.bookImage});

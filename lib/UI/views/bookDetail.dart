@@ -1,4 +1,4 @@
-import 'package:booksharing/UI/shared/textStyle.dart';
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -30,18 +30,24 @@ class BookDetail extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              CarouselSlider(
-                items: book.bookImage
-                    .map(
-                      (e) => Image.network(e.image),
-                    )
-                    .toList(),
-                aspectRatio: 16 / 9,
-                autoPlay: true,
+              book.bookImage.length != 0
+                  ? CarouselSlider(
+                      items: book.bookImage.map(
+                        (e) {
+                          if (e.image.startsWith("http://"))
+                            return Image.network(e.image);
+                          else
+                            return Image.network(
+                                "http://192.168.43.182:8000" + e.image.toLowerCase());
+                        },
+                      ).toList(),
+                      aspectRatio: 16 / 9,
+                      autoPlay: true,
 
-                viewportFraction: 1.0,
-                // reverse: true,
-              ),
+                      viewportFraction: 1.0,
+                      // reverse: true,
+                    )
+                  : Container(),
               Center(
                 child: Text(
                   book.bookName,
@@ -62,7 +68,7 @@ class BookDetail extends StatelessWidget {
                     width: 30,
                   ),
                   Text(
-                    "₹" + "   " + book.orginialPrice.toString(),
+                    "₹" + "   " + book.originalPrice.toString(),
                     // style: TextStyle(color: Colors.red),
                     style: orginialpriceStyle,
                   ),

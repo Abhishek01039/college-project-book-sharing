@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+
 import 'dart:io';
 
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class StudentRegModel extends BaseModel {
   Api api = locator<Api>();
@@ -25,7 +25,12 @@ class StudentRegModel extends BaseModel {
   final TextEditingController confirmPass = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController changePassword = TextEditingController();
+  final TextEditingController changeNewPassword = TextEditingController();
+  final TextEditingController changeNewConfirmPassword =
+      TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final changePassformKey = GlobalKey<FormState>();
   String collegeYear = "1";
   String number;
   String photo;
@@ -79,8 +84,8 @@ class StudentRegModel extends BaseModel {
       return;
     }
 
-    String fileName = tmpFile.path.split('/').last;
-    print(fileName);
+    // String fileName = tmpFile.path.split('/').last;
+    // print(fileName);
     notifyListeners();
   }
 
@@ -129,5 +134,27 @@ class StudentRegModel extends BaseModel {
   setPhoneNumber(String value) {
     number = value;
     notifyListeners();
+  }
+
+  changePasswordModel(BuildContext context, int studId) async {
+    if (!changePassformKey.currentState.validate()) {
+      return;
+    }
+    String value = await api.changePassword(
+        studId, changePassword.text, changeNewPassword.text);
+
+    if (value == "Success") {
+      changePassword.clear();
+      changeNewPassword.clear();
+      changeNewConfirmPassword.clear();
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'home', (Route<dynamic> route) => false);
+
+      showFlutterToast("Password Changed Successfully");
+    } else if (value == "Enter Right Old Password") {
+      showFlutterToast("Old Password does't match");
+    } else {
+      showFlutterToast("Something went wrong");
+    }
   }
 }

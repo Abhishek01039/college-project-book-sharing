@@ -3,6 +3,7 @@ import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:booksharing/core/viewModels/postedBookModel.dart';
+import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:booksharing/core/viewModels/studentLogInModel.dart';
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
 import 'package:booksharing/locator.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentRegModel()),
         ChangeNotifierProvider(create: (_) => PostedBookModel()),
         ChangeNotifierProvider(create: (_) => BookDetailModel()),
+        ChangeNotifierProvider(create: (_) => StudentEditModel()),
+        
       ],
       child: Consumer<BaseModel>(
         builder: (context, basemodel, child) {

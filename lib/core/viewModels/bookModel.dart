@@ -12,12 +12,25 @@ class BookModel extends BaseModel {
   // final _bookImageSubject = BehaviorSubject<List<BookImage>>();
   // BookImage bookImage=locator<BookImage>();
   Api _api = locator<Api>();
+  int selection;
+  List<Book> bookList = new List();
   bookApi() async {
     _bookSubject.sink.add(await _api.getBooks());
+    notifyListeners();
   }
 
   getBookByCategory(String catg) async {}
-  
+
+  Future<List<Book>> getBookById(int id) async {
+    bookList = await _api.getBookByPosted(id);
+    return bookList;
+  }
+
+  popupmenuSelection(dynamic value){
+    selection=value;
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     _bookSubject?.close();
