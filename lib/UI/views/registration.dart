@@ -3,20 +3,23 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_picker_dropdown.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 class Registration extends StatelessWidget {
   static final tag = 'registration';
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  String countryCode = "+91";
   @override
   Widget build(BuildContext context) {
     return Consumer<StudentRegModel>(builder: (context, studentRegModel, _) {
       return SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -117,7 +120,7 @@ class Registration extends StatelessWidget {
                       controller: studentRegModel.collegeName,
                       decoration: InputDecoration(
                         hintText: "College Name",
-                        suffixIcon: FaIcon(
+                        suffixIcon: Icon(
                           FontAwesomeIcons.graduationCap,
                         ),
                       ),
@@ -198,7 +201,7 @@ class Registration extends StatelessWidget {
                       controller: studentRegModel.address,
                       decoration: InputDecoration(
                         hintText: "Address",
-                        suffixIcon: FaIcon(
+                        suffixIcon: Icon(
                           FontAwesomeIcons.addressBook,
                         ),
                       ),
@@ -213,17 +216,67 @@ class Registration extends StatelessWidget {
                     SizedBox(
                       height: 40,
                     ),
-                    InternationalPhoneNumberInput(
-                      onInputChanged: (PhoneNumber number) {
-                        // print(number.p`honeNumber);
-                        studentRegModel.setPhoneNumber(number.phoneNumber);
-                      },
-                      // textFieldController: studentRegModel.phoneNumber,
-                      isEnabled: true,
-                      countries: ["IN"],
-                      initialCountry2LetterCode: "+91",
-                      autoValidate: false,
-                      formatInput: false,
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
+                          child: CountryPickerDropdown(
+                            initialValue: 'in',
+                            itemBuilder: _buildDropdownItem,
+                            onValuePicked: (Country country) {
+                              countryCode = country.phoneCode;
+                              // print("${country.name}");
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          // child: TextFormField(
+                          //   controller: new TextEditingController.fromValue(
+                          //       new TextEditingValue(
+                          //           text: studentRegModel.number,
+                          //           selection: new TextSelection.collapsed(
+                          //               offset:
+                          //                   studentRegModel.number.length - 1))),
+                          //   keyboardType: TextInputType.text,
+                          //   onChanged: (value) {
+                          //     studentRegModel.setPhoneNumber(value);
+                          //     // var sel = studentRegModel.phoneNumber.selection;
+                          //     // studentRegModel.phoneNumber.selection = sel;
+                          //     // final val = TextSelection.collapsed(
+                          //     //     offset: studentRegModel.phoneNumber.text.length);
+                          //     // studentRegModel.phoneNumber.selection = val;
+                          //     var cursorPos =
+                          //         studentRegModel.phoneNumber.selection;
+
+                          //     studentRegModel.phoneNumber.text = value ?? '';
+
+                          //     if (cursorPos.start >
+                          //         studentRegModel.phoneNumber.text.length) {
+                          //       cursorPos = new TextSelection.fromPosition(
+                          //           new TextPosition(
+                          //               offset: studentRegModel
+                          //                   .phoneNumber.text.length));
+                          //     }
+                          //     studentRegModel.phoneNumber.selection = cursorPos;
+                          //     studentRegModel.setPhoneNumber(value);
+                          //     print(value);
+                          //   },
+                          // ),
+                          child: TextFormField(
+                            // controller: studentRegModel.phoneNumber,
+                            keyboardType: TextInputType.number,
+
+                            // initialValue: studentRegModel.number.substring(3),
+                            onChanged: (val) {
+                              studentRegModel.number = "";
+                              studentRegModel.setPhoneNumber(countryCode + val);
+                              // print("hello");
+                              // print(studentRegModel.number);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 40,
@@ -235,7 +288,6 @@ class Registration extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             studentRegModel.chooseImage();
-                            
                           },
                           child: Icon(Icons.photo_album),
                         ),
@@ -246,27 +298,7 @@ class Registration extends StatelessWidget {
                         : Container(),
                     RaisedButton(
                       onPressed: () {
-                        studentRegModel.registerStudent().then((value) {
-                          if (value) {
-                            studentRegModel.enrollmentNo.clear();
-                            studentRegModel.firstName.clear();
-                            studentRegModel.lastName.clear();
-                            studentRegModel.email.clear();
-                            studentRegModel.age.clear();
-                            studentRegModel.collegeName.clear();
-                            studentRegModel.course.clear();
-                            studentRegModel.password.clear();
-                            studentRegModel.confirmPass.clear();
-                            studentRegModel.phoneNumber.clear();
-                            studentRegModel.address.clear();
-                            studentRegModel.number = "";
-
-                            Navigator.pushReplacementNamed(context, 'home');
-                            showFlutterToast("Registration Successfully");
-                          } else {
-                            showFlutterToast("Somthing went wrong Please try again");
-                          }
-                        });
+                        studentRegModel.registerStudent(context, scaffoldKey);
                       },
                       child: Container(
                         width: double.infinity,
@@ -311,3 +343,15 @@ class CollegeYear extends StatelessWidget {
         });
   }
 }
+
+Widget _buildDropdownItem(Country country) => Container(
+      child: Row(
+        children: <Widget>[
+          CountryPickerUtils.getDefaultFlagImage(country),
+          SizedBox(
+            width: 8.0,
+          ),
+          Text("+${country.phoneCode}(${country.isoCode})"),
+        ],
+      ),
+    );

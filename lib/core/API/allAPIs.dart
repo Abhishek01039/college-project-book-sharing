@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/image.dart';
+import 'package:booksharing/core/models/purchasedBook.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/locator.dart';
 
@@ -118,7 +119,7 @@ class Api {
       SPHelper.setString("enrollmentNo", enrollment);
 
       SPHelper.setString("studentName", student.firstName);
-      SPHelper.setString("studentPhoto", student.photo);
+      SPHelper.setString("studentPhoto", "/media/" + student.photo);
       return student;
       // return parsed;
     } else if (response.statusCode == 400) {
@@ -138,19 +139,21 @@ class Api {
     return null;
   }
 
-  registerStudent(
-      String enrollmentNo,
-      String firstName,
-      String lastName,
-      String email,
-      String age,
-      String password,
-      String collegeName,
-      String collegeYear,
-      String course,
-      String address,
-      String number,
-      String base64Image) async {
+  Future<String> registerStudent(
+    String enrollmentNo,
+    String firstName,
+    String lastName,
+    String email,
+    String age,
+    String password,
+    String collegeName,
+    String collegeYear,
+    String course,
+    String address,
+    String number,
+    String base64Image,
+    String extn,
+  ) async {
     Student student = locator<Student>();
     http.Response response = await http.post(api + 'student/', body: {
       "enrollmentNo": enrollmentNo,
@@ -165,6 +168,7 @@ class Api {
       "course": course ?? 0,
       "contactNo": number,
       "photo": base64Image ?? "",
+      "extansion": extn
     }, headers: {
       'authorization': basicAuth(),
     });
@@ -179,9 +183,15 @@ class Api {
       SPHelper.setString("studentName", student.firstName);
       SPHelper.setString("studentPhoto", student.photo);
 
-      return true;
+      return "Success";
     }
-    return false;
+    // print(parsed['contactNo']);
+    if (parsed == "Student already Exist") {
+      return "Student already Exist";
+    } else if (parsed['contactNo'] != null) {
+      return "Mobile Number is already exist";
+    }
+    return "Fail";
     // print(response.body);
   }
 
@@ -260,21 +270,83 @@ class Api {
     return false;
   }
 
-  changePassword(int studId,String password,String newpassword) async {
-    http.Response response = await http.post(api + 'changepass/$studId/',
-        body: {
-          "password":password,
-          "newpassword":newpassword
-        },
-        headers: {
-          'authorization': basicAuth(),
-        });
+  changePassword(int studId, String password, String newpassword) async {
+    http.Response response =
+        await http.post(api + 'changepass/$studId/', body: {
+      "password": password,
+      "newpassword": newpassword
+    }, headers: {
+      'authorization': basicAuth(),
+    });
     var parsed = jsonDecode(response.body);
-    if (parsed == "Success") {
-      return  ;
-    }else if(parsed == "Enter Right Old Password"){
+    if (parsed == "success") {
+      return "Success";
+    } else if (parsed == "Enter Right Old Password") {
       return "Enter Right Old Password";
     }
     return "Fail";
+  }
+
+  deleteStudent(int studId) async {
+    http.Response response =
+        await http.delete(api + 'student/$studId/', headers: {
+      'authorization': basicAuth(),
+    });
+    // var parsed = jsonDecode(response.body);
+    if (response.statusCode == 204) {
+      return true;
+    }
+    return false;
+  }
+
+  deleteBook(int bookId) async {
+    http.Response response = await http.delete(api + 'book/$bookId/', headers: {
+      'authorization': basicAuth(),
+    });
+    // var parsed = jsonDecode(response.body);
+    if (response.statusCode == 204) {
+      return true;
+    }
+    return false;
+  }
+
+  deleteBookAndPost(String data) async {
+    http.Response response =
+        await http.post(api + 'purchasedbook/', body: data, headers: {
+      "Content-Type": "application/json",
+      'authorization': basicAuth(),
+    });
+    var parsed = jsonDecode(response.body);
+
+    if (parsed == "Student doesn't exist with this contact Number") {
+      return "Student doesn't exist with this contact Number";
+    } else if (response.statusCode == 201) {
+      return "Success";
+    } else {
+      return "Fail";
+    }
+  }
+
+  purchasedBookByUser(int studId) async {
+    // List<PurchasedBook> purchasedBook = new List();
+    http.Response response = await http.get(
+        api + "purchasedbookbyuser/$studId/",
+        headers: {'authorization': basicAuth()});
+    var parsed = jsonDecode(response.body);
+
+    return parsed;
+  }
+
+  Future<dynamic> feedBack(String email, String message) async {
+    http.Response response = await http.post(api + "feedback/", body: {
+      "studName": SPHelper.getString("studentName"),
+      "email": email,
+      "message": message
+    }, headers: {
+      'authorization': basicAuth()
+    });
+    var parsed = jsonDecode(response.body);
+
+    return parsed;
   }
 }

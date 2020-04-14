@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -11,6 +12,37 @@ TextStyle priceStyle = TextStyle(color: Colors.orange);
 
 TextStyle headerStyle =
     TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold);
+
+Future<bool> checkConnection() async {
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult == ConnectivityResult.mobile) {
+    return true;
+  } else if (connectivityResult == ConnectivityResult.wifi) {
+    return true;
+  }
+  return false;
+}
+
+showProgress(GlobalKey<ScaffoldState> scaffoldKey) {
+  scaffoldKey.currentState.showSnackBar(
+    SnackBar(
+      duration: Duration(seconds: 30),
+      content: Row(
+        children: <Widget>[
+          CircularProgressIndicator(),
+          SizedBox(
+            width: 10,
+          ),
+          Text("Please wait ....")
+        ],
+      ),
+    ),
+  );
+}
+
+closeProgress(GlobalKey<ScaffoldState> scaffoldKey) {
+  scaffoldKey.currentState.hideCurrentSnackBar();
+}
 
 showFlutterToast(String message) {
   Fluttertoast.showToast(

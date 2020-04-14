@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
@@ -9,6 +10,7 @@ import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PostedBookModel extends BaseModel {
   TextEditingController bookName = TextEditingController();
@@ -18,6 +20,10 @@ class PostedBookModel extends BaseModel {
   TextEditingController mrpPrice = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController bookCatgName = TextEditingController();
+  TextEditingController studentName = TextEditingController();
+  // TextEditingController bookCatgName = TextEditingController();
+  // TextEditingController bookCatgName = TextEditingController();
+  String number;
   List<File> bookImages = new List();
   FileType fileType = FileType.image;
   List<String> base64Image = List();
@@ -63,8 +69,8 @@ class PostedBookModel extends BaseModel {
       }
 
       fileName.add(tmpFile[i].path.split('/').last);
-      print(fileName);
-      print(base64Image);
+      // print(fileName);
+      // print(base64Image);
     }
     // bookImages bookImage=BookImage(
     //   image:
@@ -83,7 +89,15 @@ class PostedBookModel extends BaseModel {
     notifyListeners();
   }
 
-  Future<bool> registeredBook() async {
+  registeredBook(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("msgPleaseCheckConn");
+      }
+
+      showProgress(scaffoldKey);
+    }
     await startUpload();
     String body = json.encode({
       "bookName": bookName.text,
@@ -96,14 +110,23 @@ class PostedBookModel extends BaseModel {
       "Book_Image": base64Image,
       "postedBy": SPHelper.getInt("ID")
     });
+
     isPosted = await api.registeredBook(body);
+    closeProgress(scaffoldKey);
     if (isPosted) {
-      return true;
+      Navigator.pop(context);
+      showFlutterToast("Book Posted Successfully");
+    } else {
+      showFlutterToast("Somthing went wrong Please try again");
     }
-    return false;
   }
 
-  editBook(int bookid) async {
+  setPhoneNumber(String value) {
+    number = value;
+    notifyListeners();
+  }
+
+  editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
     String editBookData = jsonEncode({
       "bookName": bookName.text,
       "isbnNo": isbnNo.text,
@@ -114,6 +137,50 @@ class PostedBookModel extends BaseModel {
       "originalPrice": int.tryParse(mrpPrice.text),
       "postedBy": SPHelper.getInt("ID")
     });
-    isEdited= await api.editBook(bookid,editBookData);
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("msgPleaseCheckConn");
+      }
+
+      showProgress(scaffoldKey);
+    }
+    isEdited = await api.editBook(bookid, editBookData);
+    closeProgress(scaffoldKey);
+  }
+
+  deleteBook(BuildContext context, int bookId) async {
+    bool isDeleted = await api.deleteBook(bookId);
+    if (isDeleted) {
+      Navigator.pop(context);
+      showFlutterToast("Book Deleted Successfully");
+    } else {
+      showFlutterToast("Something went wrong");
+    }
+  }
+
+  deleteBookByTransaction(BuildContext context, int bookId,
+      GlobalKey<ScaffoldState> scaffoldKey) async {
+    // await api.
+    String body = jsonEncode(
+      {"bookId": bookId, "contactNo": number},
+    );
+    studentName.clear();
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("msgPleaseCheckConn");
+      }
+
+      showProgress(scaffoldKey);
+    }
+    String response = await api.deleteBookAndPost(body);
+    closeProgress(scaffoldKey);
+    if (response == "Student doesn't exist with this contact Number") {
+      showFlutterToast("Student doesn't exist with this contact Number");
+    } else if (response == "Success") {
+      Navigator.pop(context);
+      showFlutterToast("delete Book Successfully");
+    } else {
+      showFlutterToast("Something went wrong");
+    }
   }
 }

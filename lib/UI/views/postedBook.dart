@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 
 class PostedBook extends StatelessWidget {
   static final tag = "postedBook";
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Post Book"),
       ),
@@ -21,11 +22,18 @@ class PostedBook extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: <Widget>[
+                    Text(
+                      "Please choose Book image carefully, you can't change it later",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       controller: postedBookModel.bookName,
                       decoration: InputDecoration(
                         hintText: "Book Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.book),
+                        suffixIcon: Icon(FontAwesomeIcons.book),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -42,7 +50,7 @@ class PostedBook extends StatelessWidget {
                       controller: postedBookModel.isbnNo,
                       decoration: InputDecoration(
                         hintText: "ISBN Number",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.barcode),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -50,7 +58,7 @@ class PostedBook extends StatelessWidget {
                         }
                         return null;
                       },
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                     ),
                     SizedBox(
                       height: 40,
@@ -59,7 +67,7 @@ class PostedBook extends StatelessWidget {
                       controller: postedBookModel.authorName,
                       decoration: InputDecoration(
                         hintText: "Author Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.userEdit),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -75,9 +83,8 @@ class PostedBook extends StatelessWidget {
                     TextFormField(
                       controller: postedBookModel.pubName,
                       decoration: InputDecoration(
-                        hintText: "Publisher Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
-                      ),
+                          hintText: "Publisher Name",
+                          suffixIcon: Icon(FontAwesomeIcons.book)),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter Publisher Name';
@@ -93,7 +100,7 @@ class PostedBook extends StatelessWidget {
                       controller: postedBookModel.mrpPrice,
                       decoration: InputDecoration(
                         hintText: "MRP price",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -110,7 +117,7 @@ class PostedBook extends StatelessWidget {
                       controller: postedBookModel.price,
                       decoration: InputDecoration(
                         hintText: "Price",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -127,7 +134,7 @@ class PostedBook extends StatelessWidget {
                       controller: postedBookModel.bookCatgName,
                       decoration: InputDecoration(
                         hintText: "Book Category Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(Icons.category),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -157,15 +164,9 @@ class PostedBook extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                         await postedBookModel.registeredBook();
-                         if(postedBookModel.isPosted){
-                           Navigator.pop(context);
-                           showFlutterToast("Book Posted Successfully");
-                         }else{
-                           showFlutterToast("Somthing went wrong Please try again");
-                         }  
+                        await postedBookModel.registeredBook(
+                            context, scaffoldKey);
                       },
-
                       child: Text("Post Book"),
                     )
                   ],

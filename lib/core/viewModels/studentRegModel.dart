@@ -27,14 +27,17 @@ class StudentRegModel extends BaseModel {
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController changePassword = TextEditingController();
   final TextEditingController changeNewPassword = TextEditingController();
+  final TextEditingController feedBackMessage = TextEditingController();
+  final TextEditingController feedBackEmail = TextEditingController();
   final TextEditingController changeNewConfirmPassword =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final feedbackFormKey = GlobalKey<FormState>();
   final changePassformKey = GlobalKey<FormState>();
   String collegeYear = "1";
   String number;
   String photo;
-  bool isRegistered;
+  String isRegistered;
 
   // studentRegistration() async {
   //   if (formKey.currentState.validate()) {
@@ -57,7 +60,7 @@ class StudentRegModel extends BaseModel {
   File file;
   String status = '';
   FileType fileType = FileType.image;
-
+  List<String> extn;
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
     // file.then((value) {
@@ -84,8 +87,9 @@ class StudentRegModel extends BaseModel {
       return;
     }
 
-    // String fileName = tmpFile.path.split('/').last;
+    String fileName = tmpFile.path.split('/').last;
     // print(fileName);
+    extn = fileName.split(".");
     notifyListeners();
   }
 
@@ -94,41 +98,57 @@ class StudentRegModel extends BaseModel {
     notifyListeners();
   }
 
-  Future<bool> registerStudent() async {
+  registerStudent(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
-      await startUpload();
-      var body = {
-        "enrollmentNo": enrollmentNo.text,
-        "firstName": firstName.text,
-        "lastName": lastName.text,
-        "email": email.text,
-        "age": int.tryParse(age.text),
-        "password": password.text,
-        "collegeName": collegeName.text,
-        "collegeYear": collegeYear,
-        "course": course.text ?? "",
-        "address": address.text,
-        "contactNo": number,
-        "photo": base64Image ?? "",
-      };
-      print(body);
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("msgPleaseCheckConn");
+        }
 
+        showProgress(scaffoldKey);
+      }
+      await startUpload();
       isRegistered = await api.registerStudent(
-          enrollmentNo.text,
-          firstName.text,
-          lastName.text,
-          email.text,
-          age.text,
-          password.text,
-          collegeName.text,
-          collegeYear,
-          course.text,
-          address.text,
-          number,
-          base64Image);
-      return isRegistered;
+        enrollmentNo.text,
+        firstName.text,
+        lastName.text,
+        email.text,
+        age.text,
+        password.text,
+        collegeName.text,
+        collegeYear,
+        course.text,
+        address.text,
+        number,
+        base64Image,
+        extn[1],
+      );
+      closeProgress(scaffoldKey);
+      if (isRegistered == "Success") {
+        enrollmentNo.clear();
+        firstName.clear();
+        lastName.clear();
+        email.clear();
+        age.clear();
+        collegeName.clear();
+        course.clear();
+        password.clear();
+        confirmPass.clear();
+        phoneNumber.clear();
+        address.clear();
+        number = "";
+
+        Navigator.pushReplacementNamed(context, 'home');
+        showFlutterToast("Registration Successfully");
+      } else if (isRegistered == "Student already Exist") {
+        showFlutterToast("Student already exist");
+      } else if (isRegistered == "Mobile Number is already exist") {
+        showFlutterToast("Mobile Number is already exist");
+      } else {
+        showFlutterToast("Somthing went wrong Please try again");
+      }
     }
-    return false;
   }
 
   setPhoneNumber(String value) {
@@ -136,13 +156,21 @@ class StudentRegModel extends BaseModel {
     notifyListeners();
   }
 
-  changePasswordModel(BuildContext context, int studId) async {
+  changePasswordModel(BuildContext context, int studId,
+      GlobalKey<ScaffoldState> scaffoldKey) async {
     if (!changePassformKey.currentState.validate()) {
       return;
     }
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("msgPleaseCheckConn");
+      }
+
+      showProgress(scaffoldKey);
+    }
     String value = await api.changePassword(
         studId, changePassword.text, changeNewPassword.text);
-
+    closeProgress(scaffoldKey);
     if (value == "Success") {
       changePassword.clear();
       changeNewPassword.clear();
@@ -155,6 +183,27 @@ class StudentRegModel extends BaseModel {
       showFlutterToast("Old Password does't match");
     } else {
       showFlutterToast("Something went wrong");
+    }
+  }
+
+  feedBack(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (feedbackFormKey.currentState.validate()) {
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("msgPleaseCheckConn");
+        }
+
+        showProgress(scaffoldKey);
+      }
+      api.feedBack(feedBackEmail.text,feedBackMessage.text).then((value) {
+        closeProgress(scaffoldKey);
+        if (value == "Success") {
+          Navigator.pop(context);
+          showFlutterToast("Feed Back has been successfully submitted");
+        } else {
+          showFlutterToast("Something went wrong");
+        }
+      });
     }
   }
 }

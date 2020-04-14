@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -22,7 +22,11 @@ void main() {
     // WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.getInstance().then((SharedPreferences sp) {
       SPHelper.setPref(sp);
+      // print(SPHelper.getInt("DarkTheme"));
       setupLocator();
+      if (sp.getBool("DarkTheme") == null) {
+        sp.setBool("DarkTheme", false);
+      }
       runApp(MyApp());
     });
   });
@@ -40,11 +44,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PostedBookModel()),
         ChangeNotifierProvider(create: (_) => BookDetailModel()),
         ChangeNotifierProvider(create: (_) => StudentEditModel()),
-        
+        ChangeNotifierProvider(create: (_) => PurchasedBookModel()),
       ],
       child: Consumer<BaseModel>(
-        builder: (context, basemodel, child) {
+        builder: (context, basemodel, _) {
           return MaterialApp(
+            // darkTheme: ThemeData(
+
+            // ),
+            theme: SPHelper.getBool("DarkTheme")
+                ? ThemeData(brightness: Brightness.dark)
+                : ThemeData(brightness: Brightness.light),
+
             title: 'Book Sharing',
             // home: LogIn(),
             initialRoute: '/',

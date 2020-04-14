@@ -34,10 +34,20 @@ class StudentEditModel extends BaseModel {
   FileType fileType = FileType.image;
   String collegeYear = "1";
   String fileName;
+  List<String> extn;
   setPhoneNumber(String value) {
     number = value;
     notifyListeners();
   }
+
+  // changeTheme(){
+  //   if (super.isDarkTheme){
+  //     super.isDarkTheme=false;
+  //   }else{
+  //     super.isDarkTheme=true;
+  //   }
+  //   notifyChange();
+  // }
 
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
@@ -66,7 +76,9 @@ class StudentEditModel extends BaseModel {
     }
 
     fileName = tmpFile.path.split('/').last;
-    print(fileName);
+    // print(fileName);
+    extn = fileName.split(".");
+
     notifyListeners();
   }
 
@@ -80,12 +92,14 @@ class StudentEditModel extends BaseModel {
     await startUpload();
     String studentPhoto = jsonEncode({
       "enrollmentNo": SPHelper.getString("enrollmentNo"),
-      "photo": base64Image
+      "photo": base64Image,
+      "extansion": extn[1],
     });
     bool isUpdated =
         await api.updateStudentPhoto(SPHelper.getInt("ID"), studentPhoto);
     if (isUpdated) {
-      SPHelper.setString("studentPhoto", '/media/Student' + fileName);
+      SPHelper.setString("studentPhoto",
+          'Student/' + SPHelper.getString("enrollmentNo") + '.' + extn[1]);
 
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -93,13 +107,22 @@ class StudentEditModel extends BaseModel {
         (Route<dynamic> route) => false,
       );
       showFlutterToast("Profile Image updated successfully");
+    } else if (!isUpdated) {
+      showFlutterToast("Profile Image not updated");
     } else {
       showFlutterToast("Something went wrong");
     }
   }
 
-  updateStudent() async {
+  updateStudent(GlobalKey<ScaffoldState> scaffoldKey) async {
     // api.updateUser(id)
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("msgPleaseCheckConn");
+      }
+
+      showProgress(scaffoldKey);
+    }
     String studentInfo = jsonEncode({
       "enrollmentNo": enrollmentNo.text,
       "firstName": firstName.text,
@@ -114,6 +137,23 @@ class StudentEditModel extends BaseModel {
     });
     bool isUpdated =
         await api.updateStudent(SPHelper.getInt("ID"), studentInfo);
+    closeProgress(scaffoldKey);
     return isUpdated;
+  }
+
+  deleteStudent(BuildContext context, int studId) async {
+    bool isDeleted = await api.deleteStudent(studId);
+    if (isDeleted) {
+      showFlutterToast("Account Deleted Successfully");
+      SPHelper.logout();
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/',
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      showFlutterToast("Something went wrong");
+      Navigator.pop(context);
+    }
   }
 }

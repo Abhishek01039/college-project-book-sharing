@@ -1,17 +1,18 @@
-import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
-import 'package:booksharing/core/viewModels/studentLogInModel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
 
 class ChangePassword extends StatelessWidget {
   static final tag = "changePassword";
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Consumer<StudentRegModel>(
       builder: (context, studentModel, child) {
         return Scaffold(
+          key: scaffoldKey,
           body: SingleChildScrollView(
             child: SafeArea(
               child: Form(
@@ -77,7 +78,7 @@ class ChangePassword extends StatelessWidget {
                       RaisedButton(
                         onPressed: () {
                           studentModel.changePasswordModel(
-                              context, SPHelper.getInt("ID"));
+                              context, SPHelper.getInt("ID"), scaffoldKey);
                         },
                         child: Container(
                           width: double.infinity,

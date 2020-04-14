@@ -9,8 +9,8 @@ class BookEdit extends StatelessWidget {
   static final tag = "postedBook";
   final Book book;
 
-  const BookEdit({Key key, this.book}) : super(key: key);
-
+  BookEdit({Key key, this.book}) : super(key: key);
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     PostedBookModel postedBookModel = Provider.of(context);
@@ -22,6 +22,7 @@ class BookEdit extends StatelessWidget {
     postedBookModel.price.text = book.price.toString();
     postedBookModel.bookCatgName.text = book.bookCatgName;
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Edit Book"),
       ),
@@ -37,7 +38,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.bookName,
                       decoration: InputDecoration(
                         hintText: "Book Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.book),
+                        suffixIcon: Icon(FontAwesomeIcons.book),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -54,7 +55,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.isbnNo,
                       decoration: InputDecoration(
                         hintText: "ISBN Number",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -71,7 +72,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.authorName,
                       decoration: InputDecoration(
                         hintText: "Author Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -88,7 +89,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.pubName,
                       decoration: InputDecoration(
                         hintText: "Publisher Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -105,7 +106,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.mrpPrice,
                       decoration: InputDecoration(
                         hintText: "MRP price",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -122,7 +123,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.price,
                       decoration: InputDecoration(
                         hintText: "Price",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -139,7 +140,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.bookCatgName,
                       decoration: InputDecoration(
                         hintText: "Book Category Name",
-                        suffixIcon: FaIcon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -169,7 +170,8 @@ class BookEdit extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                        await postedBookModel.editBook(book.bookId);
+                        await postedBookModel.editBook(
+                            book.bookId, scaffoldKey);
                         if (postedBookModel.isEdited) {
                           postedBookModel.bookName.clear();
                           postedBookModel.isbnNo.clear();

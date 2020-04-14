@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class StudentEdit extends StatelessWidget {
   static final tag = 'studentEdit';
   final Student student;
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   StudentEdit({Key key, this.student}) : super(key: key);
   String countryCode = "+91";
   @override
@@ -32,6 +32,7 @@ class StudentEdit extends StatelessWidget {
     studentEditModel.collegeYear = student.collegeYear.toString();
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -132,7 +133,7 @@ class StudentEdit extends StatelessWidget {
                     controller: studentEditModel.collegeName,
                     decoration: InputDecoration(
                       hintText: "College Name",
-                      suffixIcon: FaIcon(
+                      suffixIcon: Icon(
                         FontAwesomeIcons.graduationCap,
                       ),
                     ),
@@ -173,7 +174,7 @@ class StudentEdit extends StatelessWidget {
                     controller: studentEditModel.address,
                     decoration: InputDecoration(
                       hintText: "Address",
-                      suffixIcon: FaIcon(
+                      suffixIcon: Icon(
                         FontAwesomeIcons.addressBook,
                       ),
                     ),
@@ -257,7 +258,7 @@ class StudentEdit extends StatelessWidget {
 
                           initialValue: studentEditModel.number.substring(3),
                           onChanged: (val) {
-                            studentEditModel.number = "";
+                            // studentEditModel.number = "";
                             studentEditModel.setPhoneNumber(countryCode + val);
                             // print("hello");
                             // print(studentEditModel.number);
@@ -271,7 +272,7 @@ class StudentEdit extends StatelessWidget {
                   ),
                   RaisedButton(
                     onPressed: () {
-                      studentEditModel.updateStudent().then((value) {
+                      studentEditModel.updateStudent(scaffoldKey).then((value) {
                         if (value) {
                           SPHelper.setString("enrollmentNo",
                               studentEditModel.enrollmentNo.text);

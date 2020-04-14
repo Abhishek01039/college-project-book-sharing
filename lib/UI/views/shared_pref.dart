@@ -7,6 +7,7 @@ class SPHelper {
   static String lastName;
   static void setPref(SharedPreferences prefs1) {
     prefs = prefs1;
+    // SPHelper.setBool("DarkTheme", false);
   }
 
   static int getInt(String key) {
@@ -35,7 +36,25 @@ class SPHelper {
     print(key.toString() + "" + value);
   }
 
+  static bool getBool(String key) {
+    return prefs.getBool(key);
+
+    // print(key.toString() + "" + value.toString());
+  }
+
+  static void setBool(String key, bool value) {
+    prefs.setBool(key, value);
+    print(key.toString() + "" + value.toString());
+  }
+
   static void logout() {
-    prefs.clear();
+    // prefs.clear();
+    // if (getBool("DarkTheme") == null) {
+    //   setBool("DarkTheme", false);
+    // }
+    prefs.remove("ID");
+    prefs.remove("enrollmentNo");
+    prefs.remove("studentName");
+    prefs.remove("studentPhoto");
   }
 }

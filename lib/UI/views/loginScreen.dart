@@ -8,11 +8,13 @@ import 'package:provider/provider.dart';
 
 class LogIn extends StatelessWidget {
   static final tag = 'login';
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<StudentModel>(builder: (context, studentModel, child) {
       return Scaffold(
+        key: scaffoldKey,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Form(
@@ -98,7 +100,7 @@ class LogIn extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                        bool val = await studentModel.logIn();
+                        bool val = await studentModel.logIn(scaffoldKey);
                         if (val) {
                           Navigator.pushReplacementNamed(context, 'home');
                         } else {
