@@ -14,7 +14,7 @@ class StudentModel extends BaseModel {
   Future<bool> logIn(GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);

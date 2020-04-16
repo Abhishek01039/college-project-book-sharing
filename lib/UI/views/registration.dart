@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:booksharing/UI/shared/commonUtility.dart';
 
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
@@ -13,7 +11,7 @@ import 'package:provider/provider.dart';
 class Registration extends StatelessWidget {
   static final tag = 'registration';
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String countryCode = "+91";
+
   @override
   Widget build(BuildContext context) {
     return Consumer<StudentRegModel>(builder: (context, studentRegModel, _) {
@@ -40,10 +38,13 @@ class Registration extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter Enrollement Number';
+                        } else if (value.length < 13) {
+                          return "Please enter Right Enrollment Number";
                         }
                         return null;
                       },
                       keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 40,
@@ -91,7 +92,10 @@ class Registration extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Please enter Email Address';
+                        }
+                        if (!value.contains("@")) {
+                          return 'Please enter proper Email Address';
                         }
                         return null;
                       },
@@ -110,6 +114,10 @@ class Registration extends StatelessWidget {
                         if (value.isEmpty) {
                           return 'Please enter Age';
                         }
+                        if (int.tryParse(value) < 0 &&
+                            int.tryParse(value) > 112) {
+                          return "Please enter valid Age";
+                        }
                         return null;
                       },
                     ),
@@ -124,7 +132,7 @@ class Registration extends StatelessWidget {
                           FontAwesomeIcons.graduationCap,
                         ),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter College Name';
@@ -144,9 +152,12 @@ class Registration extends StatelessWidget {
                       controller: studentRegModel.course,
                       decoration: InputDecoration(
                         hintText: "Course",
-                        suffixIcon: Icon(Icons.lock),
+                        suffixIcon: Icon(
+                          FontAwesomeIcons.graduationCap,
+                          color: Colors.blue,
+                        ),
                       ),
-                      keyboardType: TextInputType.visiblePassword,
+                      keyboardType: TextInputType.text,
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter Course';
@@ -224,7 +235,7 @@ class Registration extends StatelessWidget {
                             initialValue: 'in',
                             itemBuilder: _buildDropdownItem,
                             onValuePicked: (Country country) {
-                              countryCode = country.phoneCode;
+                              studentRegModel.countryCode = country.phoneCode;
                               // print("${country.name}");
                             },
                           ),
@@ -270,7 +281,8 @@ class Registration extends StatelessWidget {
                             // initialValue: studentRegModel.number.substring(3),
                             onChanged: (val) {
                               studentRegModel.number = "";
-                              studentRegModel.setPhoneNumber(countryCode + val);
+                              studentRegModel.setPhoneNumber(
+                                  studentRegModel.countryCode + val);
                               // print("hello");
                               // print(studentRegModel.number);
                             },
@@ -294,7 +306,18 @@ class Registration extends StatelessWidget {
                       ],
                     ),
                     studentRegModel.file != null
-                        ? Image.file(studentRegModel.file)
+                        ? Container(
+                            width: 190.0,
+                            height: 190.0,
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(30),
+                              image: new DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(studentRegModel.file),
+                              ),
+                            ),
+                          )
                         : Container(),
                     RaisedButton(
                       onPressed: () {

@@ -12,6 +12,8 @@ class MyPostedBook extends StatelessWidget {
   static final tag = "myPostedBook";
   @override
   Widget build(BuildContext context) {
+
+    // show alert dialog box to ensure that you have to delete the book
     Future<void> _deleteBook(int bookId) async {
       return showDialog(
         context: context,
@@ -71,6 +73,7 @@ class MyPostedBook extends StatelessWidget {
       ),
       body: Consumer<BookModel>(
         builder: (context, bookModel, child) {
+          // fetch all book purchased by student who is logged in App.
           return FutureBuilder(
             future: bookModel.getBookById(SPHelper.getInt("ID")),
             builder: (BuildContext context, AsyncSnapshot snapshot) {

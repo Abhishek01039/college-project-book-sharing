@@ -42,7 +42,7 @@ Widget listView(Student student) {
       ListTile(
         leading: FaIcon(
           FontAwesomeIcons.graduationCap,
-          color: Colors.red,
+          color: Colors.blue,
         ),
         title: Text("College Course"),
         subtitle: Text(student.course.toString()),

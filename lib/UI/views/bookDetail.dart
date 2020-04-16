@@ -27,9 +27,10 @@ class BookDetail extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: <Widget>[
+              // this is carousel of book image
               book.bookImage.length != 0
                   ? CarouselSlider(
                       items: book.bookImage.map(
@@ -37,8 +38,8 @@ class BookDetail extends StatelessWidget {
                           if (e.image.startsWith("http://"))
                             return Image.network(e.image);
                           else
-                            return Image.network(
-                                "http://192.168.43.182:8000" + e.image.toLowerCase());
+                            return Image.network("http://192.168.43.182:8000" +
+                                e.image.toLowerCase());
                         },
                       ).toList(),
                       aspectRatio: 16 / 9,
@@ -48,6 +49,9 @@ class BookDetail extends StatelessWidget {
                       // reverse: true,
                     )
                   : Container(),
+              SizedBox(
+                height: 10,
+              ),
               Center(
                 child: Text(
                   book.bookName,
@@ -91,7 +95,7 @@ class BookDetail extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Divider(
                 thickness: 3,
@@ -140,6 +144,19 @@ class BookDetail extends StatelessWidget {
                   Text(book.bookCatgName)
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: <Widget>[
+                  Text("Posted Date  :"),
+                  // Text(book.pos)
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(DateTime.parse(book.postedDate).toLocal().toString())
+                ],
+              ),
               Divider(
                 thickness: 3,
               ),
@@ -147,6 +164,7 @@ class BookDetail extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text("posted By"),
+                  // this ensure that perticular book posted by whom
                   FutureBuilder(
                     future: bookDetailModel.getStudentDetail(book.postedBy),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {

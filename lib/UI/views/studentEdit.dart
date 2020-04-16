@@ -5,7 +5,7 @@ import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/country_pickers.dart';
-
+import 'package:country_pickers/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +13,19 @@ import 'package:provider/provider.dart';
 class StudentEdit extends StatelessWidget {
   static final tag = 'studentEdit';
   final Student student;
+  Country country = new Country();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   StudentEdit({Key key, this.student}) : super(key: key);
-  String countryCode = "+91";
+  Country getCountryByIsoCode(String countryCode) {
+    try {
+      return countryList.firstWhere(
+        (country) => country.phoneCode == countryCode,
+      );
+    } catch (error) {
+      throw Exception("The initialValue provided is not a supported iso code!");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     StudentEditModel studentEditModel = Provider.of(context);
@@ -30,6 +40,8 @@ class StudentEdit extends StatelessWidget {
 
     studentEditModel.number = student.contactNo;
     studentEditModel.collegeYear = student.collegeYear.toString();
+    studentEditModel.countryCode = student.contactNo.substring(1, 3);
+    country = getCountryByIsoCode(studentEditModel.countryCode);
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
@@ -157,7 +169,10 @@ class StudentEdit extends StatelessWidget {
                     controller: studentEditModel.course,
                     decoration: InputDecoration(
                       hintText: "Course",
-                      suffixIcon: Icon(Icons.lock),
+                      suffixIcon: Icon(
+                        FontAwesomeIcons.graduationCap,
+                        color: Colors.blue,
+                      ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
@@ -210,11 +225,13 @@ class StudentEdit extends StatelessWidget {
                       Expanded(
                         flex: 3,
                         child: CountryPickerDropdown(
-                          initialValue: 'in',
+                          initialValue: country.isoCode,
                           itemBuilder: _buildDropdownItem,
                           onValuePicked: (Country country) {
-                            countryCode = country.phoneCode;
-                            print("${country.name}");
+                            studentEditModel
+                                .changeCountryCode(country.phoneCode);
+
+                            // print("$countryCode");
                           },
                         ),
                       ),
@@ -259,7 +276,8 @@ class StudentEdit extends StatelessWidget {
                           initialValue: studentEditModel.number.substring(3),
                           onChanged: (val) {
                             // studentEditModel.number = "";
-                            studentEditModel.setPhoneNumber(countryCode + val);
+                            studentEditModel.updatePhoneNumber(
+                                studentEditModel.countryCode + val);
                             // print("hello");
                             // print(studentEditModel.number);
                           },
@@ -273,7 +291,7 @@ class StudentEdit extends StatelessWidget {
                   RaisedButton(
                     onPressed: () {
                       studentEditModel.updateStudent(scaffoldKey).then((value) {
-                        if (value) {
+                        if (value == "true") {
                           SPHelper.setString("enrollmentNo",
                               studentEditModel.enrollmentNo.text);
                           SPHelper.setString(
@@ -292,12 +310,17 @@ class StudentEdit extends StatelessWidget {
                           studentEditModel.number = "";
 
                           // Navigator.pushReplacementNamed(context, 'home');
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'home',
-                            (Route<dynamic> route) => false,
-                          );
+                          // Navigator.pushNamedAndRemoveUntil(
+                          //   context,
+                          //   'home',
+                          //   (Route<dynamic> route) => false,
+
+                          // );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           showFlutterToast("Update Successfully");
+                        } else if (value == "not valid") {
+                          showFlutterToast("Contact Number is not Valid");
                         } else {
                           showFlutterToast(
                               "Somthing went wrong Please try again");

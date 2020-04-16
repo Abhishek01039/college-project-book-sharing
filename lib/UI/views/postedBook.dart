@@ -1,4 +1,4 @@
-import 'package:booksharing/UI/shared/commonUtility.dart';
+
 import 'package:booksharing/core/viewModels/postedBookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -41,6 +41,7 @@ class PostedBook extends StatelessWidget {
                         }
                         return null;
                       },
+                      // keyboardAppearance: TextInputAction.next,
                       keyboardType: TextInputType.text,
                     ),
                     SizedBox(
@@ -55,6 +56,8 @@ class PostedBook extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter ISBN Number';
+                        }else if(value.length<13){
+                          return "Enter Proper ISBN Number";
                         }
                         return null;
                       },
@@ -83,8 +86,9 @@ class PostedBook extends StatelessWidget {
                     TextFormField(
                       controller: postedBookModel.pubName,
                       decoration: InputDecoration(
-                          hintText: "Publisher Name",
-                          suffixIcon: Icon(FontAwesomeIcons.book)),
+                        hintText: "Publisher Name",
+                        suffixIcon: Icon(FontAwesomeIcons.book),
+                      ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter Publisher Name';

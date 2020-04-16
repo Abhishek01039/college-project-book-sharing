@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/image.dart';
-import 'package:booksharing/core/models/purchasedBook.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/locator.dart';
 
@@ -185,9 +184,11 @@ class Api {
 
       return "Success";
     }
-    // print(parsed['contactNo']);
+    print(parsed);
     if (parsed == "Student already Exist") {
       return "Student already Exist";
+    } else if (parsed['contactNo'] != null) {
+      return "Please provide valid mobile number";
     } else if (parsed['contactNo'] != null) {
       return "Mobile Number is already exist";
     }
@@ -213,7 +214,7 @@ class Api {
     return false;
   }
 
-  Future<bool> updateStudent(int id, String studentInfo) async {
+  Future<String> updateStudent(int id, String studentInfo) async {
     http.Response response = await http.put(api + "student/$id/",
         body: studentInfo,
         headers: {
@@ -222,9 +223,12 @@ class Api {
         });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
-      return true;
+      return "true";
     }
-    return false;
+    if (parsed['contactNo'] != null) {
+      return "not valid";
+    }
+    return "false";
   }
 
   Future<bool> updateStudentPhoto(int id, String studentInfo) async {
@@ -348,5 +352,31 @@ class Api {
     var parsed = jsonDecode(response.body);
 
     return parsed;
+  }
+
+  Future<List<Book>> getHomeList() async {
+    List<Book> book = new List();
+
+    var response = await http
+        .get(api + 'homelist/', headers: {'authorization': basicAuth()});
+
+    var parsed = jsonDecode(response.body);
+    for (var i in parsed) {
+      book.add(Book.fromJson(i));
+    }
+    return book;
+  }
+
+  Future<List<Book>> getLatestBook() async {
+    List<Book> book = new List();
+
+    var response = await http
+        .get(api + 'latestbook/', headers: {'authorization': basicAuth()});
+
+    var parsed = jsonDecode(response.body);
+    for (var i in parsed) {
+      book.add(Book.fromJson(i));
+    }
+    return book;
   }
 }

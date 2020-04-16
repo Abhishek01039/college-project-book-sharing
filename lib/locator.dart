@@ -11,7 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 GetIt locator = GetIt.instance;
-
+// this all are the Lazy Singleton
 void setupLocator() {
   locator.registerLazySingleton(() => BaseModel());
   locator.registerLazySingleton(() => Api());

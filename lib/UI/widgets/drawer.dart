@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
@@ -14,7 +12,7 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     // Student student = locator<Student>();
     // print(student.firstName);
-    log("hello");
+
     // print(SPHelper.getString("studentPhoto"));
     StudentEditModel studentEditModel = locator<StudentEditModel>();
     BaseModel baseModel = Provider.of(context);
@@ -129,6 +127,8 @@ class DrawerMenu extends StatelessWidget {
               //   baseModel.changeTheme();
               //   // print(baseModel.isDarkTheme);
               // },
+
+              // switch theme  
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.lightbulb),
                 title: Text("Dark Theme"),
@@ -152,23 +152,70 @@ class DrawerMenu extends StatelessWidget {
             ),
             InkWell(
               onTap: () async {
+
+                // ensure that you really want to delete Account
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Text("Do you want to Delete Account"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Yes'),
+                          onPressed: () async {
+                            await studentEditModel.deleteStudent(
+                                context, SPHelper.getInt("ID"));
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
                 // Navigator.pop(context);
                 // SPHelper.logout();
-                await studentEditModel.deleteStudent(
-                    context, SPHelper.getInt("ID"));
+
                 // Navigator.pushNamed(context, "myPostedBook");
               },
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.userTimes),
-                title: Text("Deactivate Account"),
+                title: Text("Delete Account"),
               ),
             ),
             InkWell(
               onTap: () {
-                SPHelper.logout();
-                SPHelper.getString(SPHelper.enrollmentNo);
-                Navigator.pushNamedAndRemoveUntil(
-                    context, 'login', (route) => false);
+
+                // ensure that you really want to log out
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Text("Do you want to Log Out"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Yes'),
+                          onPressed: () {
+                            SPHelper.logout();
+                            SPHelper.getString(SPHelper.enrollmentNo);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, 'login', (route) => false);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -188,8 +235,8 @@ class DrawerMenu extends StatelessWidget {
                 );
               },
               child: ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text("About App"),
+                leading: Icon(Icons.info),
+                title: Text("About"),
               ),
             )
           ],

@@ -35,11 +35,23 @@ class StudentEditModel extends BaseModel {
   String collegeYear = "1";
   String fileName;
   List<String> extn;
+  String editNumber;
+  String countryCode = "+91";
   setPhoneNumber(String value) {
     number = value;
     notifyListeners();
   }
 
+  changeCountryCode(String value) {
+    countryCode = "+" + value;
+    updatePhoneNumber("+" + value + number.substring(3));
+    notifyListeners();
+  }
+
+  updatePhoneNumber(String value) {
+    editNumber = value;
+    notifyListeners();
+  }
   // changeTheme(){
   //   if (super.isDarkTheme){
   //     super.isDarkTheme=false;
@@ -87,6 +99,7 @@ class StudentEditModel extends BaseModel {
     notifyListeners();
   }
 
+  // update student photo
   Future<void> updateStudentPhoto(BuildContext context) async {
     await chooseImage();
     await startUpload();
@@ -114,11 +127,12 @@ class StudentEditModel extends BaseModel {
     }
   }
 
+  // update student details
   updateStudent(GlobalKey<ScaffoldState> scaffoldKey) async {
     // api.updateUser(id)
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);
@@ -133,14 +147,15 @@ class StudentEditModel extends BaseModel {
       "collegeYear": int.tryParse(collegeYear),
       "course": course.text,
       "address": address.text,
-      "contactNo": number,
+      "contactNo": editNumber ?? number,
     });
-    bool isUpdated =
+    String isUpdated =
         await api.updateStudent(SPHelper.getInt("ID"), studentInfo);
     closeProgress(scaffoldKey);
     return isUpdated;
   }
 
+  // delete the student
   deleteStudent(BuildContext context, int studId) async {
     bool isDeleted = await api.deleteStudent(studId);
     if (isDeleted) {

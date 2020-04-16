@@ -1,3 +1,4 @@
+import 'package:booksharing/UI/views/allBooks.dart';
 import 'package:booksharing/UI/views/bookDelete.dart';
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
@@ -16,7 +17,7 @@ import 'package:booksharing/UI/views/changePassword.dart';
 import 'package:booksharing/UI/views/feedBack.dart';
 
 const String initialRoute = "/";
-
+// This all are the Routers
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -26,6 +27,8 @@ class Router {
         return MaterialPageRoute(builder: (_) {
           return HomePage();
         });
+      case 'allBooks':
+        return MaterialPageRoute(builder: (_) => AllBooks());
       case 'login':
         return MaterialPageRoute(builder: (_) => LogIn());
       case 'registration':

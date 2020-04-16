@@ -12,6 +12,7 @@ class MyPurchasedBook extends StatelessWidget {
         appBar: AppBar(
           title: Text("My Purchased Book"),
         ),
+        // it gives the tabular format of book which is purchased by student who is logged in App
         body: FutureBuilder(
           future: purchasedBookModel.purchasedBookByUser(SPHelper.getInt("ID")),
           builder: (BuildContext context, AsyncSnapshot snapshot) {

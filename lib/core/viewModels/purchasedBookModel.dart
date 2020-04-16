@@ -7,9 +7,9 @@ import 'package:booksharing/locator.dart';
 class PurchasedBookModel extends BaseModel {
   Api api = locator<Api>();
 
+  // give tabular format of how many books student has purchased
   List<PurchasedBook> purchasedBook = new List();
   purchasedBookByUser(int studId) async {
-    
     var parsed = await api.purchasedBookByUser(studId);
 
     if (parsed != null) {

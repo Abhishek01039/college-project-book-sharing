@@ -17,7 +17,7 @@ class Book {
   final String bookCatgName;
   final int postedBy;
   final List<BookImage> bookImage;
-
+  final String postedDate;
   Book(
       {this.bookId,
       this.bookName,
@@ -29,7 +29,8 @@ class Book {
       this.price,
       this.bookCatgName,
       this.postedBy,
-      this.bookImage});
+      this.bookImage,
+      this.postedDate});
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
   Map<String, dynamic> toJson() => _$BookToJson(this);

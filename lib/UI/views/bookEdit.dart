@@ -55,15 +55,17 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.isbnNo,
                       decoration: InputDecoration(
                         hintText: "ISBN Number",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.barcode),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter ISBN Number';
+                        }else if(value.length<13){
+                          return "Enter Proper ISBN Number";
                         }
                         return null;
                       },
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                     ),
                     SizedBox(
                       height: 40,
@@ -72,7 +74,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.authorName,
                       decoration: InputDecoration(
                         hintText: "Author Name",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.userEdit),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -89,7 +91,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.pubName,
                       decoration: InputDecoration(
                         hintText: "Publisher Name",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.book),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -106,7 +108,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.mrpPrice,
                       decoration: InputDecoration(
                         hintText: "MRP price",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -123,7 +125,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.price,
                       decoration: InputDecoration(
                         hintText: "Price",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -140,7 +142,7 @@ class BookEdit extends StatelessWidget {
                       controller: postedBookModel.bookCatgName,
                       decoration: InputDecoration(
                         hintText: "Book Category Name",
-                        suffixIcon: Icon(FontAwesomeIcons.sortNumericUp),
+                        suffixIcon: Icon(Icons.category),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -150,9 +152,7 @@ class BookEdit extends StatelessWidget {
                       },
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
+                    
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     //   children: <Widget>[

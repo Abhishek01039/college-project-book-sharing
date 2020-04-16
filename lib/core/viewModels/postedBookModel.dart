@@ -5,7 +5,6 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
-import 'package:booksharing/core/models/image.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
@@ -37,6 +36,7 @@ class PostedBookModel extends BaseModel {
   Book book = locator<Book>();
   bool isPosted;
   bool isEdited;
+  List<String> extn = new List();
   chooseBookImage() async {
     bookImages.clear();
     await FilePicker.getMultiFile(type: fileType).then((value) {
@@ -70,8 +70,13 @@ class PostedBookModel extends BaseModel {
 
       fileName.add(tmpFile[i].path.split('/').last);
       // print(fileName);
+
       // print(base64Image);
     }
+    for (var i in fileName) {
+      extn.add(i.split(".")[1]);
+    }
+    print(extn);
     // bookImages bookImage=BookImage(
     //   image:
     // );
@@ -89,11 +94,12 @@ class PostedBookModel extends BaseModel {
     notifyListeners();
   }
 
+  // post a book
   registeredBook(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);
@@ -108,6 +114,7 @@ class PostedBookModel extends BaseModel {
       "bookCatgName": bookCatgName.text,
       "originalPrice": int.tryParse(mrpPrice.text),
       "Book_Image": base64Image,
+      "extn": extn,
       "postedBy": SPHelper.getInt("ID")
     });
 
@@ -126,6 +133,7 @@ class PostedBookModel extends BaseModel {
     notifyListeners();
   }
 
+  // edit the book
   editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
     String editBookData = jsonEncode({
       "bookName": bookName.text,
@@ -139,7 +147,7 @@ class PostedBookModel extends BaseModel {
     });
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);
@@ -148,6 +156,7 @@ class PostedBookModel extends BaseModel {
     closeProgress(scaffoldKey);
   }
 
+  // delete the book
   deleteBook(BuildContext context, int bookId) async {
     bool isDeleted = await api.deleteBook(bookId);
     if (isDeleted) {
@@ -158,6 +167,7 @@ class PostedBookModel extends BaseModel {
     }
   }
 
+  // ensure that you have sold your book to other student
   deleteBookByTransaction(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     // await api.
@@ -167,7 +177,7 @@ class PostedBookModel extends BaseModel {
     studentName.clear();
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);

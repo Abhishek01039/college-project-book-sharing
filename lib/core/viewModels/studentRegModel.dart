@@ -61,6 +61,8 @@ class StudentRegModel extends BaseModel {
   String status = '';
   FileType fileType = FileType.image;
   List<String> extn;
+  String countryCode = "+91";
+
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
     // file.then((value) {
@@ -103,7 +105,7 @@ class StudentRegModel extends BaseModel {
     if (formKey.currentState.validate()) {
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
-          showFlutterToast("msgPleaseCheckConn");
+          showFlutterToast("Please check internet connection");
         }
 
         showProgress(scaffoldKey);
@@ -156,6 +158,12 @@ class StudentRegModel extends BaseModel {
     notifyListeners();
   }
 
+  changeCountryCode(String value) {
+    countryCode = "+" + value;
+    setPhoneNumber("+" + value + number);
+    notifyListeners();
+  }
+
   changePasswordModel(BuildContext context, int studId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (!changePassformKey.currentState.validate()) {
@@ -163,7 +171,7 @@ class StudentRegModel extends BaseModel {
     }
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
-        showFlutterToast("msgPleaseCheckConn");
+        showFlutterToast("Please check internet connection");
       }
 
       showProgress(scaffoldKey);
@@ -190,12 +198,12 @@ class StudentRegModel extends BaseModel {
     if (feedbackFormKey.currentState.validate()) {
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
-          showFlutterToast("msgPleaseCheckConn");
+          showFlutterToast("Please check internet connection");
         }
 
         showProgress(scaffoldKey);
       }
-      api.feedBack(feedBackEmail.text,feedBackMessage.text).then((value) {
+      api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
         closeProgress(scaffoldKey);
         if (value == "Success") {
           Navigator.pop(context);

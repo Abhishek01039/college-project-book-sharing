@@ -10,6 +10,7 @@ class BaseModel extends ChangeNotifier {
     super.dispose();
   }
 
+  // change theme of App and store it into shared preference
   changeTheme(bool value) {
     // if (_isDarkTheme) {
     //   _isDarkTheme = false;

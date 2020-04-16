@@ -12,13 +12,16 @@ class BookDelete extends StatelessWidget {
   String countryCode = "+91";
   @override
   Widget build(BuildContext context) {
+
+    // student has to filled this detail if student sold this book.
+    // student has to provide the name and mobile number of student who has sold this book.
     _showDeleteDialog(BuildContext con, PostedBookModel postedBookModel,
         GlobalKey<ScaffoldState> scaffoldKey) {
       return showDialog(
         context: con,
         builder: (con) {
           return AlertDialog(
-            title: Text('From whom you sold your book?'),
+            title: Text('To whom you sold your book?'),
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -70,7 +73,6 @@ class BookDelete extends StatelessWidget {
                   TextFormField(
                     // controller: studentEditModel.phoneNumber,
                     keyboardType: TextInputType.number,
-
                     decoration: InputDecoration(hintText: "Phone Number"),
                     // initialValue: postedBookModel.number.substring(3),
                     onChanged: (val) {

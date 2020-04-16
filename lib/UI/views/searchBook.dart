@@ -25,6 +25,8 @@ class Search extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     // TODO: implement buildActions
+
+    // clear icon in tralling
     return [
       IconButton(
         icon: Icon(Icons.clear),
@@ -38,6 +40,8 @@ class Search extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     // TODO: implement buildLeading
+
+    // back arrow icon at leading
     return IconButton(
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
@@ -61,6 +65,7 @@ class Search extends SearchDelegate {
     if (query.isEmpty) {
       return Container();
     } else {
+      // return list of books which student wants to search
       return Consumer<BookModel>(
         builder: (_, bookModel, __) {
           return FutureBuilder(
