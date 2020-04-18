@@ -57,6 +57,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.enrollmentNo,
                     decoration: InputDecoration(
                       hintText: "Enrollment Number",
@@ -74,6 +75,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.firstName,
                     decoration: InputDecoration(
                       hintText: "First Name",
@@ -91,6 +93,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.lastName,
                     decoration: InputDecoration(
                       hintText: "Last Name",
@@ -142,6 +145,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.collegeName,
                     decoration: InputDecoration(
                       hintText: "College Name",
@@ -166,6 +170,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.course,
                     decoration: InputDecoration(
                       hintText: "Course",
@@ -186,6 +191,7 @@ class StudentEdit extends StatelessWidget {
                     height: 40,
                   ),
                   TextFormField(
+                    textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.address,
                     decoration: InputDecoration(
                       hintText: "Address",
@@ -276,8 +282,7 @@ class StudentEdit extends StatelessWidget {
                           initialValue: studentEditModel.number.substring(3),
                           onChanged: (val) {
                             // studentEditModel.number = "";
-                            studentEditModel.updatePhoneNumber(
-                                studentEditModel.countryCode + val);
+                            studentEditModel.updatePhoneNumber(val);
                             // print("hello");
                             // print(studentEditModel.number);
                           },

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
 
@@ -7,10 +10,8 @@ import 'package:rxdart/rxdart.dart';
 
 class BookModel extends BaseModel {
   Stream<List<Book>> get book => _bookSubject.stream;
-  final _bookSubject = BehaviorSubject<List<Book>>();
-  // Stream<List<BookImage>> get bookImage => _bookImageSubject.stream;
-  // final _bookImageSubject = BehaviorSubject<List<BookImage>>();
-  // BookImage bookImage=locator<BookImage>();
+  StreamController<List<Book>> _bookSubject = BehaviorSubject<List<Book>>();
+
   Api _api = locator<Api>();
   int selection;
   List<Book> bookList = new List();
@@ -21,26 +22,38 @@ class BookModel extends BaseModel {
 
   // get all books detail and sink it into stream
   bookApi() async {
-    _bookSubject.sink.add(await _api.getBooks());
-    notifyListeners();
+    _api.getBooks().asStream().map((event) {
+      log("hello");
+      return event;
+    }).listen((event) {
+      _bookSubject.sink.add(event);
+    });
+    // notifyListeners();
   }
 
   // get latest books according to posted date
   getLatestBook() async {
     latestBooks = await _api.getLatestBook();
     // notifyListeners();
-    return latestBooks;
+    notifyListeners();
   }
 
-  // get books details from 7-12 books 
+  // get books details from 7-12 books
   getHomeList() async {
     homeListBook = await _api.getHomeList();
-    // notifyListeners();
-    return homeListBook;
+    notifyListeners();
+    // return homeListBook;
+  }
+
+  Future<Null> refreshLocalGallery() async {
+    getHomeList();
+    getLatestBook();
   }
 
   BookModel() {
+    // bookApi();
     getHomeList();
+    bookApi();
     getLatestBook();
   }
 
@@ -53,7 +66,7 @@ class BookModel extends BaseModel {
     return bookList;
   }
 
-  // 
+  //
   popupmenuSelection(dynamic value) {
     selection = value;
     notifyListeners();

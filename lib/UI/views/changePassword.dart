@@ -13,6 +13,9 @@ class ChangePassword extends StatelessWidget {
       builder: (context, studentModel, child) {
         return Scaffold(
           key: scaffoldKey,
+          appBar: AppBar(
+            title: Text("Change Password"),
+          ),
           body: SingleChildScrollView(
             child: SafeArea(
               child: Form(
@@ -21,6 +24,22 @@ class ChangePassword extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: <Widget>[
+                      Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width / 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              "assets/book_logo.jpg",
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
                         controller: studentModel.changePassword,
                         decoration: InputDecoration(

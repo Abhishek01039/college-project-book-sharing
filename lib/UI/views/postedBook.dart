@@ -1,4 +1,3 @@
-
 import 'package:booksharing/core/viewModels/postedBookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,6 +29,7 @@ class PostedBook extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.bookName,
                       decoration: InputDecoration(
                         hintText: "Book Name",
@@ -48,6 +48,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.isbnNo,
                       decoration: InputDecoration(
                         hintText: "ISBN Number",
@@ -56,7 +57,7 @@ class PostedBook extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter ISBN Number';
-                        }else if(value.length<13){
+                        } else if (value.length < 13) {
                           return "Enter Proper ISBN Number";
                         }
                         return null;
@@ -67,6 +68,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.authorName,
                       decoration: InputDecoration(
                         hintText: "Author Name",
@@ -84,6 +86,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.pubName,
                       decoration: InputDecoration(
                         hintText: "Publisher Name",
@@ -101,6 +104,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.mrpPrice,
                       decoration: InputDecoration(
                         hintText: "MRP price",
@@ -118,6 +122,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.price,
                       decoration: InputDecoration(
                         hintText: "Price",
@@ -135,6 +140,7 @@ class PostedBook extends StatelessWidget {
                       height: 40,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.bookCatgName,
                       decoration: InputDecoration(
                         hintText: "Book Category Name",

@@ -1,14 +1,12 @@
-import 'dart:developer';
-
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/viewModels/studentLogInModel.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:provider/provider.dart';
 
 class LogIn extends StatelessWidget {
   static final tag = 'login';
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +102,8 @@ class LogIn extends StatelessWidget {
                         if (val) {
                           Navigator.pushReplacementNamed(context, 'home');
                         } else {
-                          showFlutterToast("Invalid Enrollment Number or Password");
+                          showFlutterToast(
+                              "Invalid Enrollment Number or Password");
                         }
                         studentModel.username.clear();
                         studentModel.pass.clear();

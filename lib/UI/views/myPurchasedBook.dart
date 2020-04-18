@@ -9,29 +9,30 @@ class MyPurchasedBook extends StatelessWidget {
   Widget build(BuildContext context) {
     PurchasedBookModel purchasedBookModel = Provider.of(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text("My Purchased Book"),
-        ),
-        // it gives the tabular format of book which is purchased by student who is logged in App
-        body: FutureBuilder(
-          future: purchasedBookModel.purchasedBookByUser(SPHelper.getInt("ID")),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return snapshot.hasData
-                ? snapshot.data.length != 0
-                    ? DataTable(
-                        columns: [
-                          DataColumn(
-                            label: Text("Book Name"),
-                          ),
-                          DataColumn(
-                            label: Text("Price"),
-                          ),
-                          DataColumn(
-                            label: Text("ISBN number"),
-                          ),
-                        ],
-                        rows: purchasedBookModel.purchasedBook.map(
-                          (value) => DataRow(
+      appBar: AppBar(
+        title: Text("My Purchased Book"),
+      ),
+      // it gives the tabular format of book which is purchased by student who is logged in App
+      body: FutureBuilder(
+        future: purchasedBookModel.purchasedBookByUser(SPHelper.getInt("ID")),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.hasData
+              ? snapshot.data.length != 0
+                  ? DataTable(
+                      columns: [
+                        DataColumn(
+                          label: Text("Book Name"),
+                        ),
+                        DataColumn(
+                          label: Text("Price"),
+                        ),
+                        DataColumn(
+                          label: Text("ISBN number"),
+                        ),
+                      ],
+                      rows: purchasedBookModel.purchasedBook
+                          .map(
+                            (value) => DataRow(
                               cells: [
                                 DataCell(
                                   Text(value.bookName),
@@ -44,15 +45,29 @@ class MyPurchasedBook extends StatelessWidget {
                                 )
                               ],
                             ),
-                        ).toList(),
-                      )
-                    : Center(
-                        child: Text("No Purchased Book"),
-                      )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  );
-          },
-        ));
+                          )
+                          .toList(),
+                    )
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.add_shopping_cart,
+                            size: 40,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text("No Purchased Book"),
+                        ],
+                      ),
+                    )
+              : Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
+    );
   }
 }

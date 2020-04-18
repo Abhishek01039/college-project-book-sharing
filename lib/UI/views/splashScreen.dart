@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:booksharing/UI/views/homeScreen.dart';
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 class MySpalshScreen extends StatefulWidget {
@@ -12,32 +13,44 @@ class MySpalshScreen extends StatefulWidget {
 class _MySpalshScreenState extends State<MySpalshScreen>
     with WidgetsBindingObserver {
 //ProgressDialog pr;
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectivitySubscription;
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
     // SPHelper.logout();
-    Timer(Duration(seconds: 3), () {
-      // navigating to Home Screen
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => HomePage(),
-      //   ),
-      // );
-      // SPHelper.setInt("DarkTheme", 0);
-      SPHelper.getString("enrollmentNo").isEmpty
-          ? Navigator.pushReplacementNamed(context, 'login')
-          : Navigator.pushReplacementNamed(context, 'home');
-    });
+    checkConnection();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _connectivitySubscription.cancel();
+
     super.dispose();
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+      print(_connectionStatus);
+      if (_connectionStatus == ConnectivityResult.mobile ||
+          _connectionStatus == ConnectivityResult.wifi) {
+        Timer(Duration(seconds: 3), () {
+          SPHelper.getString("enrollmentNo").isEmpty
+              ? Navigator.pushReplacementNamed(context, 'login')
+              : Navigator.pushReplacementNamed(context, 'home');
+        });
+      }else if(_connectionStatus == ConnectivityResult.none){
+        showFlutterToast("Connect to Internet");
+      }
+    });
   }
 
   @override

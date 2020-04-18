@@ -54,9 +54,6 @@ class DrawerMenu extends StatelessWidget {
                 //   ),
                 // ),
                 currentAccountPicture: Container(
-                  // width: MediaQuery.of(context).size.width,
-                  // height: 100,
-
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
@@ -65,7 +62,7 @@ class DrawerMenu extends StatelessWidget {
                         SPHelper.getString("studentPhoto").isNotEmpty
                             ? "http://192.168.43.182:8000" +
                                 SPHelper.getString("studentPhoto").toLowerCase()
-                            : Image.asset("assets/book_logo.jpg"),
+                            : AssetImage("assets/book_logo.jpg"),
                       ),
                     ),
                   ),
@@ -128,7 +125,7 @@ class DrawerMenu extends StatelessWidget {
               //   // print(baseModel.isDarkTheme);
               // },
 
-              // switch theme  
+              // switch theme
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.lightbulb),
                 title: Text("Dark Theme"),
@@ -152,7 +149,6 @@ class DrawerMenu extends StatelessWidget {
             ),
             InkWell(
               onTap: () async {
-
                 // ensure that you really want to delete Account
                 showDialog(
                   context: context,
@@ -189,7 +185,6 @@ class DrawerMenu extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-
                 // ensure that you really want to log out
                 showDialog(
                   context: context,

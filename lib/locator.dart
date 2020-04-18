@@ -3,6 +3,7 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/models/image.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
+import 'package:booksharing/core/viewModels/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:booksharing/core/viewModels/studentLogInModel.dart';
@@ -22,6 +23,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => StudentRegModel());
   locator.registerLazySingleton(() => Student());
   locator.registerLazySingleton(() => BookImage());
+  locator.registerLazySingleton(() => PostedBookEditModel());
   locator.registerLazySingleton(() => PurchasedBookModel());
   locator.registerLazySingleton(() async {
     return await SharedPreferences.getInstance();

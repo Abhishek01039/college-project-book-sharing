@@ -1,6 +1,6 @@
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/views/studentEdit.dart';
-import 'package:booksharing/UI/widgets/postedByProfileListView.dart';
+
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
@@ -8,6 +8,7 @@ import 'package:booksharing/locator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:booksharing/UI/widgets/profilePageList.dart';
 
 class ProfilePage extends StatelessWidget {
   static final tag = "profile";
@@ -27,16 +28,16 @@ class ProfilePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Stack(children: [
-            Positioned(
-              left: 20,
-              top: 20,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(Icons.arrow_back_ios),
-              ),
-            ),
+            // Positioned(
+            //   left: 20,
+            //   top: 20,
+            //   child: IconButton(
+            //     icon: Icon(Icons.arrow_back_ios),
+            //     onPressed: () {
+            //       Navigator.pop(context);
+            //     },
+            //   ),
+            // ),
             Column(
               children: <Widget>[
                 SizedBox(
@@ -103,23 +104,25 @@ class ProfilePage extends StatelessWidget {
                                   // ),
                                   Stack(
                                     children: <Widget>[
-                                      Container(
-                                        width: 190.0,
-                                        height: 190.0,
-                                        decoration: new BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          image: new DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: new NetworkImage(
-                                              "http://192.168.43.182:8000" +
-                                                  snapshot.data.photo
-                                                      .toLowerCase(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      snapshot.data.photo != null
+                                          ? Container(
+                                              width: 190.0,
+                                              height: 190.0,
+                                              decoration: new BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                image: new DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: new NetworkImage(
+                                                    "http://192.168.43.182:8000" +
+                                                        snapshot.data.photo
+                                                            .toLowerCase(),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : AssetImage("assets/book_logo.jpg"),
                                       Positioned(
                                         bottom: 0,
                                         // left: 80,
@@ -169,7 +172,7 @@ class ProfilePage extends StatelessWidget {
                                     ],
                                   ),
 
-                                  listView(snapshot.data),
+                                  profilePagelistView(snapshot.data),
                                 ],
                               ),
                             ],

@@ -35,7 +35,7 @@ class PostedBookModel extends BaseModel {
   Api api = locator<Api>();
   Book book = locator<Book>();
   bool isPosted;
-  bool isEdited;
+  
   List<String> extn = new List();
   chooseBookImage() async {
     bookImages.clear();
@@ -134,28 +134,7 @@ class PostedBookModel extends BaseModel {
   }
 
   // edit the book
-  editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
-    String editBookData = jsonEncode({
-      "bookName": bookName.text,
-      "isbnNo": isbnNo.text,
-      "authorName": authorName.text,
-      "pubName": pubName.text,
-      "price": int.tryParse(price.text),
-      "bookCatgName": bookCatgName.text,
-      "originalPrice": int.tryParse(mrpPrice.text),
-      "postedBy": SPHelper.getInt("ID")
-    });
-    if (scaffoldKey != null) {
-      if (await checkConnection() == false) {
-        showFlutterToast("Please check internet connection");
-      }
-
-      showProgress(scaffoldKey);
-    }
-    isEdited = await api.editBook(bookid, editBookData);
-    closeProgress(scaffoldKey);
-  }
-
+  
   // delete the book
   deleteBook(BuildContext context, int bookId) async {
     bool isDeleted = await api.deleteBook(bookId);

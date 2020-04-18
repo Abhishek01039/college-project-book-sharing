@@ -12,7 +12,6 @@ class MyPostedBook extends StatelessWidget {
   static final tag = "myPostedBook";
   @override
   Widget build(BuildContext context) {
-
     // show alert dialog box to ensure that you have to delete the book
     Future<void> _deleteBook(int bookId) async {
       return showDialog(
@@ -48,25 +47,25 @@ class MyPostedBook extends StatelessWidget {
       );
     }
 
-    Widget _selectPopup() => PopupMenuButton<int>(
-        itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text("Show"),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Delete"),
-              ),
-            ],
-        initialValue: 2,
-        onCanceled: () {
-          print("You have canceled the menu.");
-        },
-        onSelected: (value) {}
-        // print("value:$value");
+    // Widget _selectPopup() => PopupMenuButton<int>(
+    //     itemBuilder: (context) => [
+    //           PopupMenuItem(
+    //             value: 1,
+    //             child: Text("Show"),
+    //           ),
+    //           PopupMenuItem(
+    //             value: 2,
+    //             child: Text("Delete"),
+    //           ),
+    //         ],
+    //     initialValue: 2,
+    //     onCanceled: () {
+    //       print("You have canceled the menu.");
+    //     },
+    //     onSelected: (value) {}
+    //     // print("value:$value");
 
-        );
+    //     );
     return Scaffold(
       appBar: AppBar(
         title: Text("Book Shearing"),
@@ -148,11 +147,32 @@ class MyPostedBook extends StatelessWidget {
                                 itemBuilder: (context) => [
                                   PopupMenuItem(
                                     value: 1,
-                                    child: Text("Edit"),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.edit,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("Edit"),
+                                      ],
+                                    ),
                                   ),
-                                  const PopupMenuItem(
+                                  PopupMenuItem(
                                     value: 2,
-                                    child: Text("Delete"),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.delete,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("Delete"),
+                                      ],
+                                    ),
                                   ),
                                 ],
                                 child: Icon(Icons.more_vert),

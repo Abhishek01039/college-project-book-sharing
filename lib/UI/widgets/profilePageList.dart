@@ -2,17 +2,8 @@ import 'package:booksharing/core/models/student.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-Widget listView(Student student) {
-  Future<void> _makeEmail(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
+Widget profilePagelistView(Student student) {
   return ListView(
     shrinkWrap: true,
     primary: false,
@@ -31,9 +22,6 @@ Widget listView(Student student) {
         leading: Icon(Icons.email),
         title: Text("Email"),
         subtitle: Text(student.email),
-        onTap: () {
-          _makeEmail("mailto:${student.email}");
-        },
       ),
       ListTile(
         leading: Icon(

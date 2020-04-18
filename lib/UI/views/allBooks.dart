@@ -1,15 +1,16 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
+import 'package:booksharing/UI/views/searchBook.dart';
 
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
-import 'package:booksharing/UI/views/searchBook.dart';
+
 import 'package:provider/provider.dart';
 
 class AllBooks extends StatelessWidget {
   static final tag = "allBooks";
   @override
   Widget build(BuildContext context) {
-    BookModel bookModel = Provider.of(context);
+    final BookModel bookModel = Provider.of(context);
     bookModel.bookApi();
     // all books show in list
     _firstStreamBuilder(book) {
@@ -97,7 +98,15 @@ class AllBooks extends StatelessWidget {
       return AppBar(
         title: appBarTitle,
         centerTitle: true,
-        
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // search delegate
+              showSearch(context: context, delegate: Search());
+            },
+          ),
+        ],
       );
     }
 

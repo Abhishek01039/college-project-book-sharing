@@ -43,14 +43,19 @@ class StudentEditModel extends BaseModel {
   }
 
   changeCountryCode(String value) {
-    countryCode = "+" + value;
-    updatePhoneNumber("+" + value + number.substring(3));
-    notifyListeners();
+    countryCode = value;
+    // if (editNumber == null) {
+    //   updatePhoneNumber("+" + value + number.substring(3));
+    // } else {
+    //   updatePhoneNumber("+" + value + editNumber);
+    // }
+
+    // notifyListeners();
   }
 
   updatePhoneNumber(String value) {
-    editNumber = value;
-    notifyListeners();
+    editNumber = "+" + countryCode + value;
+    // notifyListeners();
   }
   // changeTheme(){
   //   if (super.isDarkTheme){
@@ -67,8 +72,13 @@ class StudentEditModel extends BaseModel {
     //   isImageSelected = "Image is Selected";
     // });
     setStatus('');
+    if (file == null) {
+      // showFlutterToast("Please select Image");
+      return false;
+    }
 
     notifyListeners();
+    return true;
   }
 
   setStatus(String message) {
@@ -101,30 +111,37 @@ class StudentEditModel extends BaseModel {
 
   // update student photo
   Future<void> updateStudentPhoto(BuildContext context) async {
-    await chooseImage();
-    await startUpload();
-    String studentPhoto = jsonEncode({
-      "enrollmentNo": SPHelper.getString("enrollmentNo"),
-      "photo": base64Image,
-      "extansion": extn[1],
-    });
-    bool isUpdated =
-        await api.updateStudentPhoto(SPHelper.getInt("ID"), studentPhoto);
-    if (isUpdated) {
-      SPHelper.setString("studentPhoto",
-          'Student/' + SPHelper.getString("enrollmentNo") + '.' + extn[1]);
+    chooseImage().then((value) async {
+      if (value) {
+        await startUpload();
+        String studentPhoto = jsonEncode({
+          "enrollmentNo": SPHelper.getString("enrollmentNo"),
+          "photo": base64Image,
+          "extansion": extn[1],
+        });
+        bool isUpdated =
+            await api.updateStudentPhoto(SPHelper.getInt("ID"), studentPhoto);
+        if (isUpdated) {
+          SPHelper.setString(
+              "studentPhoto",
+              '/media/Student/' +
+                  SPHelper.getString("enrollmentNo") +
+                  '.' +
+                  extn[1]);
 
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        'home',
-        (Route<dynamic> route) => false,
-      );
-      showFlutterToast("Profile Image updated successfully");
-    } else if (!isUpdated) {
-      showFlutterToast("Profile Image not updated");
-    } else {
-      showFlutterToast("Something went wrong");
-    }
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            'home',
+            (Route<dynamic> route) => false,
+          );
+          showFlutterToast("Profile Image updated successfully");
+        } else if (!isUpdated) {
+          showFlutterToast("Profile Image not updated");
+        } else {
+          showFlutterToast("Something went wrong");
+        }
+      }
+    });
   }
 
   // update student details

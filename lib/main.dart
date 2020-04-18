@@ -1,6 +1,7 @@
 import 'package:booksharing/UI/router.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
+import 'package:booksharing/core/viewModels/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:booksharing/core/viewModels/postedBookModel.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
@@ -16,11 +17,11 @@ import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // run app if and if only device in protrait mode not landscape mode
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]).then((_) {
+  // // run app if and if only device in protrait mode not landscape mode
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]).then((_) {
     // WidgetsFlutterBinding.ensureInitialized();
 
     //  get the shared preference instance
@@ -33,7 +34,7 @@ void main() {
       }
       runApp(MyApp());
     });
-  });
+  // });
 }
 
 class MyApp extends StatelessWidget {
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentModel()),
         ChangeNotifierProvider(create: (_) => StudentRegModel()),
         ChangeNotifierProvider(create: (_) => PostedBookModel()),
+        ChangeNotifierProvider(create: (_) => PostedBookEditModel()),
         ChangeNotifierProvider(create: (_) => BookDetailModel()),
         ChangeNotifierProvider(create: (_) => StudentEditModel()),
         ChangeNotifierProvider(create: (_) => PurchasedBookModel()),
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
             // darkTheme: ThemeData(
 
             // ),
-            // Theme and color choosen by the article of google material design 
+            // Theme and color choosen by the article of google material design
             theme: SPHelper.getBool("DarkTheme")
                 ? ThemeData(
                     primaryColor: Color(0xFF121212),
@@ -76,10 +78,26 @@ class MyApp extends StatelessWidget {
                     errorColor: Colors.red.withOpacity(0.30),
                     brightness: Brightness.dark)
 
-                    // TODO choose color properly
+                // TODO choose color properly
                 : ThemeData(
                     primaryColor: Color(0xFF313457),
                     accentColor: Color(0xFF5888D9),
+                    textTheme: TextTheme(
+                      button: TextStyle(
+                          // fontSize: 50,
+                          // foreground: Paint()..color = Colors.white,
+                          // color: Colors.blue,
+                          ),
+                    ),
+                    // buttonColor: Color(0xFF313457),
+                    backgroundColor: Color(0xfffffffff),
+                    buttonTheme: ButtonThemeData(
+                      textTheme: ButtonTextTheme.primary,
+                      buttonColor: Color(0xFF313457),
+                    ),
+                    floatingActionButtonTheme: FloatingActionButtonThemeData(
+                      backgroundColor: Color(0xFF313457),
+                    ),
                     brightness: Brightness.light,
                   ),
 
