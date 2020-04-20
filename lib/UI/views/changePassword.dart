@@ -46,6 +46,7 @@ class ChangePassword extends StatelessWidget {
                           hintText: "Password",
                           suffixIcon: Icon(Icons.lock),
                         ),
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter Old Password';
@@ -63,6 +64,7 @@ class ChangePassword extends StatelessWidget {
                           hintText: "New Password",
                           suffixIcon: Icon(Icons.lock),
                         ),
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter New Password';
@@ -80,6 +82,7 @@ class ChangePassword extends StatelessWidget {
                           hintText: "Confirm Password",
                           suffixIcon: Icon(Icons.lock),
                         ),
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter Confirm Password';
