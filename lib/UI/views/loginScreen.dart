@@ -65,6 +65,7 @@ class LogIn extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: studentModel.username,
+                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                         hintText: "Enrollment Number",
                         suffixIcon: Icon(Icons.person),

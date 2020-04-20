@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
@@ -23,7 +22,6 @@ class BookModel extends BaseModel {
   // get all books detail and sink it into stream
   bookApi() async {
     _api.getBooks().asStream().map((event) {
-      log("hello");
       return event;
     }).listen((event) {
       _bookSubject.sink.add(event);
@@ -35,6 +33,7 @@ class BookModel extends BaseModel {
   getLatestBook() async {
     latestBooks = await _api.getLatestBook();
     // notifyListeners();
+    print("hello latest list");
     notifyListeners();
   }
 

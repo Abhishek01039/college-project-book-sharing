@@ -357,7 +357,7 @@ class Api {
   Future<List<Book>> getHomeList() async {
     List<Book> book = new List();
 
-    var response = await http
+    http.Response response = await http
         .get(api + 'homelist/', headers: {'authorization': basicAuth()});
 
     var parsed = jsonDecode(response.body);
@@ -370,7 +370,7 @@ class Api {
   Future<List<Book>> getLatestBook() async {
     List<Book> book = new List();
 
-    var response = await http
+    http.Response response = await http
         .get(api + 'latestbook/', headers: {'authorization': basicAuth()});
 
     var parsed = jsonDecode(response.body);
@@ -378,5 +378,27 @@ class Api {
       book.add(Book.fromJson(i));
     }
     return book;
+  }
+
+  updateImagePhoto(String bookImageInfo) async {
+    http.Response response =
+        await http.put(api + 'updatebookimage/', body: bookImageInfo, headers: {
+      'authorization': basicAuth(),
+      "Content-Type": "application/json",
+    });
+
+    var parsed = jsonDecode(response.body);
+    return parsed;
+  }
+
+  addImageList(String bookImageInfo) async {
+    http.Response response =
+        await http.post(api + 'addimagelist/', body: bookImageInfo, headers: {
+      'authorization': basicAuth(),
+      "Content-Type": "application/json",
+    });
+
+    var parsed = jsonDecode(response.body);
+    return parsed;
   }
 }

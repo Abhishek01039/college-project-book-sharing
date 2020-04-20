@@ -35,19 +35,6 @@ class _BookDetailState extends State<BookDetail> {
           "Book Sharing",
           // style: textStyle,
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              final RenderBox box = context.findRenderObject();
-              Share.share(
-                widget.book.bookImage[0].image,
-                // subject: subject,
-                sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-              );
-            },
-          )
-        ],
       ),
       body: Consumer<BookDetailModel>(
         builder: (context, bookDetailModel, _) {
@@ -60,16 +47,23 @@ class _BookDetailState extends State<BookDetail> {
                   widget.book.bookImage.length != 0
                       ? CarouselSlider(
                           height: 300,
-                          items: widget.book.bookImage.map(
-                            (e) {
-                              if (e.image.startsWith("http://"))
-                                return Image.network(e.image);
-                              else
-                                return Image.network(
-                                    "http://192.168.43.182:8000" +
-                                        e.image.toLowerCase());
-                            },
-                          ).toList(),
+                          items: widget.book.bookImage
+                              .asMap()
+                              .map(
+                                (e, v) {
+                                  return MapEntry(
+                                    e,
+                                    v.image.startsWith("http://")
+                                        ? Image.network(v.image)
+                                        : Image.network(
+                                            "http://192.168.43.182:8000" +
+                                                v.image.toLowerCase(),
+                                          ),
+                                  );
+                                },
+                              )
+                              .values
+                              .toList(),
                           aspectRatio: 16 / 9,
                           autoPlay: true,
 

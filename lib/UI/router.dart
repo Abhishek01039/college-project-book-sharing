@@ -5,6 +5,7 @@ import 'package:booksharing/UI/views/bookEdit.dart';
 import 'package:booksharing/UI/views/homeScreen.dart';
 import 'package:booksharing/UI/views/loginScreen.dart';
 import 'package:booksharing/UI/views/myPostedBook.dart';
+import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/myPurchasedBook.dart';
 import 'package:booksharing/UI/views/postedBook.dart';
 import 'package:booksharing/UI/views/postedByProfile.dart';
@@ -12,12 +13,10 @@ import 'package:booksharing/UI/views/profilePage.dart';
 import 'package:booksharing/UI/views/registration.dart';
 import 'package:booksharing/UI/views/splashScreen.dart';
 import 'package:booksharing/UI/views/studentEdit.dart';
-import 'package:booksharing/core/API/allAPIs.dart';
-import 'package:booksharing/core/viewModels/bookModel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/changePassword.dart';
 import 'package:booksharing/UI/views/feedBack.dart';
-import 'package:provider/provider.dart';
 
 const String initialRoute = "/";
 
@@ -75,6 +74,9 @@ class Router {
         break;
       case 'feedback':
         return MaterialPageRoute(builder: (_) => FeedBack());
+        break;
+      case 'myPostedBookDetail':
+        return MaterialPageRoute(builder: (_) => MyPostedBookDetail());
         break;
       default:
         return MaterialPageRoute(

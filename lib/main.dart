@@ -22,18 +22,18 @@ void main() {
   //   DeviceOrientation.portraitUp,
   //   DeviceOrientation.portraitDown,
   // ]).then((_) {
-    // WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
-    //  get the shared preference instance
-    SharedPreferences.getInstance().then((SharedPreferences sp) {
-      SPHelper.setPref(sp);
-      // print(SPHelper.getInt("DarkTheme"));
-      setupLocator();
-      if (sp.getBool("DarkTheme") == null) {
-        sp.setBool("DarkTheme", false);
-      }
-      runApp(MyApp());
-    });
+  //  get the shared preference instance
+  SharedPreferences.getInstance().then((SharedPreferences sp) {
+    SPHelper.setPref(sp);
+    // print(SPHelper.getInt("DarkTheme"));
+    setupLocator();
+    if (sp.getBool("DarkTheme") == null) {
+      sp.setBool("DarkTheme", false);
+    }
+    runApp(MyApp());
+  });
   // });
 }
 
@@ -61,8 +61,12 @@ class MyApp extends StatelessWidget {
             // Theme and color choosen by the article of google material design
             theme: SPHelper.getBool("DarkTheme")
                 ? ThemeData(
+                    // backgroundColor: Colors.,
                     primaryColor: Color(0xFF121212),
-                    // accentColor: c,
+                    accentColor: Colors.teal[200],
+                    buttonTheme: ButtonThemeData(
+                      // buttonColor: Colors.teal[200],
+                    ),
                     textTheme: TextTheme(
                       bodyText1: TextStyle(
                         color: Color(0xFFFFFF).withOpacity(0.87),
@@ -82,6 +86,7 @@ class MyApp extends StatelessWidget {
                 : ThemeData(
                     primaryColor: Color(0xFF313457),
                     accentColor: Color(0xFF5888D9),
+
                     textTheme: TextTheme(
                       button: TextStyle(
                           // fontSize: 50,

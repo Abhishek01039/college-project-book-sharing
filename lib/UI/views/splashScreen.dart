@@ -43,6 +43,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
       if (_connectionStatus == ConnectivityResult.mobile ||
           _connectionStatus == ConnectivityResult.wifi) {
         Timer(Duration(seconds: 3), () {
+          // print(SPHelper.getString("enrollmentNo"));
           SPHelper.getString("enrollmentNo").isEmpty
               ? Navigator.pushReplacementNamed(context, 'login')
               : Navigator.pushReplacementNamed(context, 'home');

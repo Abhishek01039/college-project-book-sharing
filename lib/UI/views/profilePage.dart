@@ -49,23 +49,6 @@ class ProfilePage extends StatelessWidget {
                     return snapshot.hasData
                         ? Stack(
                             children: [
-                              Positioned(
-                                right: 20,
-                                // top: 20,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => StudentEdit(
-                                          student: snapshot.data,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Icon(Icons.edit),
-                                ),
-                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +114,11 @@ class ProfilePage extends StatelessWidget {
                                             width: 190,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color: Colors.black45,
+                                              color: SPHelper.getBool(
+                                                          "DarkTheme") ==
+                                                      false
+                                                  ? Color(0xFF313457)
+                                                  : Colors.black54,
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(30),
                                                 bottomRight:
@@ -173,6 +160,22 @@ class ProfilePage extends StatelessWidget {
                                   ),
 
                                   profilePagelistView(snapshot.data),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  RaisedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => StudentEdit(
+                                            student: snapshot.data,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text("Edit Profile"),
+                                  )
                                 ],
                               ),
                             ],

@@ -18,16 +18,9 @@ class PostedBook extends StatelessWidget {
           return SingleChildScrollView(
             child: Form(
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   children: <Widget>[
-                    Text(
-                      "Please choose Book image carefully, you can't change it later",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
                     TextFormField(
                       textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.bookName,

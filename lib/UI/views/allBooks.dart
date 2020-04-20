@@ -1,5 +1,7 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
+import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
+import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
@@ -69,13 +71,22 @@ class AllBooks extends StatelessWidget {
                         enabled: true,
                         isThreeLine: true,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (con) =>
-                                  BookDetail(book: snapshot.data[index]),
-                            ),
-                          );
+                          snapshot.data[index].postedBy != SPHelper.getInt("ID")
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (con) =>
+                                        BookDetail(book: snapshot.data[index]),
+                                  ),
+                                )
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (con) => MyPostedBookDetail(
+                                      book: bookModel.latestBooks[index],
+                                    ),
+                                  ),
+                                );
                         },
                       ),
                     );
