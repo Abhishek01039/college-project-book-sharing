@@ -101,7 +101,7 @@ class MyPostedBook extends StatelessWidget {
                                                 placeholder: AssetImage(
                                                     "assets/book_logo.jpg"),
                                                 image: NetworkImage(
-                                                    "http://192.168.43.182:8000" +
+                                                    "https://booksharingappdjango.herokuapp.com" +
                                                         snapshot.data[index]
                                                             .bookImage[0].image
                                                             .toString()),

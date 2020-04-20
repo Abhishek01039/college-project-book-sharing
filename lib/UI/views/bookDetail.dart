@@ -56,7 +56,7 @@ class _BookDetailState extends State<BookDetail> {
                                     v.image.startsWith("http://")
                                         ? Image.network(v.image)
                                         : Image.network(
-                                            "http://192.168.43.182:8000" +
+                                            "https://booksharingappdjango.herokuapp.com" +
                                                 v.image.toLowerCase(),
                                           ),
                                   );

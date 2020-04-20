@@ -68,7 +68,8 @@ class MyPostedBookDetail extends StatelessWidget {
                   children: <Widget>[
                     postedBookEditModel.file == null
                         ? Image.network(
-                            "http://192.168.43.182:8000" + image,
+                            "https://booksharingappdjango.herokuapp.com" +
+                                image,
                             // fit: BoxFit.cover,
                             height: 300,
                             width: 250,
@@ -257,11 +258,11 @@ class MyPostedBookDetail extends StatelessWidget {
                                     _showImageDialog(postedBookEditModel,
                                         context, v.image, e);
                                   },
-                                  child: v.image.startsWith("http://")
+                                  child: v.image.startsWith("https://")
                                       ? Image.network(v.image)
                                       : Image.network(
-                                          "http://192.168.43.182:8000" +
-                                              v.image.toLowerCase(),
+                                          "https://booksharingappdjango.herokuapp.com" +
+                                              v.image,
                                         ),
                                 ),
                               );

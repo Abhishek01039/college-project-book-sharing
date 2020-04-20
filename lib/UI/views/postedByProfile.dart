@@ -44,7 +44,7 @@ class PostedByProfilePage extends StatelessWidget {
                     image: new DecorationImage(
                       fit: BoxFit.fill,
                       image: new NetworkImage(
-                        "http://192.168.43.182:8000" +
+                        "https://booksharingappdjango.herokuapp.com" +
                             student.photo.toLowerCase(),
                       ),
                     ),

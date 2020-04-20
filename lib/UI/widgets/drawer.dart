@@ -60,8 +60,8 @@ class DrawerMenu extends StatelessWidget {
                       fit: BoxFit.fill,
                       image: NetworkImage(
                         SPHelper.getString("studentPhoto").isNotEmpty
-                            ? "http://192.168.43.182:8000" +
-                                SPHelper.getString("studentPhoto").toLowerCase()
+                            ? "https://booksharingappdjango.herokuapp.com" +
+                                SPHelper.getString("studentPhoto")
                             : AssetImage("assets/book_logo.jpg"),
                       ),
                     ),

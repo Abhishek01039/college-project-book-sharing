@@ -49,6 +49,7 @@ class BookModel extends BaseModel {
   Future<Null> refreshLocalGallery() async {
     getHomeList();
     getLatestBook();
+    bookApi();
   }
 
   BookModel() {

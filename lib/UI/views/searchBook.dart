@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
+import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
@@ -77,14 +78,24 @@ class Search extends SearchDelegate {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BookDetail(
-                                  book: snapshot.data[index],
-                                ),
-                              ),
-                            );
+                            bookModel.latestBooks[index].postedBy !=
+                                    SPHelper.getInt("ID")
+                                ? Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BookDetail(
+                                        book: snapshot.data[index],
+                                      ),
+                                    ),
+                                  )
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (con) => MyPostedBookDetail(
+                                        book: bookModel.latestBooks[index],
+                                      ),
+                                    ),
+                                  );
                           },
                           child: ListTile(
                             title: Text(

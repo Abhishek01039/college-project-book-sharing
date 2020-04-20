@@ -98,10 +98,8 @@ class ProfilePage extends StatelessWidget {
                                                 image: new DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: new NetworkImage(
-                                                    "http://192.168.43.182:8000" +
-                                                        snapshot.data.photo
-                                                            .toLowerCase(),
-                                                  ),
+                                                      "https://booksharingappdjango.herokuapp.com" +
+                                                          snapshot.data.photo),
                                                 ),
                                               ),
                                             )

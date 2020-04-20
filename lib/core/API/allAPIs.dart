@@ -10,7 +10,7 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  String api = "http://192.168.43.182:8000/booksharing/";
+  String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
   basicAuth() {
     String username = 'abhishek';
     String password = 'ABHI01039';

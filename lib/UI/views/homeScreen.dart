@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
-    // final BookModel book=Provider.of(context);
+    final BookModel book = Provider.of(context);
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
@@ -161,7 +161,9 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
+              book.bookApi();
               // search delegate
+
               showSearch(context: context, delegate: Search());
             },
           ),
