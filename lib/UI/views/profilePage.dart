@@ -118,7 +118,7 @@ class ProfilePage extends StatelessWidget {
                                                           "DarkTheme") ==
                                                       false
                                                   ? Color(0xFF313457)
-                                                  : Colors.black54,
+                                                  : Colors.teal[200],
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(30),
                                                 bottomRight:

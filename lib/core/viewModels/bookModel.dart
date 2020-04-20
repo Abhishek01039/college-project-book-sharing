@@ -26,14 +26,16 @@ class BookModel extends BaseModel {
     }).listen((event) {
       _bookSubject.sink.add(event);
     });
+    // _bookSubject.sink.add(await _api.getBooks());
     // notifyListeners();
+    // print(_bookSubject.);
   }
 
   // get latest books according to posted date
   getLatestBook() async {
     latestBooks = await _api.getLatestBook();
     // notifyListeners();
-    print("hello latest list");
+    // print("hello latest list");
     notifyListeners();
   }
 
@@ -82,7 +84,7 @@ class BookModel extends BaseModel {
     // }
     book.forEach((e) {
       for (int i = 0; i < e.length; i++) {
-        if (e[i].bookName.contains(searchText)) {
+        if (e[i].bookName.toLowerCase().contains(searchText.toLowerCase())) {
           searchresult.add(e[i]);
         }
       }

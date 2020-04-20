@@ -41,6 +41,7 @@ class Api {
     // await getBookImage();
     // for (var i in )
     // print(image[0].image);
+    // print(book);
     return book;
   }
 

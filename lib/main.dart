@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                 ? ThemeData(
                     // backgroundColor: Colors.,
                     primaryColor: Color(0xFF121212),
-                    accentColor: Colors.teal[200],
+                    // accentColor: Colors.blue[300],
                     buttonTheme: ButtonThemeData(
                       // buttonColor: Colors.teal[200],
                     ),
