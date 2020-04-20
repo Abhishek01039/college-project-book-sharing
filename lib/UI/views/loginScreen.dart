@@ -106,7 +106,7 @@ class LogIn extends StatelessWidget {
                           showFlutterToast(
                               "Invalid Enrollment Number or Password");
                         }
-                        studentModel.username.clear();
+                        // studentModel.username.clear();
                         studentModel.pass.clear();
                       },
                       child: Container(

@@ -6,6 +6,7 @@ import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatelessWidget {
   static final tag = "home";
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
-      return bookModel.homeListBook.length != null
+      return bookModel.homeListBook.length != 0
           ? ListView.builder(
               shrinkWrap: true,
               primary: false,
@@ -92,8 +93,57 @@ class HomePage extends StatelessWidget {
                 );
               },
             )
-          : Center(
-              child: CircularProgressIndicator(),
+          : Container(
+              width: double.infinity,
+              height: 500,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: true,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  itemBuilder: (_, __) => Padding(
+                    padding: const EdgeInsets.only(bottom: 25.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 70.0,
+                          height: 40.0,
+                          color: Colors.white,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: double.infinity,
+                                height: 8.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5.0),
+                              ),
+                              Container(
+                                width: 40.0,
+                                height: 8.0,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  itemCount: 6,
+                ),
+              ),
             );
     }
 
@@ -243,22 +293,75 @@ class HomePage extends StatelessWidget {
                                 );
                               },
                             )
-                          : Center(
-                              child: CircularProgressIndicator(),
+                          : Shimmer.fromColors(
+                              baseColor: Colors.grey[300],
+                              highlightColor: Colors.grey[100],
+                              enabled: true,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (_, __) => Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 2.0, top: 10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 150.0,
+                                        height: 130.0,
+                                        color: Colors.white,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            // width: double.infinity,
+                                            height: 38.0,
+                                            color: Colors.white,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 5.0),
+                                          ),
+
+                                          // Container(
+                                          //   width: 40.0,
+                                          //   height: 8.0,
+                                          //   color: Colors.white,
+                                          // ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                itemCount: 6,
+                              ),
                             ),
+                      // : Center(
+                      //     child: CircularProgressIndicator(),
+                      //   ),
                     ),
                     _firstFutureBuilder(context, bookModel),
-                    Card(
-                      elevation: 3,
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'allBooks');
-                        },
-                        title: Center(
-                          child: Text("All Books"),
-                        ),
-                      ),
-                    )
+                    bookModel.homeListBook.length != 0
+                        ? Card(
+                            elevation: 3,
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'allBooks');
+                              },
+                              title: Center(
+                                child: Text("All Books"),
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
