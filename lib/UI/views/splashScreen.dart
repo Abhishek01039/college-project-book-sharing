@@ -58,6 +58,58 @@ class _MySpalshScreenState extends State<MySpalshScreen>
 
   @override
   Widget build(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.portrait
+        ? PotraitModesplashScreen()
+        : SafeArea(
+            child: Scaffold(
+              body: Container(
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ClipRRect(
+                          child: Hero(
+                            tag: "Logo",
+                            child: Image.asset(
+                              "assets/book_logo.jpg",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text("book sharing".toUpperCase()),
+                          Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            ),
+          );
+  }
+}
+
+class PotraitModesplashScreen extends StatelessWidget {
+  const PotraitModesplashScreen({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
