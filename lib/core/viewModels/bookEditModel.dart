@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class PostedBookEditModel extends BaseModel {
   TextEditingController bookName = TextEditingController();
@@ -43,6 +44,7 @@ class PostedBookEditModel extends BaseModel {
   List<String> fileName = List();
 
   editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
+    final box = Hive.box("Student");
     String editBookData = jsonEncode({
       "bookName": bookName.text,
       "isbnNo": isbnNo.text,
@@ -51,7 +53,7 @@ class PostedBookEditModel extends BaseModel {
       "price": int.tryParse(price.text),
       "bookCatgName": bookCatgName.text,
       "originalPrice": int.tryParse(mrpPrice.text),
-      "postedBy": SPHelper.getInt("ID")
+      "postedBy": box.get("ID")
     });
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {

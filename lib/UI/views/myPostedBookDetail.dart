@@ -3,13 +3,14 @@ import 'dart:developer';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/bookDelete.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/bookEditModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 class MyPostedBookDetail extends StatelessWidget {
   static final tag = 'myPostedBookDetail';
@@ -18,6 +19,7 @@ class MyPostedBookDetail extends StatelessWidget {
   const MyPostedBookDetail({Key key, this.book}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final darkTheme = Hive.box("DarkTheme");
     Future<void> _deleteBook(int bookId) async {
       return showDialog(
         context: context,
@@ -31,7 +33,7 @@ class MyPostedBookDetail extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              RaisedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, 'bookdelete');
                   Navigator.pop(context);
@@ -79,7 +81,7 @@ class MyPostedBookDetail extends StatelessWidget {
                     Positioned(
                       bottom: 0,
                       child: Container(
-                        color: SPHelper.getBool("DarkTheme") == false
+                        color: darkTheme.get("darkTheme") == false
                             ? Color(0xFF313457)
                             : Colors.black54,
                         height: 40,
@@ -122,7 +124,7 @@ class MyPostedBookDetail extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                   ),
-                  FlatButton(
+                  RaisedButton(
                     onPressed: () {
                       // Navigator.pushNamed(context, 'bookdelete');
 

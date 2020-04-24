@@ -1,18 +1,19 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 class Search extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     // TODO: implement appBarTheme
     final ThemeData theme = Theme.of(context);
-
+    final darkTheme = Hive.box("DarkTheme");
     assert(theme != null);
-    return SPHelper.getBool("DarkTheme")
+    return darkTheme.get("darkTheme")
         ? theme.copyWith(
             primaryColor: Colors.black38,
             primaryIconTheme:
@@ -78,8 +79,9 @@ class Search extends SearchDelegate {
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                           onTap: () {
+                            final box = Hive.box("Student");
                             bookModel.latestBooks[index].postedBy !=
-                                    SPHelper.getInt("ID")
+                                    box.get("ID")
                                 ? Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

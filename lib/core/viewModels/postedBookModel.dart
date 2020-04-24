@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
@@ -10,6 +10,7 @@ import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class PostedBookModel extends BaseModel {
   TextEditingController bookName = TextEditingController();
@@ -35,7 +36,7 @@ class PostedBookModel extends BaseModel {
   Api api = locator<Api>();
   Book book = locator<Book>();
   bool isPosted;
-  
+
   List<String> extn = new List();
   chooseBookImage() async {
     bookImages.clear();
@@ -105,6 +106,7 @@ class PostedBookModel extends BaseModel {
       showProgress(scaffoldKey);
     }
     await startUpload();
+    final box = Hive.box("Student");
     String body = json.encode({
       "bookName": bookName.text,
       "isbnNo": isbnNo.text,
@@ -115,7 +117,7 @@ class PostedBookModel extends BaseModel {
       "originalPrice": int.tryParse(mrpPrice.text),
       "Book_Image": base64Image,
       "extn": extn,
-      "postedBy": SPHelper.getInt("ID")
+      "postedBy": box.get("ID")
     });
 
     isPosted = await api.registeredBook(body);
@@ -134,7 +136,7 @@ class PostedBookModel extends BaseModel {
   }
 
   // edit the book
-  
+
   // delete the book
   deleteBook(BuildContext context, int bookId) async {
     bool isDeleted = await api.deleteBook(bookId);

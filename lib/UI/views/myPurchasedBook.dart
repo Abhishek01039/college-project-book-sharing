@@ -1,10 +1,12 @@
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
+import 'package:hive/hive.dart';
 
 class MyPurchasedBook extends StatelessWidget {
   static final tag = 'myPurchasedBook';
+  final box = Hive.box("Student");
   @override
   Widget build(BuildContext context) {
     PurchasedBookModel purchasedBookModel = Provider.of(context);
@@ -14,7 +16,7 @@ class MyPurchasedBook extends StatelessWidget {
       ),
       // it gives the tabular format of book which is purchased by student who is logged in App
       body: FutureBuilder(
-        future: purchasedBookModel.purchasedBookByUser(SPHelper.getInt("ID")),
+        future: purchasedBookModel.purchasedBookByUser(box.get("ID")),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? snapshot.data.length != 0

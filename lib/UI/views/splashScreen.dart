@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class MySpalshScreen extends StatefulWidget {
   @override
@@ -37,6 +38,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    final box = Hive.box("Student");
     setState(() {
       _connectionStatus = result;
       print(_connectionStatus);
@@ -44,11 +46,11 @@ class _MySpalshScreenState extends State<MySpalshScreen>
           _connectionStatus == ConnectivityResult.wifi) {
         Timer(Duration(seconds: 3), () {
           // print(SPHelper.getString("enrollmentNo"));
-          SPHelper.getString("enrollmentNo").isEmpty
+          box.get("enrollmentNo").isEmpty
               ? Navigator.pushReplacementNamed(context, 'login')
               : Navigator.pushReplacementNamed(context, 'home');
         });
-      }else if(_connectionStatus == ConnectivityResult.none){
+      } else if (_connectionStatus == ConnectivityResult.none) {
         showFlutterToast("Connect to Internet");
       }
     });

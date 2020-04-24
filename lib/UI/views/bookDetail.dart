@@ -1,13 +1,14 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/bookDetailModel.dart';
 import 'package:booksharing/UI/views/postedByProfile.dart';
-import 'package:share/share.dart';
+// import 'package:share/share.dart';
+import 'package:hive/hive.dart';
 
 class BookDetail extends StatefulWidget {
   static final tag = 'bookDetail';
@@ -78,6 +79,7 @@ class _BookDetailState extends State<BookDetail> {
                     child: Text(
                       widget.book.bookName,
                       style: textStyle,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
@@ -194,9 +196,10 @@ class _BookDetailState extends State<BookDetail> {
                             .getStudentDetail(widget.book.postedBy),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
+                          final box = Hive.box("Student");
                           if (snapshot.hasData) {
                             if (snapshot.data.enrollmentNo !=
-                                SPHelper.getString('enrollmentNo')) {
+                                box.get("enrollmentNo")) {
                               return GestureDetector(
                                 child: Text(
                                   snapshot.data.firstName,

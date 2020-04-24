@@ -1,11 +1,11 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -13,6 +13,7 @@ class AllBooks extends StatelessWidget {
   static final tag = "allBooks";
   @override
   Widget build(BuildContext context) {
+    final box = Hive.box("Student");
     final BookModel bookModel = Provider.of(context);
     bookModel.bookApi();
     // all books show in list
@@ -73,8 +74,7 @@ class AllBooks extends StatelessWidget {
                             enabled: true,
                             isThreeLine: true,
                             onTap: () {
-                              snapshot.data[index].postedBy !=
-                                      SPHelper.getInt("ID")
+                              snapshot.data[index].postedBy != box.get("ID")
                                   ? Navigator.push(
                                       context,
                                       MaterialPageRoute(

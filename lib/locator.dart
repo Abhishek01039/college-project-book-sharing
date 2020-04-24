@@ -9,8 +9,8 @@ import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:booksharing/core/viewModels/studentLogInModel.dart';
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
+
 GetIt locator = GetIt.instance;
 // this all are the Lazy Singleton
 void setupLocator() {
@@ -25,7 +25,4 @@ void setupLocator() {
   locator.registerLazySingleton(() => BookImage());
   locator.registerLazySingleton(() => PostedBookEditModel());
   locator.registerLazySingleton(() => PurchasedBookModel());
-  locator.registerLazySingleton(() async {
-    return await SharedPreferences.getInstance();
-  });
 }

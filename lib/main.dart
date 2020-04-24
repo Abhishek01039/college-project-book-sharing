@@ -1,5 +1,5 @@
 import 'package:booksharing/UI/router.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
@@ -11,11 +11,13 @@ import 'package:booksharing/locator.dart';
 import 'package:booksharing/core/viewModels/bookDetailModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 
-void main() {
+import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // // run app if and if only device in protrait mode not landscape mode
   // SystemChrome.setPreferredOrientations([
@@ -25,19 +27,23 @@ void main() {
   // WidgetsFlutterBinding.ensureInitialized();
 
   //  get the shared preference instance
-  SharedPreferences.getInstance().then((SharedPreferences sp) {
-    SPHelper.setPref(sp);
-    // print(SPHelper.getInt("DarkTheme"));
-    setupLocator();
-    if (sp.getBool("DarkTheme") == null) {
-      sp.setBool("DarkTheme", false);
-    }
-    runApp(MyApp());
-  });
+  // var path = Directory.current.path;
+  // Hive
+  //   ..init(path)
+  //   ..registerAdapter(StudentAdapter());
+  await Hive.initFlutter();
+  await Hive.openBox('Student');
+  await Hive.openBox('DarkTheme');
+
+  setupLocator();
+
+  runApp(MyApp());
+
   // });
 }
 
 class MyApp extends StatelessWidget {
+  final darkTheme = Hive.box("DarkTheme");
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -59,14 +65,14 @@ class MyApp extends StatelessWidget {
 
             // ),
             // Theme and color choosen by the article of google material design
-            theme: SPHelper.getBool("DarkTheme")
+            theme: darkTheme.get("darkTheme", defaultValue: false)
                 ? ThemeData(
                     // backgroundColor: Colors.,
                     primaryColor: Color(0xFF121212),
                     // accentColor: Colors.blue[300],
                     buttonTheme: ButtonThemeData(
-                      // buttonColor: Colors.teal[200],
-                    ),
+                        // buttonColor: Colors.teal[200],
+                        ),
                     textTheme: TextTheme(
                       bodyText1: TextStyle(
                         color: Color(0xFFFFFF).withOpacity(0.87),

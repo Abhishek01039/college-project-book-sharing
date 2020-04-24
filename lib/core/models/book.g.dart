@@ -18,10 +18,10 @@ Book _$BookFromJson(Map<String, dynamic> json) {
     price: json['price'] as int,
     bookCatgName: json['bookCatgName'] as String,
     postedBy: json['postedBy'] as int,
-    postedDate: json['postedDate'] as String,
     bookImage: (json['Book_Image'] as List)
         .map((e) => BookImage.fromJson(e as Map<String, dynamic>))
         .toList(),
+    postedDate: json['postedDate'] as String,
   );
 }
 
@@ -32,7 +32,7 @@ Map<String, dynamic> _$BookToJson(Book instance) => <String, dynamic>{
       'pubName': instance.pubName,
       'edition': instance.edition,
       'isbnNo': instance.isbnNo,
-      'orginialPrice': instance.originalPrice,
+      'originalPrice': instance.originalPrice,
       'price': instance.price,
       'bookCatgName': instance.bookCatgName,
       'postedBy': instance.postedBy,

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/image.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/locator.dart';
 
 import 'package:booksharing/core/models/book.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -115,11 +115,13 @@ class Api {
       for (var i in parsed) {
         student = Student.fromJson(i);
       }
-      SPHelper.setInt("ID", student.id);
-      SPHelper.setString("enrollmentNo", enrollment);
+      final box = Hive.box("Student");
 
-      SPHelper.setString("studentName", student.firstName);
-      SPHelper.setString("studentPhoto", "/media/" + student.photo);
+      box.put("ID", student.id);
+      box.put("enrollmentNo", student.enrollmentNo);
+      box.put("studentName", student.firstName);
+      box.put("studentPhoto", "/media/" + student.photo);
+
       return student;
       // return parsed;
     } else if (response.statusCode == 400) {
@@ -177,11 +179,12 @@ class Api {
     if (response.statusCode == 201) {
       // return parsed;
       student = Student.fromJson(parsed);
-      SPHelper.setInt("ID", student.id);
-      SPHelper.setString("enrollmentNo", student.enrollmentNo);
+      final box = Hive.box("Student");
 
-      SPHelper.setString("studentName", student.firstName);
-      SPHelper.setString("studentPhoto", student.photo);
+      box.put("ID", student.id);
+      box.put("enrollmentNo", student.enrollmentNo);
+      box.put("studentName", student.firstName);
+      box.put("studentPhoto", student.photo);
 
       return "Success";
     }
@@ -343,8 +346,9 @@ class Api {
   }
 
   Future<dynamic> feedBack(String email, String message) async {
+    final box = Hive.box("Student");
     http.Response response = await http.post(api + "feedback/", body: {
-      "studName": SPHelper.getString("studentName"),
+      "studName": box.get("studentName"),
       "email": email,
       "message": message
     }, headers: {

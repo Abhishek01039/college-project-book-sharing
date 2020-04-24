@@ -1,4 +1,4 @@
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/views/studentEdit.dart';
 
 import 'package:booksharing/core/API/allAPIs.dart';
@@ -9,17 +9,20 @@ import 'package:booksharing/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/UI/widgets/profilePageList.dart';
+import 'package:hive/hive.dart';
 
 class ProfilePage extends StatelessWidget {
+  final box = Hive.box("Student");
   static final tag = "profile";
   Future<Student> getstudent() async {
     Api api = locator<Api>();
-    Student student = await api.getStudentById(SPHelper.getInt('ID'));
+    Student student = await api.getStudentById(box.get("ID"));
     return student;
   }
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = Hive.box("DarkTheme");
     // Student student = getstudent();
     StudentEditModel studentEditModel = Provider.of(context);
     return SafeArea(
@@ -91,15 +94,22 @@ class ProfilePage extends StatelessWidget {
                                           ? Container(
                                               width: 190.0,
                                               height: 190.0,
-                                              decoration: new BoxDecoration(
+                                              foregroundDecoration:
+                                                  BoxDecoration(
                                                 shape: BoxShape.rectangle,
+                                                // borderRadius: BorderRadius.circular(30),
+                                              ),
+                                              child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(30),
-                                                image: new DecorationImage(
+                                                child: FadeInImage(
+                                                  placeholder: AssetImage(
+                                                      "assets/book_logo.jpg"),
+                                                  image: NetworkImage(
+                                                    "https://booksharingappdjango.herokuapp.com" +
+                                                        snapshot.data.photo,
+                                                  ),
                                                   fit: BoxFit.fill,
-                                                  image: new NetworkImage(
-                                                      "https://booksharingappdjango.herokuapp.com" +
-                                                          snapshot.data.photo),
                                                 ),
                                               ),
                                             )
@@ -112,11 +122,11 @@ class ProfilePage extends StatelessWidget {
                                             width: 190,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color: SPHelper.getBool(
-                                                          "DarkTheme") ==
-                                                      false
-                                                  ? Color(0xFF313457)
-                                                  : Colors.teal[200],
+                                              color:
+                                                  darkTheme.get("darkTheme") ==
+                                                          false
+                                                      ? Color(0xFF313457)
+                                                      : Colors.teal[200],
                                               borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(30),
                                                 bottomRight:

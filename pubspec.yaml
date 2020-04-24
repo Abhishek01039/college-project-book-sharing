@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -40,15 +40,21 @@ dependencies:
   share: ^0.6.3+6
   url_launcher: ^5.4.2
   shimmer: ^1.1.1
-
-
-
-
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
+  
 
 
 dev_dependencies:
+  
+  hive_generator: ^0.7.0+2
   flutter_test:
     sdk: flutter
+  
+dependency_overrides:
+  dartx: ^0.3.0
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -3,6 +3,43 @@
 part of 'student.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class StudentAdapter extends TypeAdapter<Student> {
+  @override
+  final typeId = 1;
+
+  @override
+  Student read(BinaryReader reader) {
+    var numOfFields = reader.readByte();
+    var fields = <int, dynamic>{
+      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Student(
+      id: fields[0] as int,
+      enrollmentNo: fields[1] as String,
+      firstName: fields[2] as String,
+      photo: fields[3] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Student obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.firstName)
+      ..writeByte(2)
+      ..write(obj.email)
+      ..writeByte(3)
+      ..write(obj.photo);
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

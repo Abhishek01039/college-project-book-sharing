@@ -1,4 +1,4 @@
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:booksharing/locator.dart';
@@ -6,6 +6,8 @@ import 'package:booksharing/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
@@ -13,8 +15,12 @@ class DrawerMenu extends StatelessWidget {
     // Student student = locator<Student>();
     // print(student.firstName);
 
-    // print(SPHelper.getString("studentPhoto"));
+    // print(box.get('studentPhoto'));
     StudentEditModel studentEditModel = locator<StudentEditModel>();
+    // var box = await Hive.openBox('Student');
+    final box = Hive.box("Student");
+    var darkTheme = Hive.box("DarkTheme");
+    print(box.get('studentPhoto'));
     BaseModel baseModel = Provider.of(context);
     return Container(
       width: MediaQuery.of(context).size.width / 1.4,
@@ -29,12 +35,12 @@ class DrawerMenu extends StatelessWidget {
               },
               child: UserAccountsDrawerHeader(
                 arrowColor: Colors.red,
-                accountName: SPHelper.getString("enrollmentNo").isEmpty
+                accountName: box.get('enrollmentNo').isEmpty
                     ? Text('Test123')
-                    : Text(SPHelper.getString("enrollmentNo")),
-                accountEmail: SPHelper.getString("studentName").isEmpty
+                    : Text(box.get('enrollmentNo')),
+                accountEmail: box.get('studentName').isEmpty
                     ? Text('Test123')
-                    : Text(SPHelper.getString("studentName")),
+                    : Text(box.get('studentName')),
                 // currentAccountPicture: CircleAvatar(
                 //   foregroundColor: Colors.transparent,
                 //   child: ClipRRect(
@@ -42,9 +48,9 @@ class DrawerMenu extends StatelessWidget {
                 //     child: FittedBox(
                 //       fit: BoxFit.fill,
                 //       child: Image.network(
-                //         SPHelper.getString("studentPhoto").isNotEmpty != null
+                //         box.get('studentPhoto').isNotEmpty != null
                 //             ? "http://192.168.43.182:8000/media/" +
-                //                 SPHelper.getString("studentPhoto")
+                //                 box.get('studentPhoto')
                 //                     .toLowerCase()
                 //             : Image.asset("assets/book_logo.jpg"),
                 //         fit: BoxFit.fitWidth,
@@ -53,20 +59,29 @@ class DrawerMenu extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                currentAccountPicture: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                        SPHelper.getString("studentPhoto").isNotEmpty
-                            ? "https://booksharingappdjango.herokuapp.com" +
-                                SPHelper.getString("studentPhoto")
-                            : AssetImage("assets/book_logo.jpg"),
+                currentAccountPicture: box.get('studentPhoto').isEmpty
+                    ? Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/book_logo.jpg"),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: FadeInImage(
+                            placeholder: AssetImage("assets/book_logo.jpg"),
+                            image: NetworkImage(
+                              "https://booksharingappdjango.herokuapp.com" +
+                                  box.get("studentPhoto"),
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
               ),
             ),
             InkWell(
@@ -129,10 +144,15 @@ class DrawerMenu extends StatelessWidget {
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.lightbulb),
                 title: Text("Dark Theme"),
-                trailing: Switch.adaptive(
-                  value: SPHelper.getBool("DarkTheme"),
-                  onChanged: (value) {
-                    baseModel.changeTheme(value);
+                trailing: ValueListenableBuilder(
+                  valueListenable: Hive.box("DarkTheme").listenable(),
+                  builder: (context, box, widget) {
+                    return Switch.adaptive(
+                      value: darkTheme.get("darkTheme", defaultValue: false),
+                      onChanged: (value) {
+                        baseModel.changeTheme(value);
+                      },
+                    );
                   },
                 ),
               ),
@@ -162,11 +182,11 @@ class DrawerMenu extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                         ),
-                        FlatButton(
+                        RaisedButton(
                           child: Text('Yes'),
                           onPressed: () async {
                             await studentEditModel.deleteStudent(
-                                context, SPHelper.getInt("ID"));
+                                context, box.get('ID'));
                           },
                         ),
                       ],
@@ -198,11 +218,11 @@ class DrawerMenu extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                         ),
-                        FlatButton(
+                        RaisedButton(
                           child: Text('Yes'),
                           onPressed: () {
-                            SPHelper.logout();
-                            SPHelper.getString(SPHelper.enrollmentNo);
+                            box.clear();
+                            box.get('enrollmentNo');
                             Navigator.pushNamedAndRemoveUntil(
                                 context, 'login', (route) => false);
                           },

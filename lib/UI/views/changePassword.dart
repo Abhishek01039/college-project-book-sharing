@@ -1,11 +1,13 @@
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/studentRegModel.dart';
+import 'package:hive/hive.dart';
 
 class ChangePassword extends StatelessWidget {
   static final tag = "changePassword";
+  final box = Hive.box("Student");
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -100,7 +102,7 @@ class ChangePassword extends StatelessWidget {
                       RaisedButton(
                         onPressed: () {
                           studentModel.changePasswordModel(
-                              context, SPHelper.getInt("ID"), scaffoldKey);
+                              context, box.get("ID"), scaffoldKey);
                         },
                         child: Container(
                           width: double.infinity,

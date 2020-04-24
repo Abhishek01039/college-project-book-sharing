@@ -12,7 +12,6 @@ class BookDelete extends StatelessWidget {
   String countryCode = "+91";
   @override
   Widget build(BuildContext context) {
-
     // student has to filled this detail if student sold this book.
     // student has to provide the name and mobile number of student who has sold this book.
     _showDeleteDialog(BuildContext con, PostedBookModel postedBookModel,
@@ -92,7 +91,7 @@ class BookDelete extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              RaisedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, 'bookdelete');
                   Navigator.pop(context);

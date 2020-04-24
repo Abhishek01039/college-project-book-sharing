@@ -1,5 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
 import 'package:country_pickers/country.dart';
@@ -9,6 +9,7 @@ import 'package:country_pickers/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 class StudentEdit extends StatelessWidget {
   static final tag = 'studentEdit';
@@ -295,11 +296,12 @@ class StudentEdit extends StatelessWidget {
                   ),
                   RaisedButton(
                     onPressed: () {
+                      final box = Hive.box("Student");
                       studentEditModel.updateStudent(scaffoldKey).then((value) {
                         if (value == "true") {
-                          SPHelper.setString("enrollmentNo",
+                          box.put("enrollmentNo",
                               studentEditModel.enrollmentNo.text);
-                          SPHelper.setString(
+                          box.put(
                               "studentName", studentEditModel.firstName.text);
 
                           studentEditModel.enrollmentNo.clear();

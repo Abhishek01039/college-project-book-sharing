@@ -101,6 +101,7 @@ class LogIn extends StatelessWidget {
                       onPressed: () async {
                         bool val = await studentModel.logIn(scaffoldKey);
                         if (val) {
+                          studentModel.username.clear();
                           Navigator.pushReplacementNamed(context, 'home');
                         } else {
                           showFlutterToast(

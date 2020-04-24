@@ -1,15 +1,17 @@
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:hive/hive.dart';
 
 class HomePage extends StatelessWidget {
   static final tag = "home";
+  final box = Hive.box("Student");
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
@@ -71,8 +73,7 @@ class HomePage extends StatelessWidget {
                     enabled: true,
                     isThreeLine: true,
                     onTap: () {
-                      bookModel.homeListBook[index].postedBy !=
-                              SPHelper.getInt("ID")
+                      bookModel.homeListBook[index].postedBy != box.get("ID")
                           ? Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -204,7 +205,7 @@ class HomePage extends StatelessWidget {
                                 return InkWell(
                                   onTap: () {
                                     bookModel.latestBooks[index].postedBy !=
-                                            SPHelper.getInt("ID")
+                                            box.get("ID")
                                         ? Navigator.push(
                                             context,
                                             MaterialPageRoute(

@@ -4,10 +4,11 @@ import 'package:booksharing/UI/views/bookDelete.dart';
 
 import 'package:booksharing/UI/views/bookEdit.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 class MyPostedBook extends StatelessWidget {
   static final tag = "myPostedBook";
@@ -19,7 +20,7 @@ class MyPostedBook extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('want to delete Book?'),
+            title: Text('Want to delete Book?'),
             actions: <Widget>[
               FlatButton(
                 child: Text('Cancel'),
@@ -27,7 +28,7 @@ class MyPostedBook extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              RaisedButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, 'bookdelete');
                   Navigator.pop(context);
@@ -73,11 +74,12 @@ class MyPostedBook extends StatelessWidget {
       ),
       body: Consumer<BookModel>(
         builder: (context, bookModel, child) {
+          final box = Hive.box("Student");
           // fetch all book purchased by student who is logged in App.
           return Padding(
             padding: const EdgeInsets.all(12),
             child: FutureBuilder(
-              future: bookModel.getBookById(SPHelper.getInt("ID")),
+              future: bookModel.getBookById(box.get("ID")),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 return snapshot.hasData
                     ? snapshot.data.length != 0

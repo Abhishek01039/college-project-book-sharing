@@ -35,17 +35,24 @@ class PostedByProfilePage extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: <Widget>[
-                Container(
-                  width: 190.0,
-                  height: 190.0,
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(30),
-                    image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new NetworkImage(
-                        "https://booksharingappdjango.herokuapp.com" +
-                            student.photo.toLowerCase(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 190.0,
+                    height: 190.0,
+                    foregroundDecoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      // borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: FadeInImage(
+                        placeholder: AssetImage("assets/book_logo.jpg"),
+                        image: NetworkImage(
+                          "https://booksharingappdjango.herokuapp.com" +
+                              student.photo,
+                        ),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),

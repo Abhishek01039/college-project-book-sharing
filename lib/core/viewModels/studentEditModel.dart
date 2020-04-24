@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/shared_pref.dart';
+
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class StudentEditModel extends BaseModel {
   Api api = locator<Api>();
@@ -112,22 +113,19 @@ class StudentEditModel extends BaseModel {
   // update student photo
   Future<void> updateStudentPhoto(BuildContext context) async {
     chooseImage().then((value) async {
+      final box = Hive.box("Student");
       if (value) {
         await startUpload();
         String studentPhoto = jsonEncode({
-          "enrollmentNo": SPHelper.getString("enrollmentNo"),
+          "enrollmentNo": box.get("enrollmentNo"),
           "photo": base64Image,
           "extansion": extn[1],
         });
         bool isUpdated =
-            await api.updateStudentPhoto(SPHelper.getInt("ID"), studentPhoto);
+            await api.updateStudentPhoto(box.get("ID"), studentPhoto);
         if (isUpdated) {
-          SPHelper.setString(
-              "studentPhoto",
-              '/media/Student/' +
-                  SPHelper.getString("enrollmentNo") +
-                  '.' +
-                  extn[1]);
+          box.put("studentPhoto",
+              '/media/Student/' + box.get("enrollmentNo") + '.' + extn[1]);
 
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -154,6 +152,7 @@ class StudentEditModel extends BaseModel {
 
       showProgress(scaffoldKey);
     }
+    final box = Hive.box("Student");
     String studentInfo = jsonEncode({
       "enrollmentNo": enrollmentNo.text,
       "firstName": firstName.text,
@@ -166,8 +165,7 @@ class StudentEditModel extends BaseModel {
       "address": address.text,
       "contactNo": editNumber ?? number,
     });
-    String isUpdated =
-        await api.updateStudent(SPHelper.getInt("ID"), studentInfo);
+    String isUpdated = await api.updateStudent(box.get("ID"), studentInfo);
     closeProgress(scaffoldKey);
     return isUpdated;
   }
@@ -176,8 +174,10 @@ class StudentEditModel extends BaseModel {
   deleteStudent(BuildContext context, int studId) async {
     bool isDeleted = await api.deleteStudent(studId);
     if (isDeleted) {
+      final box = Hive.box("Student");
       showFlutterToast("Account Deleted Successfully");
-      SPHelper.logout();
+
+      box.clear();
       Navigator.pushNamedAndRemoveUntil(
         context,
         '/',
