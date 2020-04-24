@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'dart:io';
+
 import 'package:booksharing/UI/shared/commonUtility.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -21,12 +24,22 @@ class _MySpalshScreenState extends State<MySpalshScreen>
   @override
   void initState() {
     super.initState();
+    final box = Hive.box("Student");
 
     WidgetsBinding.instance.addObserver(this);
     // SPHelper.logout();
-    checkConnection();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    if (kIsWeb) {
+      Timer(Duration(seconds: 3), () {
+        // print(SPHelper.getString("enrollmentNo"));
+        box.get("enrollmentNo").isEmpty
+            ? Navigator.pushReplacementNamed(context, 'login')
+            : Navigator.pushReplacementNamed(context, 'home');
+      });
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      checkConnection();
+      _connectivitySubscription =
+          _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    }
   }
 
   @override
@@ -41,7 +54,8 @@ class _MySpalshScreenState extends State<MySpalshScreen>
     final box = Hive.box("Student");
     setState(() {
       _connectionStatus = result;
-      print(_connectionStatus);
+      // print(_connectionStatus);
+
       if (_connectionStatus == ConnectivityResult.mobile ||
           _connectionStatus == ConnectivityResult.wifi) {
         Timer(Duration(seconds: 3), () {
