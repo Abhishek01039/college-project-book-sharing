@@ -55,10 +55,14 @@ class _BookDetailState extends State<BookDetail> {
                                   return MapEntry(
                                     e,
                                     v.image.startsWith("http://")
-                                        ? Image.network(v.image)
+                                        ? Image.network(
+                                            v.image,
+                                            fit: BoxFit.fill,
+                                          )
                                         : Image.network(
                                             "https://booksharingappdjango.herokuapp.com" +
-                                                v.image.toLowerCase(),
+                                                v.image,
+                                            fit: BoxFit.fill,
                                           ),
                                   );
                                 },

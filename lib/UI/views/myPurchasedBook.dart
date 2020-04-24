@@ -20,35 +20,40 @@ class MyPurchasedBook extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? snapshot.data.length != 0
-                  ? DataTable(
-                      columns: [
-                        DataColumn(
-                          label: Text("Book Name"),
-                        ),
-                        DataColumn(
-                          label: Text("Price"),
-                        ),
-                        DataColumn(
-                          label: Text("ISBN number"),
-                        ),
-                      ],
-                      rows: purchasedBookModel.purchasedBook
-                          .map(
-                            (value) => DataRow(
-                              cells: [
-                                DataCell(
-                                  Text(value.bookName),
-                                ),
-                                DataCell(
-                                  Text(value.price.toString()),
-                                ),
-                                DataCell(
-                                  Text(value.isbnNo),
-                                )
-                              ],
+                  ? SingleChildScrollView(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: DataTable(
+                          columns: [
+                            DataColumn(
+                              label: Text("Book Name"),
                             ),
-                          )
-                          .toList(),
+                            DataColumn(
+                              label: Text("Price"),
+                            ),
+                            DataColumn(
+                              label: Text("ISBN number"),
+                            ),
+                          ],
+                          rows: purchasedBookModel.purchasedBook
+                              .map(
+                                (value) => DataRow(
+                                  cells: [
+                                    DataCell(
+                                      Text(value.bookName),
+                                    ),
+                                    DataCell(
+                                      Text(value.price.toString()),
+                                    ),
+                                    DataCell(
+                                      Text(value.isbnNo),
+                                    )
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                     )
                   : Center(
                       child: Column(

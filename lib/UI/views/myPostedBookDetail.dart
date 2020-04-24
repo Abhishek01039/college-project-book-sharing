@@ -69,15 +69,21 @@ class MyPostedBookDetail extends StatelessWidget {
                 content: Stack(
                   children: <Widget>[
                     postedBookEditModel.file == null
-                        ? Image.network(
-                            "https://booksharingappdjango.herokuapp.com" +
+                        ? image.startsWith("https://")
+                            ? Image.network(
                                 image,
-                            // fit: BoxFit.cover,
-                            height: 300,
-                            width: 250,
+                                fit: BoxFit.fill,
+                              )
+                            : Image.network(
+                                "https://booksharingappdjango.herokuapp.com" +
+                                    image,
+                                fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width,
+                              )
+                        : Image.file(
+                            postedBookEditModel.file,
                             fit: BoxFit.fill,
-                          )
-                        : Image.file(postedBookEditModel.file),
+                          ),
                     Positioned(
                       bottom: 0,
                       child: Container(
@@ -247,6 +253,8 @@ class MyPostedBookDetail extends StatelessWidget {
               book.bookImage.length != 0
                   ? CarouselSlider(
                       height: 300,
+                      autoPlayCurve: Curves.easeIn,
+
                       pauseAutoPlayOnTouch: Duration(seconds: 10),
                       items: book.bookImage
                           .asMap()
@@ -261,10 +269,16 @@ class MyPostedBookDetail extends StatelessWidget {
                                         context, v.image, e);
                                   },
                                   child: v.image.startsWith("https://")
-                                      ? Image.network(v.image)
+                                      ? Image.network(
+                                          v.image,
+                                          fit: BoxFit.fitWidth,
+                                        )
                                       : Image.network(
                                           "https://booksharingappdjango.herokuapp.com" +
                                               v.image,
+                                          fit: BoxFit.fitWidth,
+                                          // width:
+                                          //     MediaQuery.of(context).size.width,
                                         ),
                                 ),
                               );
