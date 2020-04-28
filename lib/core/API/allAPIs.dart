@@ -167,7 +167,7 @@ class Api {
       "collegeName": collegeName,
       "collegeYear": collegeYear,
       "address": address,
-      "course": course ?? 0,
+      "course": course ?? "",
       "contactNo": number,
       "photo": base64Image ?? "",
       "extansion": extn

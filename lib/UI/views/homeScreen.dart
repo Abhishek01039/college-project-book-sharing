@@ -374,6 +374,7 @@ class HomePage extends StatelessWidget {
       ),
       drawer: DrawerMenu(),
       floatingActionButton: FloatingActionButton(
+        tooltip: "Post Your Book",
         onPressed: () {
           Navigator.pushNamed(context, "postedBook");
         },

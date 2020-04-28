@@ -26,6 +26,7 @@ class BookDelete extends StatelessWidget {
                 children: <Widget>[
                   TextFormField(
                     controller: postedBookModel.studentName,
+                    textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
                       hintText: "Student Name",
                       suffixIcon: Icon(Icons.person),
@@ -122,25 +123,37 @@ class BookDelete extends StatelessWidget {
       body: Consumer<PostedBookModel>(
         builder: (context, postedBookModel, child) {
           return SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    postedBookModel.deleteBook(context, bookId);
-                  },
-                  child: ListTile(
-                    title: Text("Do You want to keep book with Yourself ?"),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      postedBookModel.deleteBook(context, bookId);
+                    },
+                    child: ListTile(
+                      title: Text("Do You want to keep book with Yourself ?"),
+                    ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    _showDeleteDialog(context, postedBookModel, scaffoldKey);
-                  },
-                  child: ListTile(
-                    title: Text("Have you sold your book to anyone ?"),
+                  InkWell(
+                    onTap: () {
+                      postedBookModel.deleteBook(context, bookId);
+                    },
+                    child: ListTile(
+                      title: Text(
+                          "Have you sold your book to anyone who is in your group ?"),
+                    ),
                   ),
-                )
-              ],
+                  InkWell(
+                    onTap: () {
+                      _showDeleteDialog(context, postedBookModel, scaffoldKey);
+                    },
+                    child: ListTile(
+                      title: Text("Have you sold your book to anyone ?"),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
