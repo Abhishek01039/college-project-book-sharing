@@ -60,7 +60,8 @@ class _MySpalshScreenState extends State<MySpalshScreen>
           _connectionStatus == ConnectivityResult.wifi) {
         Timer(Duration(seconds: 3), () {
           // print(SPHelper.getString("enrollmentNo"));
-          box.get("enrollmentNo").isEmpty
+          // print(box.get("studentName"));
+          box.get("enrollmentNo") == null
               ? Navigator.pushReplacementNamed(context, 'login')
               : Navigator.pushReplacementNamed(context, 'home');
         });

@@ -11,22 +11,26 @@ class StudentModel extends BaseModel {
   final TextEditingController username = TextEditingController();
   final TextEditingController pass = TextEditingController();
 
-  Future<bool> logIn(GlobalKey<ScaffoldState> scaffoldKey) async {
+  logIn(GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+        return null;
+      } else {
+        showProgress(scaffoldKey);
+        bool value = await _api.logIn(username.text, pass.text).then((value) {
+          closeProgress(scaffoldKey);
+          if (value != null) {
+            return true;
+          }
+          return false;
+        });
+        return value;
       }
-
-      showProgress(scaffoldKey);
+    } else {
+      showFlutterToast("Something went wrong. Please try again");
     }
-    bool value = await _api.logIn(username.text, pass.text).then((value) {
-      closeProgress(scaffoldKey);
-      if (value != null) {
-        return true;
-      }
-      return false;
-    });
-    return value;
+    return;
     // print(student);
   }
 }

@@ -124,8 +124,6 @@ class Api {
 
       return student;
       // return parsed;
-    } else if (response.statusCode == 400) {
-      log("Enter Valid UserName or password");
     }
     return null;
   }

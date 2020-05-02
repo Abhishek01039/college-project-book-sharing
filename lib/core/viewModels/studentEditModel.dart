@@ -111,8 +111,10 @@ class StudentEditModel extends BaseModel {
   }
 
   // update student photo
-  Future<void> updateStudentPhoto(BuildContext context) async {
+  Future<void> updateStudentPhoto(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     chooseImage().then((value) async {
+      showProgress(scaffoldKey);
       final box = Hive.box("Student");
       if (value) {
         await startUpload();
@@ -140,6 +142,7 @@ class StudentEditModel extends BaseModel {
         }
       }
     });
+    closeProgress(scaffoldKey);
   }
 
   // update student details
@@ -148,26 +151,37 @@ class StudentEditModel extends BaseModel {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
-      }
 
-      showProgress(scaffoldKey);
+        return "";
+      } else {
+        showProgress(scaffoldKey);
+
+        final box = Hive.box("Student");
+        String studentInfo = jsonEncode({
+          "enrollmentNo": enrollmentNo.text,
+          "firstName": firstName.text,
+          "lastName": lastName.text,
+          "email": email.text,
+          "age": int.tryParse(age.text),
+          "collegeName": collegeName.text,
+          "collegeYear": int.tryParse(collegeYear),
+          "course": course.text,
+          "address": address.text,
+          "contactNo": editNumber ?? number,
+        });
+        String isUpdated = await api.updateStudent(box.get("ID"), studentInfo);
+        if (isUpdated == "true") {
+          box.put("enrollmentNo", enrollmentNo.text);
+          box.put("studentName", firstName.text);
+          // box.put("studentPhoto", student.photo);
+        }
+        closeProgress(scaffoldKey);
+        return isUpdated;
+      }
+    } else {
+      showFlutterToast("Something went wrong. Please try again");
     }
-    final box = Hive.box("Student");
-    String studentInfo = jsonEncode({
-      "enrollmentNo": enrollmentNo.text,
-      "firstName": firstName.text,
-      "lastName": lastName.text,
-      "email": email.text,
-      "age": int.tryParse(age.text),
-      "collegeName": collegeName.text,
-      "collegeYear": int.tryParse(collegeYear),
-      "course": course.text,
-      "address": address.text,
-      "contactNo": editNumber ?? number,
-    });
-    String isUpdated = await api.updateStudent(box.get("ID"), studentInfo);
-    closeProgress(scaffoldKey);
-    return isUpdated;
+    return "";
   }
 
   // delete the student

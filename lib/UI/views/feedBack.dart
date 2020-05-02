@@ -79,7 +79,7 @@ class FeedBack extends StatelessWidget {
                         await studentRegModel.feedBack(context, scaffoldKey);
                       },
                       child: Text("Send Message"),
-                    )
+                    ),
                   ],
                 ),
               ),

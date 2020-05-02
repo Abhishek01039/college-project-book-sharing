@@ -337,6 +337,7 @@ class LandScapeLogInForm extends StatelessWidget {
                     if (val) {
                       studentModel.username.clear();
                       Navigator.pushReplacementNamed(context, 'home');
+                    } else if (val == null) {
                     } else {
                       showFlutterToast("Invalid Enrollment Number or Password");
                     }

@@ -328,9 +328,10 @@ class StudentEdit extends StatelessWidget {
                           showFlutterToast("Update Successfully");
                         } else if (value == "not valid") {
                           showFlutterToast("Contact Number is not Valid");
+                        } else if (value == "") {
                         } else {
                           showFlutterToast(
-                              "Somthing went wrong Please try again");
+                              "Somthing went wrong. Please try again");
                         }
                       });
                     },

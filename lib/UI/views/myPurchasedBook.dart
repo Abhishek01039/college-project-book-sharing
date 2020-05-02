@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 import 'package:hive/hive.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyPurchasedBook extends StatelessWidget {
   static final tag = 'myPurchasedBook';

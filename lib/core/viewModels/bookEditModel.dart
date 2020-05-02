@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
+// import 'package:booksharing/UI/views/shared_pref.dart';
+// import 'core/API/allAPIs.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
@@ -36,12 +37,12 @@ class PostedBookEditModel extends BaseModel {
   List<String> extn = new List();
   String countryCode = "+91";
 
-  List<File> bookImages = new List();
+  List<File> bookImages = [];
 
-  List<String> base64ImageList = List();
-  List<File> tmpFileList = List();
+  List<String> base64ImageList = [];
+  List<File> tmpFileList = [];
   // String isImageSelected = "";
-  List<String> fileName = List();
+  List<String> fileName = [];
 
   editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
     final box = Hive.box("Student");
@@ -58,6 +59,7 @@ class PostedBookEditModel extends BaseModel {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+        return null;
       }
 
       showProgress(scaffoldKey);
@@ -82,7 +84,7 @@ class PostedBookEditModel extends BaseModel {
   }
 
   startUpload() async {
-    print("presseed");
+    // print("presseed");
     setStatus('Uploading Image...');
     tmpFile = file;
     base64Image = base64Encode(tmpFile.readAsBytesSync());
@@ -104,8 +106,9 @@ class PostedBookEditModel extends BaseModel {
     return student;
   }
 
-  updateImage(
-      BuildContext context, String bookName, int imageId, int count) async {
+  updateImage(BuildContext context, String bookName, int imageId, int count,
+      GlobalKey<ScaffoldState> scaffoldKey) async {
+    // showProgress(scaffoldKey);
     if (file != null) {
       await startUpload();
       String imageUpdateById = jsonEncode({
@@ -115,7 +118,9 @@ class PostedBookEditModel extends BaseModel {
         "image": base64Image,
         "extansion": extn[1],
       });
+
       var parsed = await api.updateImagePhoto(imageUpdateById);
+      // closeProgress(scaffoldKey);
       if (parsed == "Success") {
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -197,38 +202,41 @@ class PostedBookEditModel extends BaseModel {
 
   updateBookImageList(BuildContext context,
       GlobalKey<ScaffoldState> scaffoldKey, int bookId, String bookName) async {
+    // showProgress(scaffoldKey);
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+        closeProgress(scaffoldKey);
+      } else {
+        chooseBookImageList().then((value) async {
+          if (value) {
+            await startUploadList();
+            String body = json.encode({
+              "bookId": bookId,
+              "bookName": bookName,
+              "Book_Image": base64ImageList,
+              "extn": extn,
+            });
+
+            String isPosted = await api.addImageList(body);
+            // closeProgress(scaffoldKey);
+            if (isPosted == "Success") {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                'home',
+                (Route<dynamic> route) => false,
+              );
+              showFlutterToast("Book Posted Successfully");
+            } else {
+              showFlutterToast("Somthing went wrong Please try again");
+            }
+          } else {
+            log("message");
+          }
+        });
       }
 
       // showProgress(scaffoldKey);
     }
-    chooseBookImageList().then((value) async {
-      if (value) {
-        await startUploadList();
-        String body = json.encode({
-          "bookId": bookId,
-          "bookName": bookName,
-          "Book_Image": base64ImageList,
-          "extn": extn,
-        });
-
-        String isPosted = await api.addImageList(body);
-        // closeProgress(scaffoldKey);
-        if (isPosted == "Success") {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            'home',
-            (Route<dynamic> route) => false,
-          );
-          showFlutterToast("Book Posted Successfully");
-        } else {
-          showFlutterToast("Somthing went wrong Please try again");
-        }
-      } else {
-        log("message");
-      }
-    });
   }
 }

@@ -191,6 +191,7 @@ class BookEdit extends StatelessWidget {
                       Navigator.pushNamedAndRemoveUntil(
                           context, 'home', (Route<dynamic> route) => false);
                       showFlutterToast("Book Edit Successfully");
+                    } else if (postedBookEditModel.isEdited == null) {
                     } else {
                       showFlutterToast("Somthing went wrong Please try again");
                     }

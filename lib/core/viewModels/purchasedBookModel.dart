@@ -8,7 +8,7 @@ class PurchasedBookModel extends BaseModel {
   Api api = locator<Api>();
 
   // give tabular format of how many books student has purchased
-  List<PurchasedBook> purchasedBook = new List();
+  List<PurchasedBook> purchasedBook = [];
   purchasedBookByUser(int studId) async {
     var parsed = await api.purchasedBookByUser(studId);
 

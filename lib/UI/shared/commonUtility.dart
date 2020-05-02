@@ -26,6 +26,7 @@ Future<bool> checkConnection() async {
 showProgress(GlobalKey<ScaffoldState> scaffoldKey) {
   scaffoldKey.currentState.showSnackBar(
     SnackBar(
+      backgroundColor: Colors.black,
       duration: Duration(seconds: 30),
       content: Row(
         children: <Widget>[
@@ -33,7 +34,12 @@ showProgress(GlobalKey<ScaffoldState> scaffoldKey) {
           SizedBox(
             width: 10,
           ),
-          Text("Please wait ....")
+          Text(
+            "Please wait ....",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          )
         ],
       ),
     ),

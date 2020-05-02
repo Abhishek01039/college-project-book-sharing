@@ -24,12 +24,12 @@ class PostedBookModel extends BaseModel {
   // TextEditingController bookCatgName = TextEditingController();
   // TextEditingController bookCatgName = TextEditingController();
   String number;
-  List<File> bookImages = new List();
+  List<File> bookImages = [];
   FileType fileType = FileType.image;
-  List<String> base64Image = List();
-  List<File> tmpFile = List();
+  List<String> base64Image = [];
+  List<File> tmpFile = [];
   String isImageSelected = "";
-  List<String> fileName = List();
+  List<String> fileName = [];
   String errMessage = 'Error Uploading Image';
   // File file;
   String status = '';
@@ -37,7 +37,7 @@ class PostedBookModel extends BaseModel {
   Book book = locator<Book>();
   bool isPosted;
 
-  List<String> extn = new List();
+  List<String> extn = [];
   chooseBookImage() async {
     bookImages.clear();
     await FilePicker.getMultiFile(type: fileType).then((value) {
@@ -101,32 +101,33 @@ class PostedBookModel extends BaseModel {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+      } else {
+        showProgress(scaffoldKey);
+
+        await startUpload();
+        final box = Hive.box("Student");
+        String body = json.encode({
+          "bookName": bookName.text,
+          "isbnNo": isbnNo.text,
+          "authorName": authorName.text,
+          "pubName": pubName.text,
+          "price": int.tryParse(price.text),
+          "bookCatgName": bookCatgName.text,
+          "originalPrice": int.tryParse(mrpPrice.text),
+          "Book_Image": base64Image,
+          "extn": extn,
+          "postedBy": box.get("ID")
+        });
+
+        isPosted = await api.registeredBook(body);
+        closeProgress(scaffoldKey);
+        if (isPosted) {
+          Navigator.pop(context);
+          showFlutterToast("Book Posted Successfully");
+        } else {
+          showFlutterToast("Somthing went wrong Please try again");
+        }
       }
-
-      showProgress(scaffoldKey);
-    }
-    await startUpload();
-    final box = Hive.box("Student");
-    String body = json.encode({
-      "bookName": bookName.text,
-      "isbnNo": isbnNo.text,
-      "authorName": authorName.text,
-      "pubName": pubName.text,
-      "price": int.tryParse(price.text),
-      "bookCatgName": bookCatgName.text,
-      "originalPrice": int.tryParse(mrpPrice.text),
-      "Book_Image": base64Image,
-      "extn": extn,
-      "postedBy": box.get("ID")
-    });
-
-    isPosted = await api.registeredBook(body);
-    closeProgress(scaffoldKey);
-    if (isPosted) {
-      Navigator.pop(context);
-      showFlutterToast("Book Posted Successfully");
-    } else {
-      showFlutterToast("Somthing went wrong Please try again");
     }
   }
 
@@ -138,13 +139,32 @@ class PostedBookModel extends BaseModel {
   // edit the book
 
   // delete the book
-  deleteBook(BuildContext context, int bookId) async {
-    bool isDeleted = await api.deleteBook(bookId);
-    if (isDeleted) {
-      Navigator.pop(context);
-      showFlutterToast("Book Deleted Successfully");
-    } else {
-      showFlutterToast("Something went wrong");
+  deleteBook(BuildContext context, int bookId,
+      GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("Please check internet connection");
+      } else {
+        showProgress(scaffoldKey);
+        bool isDeleted = await api.deleteBook(bookId);
+        closeProgress(scaffoldKey);
+        if (isDeleted) {
+          // Navigator.popUntil(
+          //   context,
+          //   ModalRoute.withName('myPostedBook'),
+          // );
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            'home',
+            (Route<dynamic> route) => false,
+          );
+
+          showFlutterToast("Book Deleted Successfully");
+        } else {
+          closeProgress(scaffoldKey);
+          showFlutterToast("Something went wrong");
+        }
+      }
     }
   }
 
@@ -156,22 +176,29 @@ class PostedBookModel extends BaseModel {
       {"bookId": bookId, "contactNo": number},
     );
     studentName.clear();
+    showProgress(scaffoldKey);
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+        closeProgress(scaffoldKey);
+      } else {
+        String response = await api.deleteBookAndPost(body);
+        closeProgress(scaffoldKey);
+        if (response == "Student doesn't exist with this contact Number") {
+          showFlutterToast("Student doesn't exist with this contact Number");
+        } else if (response == "Success") {
+          // Navigator.pop(context);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            'home',
+            (Route<dynamic> route) => false,
+          );
+          showFlutterToast("delete Book Successfully");
+        } else {
+          showFlutterToast("Something went wrong");
+        }
+        closeProgress(scaffoldKey);
       }
-
-      showProgress(scaffoldKey);
-    }
-    String response = await api.deleteBookAndPost(body);
-    closeProgress(scaffoldKey);
-    if (response == "Student doesn't exist with this contact Number") {
-      showFlutterToast("Student doesn't exist with this contact Number");
-    } else if (response == "Success") {
-      Navigator.pop(context);
-      showFlutterToast("delete Book Successfully");
-    } else {
-      showFlutterToast("Something went wrong");
     }
   }
 }

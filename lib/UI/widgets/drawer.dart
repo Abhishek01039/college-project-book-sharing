@@ -72,13 +72,16 @@ class DrawerMenu extends StatelessWidget {
                     : Container(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
-                          child: FadeInImage(
-                            placeholder: AssetImage("assets/book_logo.jpg"),
-                            image: NetworkImage(
-                              "https://booksharingappdjango.herokuapp.com" +
-                                  box.get("studentPhoto"),
+                          child: Hero(
+                            tag: "studentPhoto",
+                            child: FadeInImage(
+                              placeholder: AssetImage("assets/book_logo.jpg"),
+                              image: NetworkImage(
+                                "https://booksharingappdjango.herokuapp.com" +
+                                    box.get("studentPhoto"),
+                              ),
+                              fit: BoxFit.fill,
                             ),
-                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
@@ -87,7 +90,10 @@ class DrawerMenu extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, 'profile');
+                Navigator.pushNamed(
+                  context,
+                  'profile',
+                );
               },
               child: ListTile(
                 leading: Icon(FontAwesomeIcons.user),

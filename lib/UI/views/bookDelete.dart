@@ -12,6 +12,34 @@ class BookDelete extends StatelessWidget {
   String countryCode = "+91";
   @override
   Widget build(BuildContext context) {
+    Future<void> _deleteBook(BuildContext ctx, PostedBookModel postedBookModel,
+        int bookId, GlobalKey<ScaffoldState> scaffoldKey) async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Want to delete Book?'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              ),
+              RaisedButton(
+                onPressed: () {
+                  // Navigator.pushNamed(context, 'bookdelete');
+                  Navigator.pop(ctx);
+                  postedBookModel.deleteBook(ctx, bookId, scaffoldKey);
+                },
+                child: Text("Yes"),
+              )
+            ],
+          );
+        },
+      );
+    }
+
     // student has to filled this detail if student sold this book.
     // student has to provide the name and mobile number of student who has sold this book.
     _showDeleteDialog(BuildContext con, PostedBookModel postedBookModel,
@@ -129,27 +157,40 @@ class BookDelete extends StatelessWidget {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      postedBookModel.deleteBook(context, bookId);
+                      // postedBookModel.deleteBook(context, bookId);
+                      _deleteBook(
+                          context, postedBookModel, bookId, scaffoldKey);
                     },
-                    child: ListTile(
-                      title: Text("Do You want to keep book with Yourself ?"),
+                    child: Card(
+                      elevation: 3,
+                      child: ListTile(
+                        title: Text("Do You want to keep book with Yourself ?"),
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      postedBookModel.deleteBook(context, bookId);
+                      // postedBookModel.deleteBook(context, bookId);
+                      _deleteBook(
+                          context, postedBookModel, bookId, scaffoldKey);
                     },
-                    child: ListTile(
-                      title: Text(
-                          "Have you sold your book to anyone who is in your group ?"),
+                    child: Card(
+                      elevation: 3,
+                      child: ListTile(
+                        title: Text(
+                            "Have you sold your book to anyone who is in your group ?"),
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
                       _showDeleteDialog(context, postedBookModel, scaffoldKey);
                     },
-                    child: ListTile(
-                      title: Text("Have you sold your book to anyone ?"),
+                    child: Card(
+                      elevation: 3,
+                      child: ListTile(
+                        title: Text("Have you sold your book to anyone ?"),
+                      ),
                     ),
                   )
                 ],

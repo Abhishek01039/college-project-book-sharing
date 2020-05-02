@@ -19,133 +19,143 @@ class HomePage extends StatelessWidget {
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
-      return bookModel.homeListBook.length != 0
-          ? ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: bookModel.homeListBook.length > 6
-                  ? 6
-                  : bookModel.homeListBook.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (con, int index) {
-                return Card(
-                  elevation: 3,
-                  child: ListTile(
-                    dense: false,
-                    // leading: bookImage != null
-
-                    leading: bookModel.homeListBook[index].bookImage.length != 0
-                        ? ClipRRect(
-                            child: FadeInImage(
-                              fit: BoxFit.cover,
-                              width: 70,
-                              placeholder: AssetImage("assets/book_logo.jpg"),
-                              image: NetworkImage(bookModel
-                                  .homeListBook[index].bookImage[0].image
-                                  .toString()),
-                            ),
-                          )
-                        // : Container(width: 70,height: 40,),
-                        // : ClipRRect(
-
-                        //     child: Image.asset(
-                        //       "assets/book_logo.jpg",
-                        //       height: 40,
-                        //       width: 70,
-                        //     ),
-                        //   )
-                        : Container(
-                            width: 70,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage("assets/book_logo.jpg"),
-                              ),
-                            ),
-                          ),
-                    //     : Image.asset("assets/book_logo.jpg"),
-                    title: Text(
-                      bookModel.homeListBook[index].bookName,
-                    ),
-                    subtitle: Text(
-                        "by" + "  " + bookModel.homeListBook[index].authorName),
-                    enabled: true,
-                    isThreeLine: true,
-                    onTap: () {
-                      bookModel.homeListBook[index].postedBy != box.get("ID")
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (con) => BookDetail(
-                                    book: bookModel.homeListBook[index]),
-                              ),
-                            )
-                          : Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (con) => MyPostedBookDetail(
-                                  book: bookModel.homeListBook[index],
-                                ),
-                              ),
-                            );
-                    },
-                  ),
-                );
-              },
-            )
-          : Container(
-              width: double.infinity,
-              height: 500,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
-                enabled: true,
-                child: ListView.builder(
+      return bookModel.homeListBook != null
+          ? bookModel.homeListBook.length != 0
+              ? ListView.builder(
                   shrinkWrap: true,
                   primary: false,
-                  itemBuilder: (_, __) => Padding(
-                    padding: const EdgeInsets.only(bottom: 25.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 70.0,
-                          height: 40.0,
-                          color: Colors.white,
+                  itemCount: bookModel.homeListBook.length > 6
+                      ? 6
+                      : bookModel.homeListBook.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (con, int index) {
+                    return Card(
+                      elevation: 3,
+                      child: ListTile(
+                        dense: false,
+                        // leading: bookImage != null
+
+                        leading:
+                            bookModel.homeListBook[index].bookImage.length != 0
+                                ? ClipRRect(
+                                    child: FadeInImage(
+                                      fit: BoxFit.cover,
+                                      width: 70,
+                                      placeholder:
+                                          AssetImage("assets/book_logo.jpg"),
+                                      image: NetworkImage(bookModel
+                                          .homeListBook[index]
+                                          .bookImage[0]
+                                          .image
+                                          .toString()),
+                                    ),
+                                  )
+                                // : Container(width: 70,height: 40,),
+                                // : ClipRRect(
+
+                                //     child: Image.asset(
+                                //       "assets/book_logo.jpg",
+                                //       height: 40,
+                                //       width: 70,
+                                //     ),
+                                //   )
+                                : Container(
+                                    width: 70,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image:
+                                            AssetImage("assets/book_logo.jpg"),
+                                      ),
+                                    ),
+                                  ),
+                        //     : Image.asset("assets/book_logo.jpg"),
+                        title: Text(
+                          bookModel.homeListBook[index].bookName,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        subtitle: Text("by" +
+                            "  " +
+                            bookModel.homeListBook[index].authorName),
+                        enabled: true,
+                        isThreeLine: true,
+                        onTap: () {
+                          bookModel.homeListBook[index].postedBy !=
+                                  box.get("ID")
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (con) => BookDetail(
+                                        book: bookModel.homeListBook[index]),
+                                  ),
+                                )
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (con) => MyPostedBookDetail(
+                                      book: bookModel.homeListBook[index],
+                                    ),
+                                  ),
+                                );
+                        },
+                      ),
+                    );
+                  },
+                )
+              : Container(
+                  width: double.infinity,
+                  height: 500,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 16.0),
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300],
+                    highlightColor: Colors.grey[100],
+                    enabled: true,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemBuilder: (_, __) => Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 70.0,
+                              height: 40.0,
+                              color: Colors.white,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: double.infinity,
+                                    height: 8.0,
+                                    color: Colors.white,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 5.0),
+                                  ),
+                                  Container(
+                                    width: 40.0,
+                                    height: 8.0,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                height: 8.0,
-                                color: Colors.white,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 5.0),
-                              ),
-                              Container(
-                                width: 40.0,
-                                height: 8.0,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
+                      itemCount: 6,
                     ),
                   ),
-                  itemCount: 6,
-                ),
-              ),
-            );
+                )
+          : Container();
     }
 
     Widget appBarTitle = Text(

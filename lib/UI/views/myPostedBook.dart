@@ -9,6 +9,7 @@ import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyPostedBook extends StatelessWidget {
   static final tag = "myPostedBook";
@@ -200,8 +201,15 @@ class MyPostedBook extends StatelessWidget {
                                         );
                                       }
                                       if (result == 2) {
-                                        _deleteBook(
-                                            snapshot.data[index].bookId);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BookDelete(
+                                              bookId:
+                                                  snapshot.data[index].bookId,
+                                            ),
+                                          ),
+                                        );
                                       }
                                     },
                                     onCanceled: () {
@@ -226,8 +234,82 @@ class MyPostedBook extends StatelessWidget {
                         : Center(
                             child: Text("No posted yet"),
                           )
-                    : Center(
-                        child: CircularProgressIndicator(),
+                    : Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 16.0),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: true,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            primary: false,
+                            itemBuilder: (_, __) => Padding(
+                              padding: const EdgeInsets.only(bottom: 25.0),
+                              // child: Row(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Container(
+                              //       width: 70.0,
+                              //       height: 60.0,
+                              //       color: Colors.white,
+                              //     ),
+                              //     const Padding(
+                              //       padding:
+                              //           EdgeInsets.symmetric(horizontal: 8.0),
+                              //     ),
+                              //     Expanded(
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.start,
+                              //         children: <Widget>[
+                              //           Container(
+                              //             width: double.infinity,
+                              //             height: 8.0,
+                              //             color: Colors.white,
+                              //           ),
+                              //           const Padding(
+                              //             padding: EdgeInsets.symmetric(
+                              //                 vertical: 5.0),
+                              //           ),
+                              //           Container(
+                              //             width: 40.0,
+                              //             height: 8.0,
+                              //             color: Colors.white,
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              child: ListTile(
+                                title: Container(
+                                  height: 8,
+                                  width: double.infinity,
+                                  color: Colors.white,
+                                ),
+                                trailing: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                isThreeLine: true,
+                                subtitle: Container(
+                                  height: 8,
+                                  width: double.infinity - 100,
+                                  color: Colors.white,
+                                ),
+                                leading: Container(
+                                  height: 80,
+                                  width: 70,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            itemCount: 6,
+                          ),
+                        ),
                       );
               },
             ),

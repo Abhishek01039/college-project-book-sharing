@@ -4,6 +4,7 @@ import 'package:booksharing/UI/views/bookEdit.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/bookDetailModel.dart';
 import 'package:booksharing/UI/views/postedByProfile.dart';
@@ -30,6 +31,7 @@ class _BookDetailState extends State<BookDetail> {
     //   return  ;
     // }
     // BookDetailModel bookDetailModel = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,16 +56,20 @@ class _BookDetailState extends State<BookDetail> {
                                 (e, v) {
                                   return MapEntry(
                                     e,
-                                    v.image.startsWith("http://")
-                                        ? Image.network(
-                                            v.image,
-                                            fit: BoxFit.fill,
-                                          )
-                                        : Image.network(
-                                            "https://booksharingappdjango.herokuapp.com" +
-                                                v.image,
-                                            fit: BoxFit.fill,
-                                          ),
+                                    FadeInImage(
+                                      placeholder:
+                                          AssetImage("assets/book_logo.jpg"),
+                                      image: v.image.startsWith("https://")
+                                          ? NetworkImage(
+                                              v.image,
+                                              // fit: BoxFit.fill,
+                                            )
+                                          : NetworkImage(
+                                              "https://booksharingappdjango.herokuapp.com" +
+                                                  v.image,
+                                              // fit: BoxFit.fill,
+                                            ),
+                                    ),
                                   );
                                 },
                               )
@@ -182,9 +188,28 @@ class _BookDetailState extends State<BookDetail> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(DateTime.parse(widget.book.postedDate)
-                          .toLocal()
-                          .toString())
+                      Text(
+                        DateFormat("yMMMMd").format(
+                          DateTime.parse(widget.book.postedDate),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text("Posted Time  :"),
+                      // Text(book.pos)
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        DateFormat("j").format(
+                          DateTime.parse(widget.book.postedDate),
+                        ),
+                      )
                     ],
                   ),
                   Divider(
@@ -215,6 +240,8 @@ class _BookDetailState extends State<BookDetail> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      maintainState: true,
                                       builder: (context) => PostedByProfilePage(
                                         student: snapshot.data,
                                       ),

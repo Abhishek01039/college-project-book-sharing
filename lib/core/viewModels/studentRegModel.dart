@@ -105,49 +105,50 @@ class StudentRegModel extends BaseModel {
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
           showFlutterToast("Please check internet connection");
+        } else {
+          showProgress(scaffoldKey);
+
+          await startUpload();
+          isRegistered = await api.registerStudent(
+            enrollmentNo.text,
+            firstName.text,
+            lastName.text,
+            email.text,
+            age.text,
+            password.text,
+            collegeName.text,
+            collegeYear,
+            course.text,
+            address.text,
+            number,
+            base64Image,
+            extn[1],
+          );
+          closeProgress(scaffoldKey);
+          if (isRegistered == "Success") {
+            enrollmentNo.clear();
+            firstName.clear();
+            lastName.clear();
+            email.clear();
+            age.clear();
+            collegeName.clear();
+            course.clear();
+            password.clear();
+            confirmPass.clear();
+            phoneNumber.clear();
+            address.clear();
+            number = "";
+
+            Navigator.pushReplacementNamed(context, 'home');
+            showFlutterToast("Registration Successfully");
+          } else if (isRegistered == "Student already Exist") {
+            showFlutterToast("Student already exist");
+          } else if (isRegistered == "Mobile Number is already exist") {
+            showFlutterToast("Mobile Number is already exist");
+          } else {
+            showFlutterToast("Somthing went wrong Please try again");
+          }
         }
-
-        showProgress(scaffoldKey);
-      }
-      await startUpload();
-      isRegistered = await api.registerStudent(
-        enrollmentNo.text,
-        firstName.text,
-        lastName.text,
-        email.text,
-        age.text,
-        password.text,
-        collegeName.text,
-        collegeYear,
-        course.text,
-        address.text,
-        number,
-        base64Image,
-        extn[1],
-      );
-      closeProgress(scaffoldKey);
-      if (isRegistered == "Success") {
-        enrollmentNo.clear();
-        firstName.clear();
-        lastName.clear();
-        email.clear();
-        age.clear();
-        collegeName.clear();
-        course.clear();
-        password.clear();
-        confirmPass.clear();
-        phoneNumber.clear();
-        address.clear();
-        number = "";
-
-        Navigator.pushReplacementNamed(context, 'home');
-        showFlutterToast("Registration Successfully");
-      } else if (isRegistered == "Student already Exist") {
-        showFlutterToast("Student already exist");
-      } else if (isRegistered == "Mobile Number is already exist") {
-        showFlutterToast("Mobile Number is already exist");
-      } else {
-        showFlutterToast("Somthing went wrong Please try again");
       }
     }
   }
@@ -171,25 +172,26 @@ class StudentRegModel extends BaseModel {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
+      } else {
+        showProgress(scaffoldKey);
+
+        String value = await api.changePassword(
+            studId, changePassword.text, changeNewPassword.text);
+        closeProgress(scaffoldKey);
+        if (value == "Success") {
+          changePassword.clear();
+          changeNewPassword.clear();
+          changeNewConfirmPassword.clear();
+          Navigator.pushNamedAndRemoveUntil(
+              context, 'home', (Route<dynamic> route) => false);
+
+          showFlutterToast("Password Changed Successfully");
+        } else if (value == "Enter Right Old Password") {
+          showFlutterToast("Old Password does't match");
+        } else {
+          showFlutterToast("Something went wrong");
+        }
       }
-
-      showProgress(scaffoldKey);
-    }
-    String value = await api.changePassword(
-        studId, changePassword.text, changeNewPassword.text);
-    closeProgress(scaffoldKey);
-    if (value == "Success") {
-      changePassword.clear();
-      changeNewPassword.clear();
-      changeNewConfirmPassword.clear();
-      Navigator.pushNamedAndRemoveUntil(
-          context, 'home', (Route<dynamic> route) => false);
-
-      showFlutterToast("Password Changed Successfully");
-    } else if (value == "Enter Right Old Password") {
-      showFlutterToast("Old Password does't match");
-    } else {
-      showFlutterToast("Something went wrong");
     }
   }
 
@@ -198,19 +200,20 @@ class StudentRegModel extends BaseModel {
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
           showFlutterToast("Please check internet connection");
-        }
-
-        showProgress(scaffoldKey);
-      }
-      api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
-        closeProgress(scaffoldKey);
-        if (value == "Success") {
-          Navigator.pop(context);
-          showFlutterToast("Feed Back has been successfully submitted");
         } else {
-          showFlutterToast("Something went wrong");
+          showProgress(scaffoldKey);
+
+          api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
+            closeProgress(scaffoldKey);
+            if (value == "Success") {
+              Navigator.pop(context);
+              showFlutterToast("Feed Back has been successfully submitted");
+            } else {
+              showFlutterToast("Something went wrong");
+            }
+          });
         }
-      });
+      }
     }
   }
 }

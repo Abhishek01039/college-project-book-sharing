@@ -13,9 +13,9 @@ class BookModel extends BaseModel {
 
   Api _api = locator<Api>();
   int selection;
-  List<Book> bookList = new List();
-  List<Book> latestBooks = new List();
-  List<Book> homeListBook = new List();
+  List<Book> bookList = [];
+  List<Book> latestBooks = [];
+  List<Book> homeListBook = [];
   bool isSearching = false;
   // final TextEditingController controller = TextEditingController();
 
@@ -75,10 +75,10 @@ class BookModel extends BaseModel {
   }
 
   //  it create list from stream and show it into search delegate
-  List<Book> searchresult = new List();
+  List<Book> searchresult = [];
   Future<List<Book>> searchOperation(String searchText) async {
     searchresult.clear();
-    // List<Book> books = new List();
+    // List<Book> books = [];
 
     // for (int i=0;i<book.length;i++) {
     //   books = book;

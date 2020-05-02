@@ -11,6 +11,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 class MyPostedBookDetail extends StatelessWidget {
   static final tag = 'myPostedBookDetail';
@@ -20,44 +21,11 @@ class MyPostedBookDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkTheme = Hive.box("DarkTheme");
-    Future<void> _deleteBook(int bookId) async {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('want to delete Book?'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              RaisedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, 'bookdelete');
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookDelete(
-                        bookId: bookId,
-                      ),
-                    ),
-                  );
-                },
-                child: Text("Yes"),
-              )
-            ],
-          );
-        },
-      );
-    }
 
     PostedBookEditModel postedBookEditModel = Provider.of(context);
     final scaffoldKey = GlobalKey<ScaffoldState>();
-    _showImageDialog(
-        postedBookEditModel, BuildContext con, String image, int count) {
+    _showImageDialog(PostedBookEditModel postedBookEditModel, BuildContext con,
+        String image, int count, GlobalKey<ScaffoldState> _key) {
       return showDialog(
         barrierDismissible: false,
         context: context,
@@ -69,17 +37,20 @@ class MyPostedBookDetail extends StatelessWidget {
                 content: Stack(
                   children: <Widget>[
                     postedBookEditModel.file == null
-                        ? image.startsWith("https://")
-                            ? Image.network(
-                                image,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.network(
-                                "https://booksharingappdjango.herokuapp.com" +
+                        ? FadeInImage(
+                            fit: BoxFit.fill,
+                            placeholder: AssetImage("assets/book_logo.jpg"),
+                            image: image.startsWith("https://")
+                                ? NetworkImage(
                                     image,
-                                fit: BoxFit.cover,
-                                width: MediaQuery.of(context).size.width,
-                              )
+                                    // fit: BoxFit.fill,
+                                  )
+                                : NetworkImage(
+                                    "https://booksharingappdjango.herokuapp.com" +
+                                        image,
+                                    // fit: BoxFit.fill,
+                                  ),
+                          )
                         : Image.file(
                             postedBookEditModel.file,
                             fit: BoxFit.fill,
@@ -146,7 +117,7 @@ class MyPostedBookDetail extends StatelessWidget {
                       // postedBookModel.deleteBookByTransaction(
                       //     context, bookId, scaffoldKey);
                       postedBookEditModel.updateImage(
-                          con, book.bookName, book.bookId, count);
+                          con, book.bookName, book.bookId, count, _key);
                     },
                     child: Text("Yes"),
                   )
@@ -197,7 +168,15 @@ class MyPostedBookDetail extends StatelessWidget {
                 await postedBookEditModel.updateBookImageList(
                     context, scaffoldKey, book.bookId, book.bookName);
               } else if (value == 2) {
-                _deleteBook(book.bookId);
+                // _deleteBook(book.bookId);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookDelete(
+                      bookId: book.bookId,
+                    ),
+                  ),
+                );
               }
             },
             offset: Offset(0, 0),
@@ -264,22 +243,24 @@ class MyPostedBookDetail extends StatelessWidget {
                                 e,
                                 InkWell(
                                   onTap: () {
-                                    print(e);
+                                    // print(e);
                                     _showImageDialog(postedBookEditModel,
-                                        context, v.image, e);
+                                        context, v.image, e, scaffoldKey);
                                   },
-                                  child: v.image.startsWith("https://")
-                                      ? Image.network(
-                                          v.image,
-                                          fit: BoxFit.fitWidth,
-                                        )
-                                      : Image.network(
-                                          "https://booksharingappdjango.herokuapp.com" +
-                                              v.image,
-                                          fit: BoxFit.fitWidth,
-                                          // width:
-                                          //     MediaQuery.of(context).size.width,
-                                        ),
+                                  child: FadeInImage(
+                                    placeholder:
+                                        AssetImage("assets/book_logo.jpg"),
+                                    image: v.image.startsWith("https://")
+                                        ? NetworkImage(
+                                            v.image,
+                                            // fit: BoxFit.fill,
+                                          )
+                                        : NetworkImage(
+                                            "https://booksharingappdjango.herokuapp.com" +
+                                                v.image,
+                                            // fit: BoxFit.fill,
+                                          ),
+                                  ),
                                 ),
                               );
                             },
@@ -398,7 +379,28 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(DateTime.parse(book.postedDate).toLocal().toString())
+                  Text(
+                    DateFormat("yMMMMd").format(
+                      DateTime.parse(book.postedDate),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: <Widget>[
+                  Text("Posted Time  :"),
+                  // Text(book.pos)
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    DateFormat("j").format(
+                      DateTime.parse(book.postedDate),
+                    ),
+                  )
                 ],
               ),
               Divider(
