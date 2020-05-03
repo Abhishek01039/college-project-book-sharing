@@ -39,7 +39,7 @@ class ChangePassword extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -57,7 +57,7 @@ class ChangePassword extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       TextFormField(
@@ -75,7 +75,7 @@ class ChangePassword extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       TextFormField(
@@ -96,7 +96,7 @@ class ChangePassword extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       RaisedButton(

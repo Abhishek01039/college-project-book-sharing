@@ -87,7 +87,7 @@ class DrawerMenu extends StatelessWidget {
                       ),
               ),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(
@@ -95,83 +95,63 @@ class DrawerMenu extends StatelessWidget {
                   'profile',
                 );
               },
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.user),
-                title: Text("Profile"),
-              ),
+              leading: Icon(FontAwesomeIcons.user),
+              title: Text("Profile"),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "changePassword");
               },
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.key),
-                title: Text("Change Password"),
-              ),
+              leading: Icon(FontAwesomeIcons.key),
+              title: Text("Change Password"),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "postedBook");
               },
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.book),
-                title: Text("Post Your Book"),
-              ),
+              leading: Icon(FontAwesomeIcons.book),
+              title: Text("Post Your Book"),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "myPostedBook");
               },
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.bookOpen),
-                title: Text("My Posted Book"),
-              ),
+              leading: Icon(FontAwesomeIcons.bookOpen),
+              title: Text("My Posted Book"),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "myPurchasedBook");
               },
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.shoppingBasket),
-                title: Text("My Purchased Book"),
+              leading: Icon(FontAwesomeIcons.shoppingBasket),
+              title: Text("My Purchased Book"),
+            ),
+            ListTile(
+              leading: Icon(FontAwesomeIcons.lightbulb),
+              title: Text("Dark Theme"),
+              trailing: ValueListenableBuilder(
+                valueListenable: Hive.box("DarkTheme").listenable(),
+                builder: (context, box, widget) {
+                  return Switch.adaptive(
+                    value: darkTheme.get("darkTheme", defaultValue: false),
+                    onChanged: (value) {
+                      baseModel.changeTheme(value);
+                    },
+                  );
+                },
               ),
             ),
-            InkWell(
-              // onTap: () {
-              //   baseModel.changeTheme();
-              //   // print(baseModel.isDarkTheme);
-              // },
-
-              // switch theme
-              child: ListTile(
-                leading: Icon(FontAwesomeIcons.lightbulb),
-                title: Text("Dark Theme"),
-                trailing: ValueListenableBuilder(
-                  valueListenable: Hive.box("DarkTheme").listenable(),
-                  builder: (context, box, widget) {
-                    return Switch.adaptive(
-                      value: darkTheme.get("darkTheme", defaultValue: false),
-                      onChanged: (value) {
-                        baseModel.changeTheme(value);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, 'feedback');
               },
-              child: ListTile(
-                leading: Icon(Icons.feedback),
-                title: Text("Feed Back"),
-              ),
+              leading: Icon(Icons.feedback),
+              title: Text("Feed Back"),
             ),
             InkWell(
               onTap: () async {
@@ -243,7 +223,7 @@ class DrawerMenu extends StatelessWidget {
                 title: Text("Log Out"),
               ),
             ),
-            InkWell(
+            ListTile(
               onTap: () {
                 Navigator.pop(context);
                 showAboutDialog(
@@ -255,10 +235,8 @@ class DrawerMenu extends StatelessWidget {
                   //  children: aboutBoxChildren,
                 );
               },
-              child: ListTile(
-                leading: Icon(Icons.info),
-                title: Text("About"),
-              ),
+              leading: Icon(Icons.info),
+              title: Text("About"),
             )
           ],
         ),

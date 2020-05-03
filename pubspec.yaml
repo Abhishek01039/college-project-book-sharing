@@ -42,6 +42,8 @@ dependencies:
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
   intl: ^0.16.1
+  animations: ^1.0.0+5
+
 
 
 

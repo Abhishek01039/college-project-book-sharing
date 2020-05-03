@@ -48,7 +48,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.text,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -68,7 +68,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -86,7 +86,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.text,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -104,7 +104,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.text,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -122,7 +122,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -140,7 +140,7 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -171,7 +171,7 @@ class BookEdit extends StatelessWidget {
                 //     )
                 //   ],
                 // ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 RaisedButton(

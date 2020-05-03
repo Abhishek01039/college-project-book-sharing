@@ -1,7 +1,10 @@
+import 'package:animations/animations.dart';
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
+import 'package:booksharing/UI/views/postedBook.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
+
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
@@ -9,13 +12,26 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hive/hive.dart';
 
-class HomePage extends StatelessWidget {
+const double _fabDimension = 56.0;
+
+class HomePage extends StatefulWidget {
   static final tag = "home";
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final box = Hive.box("Student");
+
+  final ContainerTransitionType _transitionType =
+      ContainerTransitionType.fadeThrough;
+
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
     final BookModel book = Provider.of(context);
+
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
@@ -362,7 +378,8 @@ class HomePage extends StatelessWidget {
                       //   ),
                     ),
                     _firstFutureBuilder(context, bookModel),
-                    bookModel.homeListBook.length != 0
+                    bookModel.homeListBook.length != 0 ||
+                            bookModel.latestBooks.length != 0
                         ? Card(
                             elevation: 3,
                             child: ListTile(
@@ -383,12 +400,41 @@ class HomePage extends StatelessWidget {
         },
       ),
       drawer: DrawerMenu(),
-      floatingActionButton: FloatingActionButton(
-        tooltip: "Post Your Book",
-        onPressed: () {
-          Navigator.pushNamed(context, "postedBook");
+      // floatingActionButton: FloatingActionButton(
+      //   tooltip: "Post Your Book",
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, "postedBook");
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
+      floatingActionButton: OpenContainer(
+        transitionDuration: Duration(seconds: 1),
+        transitionType: _transitionType,
+        openBuilder: (BuildContext context, VoidCallback _) {
+          return PostedBook();
         },
-        child: Icon(Icons.add),
+        closedElevation: 6.0,
+        closedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(_fabDimension / 2),
+          ),
+        ),
+        closedColor: Theme.of(context).colorScheme.secondary,
+        closedBuilder: (BuildContext context, VoidCallback openContainer) {
+          return Container(
+            color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+            child: SizedBox(
+              height: _fabDimension,
+              width: _fabDimension,
+              child: Center(
+                child: Icon(
+                  Icons.add,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

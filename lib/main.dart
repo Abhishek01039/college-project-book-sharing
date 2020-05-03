@@ -86,6 +86,9 @@ class MyApp extends StatelessWidget {
                       subtitle2: TextStyle(color: Colors.white),
                     ),
                     errorColor: Colors.red.withOpacity(0.30),
+                    floatingActionButtonTheme: FloatingActionButtonThemeData(
+                      backgroundColor: Colors.teal[200],
+                    ),
                     brightness: Brightness.dark)
 
                 // TODO choose color properly

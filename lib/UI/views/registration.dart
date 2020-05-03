@@ -27,13 +27,12 @@ class Registration extends StatelessWidget {
               key: studentRegModel.formKey,
               child: Column(
                 children: <Widget>[
-                  
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentRegModel.enrollmentNo,
                     decoration: InputDecoration(
                       hintText: "Enrollment Number",
-                      suffixIcon: Icon(Icons.person),
+                      suffixIcon: Icon(FontAwesomeIcons.university),
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -132,7 +131,7 @@ class Registration extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "College Name",
                       suffixIcon: Icon(
-                        FontAwesomeIcons.graduationCap,
+                        Icons.domain,
                       ),
                     ),
                     keyboardType: TextInputType.text,
@@ -158,7 +157,6 @@ class Registration extends StatelessWidget {
                       hintText: "Course",
                       suffixIcon: Icon(
                         FontAwesomeIcons.graduationCap,
-                        color: Colors.blue,
                       ),
                     ),
                     keyboardType: TextInputType.text,

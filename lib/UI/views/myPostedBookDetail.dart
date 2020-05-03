@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:animations/animations.dart';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/bookDelete.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
@@ -13,9 +14,13 @@ import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
+const double _fabDimension = 56.0;
+
 class MyPostedBookDetail extends StatelessWidget {
   static final tag = 'myPostedBookDetail';
   final Book book;
+  final ContainerTransitionType _transitionType =
+      ContainerTransitionType.fadeThrough;
 
   const MyPostedBookDetail({Key key, this.book}) : super(key: key);
   @override
@@ -418,18 +423,36 @@ class MyPostedBookDetail extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BookEdit(
-                book: book,
+      floatingActionButton: OpenContainer(
+        transitionDuration: Duration(seconds: 1),
+        transitionType: _transitionType,
+        openBuilder: (BuildContext context, VoidCallback _) {
+          return BookEdit(
+            book: book,
+          );
+        },
+        closedElevation: 6.0,
+        closedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(_fabDimension / 2),
+          ),
+        ),
+        // closedColor: Theme.of(context).colorScheme.secondary,
+        closedBuilder: (BuildContext context, VoidCallback openContainer) {
+          return Container(
+            color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+            child: SizedBox(
+              height: _fabDimension,
+              width: _fabDimension,
+              child: Center(
+                child: Icon(
+                  Icons.edit,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
             ),
           );
         },
-        child: Icon(Icons.edit),
       ),
     );
   }

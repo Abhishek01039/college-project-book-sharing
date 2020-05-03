@@ -37,7 +37,7 @@ class PostedBook extends StatelessWidget {
                       // keyboardAppearance: TextInputAction.next,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -57,7 +57,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -75,7 +75,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -93,7 +93,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -111,7 +111,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -129,7 +129,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -147,7 +147,7 @@ class PostedBook extends StatelessWidget {
                       },
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Row(
@@ -162,7 +162,7 @@ class PostedBook extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     RaisedButton(

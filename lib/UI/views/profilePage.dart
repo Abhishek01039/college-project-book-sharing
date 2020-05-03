@@ -138,7 +138,7 @@ class LandscapeModeProfilePage extends StatelessWidget {
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 20,
                                                   ),
                                                   Icon(
@@ -175,7 +175,7 @@ class LandscapeModeProfilePage extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Container(
@@ -230,7 +230,7 @@ class PotraitModeProfilePage extends StatelessWidget {
                 // ),
                 Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FutureBuilder(
@@ -351,7 +351,7 @@ class PotraitModeProfilePage extends StatelessWidget {
                                                             color:
                                                                 Colors.white),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         width: 20,
                                                       ),
                                                       Icon(
@@ -368,7 +368,7 @@ class PotraitModeProfilePage extends StatelessWidget {
                                       ),
 
                                       profilePagelistView(snapshot.data),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
                                       RaisedButton(

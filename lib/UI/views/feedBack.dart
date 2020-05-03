@@ -36,7 +36,7 @@ class FeedBack extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -52,7 +52,7 @@ class FeedBack extends StatelessWidget {
                       },
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     TextFormField(
@@ -71,7 +71,7 @@ class FeedBack extends StatelessWidget {
 
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     RaisedButton(

@@ -248,63 +248,41 @@ class MyPostedBook extends StatelessWidget {
                             primary: false,
                             itemBuilder: (_, __) => Padding(
                               padding: const EdgeInsets.only(bottom: 25.0),
-                              // child: Row(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   children: [
-                              //     Container(
-                              //       width: 70.0,
-                              //       height: 60.0,
-                              //       color: Colors.white,
-                              //     ),
-                              //     const Padding(
-                              //       padding:
-                              //           EdgeInsets.symmetric(horizontal: 8.0),
-                              //     ),
-                              //     Expanded(
-                              //       child: Column(
-                              //         crossAxisAlignment:
-                              //             CrossAxisAlignment.start,
-                              //         children: <Widget>[
-                              //           Container(
-                              //             width: double.infinity,
-                              //             height: 8.0,
-                              //             color: Colors.white,
-                              //           ),
-                              //           const Padding(
-                              //             padding: EdgeInsets.symmetric(
-                              //                 vertical: 5.0),
-                              //           ),
-                              //           Container(
-                              //             width: 40.0,
-                              //             height: 8.0,
-                              //             color: Colors.white,
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              child: ListTile(
-                                title: Container(
-                                  height: 8,
-                                  width: double.infinity,
-                                  color: Colors.white,
-                                ),
-                                trailing: Icon(
-                                  Icons.more_vert,
-                                  color: Colors.white,
-                                ),
-                                isThreeLine: true,
-                                subtitle: Container(
-                                  height: 8,
-                                  width: double.infinity - 100,
-                                  color: Colors.white,
-                                ),
-                                leading: Container(
-                                  height: 80,
-                                  width: 70,
-                                  color: Colors.white,
-                                ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 70.0,
+                                    height: 40.0,
+                                    color: Colors.white,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5.0),
+                                        ),
+                                        Container(
+                                          width: 40.0,
+                                          height: 8.0,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             itemCount: 6,

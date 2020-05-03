@@ -54,7 +54,7 @@ class StudentEdit extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text("Registration", style: textStyle),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -72,7 +72,7 @@ class StudentEdit extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -90,7 +90,7 @@ class StudentEdit extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -108,7 +108,7 @@ class StudentEdit extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -125,7 +125,7 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -142,7 +142,7 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -162,12 +162,12 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Text("Choose College Year"),
                   CollegeYear(),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -188,7 +188,7 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   TextFormField(
@@ -208,7 +208,7 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   // InternationalPhoneNumberInput(
@@ -291,7 +291,7 @@ class StudentEdit extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   RaisedButton(
@@ -383,7 +383,7 @@ Widget _buildDropdownItem(Country country) => Container(
       child: Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(
+          const SizedBox(
             width: 8.0,
           ),
           Text("+${country.phoneCode}(${country.isoCode})"),

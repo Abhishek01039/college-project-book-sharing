@@ -154,7 +154,7 @@ class PotraitLogInForm extends StatelessWidget {
             //   ),
             // ),
 
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -162,7 +162,7 @@ class PotraitLogInForm extends StatelessWidget {
               style: textStyle,
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextFormField(
@@ -179,7 +179,7 @@ class PotraitLogInForm extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             TextFormField(
@@ -196,7 +196,7 @@ class PotraitLogInForm extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             RaisedButton(
@@ -219,7 +219,7 @@ class PotraitLogInForm extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
@@ -286,7 +286,7 @@ class LandScapeLogInForm extends StatelessWidget {
                 //   ),
                 // ),
 
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -294,7 +294,7 @@ class LandScapeLogInForm extends StatelessWidget {
                   style: textStyle,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextFormField(
@@ -311,7 +311,7 @@ class LandScapeLogInForm extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -328,7 +328,7 @@ class LandScapeLogInForm extends StatelessWidget {
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 RaisedButton(
@@ -352,7 +352,7 @@ class LandScapeLogInForm extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
