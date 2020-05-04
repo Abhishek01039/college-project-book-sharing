@@ -1,11 +1,13 @@
 import 'dart:async';
+// import 'dart:html';
 
 import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:booksharing/UI/shared/commonUtility.dart';
+
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -31,7 +33,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
     if (kIsWeb) {
       Timer(Duration(seconds: 3), () {
         // print(SPHelper.getString("enrollmentNo"));
-        box.get("enrollmentNo").isEmpty
+        box.get("enrollmentNo") == null
             ? Navigator.pushReplacementNamed(context, 'login')
             : Navigator.pushReplacementNamed(context, 'home');
       });
@@ -45,7 +47,9 @@ class _MySpalshScreenState extends State<MySpalshScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _connectivitySubscription.cancel();
+    if (!kIsWeb) {
+      _connectivitySubscription.cancel();
+    }
 
     super.dispose();
   }
