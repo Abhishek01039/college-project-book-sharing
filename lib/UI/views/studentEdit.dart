@@ -46,6 +46,9 @@ class StudentEdit extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
+        appBar: AppBar(
+          title: Text("Edit Your Profile"),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -53,16 +56,16 @@ class StudentEdit extends StatelessWidget {
               key: studentEditModel.formKey,
               child: Column(
                 children: <Widget>[
-                  Text("Registration", style: textStyle),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  // Text("Registration", style: textStyle),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.enrollmentNo,
                     decoration: InputDecoration(
                       hintText: "Enrollment Number",
-                      suffixIcon: Icon(Icons.person),
+                      suffixIcon: Icon(FontAwesomeIcons.university),
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -138,6 +141,9 @@ class StudentEdit extends StatelessWidget {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter Age';
+                      } else if (int.tryParse(value) <= 0 &&
+                          int.tryParse(value) > 112) {
+                        return "Please enter valid Age";
                       }
                       return null;
                     },
@@ -151,7 +157,7 @@ class StudentEdit extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "College Name",
                       suffixIcon: Icon(
-                        FontAwesomeIcons.graduationCap,
+                        Icons.domain,
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -177,7 +183,6 @@ class StudentEdit extends StatelessWidget {
                       hintText: "Course",
                       suffixIcon: Icon(
                         FontAwesomeIcons.graduationCap,
-                        color: Colors.blue,
                       ),
                     ),
                     keyboardType: TextInputType.visiblePassword,

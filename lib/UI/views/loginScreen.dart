@@ -221,7 +221,7 @@ class PotraitLogInForm extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 15,
+              height:25,
             ),
             InkWell(
               onTap: () {
@@ -367,7 +367,7 @@ class LandScapeLogInForm extends StatelessWidget {
                 ),
 
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 InkWell(
                   onTap: () {
