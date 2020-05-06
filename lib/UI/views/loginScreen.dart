@@ -91,17 +91,18 @@ class ProtraitModeLogInPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  child: Center(
-                    child: ClipRRect(
-                      child: Hero(
-                        tag: "Logo",
-                        child: Image.asset('assets/book_logo.jpg'),
-                      ),
-                      borderRadius: BorderRadius.circular(20),
+                  // height: MediaQuery.of(context).size.height / 2.5,
+                  height: 200,
+                  child: ClipRRect(
+                    child: Hero(
+                      tag: "Logo",
+                      child: Image.asset('assets/book_logo.jpg'),
                     ),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 PotraitLogInForm(
@@ -221,6 +222,18 @@ class PotraitLogInForm extends StatelessWidget {
             ),
             const SizedBox(
               height: 15,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'forgetPassword');
+              },
+              child: Text(
+                "Forget your password?",
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -350,6 +363,19 @@ class LandScapeLogInForm extends StatelessWidget {
                       "Log In",
                       textAlign: TextAlign.center,
                     ),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'forgetPassword');
+                  },
+                  child: Text(
+                    "Forget your password?",
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 const SizedBox(

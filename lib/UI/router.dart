@@ -2,6 +2,9 @@ import 'package:booksharing/UI/views/allBooks.dart';
 import 'package:booksharing/UI/views/bookDelete.dart';
 import 'package:booksharing/UI/views/bookDetail.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
+import 'package:booksharing/UI/views/changePasswordAfterOTP.dart';
+import 'package:booksharing/UI/views/enterOTP.dart';
+import 'package:booksharing/UI/views/forgetPassword.dart';
 import 'package:booksharing/UI/views/homeScreen.dart';
 import 'package:booksharing/UI/views/loginScreen.dart';
 import 'package:booksharing/UI/views/myPostedBook.dart';
@@ -77,6 +80,15 @@ class Router {
         break;
       case 'myPostedBookDetail':
         return MaterialPageRoute(builder: (_) => MyPostedBookDetail());
+        break;
+      case 'forgetPassword':
+        return MaterialPageRoute(builder: (_) => ForgetPassword());
+        break;
+      case 'enterOTP':
+        return MaterialPageRoute(builder: (_) => EnterOTP());
+        break;
+      case 'changePasswordAfterOTP':
+        return MaterialPageRoute(builder: (_) => ChangePasswordAfterOTP());
         break;
       default:
         return MaterialPageRoute(

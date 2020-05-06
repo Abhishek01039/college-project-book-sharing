@@ -13,6 +13,8 @@ TextStyle priceStyle = TextStyle(color: Colors.orange);
 TextStyle headerStyle =
     TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold);
 
+// TextStyle oTPStyle=TextStyle(fontSize: 25,fontStyle: FontStyle.italic,);
+
 Future<bool> checkConnection() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
   if (connectivityResult == ConnectivityResult.mobile) {

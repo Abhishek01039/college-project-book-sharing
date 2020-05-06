@@ -404,4 +404,26 @@ class Api {
     var parsed = jsonDecode(response.body);
     return parsed;
   }
+
+  sendEmail(String body) async {
+    http.Response response =
+        await http.post(api + 'sendemail/', body: body, headers: {
+      'authorization': basicAuth(),
+      "Content-Type": "application/json",
+    });
+
+    var parsed = jsonDecode(response.body);
+    return parsed;
+  }
+
+  updatePassword(String body) async {
+    http.Response response =
+        await http.put(api + 'updatepassword/', body: body, headers: {
+      'authorization': basicAuth(),
+      "Content-Type": "application/json",
+    });
+
+    var parsed = jsonDecode(response.body);
+    return parsed;
+  }
 }

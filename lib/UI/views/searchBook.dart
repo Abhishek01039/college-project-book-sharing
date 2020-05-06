@@ -13,7 +13,7 @@ class Search extends SearchDelegate {
     final ThemeData theme = Theme.of(context);
     final darkTheme = Hive.box("DarkTheme");
     assert(theme != null);
-    return darkTheme.get("darkTheme")
+    return darkTheme.get("darkTheme", defaultValue: false)
         ? theme.copyWith(
             primaryColor: Colors.black38,
             primaryIconTheme:

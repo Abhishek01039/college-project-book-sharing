@@ -21,10 +21,18 @@ class StudentEditModel extends BaseModel {
   // final TextEditingController collegeYear = TextEditingController();
   final TextEditingController course = TextEditingController();
   final TextEditingController address = TextEditingController();
+  final TextEditingController emailOTP = TextEditingController();
+  final TextEditingController oTP = TextEditingController();
+  final TextEditingController passwordAfterOTP = TextEditingController();
+  final TextEditingController confirmPasswordAfterOTP = TextEditingController();
+  int verifyOTP;
   // final TextEditingController phoneNumber = new TextEditingController();
   String number;
   final formKey = GlobalKey<FormState>();
-
+  final sendOTPFrom = GlobalKey<FormState>();
+  final verifyOTPFrom = GlobalKey<FormState>();
+  // final corfirmFrom = GlobalKey<FormState>();
+  final changePassowdForm = GlobalKey<FormState>();
   String base64Image;
 
   File tmpFile;
@@ -38,6 +46,7 @@ class StudentEditModel extends BaseModel {
   List<String> extn;
   String editNumber;
   String countryCode = "+91";
+  int otp;
   setPhoneNumber(String value) {
     number = value;
     notifyListeners();
@@ -200,6 +209,85 @@ class StudentEditModel extends BaseModel {
     } else {
       showFlutterToast("Something went wrong");
       Navigator.pop(context);
+    }
+  }
+
+  sendEmail(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("Please check internet connection");
+        return null;
+      } else {
+        if (sendOTPFrom.currentState.validate()) {
+          showProgress(scaffoldKey);
+          String value = jsonEncode({"email": emailOTP.text});
+          otp = await api.sendEmail(value);
+          closeProgress(scaffoldKey);
+          if (otp != null) {
+            // varifyEmail(otp, context);
+            Navigator.pushNamed(context, 'enterOTP');
+          } else {
+            showFlutterToast("Something went wrong");
+          }
+          print(otp);
+        }
+      }
+    }
+  }
+
+  varifyEmail(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("Please check internet connection");
+        return null;
+      } else {
+        if (verifyOTPFrom.currentState.validate()) {
+          showProgress(scaffoldKey);
+          if (otp == int.tryParse(oTP.text)) {
+            closeProgress(scaffoldKey);
+            oTP.clear();
+            Navigator.pushNamed(context, 'changePasswordAfterOTP');
+            // showFlutterToast("message")
+          } else {
+            closeProgress(scaffoldKey);
+            oTP.clear();
+            showFlutterToast("Please enter right OTP");
+          }
+        }
+      }
+    }
+  }
+
+  updatePassword(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+    if (scaffoldKey != null) {
+      if (await checkConnection() == false) {
+        showFlutterToast("Please check internet connection");
+        return null;
+      } else {
+        if (changePassowdForm.currentState.validate()) {
+          showProgress(scaffoldKey);
+          String body = jsonEncode(
+              {"email": emailOTP.text, "password": passwordAfterOTP.text});
+          String update = await api.updatePassword(body);
+
+          closeProgress(scaffoldKey);
+          if (update == "success") {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              'login',
+              (Route<dynamic> route) => false,
+            );
+            emailOTP.clear();
+            passwordAfterOTP.clear();
+            confirmPasswordAfterOTP.clear();
+            showFlutterToast("Password has been updated");
+          } else {
+            showFlutterToast("Something went wrong");
+          }
+        }
+      }
     }
   }
 }
