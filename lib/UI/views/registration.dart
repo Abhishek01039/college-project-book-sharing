@@ -326,12 +326,9 @@ class Registration extends StatelessWidget {
                     onPressed: () {
                       studentRegModel.registerStudent(context, scaffoldKey);
                     },
-                    child: Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Register",
-                        textAlign: TextAlign.center,
-                      ),
+                    child: Text(
+                      "Register",
+                      textAlign: TextAlign.center,
                     ),
                   )
                 ],

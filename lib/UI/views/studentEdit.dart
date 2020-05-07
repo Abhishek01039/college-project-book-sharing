@@ -340,12 +340,9 @@ class StudentEdit extends StatelessWidget {
                         }
                       });
                     },
-                    child: Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Update Profile",
-                        textAlign: TextAlign.center,
-                      ),
+                    child: Text(
+                      "Update Profile",
+                      textAlign: TextAlign.center,
                     ),
                   )
                 ],

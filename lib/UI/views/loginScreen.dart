@@ -212,16 +212,13 @@ class PotraitLogInForm extends StatelessWidget {
                 // studentModel.username.clear();
                 studentModel.pass.clear();
               },
-              child: Container(
-                width: double.infinity,
-                child: Text(
-                  "Log In",
-                  textAlign: TextAlign.center,
-                ),
+              child: Text(
+                "Log In",
+                textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(
-              height:25,
+              height: 25,
             ),
             InkWell(
               onTap: () {
@@ -357,12 +354,9 @@ class LandScapeLogInForm extends StatelessWidget {
                     // studentModel.username.clear();
                     studentModel.pass.clear();
                   },
-                  child: Container(
-                    width: double.infinity,
-                    child: Text(
-                      "Log In",
-                      textAlign: TextAlign.center,
-                    ),
+                  child: Text(
+                    "Log In",
+                    textAlign: TextAlign.center,
                   ),
                 ),
 

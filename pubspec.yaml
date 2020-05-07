@@ -33,6 +33,7 @@ dependencies:
   carousel_slider: ^1.4.1
   font_awesome_flutter: ^8.8.1
   fluttertoast: ^4.0.1
+  web_socket_channel: ^1.1.0
   file_picker: ^1.6.0
   connectivity: ^0.4.8+2
   country_pickers: ^1.2.0

@@ -104,12 +104,9 @@ class ChangePassword extends StatelessWidget {
                           studentModel.changePasswordModel(
                               context, box.get("ID"), scaffoldKey);
                         },
-                        child: Container(
-                          width: double.infinity,
-                          child: Text(
-                            "Change Password",
-                            textAlign: TextAlign.center,
-                          ),
+                        child: Text(
+                          "Change Password",
+                          textAlign: TextAlign.center,
                         ),
                       )
                     ],

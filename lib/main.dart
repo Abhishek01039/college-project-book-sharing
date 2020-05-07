@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:web_socket_channel/io.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
