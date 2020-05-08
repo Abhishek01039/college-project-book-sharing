@@ -10,7 +10,6 @@ import 'package:connectivity/connectivity.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:web_socket_channel/io.dart';
 
 class MySpalshScreen extends StatefulWidget {
   @override
@@ -20,11 +19,12 @@ class MySpalshScreen extends StatefulWidget {
 class _MySpalshScreenState extends State<MySpalshScreen>
     with WidgetsBindingObserver {
 //ProgressDialog pr;
+
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
-  var channel = IOWebSocketChannel.connect("ws://echo.websocket.org");
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
   @override
   void initState() {
     super.initState();
@@ -41,8 +41,8 @@ class _MySpalshScreenState extends State<MySpalshScreen>
       });
     } else if (Platform.isAndroid || Platform.isIOS) {
       checkConnection();
-      print(channel.stream);
 
+      // channel.sink.add();
       _connectivitySubscription =
           _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     }
@@ -54,7 +54,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
     if (!kIsWeb) {
       _connectivitySubscription.cancel();
     }
-    channel.sink.close();
+
     super.dispose();
   }
 
