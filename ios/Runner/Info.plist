@@ -16,7 +16,6 @@
 	<string>APPL</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>user needs to upload their book Images.</string>
-	<key>requestLocationServiceAuthorization</key>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
