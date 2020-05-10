@@ -43,6 +43,8 @@ dependencies:
   hive_flutter: ^0.3.0+2
   intl: ^0.16.1
   animations: ^1.0.0+5
+  equatable: ^1.1.1
+
 
 
 

@@ -101,46 +101,75 @@ class ProtraitModePostedByProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 190.0,
-                    height: 190.0,
-                    foregroundDecoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      // borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: FadeInImage(
-                        placeholder: AssetImage("assets/book_logo.jpg"),
-                        image: NetworkImage(
-                          "https://booksharingappdjango.herokuapp.com" +
-                              student.photo,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 3.5,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(),
+                color: Theme.of(context).primaryColor,
+                // borderRadius: BorderRadius.only(
+                //   bottomLeft: Radius.circular(80),
+                //   bottomRight: Radius.circular(80),
+                // ),
+              ),
+            ),
+            Positioned(
+              left: 10,
+              top: 30,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height / 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 190.0,
+                      height: 190.0,
+                      foregroundDecoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        // borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: FadeInImage(
+                          placeholder: AssetImage("assets/book_logo.jpg"),
+                          image: NetworkImage(
+                            "https://booksharingappdjango.herokuapp.com" +
+                                student.photo,
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
-                ),
-                listView(student),
-              ],
+                  listView(student),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _makePhoneCall('tel:${student.contactNo}');
-          },
-          child: Icon(Icons.call),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _makePhoneCall('tel:${student.contactNo}');
+        },
+        child: Icon(Icons.call),
       ),
     );
   }

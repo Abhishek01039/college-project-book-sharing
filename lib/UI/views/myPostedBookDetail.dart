@@ -38,13 +38,19 @@ class MyPostedBookDetail extends StatelessWidget {
           return StatefulBuilder(
             builder: (BuildContext context, setState) {
               return AlertDialog(
+                title: Text("Book Image"),
                 scrollable: true,
+
                 content: Stack(
                   children: <Widget>[
                     postedBookEditModel.file == null
                         ? FadeInImage(
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fitWidth,
+
+                            // height: double.infinity,
+                            // width: double.infinity,
                             placeholder: AssetImage("assets/book_logo.jpg"),
+                            // image: image.startsWith("http://")
                             image: image.startsWith("https://")
                                 ? NetworkImage(
                                     image,
@@ -62,12 +68,17 @@ class MyPostedBookDetail extends StatelessWidget {
                           ),
                     Positioned(
                       bottom: 0,
+                      left: 0,
+                      right: 0,
                       child: Container(
-                        color: darkTheme.get("darkTheme") == false
-                            ? Color(0xFF313457)
-                            : Colors.black54,
+                        color:
+                            darkTheme.get("darkTheme", defaultValue: false) ==
+                                    false
+                                ? Colors.black87
+                                : Color(0xFF313457),
                         height: 40,
-                        width: 250,
+                        // width: ,
+                        // width: 250,
                         // color: Colors.black45,
                         child: InkWell(
                           onTap: () async {
@@ -76,22 +87,25 @@ class MyPostedBookDetail extends StatelessWidget {
                             await postedBookEditModel.chooseImage();
                             setState(() {});
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Edit",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
-                            ],
+                          child: Container(
+                            width: double.infinity,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Edit",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                // SizedBox(
+                                //   width: 20,
+                                // ),
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

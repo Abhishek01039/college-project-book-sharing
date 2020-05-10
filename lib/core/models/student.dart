@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:hive/hive.dart';
 
@@ -5,7 +6,7 @@ part 'student.g.dart';
 
 @JsonSerializable(nullable: false)
 @HiveType(typeId: 1)
-class Student {
+class Student extends Equatable {
   @HiveField(0)
   final int id;
   @HiveField(1)
@@ -43,4 +44,21 @@ class Student {
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);
   Map<String, dynamic> toJson() => _$StudentToJson(this);
+
+  @override
+  List<Object> get props => [
+        id,
+        enrollmentNo,
+        firstName,
+        lastName,
+        email,
+        age,
+        collegeName,
+        collegeYear,
+        course,
+        password,
+        photo,
+        contactNo,
+        address,
+      ];
 }
