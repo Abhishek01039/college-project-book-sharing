@@ -15,6 +15,7 @@ final box = Hive.box("Student");
 Future<Student> getstudent() async {
   Api api = locator<Api>();
   Student student = await api.getStudentById(box.get("ID"));
+  // print(box.get('studentPhoto'));
   return student;
 }
 
@@ -25,6 +26,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final darkTheme = Hive.box("DarkTheme");
     // Student student = getstudent();
+
     StudentEditModel studentEditModel = Provider.of(context);
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? PotraitModeProfilePage(

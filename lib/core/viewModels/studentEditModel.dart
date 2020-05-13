@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class StudentEditModel extends BaseModel {
-  Api api = locator<Api>();
+  Api _api = locator<Api>();
   final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
@@ -123,9 +123,9 @@ class StudentEditModel extends BaseModel {
   Future<void> updateStudentPhoto(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     chooseImage().then((value) async {
-      showProgress(scaffoldKey);
       final box = Hive.box("Student");
       if (value) {
+        showProgress(scaffoldKey);
         await startUpload();
         String studentPhoto = jsonEncode({
           "enrollmentNo": box.get("enrollmentNo"),
@@ -133,7 +133,7 @@ class StudentEditModel extends BaseModel {
           "extansion": extn[1],
         });
         bool isUpdated =
-            await api.updateStudentPhoto(box.get("ID"), studentPhoto);
+            await _api.updateStudentPhoto(box.get("ID"), studentPhoto);
         if (isUpdated) {
           box.put("studentPhoto",
               '/media/Student/' + box.get("enrollmentNo") + '.' + extn[1]);
@@ -156,7 +156,7 @@ class StudentEditModel extends BaseModel {
 
   // update student details
   updateStudent(GlobalKey<ScaffoldState> scaffoldKey) async {
-    // api.updateUser(id)
+    // _api.updateUser(id)
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
@@ -178,7 +178,7 @@ class StudentEditModel extends BaseModel {
           "address": address.text,
           "contactNo": editNumber ?? number,
         });
-        String isUpdated = await api.updateStudent(box.get("ID"), studentInfo);
+        String isUpdated = await _api.updateStudent(box.get("ID"), studentInfo);
         if (isUpdated == "true") {
           box.put("enrollmentNo", enrollmentNo.text);
           box.put("studentName", firstName.text);
@@ -195,7 +195,7 @@ class StudentEditModel extends BaseModel {
 
   // delete the student
   deleteStudent(BuildContext context, int studId) async {
-    bool isDeleted = await api.deleteStudent(studId);
+    bool isDeleted = await _api.deleteStudent(studId);
     if (isDeleted) {
       final box = Hive.box("Student");
       showFlutterToast("Account Deleted Successfully");
@@ -221,7 +221,7 @@ class StudentEditModel extends BaseModel {
         if (sendOTPFrom.currentState.validate()) {
           showProgress(scaffoldKey);
           String value = jsonEncode({"email": emailOTP.text});
-          otp = await api.sendEmail(value);
+          otp = await _api.sendEmail(value);
           closeProgress(scaffoldKey);
           if (otp != null) {
             // varifyEmail(otp, context);
@@ -270,7 +270,7 @@ class StudentEditModel extends BaseModel {
           showProgress(scaffoldKey);
           String body = jsonEncode(
               {"email": emailOTP.text, "password": passwordAfterOTP.text});
-          String update = await api.updatePassword(body);
+          String update = await _api.updatePassword(body);
 
           closeProgress(scaffoldKey);
           if (update == "success") {

@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.16.1
   animations: ^1.0.0+5
   equatable: ^1.1.1
+  mockito: ^4.1.1
 
 
 

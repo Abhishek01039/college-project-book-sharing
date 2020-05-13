@@ -39,7 +39,7 @@ class ForgetPassword extends StatelessWidget {
                               fit: BoxFit.fill,
                             ),
                           ),
-                          borderRadius: BorderRadius.circular(20),
+                          // borderRadius: BorderRadius.circular(20),
                         ),
                       ),
                     ),

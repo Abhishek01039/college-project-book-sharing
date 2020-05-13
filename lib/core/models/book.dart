@@ -10,7 +10,7 @@ class Book extends Equatable {
   final String bookName;
   final String authorName;
   final String pubName;
-  final String edition;
+
   final String isbnNo;
   final int originalPrice;
   final int price;
@@ -24,7 +24,6 @@ class Book extends Equatable {
       this.bookName,
       this.authorName,
       this.pubName,
-      this.edition,
       this.isbnNo,
       this.originalPrice,
       this.price,
@@ -42,7 +41,6 @@ class Book extends Equatable {
         bookName,
         authorName,
         pubName,
-        edition,
         isbnNo,
         originalPrice,
         price,

@@ -10,7 +10,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class StudentRegModel extends BaseModel {
-  Api api = locator<Api>();
+  Api _api = locator<Api>();
   final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
@@ -109,7 +109,7 @@ class StudentRegModel extends BaseModel {
           showProgress(scaffoldKey);
 
           await startUpload();
-          isRegistered = await api.registerStudent(
+          isRegistered = await _api.registerStudent(
             enrollmentNo.text,
             firstName.text,
             lastName.text,
@@ -175,7 +175,7 @@ class StudentRegModel extends BaseModel {
       } else {
         showProgress(scaffoldKey);
 
-        String value = await api.changePassword(
+        String value = await _api.changePassword(
             studId, changePassword.text, changeNewPassword.text);
         closeProgress(scaffoldKey);
         if (value == "Success") {
@@ -203,7 +203,7 @@ class StudentRegModel extends BaseModel {
         } else {
           showProgress(scaffoldKey);
 
-          api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
+          _api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
             closeProgress(scaffoldKey);
             if (value == "Success") {
               Navigator.pop(context);

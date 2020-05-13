@@ -39,6 +39,8 @@ class Registration extends StatelessWidget {
                         return 'Please enter Enrollement Number';
                       } else if (value.length < 13) {
                         return "Please enter Right Enrollment Number";
+                      } else if (!value.startsWith("E")) {
+                        return "Please enter Right Enrollment Number";
                       }
                       return null;
                     },

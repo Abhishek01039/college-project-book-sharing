@@ -56,7 +56,7 @@ class LandScapeModeLogInPage extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      // borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),
@@ -102,7 +102,7 @@ class ProtraitModeLogInPage extends StatelessWidget {
                       tag: "Logo",
                       child: Image.asset('assets/book_logo.jpg'),
                     ),
-                    borderRadius: BorderRadius.circular(20),
+                    // borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 PotraitLogInForm(

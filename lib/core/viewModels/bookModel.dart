@@ -5,6 +5,7 @@ import 'package:booksharing/core/models/book.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
+import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BookModel extends BaseModel {
@@ -29,6 +30,11 @@ class BookModel extends BaseModel {
     // _bookSubject.sink.add(await _api.getBooks());
     // notifyListeners();
     // print(_bookSubject.);
+  }
+
+  // Testing purpose
+  String testing() {
+    return "Unit Testing";
   }
 
   // get latest books according to posted date
@@ -109,3 +115,5 @@ class BookModel extends BaseModel {
     super.dispose();
   }
 }
+
+class MockBookModel extends Mock implements BookModel {}

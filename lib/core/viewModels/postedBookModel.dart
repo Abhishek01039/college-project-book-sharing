@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
+
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
@@ -33,8 +34,7 @@ class PostedBookModel extends BaseModel {
   String errMessage = 'Error Uploading Image';
   // File file;
   String status = '';
-  Api api = locator<Api>();
-  Book book = locator<Book>();
+  Api _api = locator<Api>();
   bool isPosted;
 
   List<String> extn = [];
@@ -81,7 +81,7 @@ class PostedBookModel extends BaseModel {
     // bookImages bookImage=BookImage(
     //   image:
     // );
-    //     Book book = Book(
+    //     Book _book = Book(
     //   bookName: bookName.text,
     //   isbnNo: isbnNo.text,
     //   pubName: pubName.text,
@@ -90,12 +90,12 @@ class PostedBookModel extends BaseModel {
     //   bookCatgName: bookCatgName.text,
     //   bookImage:
     // );
-    // var b = book.toJson();
+    // var b = _book.toJson();
     // print(b);
     notifyListeners();
   }
 
-  // post a book
+  // post a _book
   registeredBook(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
@@ -119,7 +119,7 @@ class PostedBookModel extends BaseModel {
           "postedBy": box.get("ID")
         });
 
-        isPosted = await api.registeredBook(body);
+        isPosted = await _api.registeredBook(body);
         closeProgress(scaffoldKey);
         if (isPosted) {
           Navigator.pop(context);
@@ -136,9 +136,9 @@ class PostedBookModel extends BaseModel {
     notifyListeners();
   }
 
-  // edit the book
+  // edit the _book
 
-  // delete the book
+  // delete the _book
   deleteBook(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
@@ -146,7 +146,7 @@ class PostedBookModel extends BaseModel {
         showFlutterToast("Please check internet connection");
       } else {
         showProgress(scaffoldKey);
-        bool isDeleted = await api.deleteBook(bookId);
+        bool isDeleted = await _api.deleteBook(bookId);
         closeProgress(scaffoldKey);
         if (isDeleted) {
           // Navigator.popUntil(
@@ -168,10 +168,10 @@ class PostedBookModel extends BaseModel {
     }
   }
 
-  // ensure that you have sold your book to other student
+  // ensure that you have sold your _book to other student
   deleteBookByTransaction(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
-    // await api.
+    // await _api.
     String body = jsonEncode(
       {"bookId": bookId, "contactNo": number},
     );
@@ -182,7 +182,7 @@ class PostedBookModel extends BaseModel {
         showFlutterToast("Please check internet connection");
         closeProgress(scaffoldKey);
       } else {
-        String response = await api.deleteBookAndPost(body);
+        String response = await _api.deleteBookAndPost(body);
         closeProgress(scaffoldKey);
         if (response == "Student doesn't exist with this contact Number") {
           showFlutterToast("Student doesn't exist with this contact Number");

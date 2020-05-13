@@ -4,9 +4,10 @@ import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
+import 'package:booksharing/core/models/student.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 // import 'core/API/allAPIs.dart';
-import 'package:booksharing/core/models/student.dart';
+
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,8 +24,8 @@ class PostedBookEditModel extends BaseModel {
   TextEditingController bookCatgName = TextEditingController();
   TextEditingController studentName = TextEditingController();
 
-  Student student = locator<Student>();
-  Api api = locator<Api>();
+  Student _student = locator<Student>();
+  Api _api = locator<Api>();
   bool isEdited;
 
   String base64Image;
@@ -34,7 +35,7 @@ class PostedBookEditModel extends BaseModel {
   File file;
   String status = '';
   FileType fileType = FileType.image;
-  List<String> extn = new List();
+  List<String> extn = [];
   String countryCode = "+91";
 
   List<File> bookImages = [];
@@ -64,7 +65,7 @@ class PostedBookEditModel extends BaseModel {
 
       showProgress(scaffoldKey);
     }
-    isEdited = await api.editBook(bookid, editBookData);
+    isEdited = await _api.editBook(bookid, editBookData);
     closeProgress(scaffoldKey);
   }
 
@@ -102,8 +103,8 @@ class PostedBookEditModel extends BaseModel {
 
   // give book whole detail according to ID and show it into book detail page
   getStudentDetail(int id) async {
-    student = await api.getStudentById(id);
-    return student;
+    _student = await _api.getStudentById(id);
+    return _student;
   }
 
   updateImage(BuildContext context, String bookName, int imageId, int count,
@@ -119,7 +120,7 @@ class PostedBookEditModel extends BaseModel {
         "extansion": extn[1],
       });
 
-      var parsed = await api.updateImagePhoto(imageUpdateById);
+      var parsed = await _api.updateImagePhoto(imageUpdateById);
       // closeProgress(scaffoldKey);
       if (parsed == "Success") {
         Navigator.pushNamedAndRemoveUntil(
@@ -218,7 +219,7 @@ class PostedBookEditModel extends BaseModel {
               "extn": extn,
             });
 
-            String isPosted = await api.addImageList(body);
+            String isPosted = await _api.addImageList(body);
             // closeProgress(scaffoldKey);
             if (isPosted == "Success") {
               Navigator.pushNamedAndRemoveUntil(
