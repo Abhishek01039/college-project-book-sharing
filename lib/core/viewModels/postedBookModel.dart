@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
-
-import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';

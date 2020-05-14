@@ -3,6 +3,8 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/models/image.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
+import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
+import 'package:booksharing/core/viewModels/bloc/profile_bloc_delegate.dart';
 import 'package:booksharing/core/viewModels/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/bookModel.dart';
 import 'package:booksharing/core/viewModels/studentEditModel.dart';
@@ -25,4 +27,10 @@ void setupLocator() {
   locator.registerLazySingleton(() => BookImage());
   locator.registerLazySingleton(() => PostedBookEditModel());
   locator.registerLazySingleton(() => PurchasedBookModel());
+  locator.registerLazySingleton(() => ProfileBloc());
+  locator.registerLazySingleton(() => ProfileLoading());
+  locator.registerLazySingleton(() => ProfileLoaded());
+  locator.registerLazySingleton(() => ProfileInitial());
+  locator.registerLazySingleton(() => SimpleBlocDelegate());
+  locator.registerLazySingleton(() => ProfileInitialEvent());
 }
