@@ -168,7 +168,7 @@ class Api {
       "course": course ?? "",
       "contactNo": number,
       "photo": base64Image ?? "",
-      "extansion": extn
+      "extansion": extn ?? ""
     }, headers: {
       'authorization': basicAuth(),
     });
@@ -193,6 +193,8 @@ class Api {
       return "Please provide valid mobile number";
     } else if (parsed['contactNo'] != null) {
       return "Mobile Number is already exist";
+    } else if (parsed['email'] != null) {
+      return "Student with this email is already exist";
     }
     return "Fail";
     // print(response.body);

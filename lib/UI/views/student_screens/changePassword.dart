@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:booksharing/core/viewModels/studentRegModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:hive/hive.dart';
 
 class ChangePassword extends StatelessWidget {

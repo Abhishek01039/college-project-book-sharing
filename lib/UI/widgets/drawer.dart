@@ -1,6 +1,6 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/core/viewModels/studentEditModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:booksharing/locator.dart';
 
 import 'package:flutter/material.dart';

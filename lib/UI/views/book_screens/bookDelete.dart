@@ -1,4 +1,4 @@
-import 'package:booksharing/core/viewModels/postedBookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';

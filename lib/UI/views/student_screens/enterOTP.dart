@@ -1,5 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/core/viewModels/studentEditModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

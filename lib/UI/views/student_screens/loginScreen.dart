@@ -1,5 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/core/viewModels/studentLogInModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentLogInModel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';

@@ -1,4 +1,4 @@
-import 'package:booksharing/core/viewModels/studentRegModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -6,7 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:booksharing/core/viewModels/bookDetailModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookDetailModel.dart';
 import 'package:booksharing/UI/views/postedByProfile.dart';
 // import 'package:share/share.dart';
 import 'package:hive/hive.dart';

@@ -5,7 +5,7 @@ import 'package:booksharing/UI/views/bookDelete.dart';
 import 'package:booksharing/UI/views/bookEdit.dart';
 import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
-import 'package:booksharing/core/viewModels/bookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
@@ -16,39 +16,39 @@ class MyPostedBook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // show alert dialog box to ensure that you have to delete the book
-    Future<void> _deleteBook(int bookId) async {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Want to delete Book?'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              RaisedButton(
-                onPressed: () {
-                  // Navigator.pushNamed(context, 'bookdelete');
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookDelete(
-                        bookId: bookId,
-                      ),
-                    ),
-                  );
-                },
-                child: Text("Yes"),
-              )
-            ],
-          );
-        },
-      );
-    }
+    // Future<void> _deleteBook(int bookId) async {
+    //   return showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Text('Want to delete Book?'),
+    //         actions: <Widget>[
+    //           FlatButton(
+    //             child: Text('Cancel'),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //           RaisedButton(
+    //             onPressed: () {
+    //               // Navigator.pushNamed(context, 'bookdelete');
+    //               Navigator.pop(context);
+    //               Navigator.push(
+    //                 context,
+    //                 MaterialPageRoute(
+    //                   builder: (context) => BookDelete(
+    //                     bookId: bookId,
+    //                   ),
+    //                 ),
+    //               );
+    //             },
+    //             child: Text("Yes"),
+    //           )
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
 
     // Widget _selectPopup() => PopupMenuButton<int>(
     //     itemBuilder: (context) => [

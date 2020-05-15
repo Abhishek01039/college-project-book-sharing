@@ -1,4 +1,4 @@
-import 'package:booksharing/core/viewModels/postedBookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

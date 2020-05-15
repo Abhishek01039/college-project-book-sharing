@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 // import 'package:booksharing/core/models/book.dart';
-import 'package:booksharing/core/viewModels/bookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 // import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_test/flutter_test.dart';

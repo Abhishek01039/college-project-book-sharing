@@ -1,68 +1,35 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
-// import 'package:booksharing/UI/views/shared_pref.dart';
-import 'package:booksharing/core/models/student.dart';
-import 'package:booksharing/core/viewModels/studentEditModel.dart';
+
+import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/country_pickers.dart';
-import 'package:country_pickers/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:hive/hive.dart';
 
-class StudentEdit extends StatelessWidget {
-  static final tag = 'studentEdit';
-  final Student student;
-  Country country = new Country();
+class Registration extends StatelessWidget {
+  static final tag = 'registration';
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  StudentEdit({Key key, this.student}) : super(key: key);
-  Country getCountryByIsoCode(String countryCode) {
-    try {
-      return countryList.firstWhere(
-        (country) => country.phoneCode == countryCode,
-      );
-    } catch (error) {
-      throw Exception("The initialValue provided is not a supported iso code!");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    StudentEditModel studentEditModel = Provider.of(context);
-    studentEditModel.enrollmentNo.text = student.enrollmentNo;
-    studentEditModel.firstName.text = student.firstName;
-    studentEditModel.lastName.text = student.lastName;
-    studentEditModel.email.text = student.email;
-    studentEditModel.age.text = student.age.toString();
-    studentEditModel.collegeName.text = student.collegeName;
-    studentEditModel.course.text = student.course;
-    studentEditModel.address.text = student.address;
-
-    studentEditModel.number = student.contactNo;
-    studentEditModel.collegeYear = student.collegeYear.toString();
-    studentEditModel.countryCode = student.contactNo.substring(1, 3);
-    country = getCountryByIsoCode(studentEditModel.countryCode);
-    return SafeArea(
-      child: Scaffold(
-        key: scaffoldKey,
+    return Consumer<StudentRegModel>(builder: (context, studentRegModel, _) {
+      return Scaffold(
         appBar: AppBar(
-          title: Text("Edit Your Profile"),
+          title: Text("Registration", style: textStyle),
         ),
+        key: scaffoldKey,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Form(
-              key: studentEditModel.formKey,
+              key: studentRegModel.formKey,
               child: Column(
                 children: <Widget>[
-                  // Text("Registration", style: textStyle),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.enrollmentNo,
+                    controller: studentRegModel.enrollmentNo,
                     decoration: InputDecoration(
                       hintText: "Enrollment Number",
                       suffixIcon: Icon(FontAwesomeIcons.university),
@@ -70,17 +37,22 @@ class StudentEdit extends StatelessWidget {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter Enrollement Number';
+                      } else if (value.length < 13) {
+                        return "Please enter Right Enrollment Number";
+                      } else if (!value.startsWith("E")) {
+                        return "Please enter Right Enrollment Number";
                       }
                       return null;
                     },
                     keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.firstName,
+                    controller: studentRegModel.firstName,
                     decoration: InputDecoration(
                       hintText: "First Name",
                       suffixIcon: Icon(Icons.person),
@@ -93,12 +65,12 @@ class StudentEdit extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.lastName,
+                    controller: studentRegModel.lastName,
                     decoration: InputDecoration(
                       hintText: "Last Name",
                       suffixIcon: Icon(Icons.person),
@@ -111,11 +83,11 @@ class StudentEdit extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
-                    controller: studentEditModel.email,
+                    controller: studentRegModel.email,
                     decoration: InputDecoration(
                       hintText: "Email",
                       suffixIcon: Icon(Icons.email),
@@ -123,16 +95,19 @@ class StudentEdit extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter Email Address';
+                      }
+                      if (!value.contains("@")) {
+                        return 'Please enter proper Email Address';
                       }
                       return null;
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
-                    controller: studentEditModel.age,
+                    controller: studentRegModel.age,
                     decoration: InputDecoration(
                       hintText: "Age",
                       suffixIcon: Icon(Icons.person),
@@ -141,26 +116,27 @@ class StudentEdit extends StatelessWidget {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter Age';
-                      } else if (int.tryParse(value) <= 0 &&
+                      }
+                      if (int.tryParse(value) < 0 &&
                           int.tryParse(value) > 112) {
                         return "Please enter valid Age";
                       }
                       return null;
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.collegeName,
+                    controller: studentRegModel.collegeName,
                     decoration: InputDecoration(
                       hintText: "College Name",
                       suffixIcon: Icon(
                         Icons.domain,
                       ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter College Name';
@@ -168,24 +144,24 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   Text("Choose College Year"),
                   CollegeYear(),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.course,
+                    controller: studentRegModel.course,
                     decoration: InputDecoration(
                       hintText: "Course",
                       suffixIcon: Icon(
                         FontAwesomeIcons.graduationCap,
                       ),
                     ),
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter Course';
@@ -193,12 +169,52 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
                   TextFormField(
+                    controller: studentRegModel.password,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      suffixIcon: Icon(Icons.lock),
+                    ),
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter password';
+                      } else if (value.length < 5) {
+                        return 'Password must be more than five characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    controller: studentRegModel.confirmPass,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Confirm Password",
+                      suffixIcon: Icon(Icons.lock_open),
+                    ),
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter Confirm Password';
+                      } else if (value != studentRegModel.password.text) {
+                        return 'Password is not same';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    controller: studentRegModel.address,
                     textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.address,
                     decoration: InputDecoration(
                       hintText: "Address",
                       suffixIcon: Icon(
@@ -213,37 +229,19 @@ class StudentEdit extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 40,
                   ),
-                  // InternationalPhoneNumberInput(
-                  //   onInputChanged: (PhoneNumber number) {
-                  //     // print(number.p`honeNumber);
-                  //     studentEditModel.setPhoneNumber(number.phoneNumber);
-                  //   },
-                  //   textFieldController: studentEditModel.phoneNumber,
-                  //   isEnabled: true,
-
-                  //   locale: studentEditModel.number,
-                  //   countries: ["IN"],
-                  //   initialCountry2LetterCode: "+91",
-                  //   autoValidate: true,
-                  //   formatInput: false,
-
-                  //   ignoreBlank: true,
-                  // ),
                   Row(
                     children: <Widget>[
                       Expanded(
                         flex: 3,
                         child: CountryPickerDropdown(
-                          initialValue: country.isoCode,
+                          initialValue: 'in',
                           itemBuilder: _buildDropdownItem,
                           onValuePicked: (Country country) {
-                            studentEditModel
-                                .changeCountryCode(country.phoneCode);
-
-                            // print("$countryCode");
+                            studentRegModel.countryCode = country.phoneCode;
+                            // print("${country.name}");
                           },
                         ),
                       ),
@@ -252,96 +250,86 @@ class StudentEdit extends StatelessWidget {
                         // child: TextFormField(
                         //   controller: new TextEditingController.fromValue(
                         //       new TextEditingValue(
-                        //           text: studentEditModel.number,
+                        //           text: studentRegModel.number,
                         //           selection: new TextSelection.collapsed(
                         //               offset:
-                        //                   studentEditModel.number.length - 1))),
+                        //                   studentRegModel.number.length - 1))),
                         //   keyboardType: TextInputType.text,
                         //   onChanged: (value) {
-                        //     studentEditModel.setPhoneNumber(value);
-                        //     // var sel = studentEditModel.phoneNumber.selection;
-                        //     // studentEditModel.phoneNumber.selection = sel;
+                        //     studentRegModel.setPhoneNumber(value);
+                        //     // var sel = studentRegModel.phoneNumber.selection;
+                        //     // studentRegModel.phoneNumber.selection = sel;
                         //     // final val = TextSelection.collapsed(
-                        //     //     offset: studentEditModel.phoneNumber.text.length);
-                        //     // studentEditModel.phoneNumber.selection = val;
+                        //     //     offset: studentRegModel.phoneNumber.text.length);
+                        //     // studentRegModel.phoneNumber.selection = val;
                         //     var cursorPos =
-                        //         studentEditModel.phoneNumber.selection;
+                        //         studentRegModel.phoneNumber.selection;
 
-                        //     studentEditModel.phoneNumber.text = value ?? '';
+                        //     studentRegModel.phoneNumber.text = value ?? '';
 
                         //     if (cursorPos.start >
-                        //         studentEditModel.phoneNumber.text.length) {
+                        //         studentRegModel.phoneNumber.text.length) {
                         //       cursorPos = new TextSelection.fromPosition(
                         //           new TextPosition(
-                        //               offset: studentEditModel
+                        //               offset: studentRegModel
                         //                   .phoneNumber.text.length));
                         //     }
-                        //     studentEditModel.phoneNumber.selection = cursorPos;
-                        //     studentEditModel.setPhoneNumber(value);
+                        //     studentRegModel.phoneNumber.selection = cursorPos;
+                        //     studentRegModel.setPhoneNumber(value);
                         //     print(value);
                         //   },
                         // ),
                         child: TextFormField(
-                          // controller: studentEditModel.phoneNumber,
+                          // controller: studentRegModel.phoneNumber,
                           keyboardType: TextInputType.number,
 
-                          initialValue: studentEditModel.number.substring(3),
+                          // initialValue: studentRegModel.number.substring(3),
                           onChanged: (val) {
-                            // studentEditModel.number = "";
-                            studentEditModel.updatePhoneNumber(val);
+                            studentRegModel.number = "";
+                            studentRegModel.setPhoneNumber(
+                                studentRegModel.countryCode + val);
                             // print("hello");
-                            // print(studentEditModel.number);
+                            // print(studentRegModel.number);
                           },
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 40,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Choose Profile Image"),
+                      InkWell(
+                        onTap: () {
+                          studentRegModel.chooseImage();
+                        },
+                        child: Icon(Icons.photo_album),
+                      ),
+                    ],
+                  ),
+                  studentRegModel.file != null
+                      ? Container(
+                          width: 190.0,
+                          height: 190.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(30),
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: FileImage(studentRegModel.file),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   RaisedButton(
                     onPressed: () {
-                      final box = Hive.box("Student");
-                      studentEditModel.updateStudent(scaffoldKey).then((value) {
-                        if (value == "true") {
-                          box.put("enrollmentNo",
-                              studentEditModel.enrollmentNo.text);
-                          box.put(
-                              "studentName", studentEditModel.firstName.text);
-
-                          studentEditModel.enrollmentNo.clear();
-                          studentEditModel.firstName.clear();
-                          studentEditModel.lastName.clear();
-                          studentEditModel.email.clear();
-                          studentEditModel.age.clear();
-                          studentEditModel.collegeName.clear();
-                          studentEditModel.course.clear();
-
-                          // studentEditModel.phoneNumber.clear();
-                          studentEditModel.address.clear();
-                          studentEditModel.number = "";
-
-                          // Navigator.pushReplacementNamed(context, 'home');
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //   context,
-                          //   'home',
-                          //   (Route<dynamic> route) => false,
-
-                          // );
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          showFlutterToast("Update Successfully");
-                        } else if (value == "not valid") {
-                          showFlutterToast("Contact Number is not Valid");
-                        } else if (value == "") {
-                        } else {
-                          showFlutterToast(
-                              "Somthing went wrong. Please try again");
-                        }
-                      });
+                      studentRegModel.registerStudent(context, scaffoldKey);
                     },
                     child: Text(
-                      "Update Profile",
+                      "Register",
                       textAlign: TextAlign.center,
                     ),
                   )
@@ -350,8 +338,8 @@ class StudentEdit extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -362,10 +350,9 @@ class CollegeYear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StudentEditModel studentEditModel = Provider.of(context);
-
+    StudentRegModel studentRegModel = Provider.of(context);
     return DropdownButton(
-        value: studentEditModel.collegeYear,
+        value: studentRegModel.collegeYear,
         isExpanded: true,
         // isDense: false,
         hint: Text("Choose Year"),
@@ -376,7 +363,7 @@ class CollegeYear extends StatelessWidget {
           );
         }).toList(),
         onChanged: (val) {
-          studentEditModel.chooseCollegeYear(val);
+          studentRegModel.chooseCollegeYear(val);
         });
   }
 }
@@ -385,7 +372,7 @@ Widget _buildDropdownItem(Country country) => Container(
       child: Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          const SizedBox(
+          SizedBox(
             width: 8.0,
           ),
           Text("+${country.phoneCode}(${country.isoCode})"),

@@ -1,10 +1,8 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/views/studentEdit.dart';
 
-import 'package:booksharing/core/API/allAPIs.dart';
-import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
-import 'package:booksharing/core/viewModels/studentEditModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -145,6 +145,9 @@ class StudentRegModel extends BaseModel {
             showFlutterToast("Student already exist");
           } else if (isRegistered == "Mobile Number is already exist") {
             showFlutterToast("Mobile Number is already exist");
+          } else if (isRegistered ==
+              "Student with this email is already exist") {
+            showFlutterToast("Student with this email is already exist");
           } else {
             showFlutterToast("Somthing went wrong Please try again");
           }

@@ -7,7 +7,7 @@ import 'package:booksharing/UI/views/bookEdit.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/models/book.dart';
-import 'package:booksharing/core/viewModels/bookEditModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,6 @@ class MyPostedBookDetail extends StatelessWidget {
               return AlertDialog(
                 title: Text("Book Image"),
                 scrollable: true,
-
                 content: Stack(
                   children: <Widget>[
                     postedBookEditModel.file == null

@@ -5,13 +5,13 @@ import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
 import 'package:booksharing/core/viewModels/bloc/profile_bloc_delegate.dart';
-import 'package:booksharing/core/viewModels/bookEditModel.dart';
-import 'package:booksharing/core/viewModels/bookModel.dart';
-import 'package:booksharing/core/viewModels/studentEditModel.dart';
-import 'package:booksharing/core/viewModels/studentLogInModel.dart';
-import 'package:booksharing/core/viewModels/studentRegModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentLogInModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:get_it/get_it.dart';
-import 'package:booksharing/core/viewModels/purchasedBookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/purchasedBookModel.dart';
 
 GetIt locator = GetIt.instance;
 // this all are the Lazy Singleton

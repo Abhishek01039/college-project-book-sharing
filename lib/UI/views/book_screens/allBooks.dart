@@ -3,7 +3,7 @@ import 'package:booksharing/UI/views/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/searchBook.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
-import 'package:booksharing/core/viewModels/bookModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
