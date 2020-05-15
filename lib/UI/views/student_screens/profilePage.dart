@@ -1,5 +1,5 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
-import 'package:booksharing/UI/views/studentEdit.dart';
+import 'package:booksharing/UI/views/student_screens/studentEdit.dart';
 
 import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';

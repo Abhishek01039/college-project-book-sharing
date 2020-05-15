@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:booksharing/UI/views/bookDelete.dart';
+import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
 
-import 'package:booksharing/UI/views/bookEdit.dart';
-import 'package:booksharing/UI/views/myPostedBookDetail.dart';
+import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
+import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';

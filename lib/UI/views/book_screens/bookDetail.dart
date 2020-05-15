@@ -1,5 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/bookEdit.dart';
+import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookDetailModel.dart';
-import 'package:booksharing/UI/views/postedByProfile.dart';
+import 'package:booksharing/UI/views/student_screens/postedByProfile.dart';
 // import 'package:share/share.dart';
 import 'package:hive/hive.dart';
 

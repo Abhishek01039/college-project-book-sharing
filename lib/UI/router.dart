@@ -1,25 +1,24 @@
-import 'package:booksharing/UI/views/allBooks.dart';
-import 'package:booksharing/UI/views/bookDelete.dart';
-import 'package:booksharing/UI/views/bookDetail.dart';
-import 'package:booksharing/UI/views/bookEdit.dart';
-import 'package:booksharing/UI/views/changePasswordAfterOTP.dart';
-import 'package:booksharing/UI/views/enterOTP.dart';
-import 'package:booksharing/UI/views/forgetPassword.dart';
+import 'package:booksharing/UI/views/book_screens/allBooks.dart';
+import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
+import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
+import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
+import 'package:booksharing/UI/views/student_screens/changePasswordAfterOTP.dart';
+import 'package:booksharing/UI/views/student_screens/enterOTP.dart';
+import 'package:booksharing/UI/views/student_screens/forgetPassword.dart';
 import 'package:booksharing/UI/views/homeScreen.dart';
-import 'package:booksharing/UI/views/loginScreen.dart';
-import 'package:booksharing/UI/views/myPostedBook.dart';
-import 'package:booksharing/UI/views/myPostedBookDetail.dart';
-import 'package:booksharing/UI/views/myPurchasedBook.dart';
-import 'package:booksharing/UI/views/postedBook.dart';
-import 'package:booksharing/UI/views/postedByProfile.dart';
-import 'package:booksharing/UI/views/profilePage.dart';
-import 'package:booksharing/UI/views/registration.dart';
+import 'package:booksharing/UI/views/student_screens/loginScreen.dart';
+import 'package:booksharing/UI/views/book_screens/myPostedBook.dart';
+import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
+import 'package:booksharing/UI/views/book_screens/myPurchasedBook.dart';
+import 'package:booksharing/UI/views/book_screens/postedBook.dart';
+import 'package:booksharing/UI/views/student_screens/postedByProfile.dart';
+import 'package:booksharing/UI/views/student_screens/profilePage.dart';
+import 'package:booksharing/UI/views/student_screens/registration.dart';
 import 'package:booksharing/UI/views/splashScreen.dart';
-import 'package:booksharing/UI/views/studentEdit.dart';
-
+import 'package:booksharing/UI/views/student_screens/studentEdit.dart';
 import 'package:flutter/material.dart';
-import 'package:booksharing/UI/views/changePassword.dart';
-import 'package:booksharing/UI/views/feedBack.dart';
+import 'package:booksharing/UI/views/student_screens/changePassword.dart';
+import 'package:booksharing/UI/views/student_screens/feedBack.dart';
 
 const String initialRoute = "/";
 

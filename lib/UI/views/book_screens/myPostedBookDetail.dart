@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:booksharing/UI/shared/commonUtility.dart';
-import 'package:booksharing/UI/views/bookDelete.dart';
-import 'package:booksharing/UI/views/bookEdit.dart';
+import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
+import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/models/book.dart';

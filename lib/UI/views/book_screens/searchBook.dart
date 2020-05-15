@@ -1,5 +1,5 @@
-import 'package:booksharing/UI/views/bookDetail.dart';
-import 'package:booksharing/UI/views/myPostedBookDetail.dart';
+import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
+import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';
