@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/router.dart';
+import 'package:booksharing/config/flavor_config.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
@@ -38,7 +39,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('Student');
   await Hive.openBox('DarkTheme');
-
+  FlavorConfig(flavor: Flavor.PRODUCTION);
   setupLocator();
   BlocSupervisor.delegate = locator<SimpleBlocDelegate>();
   runApp(MyApp());
