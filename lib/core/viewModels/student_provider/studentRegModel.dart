@@ -37,6 +37,9 @@ class StudentRegModel extends BaseModel {
   String number;
   String photo;
   String isRegistered;
+  bool autoValidate = false;
+  bool changePasswordAutoValidate = false;
+  bool feedbackAutoValidate = false;
 
   // studentRegistration() async {
   //   if (formKey.currentState.validate()) {
@@ -139,7 +142,8 @@ class StudentRegModel extends BaseModel {
             address.clear();
             number = "";
 
-            Navigator.pushReplacementNamed(context, 'home');
+            Navigator.pushNamedAndRemoveUntil(
+                context, 'home', (Route<dynamic> route) => false);
             showFlutterToast("Registration Successfully");
           } else if (isRegistered == "Student already Exist") {
             showFlutterToast("Student already exist");
@@ -153,6 +157,8 @@ class StudentRegModel extends BaseModel {
           }
         }
       }
+    } else {
+      changeAutoValidate();
     }
   }
 
@@ -170,6 +176,7 @@ class StudentRegModel extends BaseModel {
   changePasswordModel(BuildContext context, int studId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (!changePassformKey.currentState.validate()) {
+      changeChangePasswordAutoValidate();
       return;
     }
     if (scaffoldKey != null) {
@@ -217,6 +224,23 @@ class StudentRegModel extends BaseModel {
           });
         }
       }
+    } else {
+      changeFeedBackAutoValidate();
     }
+  }
+
+  changeAutoValidate() {
+    autoValidate = true;
+    notifyListeners();
+  }
+
+  changeChangePasswordAutoValidate() {
+    changePasswordAutoValidate = true;
+    notifyListeners();
+  }
+
+  changeFeedBackAutoValidate() {
+    feedbackAutoValidate = true;
+    notifyListeners();
   }
 }

@@ -15,7 +15,9 @@ class BookDetail extends StatefulWidget {
   static final tag = 'bookDetail';
   final Book book;
 
-  const BookDetail({Key key, this.book}) : super(key: key);
+  const BookDetail({Key key, this.book})
+      : assert(book != null),
+        super(key: key);
 
   @override
   _BookDetailState createState() => _BookDetailState();
@@ -59,13 +61,14 @@ class _BookDetailState extends State<BookDetail> {
                                     FadeInImage(
                                       placeholder:
                                           AssetImage("assets/book_logo.jpg"),
-                                      image: v.image.startsWith("https://")
+                                      image: v.image.startsWith("http://")
                                           ? NetworkImage(
                                               v.image,
                                               // fit: BoxFit.fill,
                                             )
                                           : NetworkImage(
-                                              "https://booksharingappdjango.herokuapp.com" +
+                                              //https://booksharingappdjango.herokuapp.com
+                                              "http://192.168.43.182:8000" +
                                                   v.image,
                                               // fit: BoxFit.fill,
                                             ),
@@ -121,11 +124,16 @@ class _BookDetailState extends State<BookDetail> {
                       SizedBox(
                         width: 30,
                       ),
-                      Text(
-                        "₹" + "   " + widget.book.price.toString(),
-                        // style: TextStyle(color: Colors.red),
-                        style: priceStyle,
-                      ),
+                      widget.book.price == 0
+                          ? Text(
+                              "Free",
+                              style: freePrice,
+                            )
+                          : Text(
+                              "₹" + "   " + widget.book.price.toString(),
+                              // style: TextStyle(color: Colors.red),
+                              style: freePrice,
+                            ),
                     ],
                   ),
                   SizedBox(

@@ -7,7 +7,11 @@ class BookImage extends Equatable {
   final int bookId;
   final String image;
 
-  BookImage({this.bookId, this.image});
+  BookImage({this.bookId, this.image})
+      : assert(
+          bookId != null,
+          image != null,
+        );
 
   factory BookImage.fromJson(Map<String, dynamic> json) =>
       _$BookImageFromJson(json);

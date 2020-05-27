@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> _makePhoneCall(String url) async {
+  assert(url.isNotEmpty);
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -65,8 +66,8 @@ class LandScaprPostedByProfilePage extends StatelessWidget {
                     child: FadeInImage(
                       placeholder: AssetImage("assets/book_logo.jpg"),
                       image: NetworkImage(
-                        "https://booksharingappdjango.herokuapp.com" +
-                            student.photo,
+                        // "https://booksharingappdjango.herokuapp.com" +
+                        "http://192.168.43.182:8000" + student.photo,
                       ),
                       fit: BoxFit.fill,
                     ),
@@ -150,8 +151,8 @@ class ProtraitModePostedByProfilePage extends StatelessWidget {
                         child: FadeInImage(
                           placeholder: AssetImage("assets/book_logo.jpg"),
                           image: NetworkImage(
-                            "https://booksharingappdjango.herokuapp.com" +
-                                student.photo,
+                            // "https://booksharingappdjango.herokuapp.com" +
+                            "http://192.168.43.182:8000" + student.photo,
                           ),
                           fit: BoxFit.fill,
                         ),

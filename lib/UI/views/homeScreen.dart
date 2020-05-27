@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
@@ -26,7 +28,10 @@ class _HomePageState extends State<HomePage> {
 
   final ContainerTransitionType _transitionType =
       ContainerTransitionType.fadeThrough;
-
+  var isShimmerShown;
+  int count = 0;
+  var isListShimmerShown;
+  int count1 = 0;
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
@@ -35,6 +40,67 @@ class _HomePageState extends State<HomePage> {
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
+      if (count1 == 0) {
+        isListShimmerShown = Container(
+          width: double.infinity,
+          height: 500,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            enabled: true,
+            child: ListView.builder(
+              shrinkWrap: true,
+              primary: false,
+              itemBuilder: (_, __) => Padding(
+                padding: const EdgeInsets.only(bottom: 25.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 70.0,
+                      height: 40.0,
+                      color: Colors.white,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: 8.0,
+                            color: Colors.white,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                          ),
+                          Container(
+                            width: 40.0,
+                            height: 8.0,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              itemCount: 6,
+            ),
+          ),
+        );
+        Timer(Duration(seconds: 5), () {
+          if (bookModel.homeListBook.length == 0) {
+            setState(() {
+              count1 = 1;
+              isListShimmerShown = Container();
+            });
+          }
+        });
+      }
       return bookModel.homeListBook != null
           ? bookModel.homeListBook.length != 0
               ? ListView.builder(
@@ -118,59 +184,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 )
-              : Container(
-                  width: double.infinity,
-                  height: 500,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 16.0),
-                  child: Shimmer.fromColors(
-                    baseColor: Colors.grey[300],
-                    highlightColor: Colors.grey[100],
-                    enabled: true,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      itemBuilder: (_, __) => Padding(
-                        padding: const EdgeInsets.only(bottom: 25.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 70.0,
-                              height: 40.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    width: double.infinity,
-                                    height: 8.0,
-                                    color: Colors.white,
-                                  ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 5.0),
-                                  ),
-                                  Container(
-                                    width: 40.0,
-                                    height: 8.0,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      itemCount: 6,
-                    ),
-                  ),
-                )
+              : isListShimmerShown
           : Container();
     }
 
@@ -203,6 +217,124 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAllBar(context),
       body: Consumer<BookModel>(
         builder: (context, bookModel, _) {
+          if (count == 0) {
+            isShimmerShown = Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (_, __) => Padding(
+                  padding: const EdgeInsets.only(bottom: 2.0, top: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 150.0,
+                        height: 130.0,
+                        color: Colors.white,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            // width: double.infinity,
+                            height: 38.0,
+                            color: Colors.white,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                          ),
+
+                          // Container(
+                          //   width: 40.0,
+                          //   height: 8.0,
+                          //   color: Colors.white,
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                itemCount: 6,
+              ),
+            );
+            Timer(Duration(seconds: 2), () {
+              if (bookModel.latestBooks.length == 0) {
+                setState(() {
+                  count = 1;
+                  isShimmerShown =
+                      //  Column(
+                      //   children: <Widget>[
+                      // SizedBox(
+                      //   height: MediaQuery.of(context).size.height / 2.5,
+                      // ),
+                      Center(
+                    child: Text(
+                      "No posted Book yet",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  );
+                  //   ],
+                  // );
+                });
+              } else {
+                isShimmerShown = Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (_, __) => Padding(
+                      padding: const EdgeInsets.only(bottom: 2.0, top: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 150.0,
+                            height: 130.0,
+                            color: Colors.white,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                // width: double.infinity,
+                                height: 38.0,
+                                color: Colors.white,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5.0),
+                              ),
+
+                              // Container(
+                              //   width: 40.0,
+                              //   height: 8.0,
+                              //   color: Colors.white,
+                              // ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    itemCount: 6,
+                  ),
+                );
+              }
+            });
+          }
+
           return RefreshIndicator(
             onRefresh: bookModel.refreshLocalGallery,
             backgroundColor: Theme.of(context).primaryColor,
@@ -215,7 +347,9 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Latest Books"),
+                    bookModel.latestBooks.length != 0
+                        ? Text("Latest Books")
+                        : Container(),
                     Container(
                       height: 200,
                       // horizontal list order by posted date
@@ -322,61 +456,76 @@ class _HomePageState extends State<HomePage> {
                                 );
                               },
                             )
-                          : Shimmer.fromColors(
-                              baseColor: Colors.grey[300],
-                              highlightColor: Colors.grey[100],
-                              enabled: true,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                primary: false,
-                                itemBuilder: (_, __) => Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 2.0, top: 10),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 150.0,
-                                        height: 130.0,
-                                        color: Colors.white,
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Container(
-                                            // width: double.infinity,
-                                            height: 38.0,
-                                            color: Colors.white,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5.0),
-                                          ),
+                          // : Shimmer.fromColors(
+                          //     baseColor: Colors.grey[300],
+                          //     highlightColor: Colors.grey[100],
+                          //     enabled: true,
+                          //     child: ListView.builder(
+                          //       scrollDirection: Axis.horizontal,
+                          //       shrinkWrap: true,
+                          //       primary: false,
+                          //       itemBuilder: (_, __) => Padding(
+                          //         padding: const EdgeInsets.only(
+                          //             bottom: 2.0, top: 10),
+                          //         child: Row(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           children: [
+                          //             Container(
+                          //               width: 150.0,
+                          //               height: 130.0,
+                          //               color: Colors.white,
+                          //             ),
+                          //             const Padding(
+                          //               padding: EdgeInsets.symmetric(
+                          //                   horizontal: 8.0),
+                          //             ),
+                          //             Column(
+                          //               crossAxisAlignment:
+                          //                   CrossAxisAlignment.start,
+                          //               children: <Widget>[
+                          //                 Container(
+                          //                   // width: double.infinity,
+                          //                   height: 38.0,
+                          //                   color: Colors.white,
+                          //                 ),
+                          //                 const Padding(
+                          //                   padding: EdgeInsets.symmetric(
+                          //                       vertical: 5.0),
+                          //                 ),
 
-                                          // Container(
-                                          //   width: 40.0,
-                                          //   height: 8.0,
-                                          //   color: Colors.white,
-                                          // ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                itemCount: 6,
-                              ),
-                            ),
+                          //                 // Container(
+                          //                 //   width: 40.0,
+                          //                 //   height: 8.0,
+                          //                 //   color: Colors.white,
+                          //                 // ),
+                          //               ],
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       itemCount: 6,
+                          //     ),
+                          //   )
+                          : isShimmerShown,
+
                       // : Center(
                       //     child: CircularProgressIndicator(),
                       //   ),
                     ),
+                    // : Column(
+                    //     children: <Widget>[
+                    //       SizedBox(
+                    //         height:
+                    //             MediaQuery.of(context).size.height / 2.5,
+                    //       ),
+                    //       Center(
+                    //         child: Text("no posted Book yet"),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // : widget,
+
                     _firstFutureBuilder(context, bookModel),
                     bookModel.homeListBook.length != 0 ||
                             bookModel.latestBooks.length != 0

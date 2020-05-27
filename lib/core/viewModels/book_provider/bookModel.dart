@@ -89,6 +89,12 @@ class BookModel extends BaseModel {
     // for (int i=0;i<book.length;i++) {
     //   books = book;
     // }
+    // if(book.isEmpty){
+
+    // }
+    // var streamLength = await _bookSubject.stream.length;
+    // print(streamLength);
+    // if (streamLength != 0) {
     book.forEach((e) {
       for (int i = 0; i < e.length; i++) {
         if (e[i].bookName.toLowerCase().contains(searchText.toLowerCase())) {
@@ -96,6 +102,8 @@ class BookModel extends BaseModel {
         }
       }
     });
+    // }
+
     // for (var i in books) {
     //   print(i);
     // }

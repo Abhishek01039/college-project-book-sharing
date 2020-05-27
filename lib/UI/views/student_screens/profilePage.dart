@@ -96,7 +96,8 @@ class LandscapeModeProfilePage extends StatelessWidget {
                                                 placeholder: AssetImage(
                                                     "assets/book_logo.jpg"),
                                                 image: NetworkImage(
-                                                  "https://booksharingappdjango.herokuapp.com" +
+                                                  // "https://booksharingappdjango.herokuapp.com" +
+                                                  "http://192.168.43.182:8000" +
                                                       state.student.photo,
                                                 ),
                                                 fit: BoxFit.fill,
@@ -340,7 +341,8 @@ class PotraitModeProfilePage extends StatelessWidget {
                                               placeholder: AssetImage(
                                                   "assets/book_logo.jpg"),
                                               image: NetworkImage(
-                                                "https://booksharingappdjango.herokuapp.com" +
+                                                // "https://booksharingappdjango.herokuapp.com" +
+                                                "http://192.168.43.182:8000" +
                                                     state.student.photo,
                                               ),
                                               fit: BoxFit.fill,

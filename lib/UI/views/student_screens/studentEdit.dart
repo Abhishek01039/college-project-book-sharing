@@ -16,7 +16,14 @@ class StudentEdit extends StatelessWidget {
   final Student student;
   Country country = new Country();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  StudentEdit({Key key, this.student}) : super(key: key);
+  StudentEdit({Key key, this.student})
+      : assert(
+          student.enrollmentNo != null,
+          student.firstName != null,
+        ),
+        assert(student.lastName != null),
+        super(key: key);
+
   Country getCountryByIsoCode(String countryCode) {
     try {
       return countryList.firstWhere(
@@ -29,20 +36,22 @@ class StudentEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StudentEditModel studentEditModel = Provider.of(context);
-    studentEditModel.enrollmentNo.text = student.enrollmentNo;
-    studentEditModel.firstName.text = student.firstName;
-    studentEditModel.lastName.text = student.lastName;
-    studentEditModel.email.text = student.email;
-    studentEditModel.age.text = student.age.toString();
-    studentEditModel.collegeName.text = student.collegeName;
-    studentEditModel.course.text = student.course;
-    studentEditModel.address.text = student.address;
+    StudentEditModel studentEditModel = Provider.of<StudentEditModel>(context);
+    if (studentEditModel.autoValidate == false) {
+      studentEditModel.enrollmentNo.text = student.enrollmentNo;
+      studentEditModel.firstName.text = student.firstName;
+      studentEditModel.lastName.text = student.lastName;
+      studentEditModel.email.text = student.email;
+      studentEditModel.age.text = student.age.toString();
+      studentEditModel.collegeName.text = student.collegeName;
+      studentEditModel.course.text = student.course;
+      studentEditModel.address.text = student.address;
 
-    studentEditModel.number = student.contactNo;
-    studentEditModel.collegeYear = student.collegeYear.toString();
-    studentEditModel.countryCode = student.contactNo.substring(1, 3);
-    country = getCountryByIsoCode(studentEditModel.countryCode);
+      studentEditModel.number = student.contactNo;
+      studentEditModel.collegeYear = student.collegeYear.toString();
+      studentEditModel.countryCode = student.contactNo.substring(1, 3);
+      country = getCountryByIsoCode(studentEditModel.countryCode);
+    }
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
@@ -53,6 +62,7 @@ class StudentEdit extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Form(
+              autovalidate: studentEditModel.autoValidate,
               key: studentEditModel.formKey,
               child: Column(
                 children: <Widget>[
@@ -125,6 +135,9 @@ class StudentEdit extends StatelessWidget {
                       if (value.isEmpty) {
                         return 'Please enter some text';
                       }
+                      if (!isEmail(value)) {
+                        return "Please enter valid Email";
+                      }
                       return null;
                     },
                   ),
@@ -160,7 +173,7 @@ class StudentEdit extends StatelessWidget {
                         Icons.domain,
                       ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter College Name';
@@ -334,6 +347,7 @@ class StudentEdit extends StatelessWidget {
                         } else if (value == "not valid") {
                           showFlutterToast("Contact Number is not Valid");
                         } else if (value == "") {
+                        } else if (value == null) {
                         } else {
                           showFlutterToast(
                               "Somthing went wrong. Please try again");

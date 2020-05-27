@@ -11,7 +11,11 @@ class PurchasedBook extends Equatable {
   final String isbnNo;
 
   PurchasedBook(
-      {this.purId, this.studId, this.bookName, this.price, this.isbnNo});
+      {this.purId, this.studId, this.bookName, this.price, this.isbnNo})
+      : assert(
+          purId != null,
+          studId != null,
+        );
 
   factory PurchasedBook.fromJson(Map<String, dynamic> json) =>
       _$PurchasedBookFromJson(json);

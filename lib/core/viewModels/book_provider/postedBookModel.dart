@@ -34,6 +34,8 @@ class PostedBookModel extends BaseModel {
   String status = '';
   Api _api = locator<Api>();
   bool isPosted;
+  bool autoValidate = false;
+  final formKey = GlobalKey<FormState>();
 
   List<String> extn = [];
   chooseBookImage() async {
@@ -96,36 +98,40 @@ class PostedBookModel extends BaseModel {
   // post a _book
   registeredBook(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
-    if (scaffoldKey != null) {
-      if (await checkConnection() == false) {
-        showFlutterToast("Please check internet connection");
-      } else {
-        showProgress(scaffoldKey);
-
-        await startUpload();
-        final box = Hive.box("Student");
-        String body = json.encode({
-          "bookName": bookName.text,
-          "isbnNo": isbnNo.text,
-          "authorName": authorName.text,
-          "pubName": pubName.text,
-          "price": int.tryParse(price.text),
-          "bookCatgName": bookCatgName.text,
-          "originalPrice": int.tryParse(mrpPrice.text),
-          "Book_Image": base64Image,
-          "extn": extn,
-          "postedBy": box.get("ID")
-        });
-
-        isPosted = await _api.registeredBook(body);
-        closeProgress(scaffoldKey);
-        if (isPosted) {
-          Navigator.pop(context);
-          showFlutterToast("Book Posted Successfully");
+    if (formKey.currentState.validate()) {
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("Please check internet connection");
         } else {
-          showFlutterToast("Somthing went wrong Please try again");
+          showProgress(scaffoldKey);
+
+          await startUpload();
+          final box = Hive.box("Student");
+          String body = json.encode({
+            "bookName": bookName.text,
+            "isbnNo": isbnNo.text,
+            "authorName": authorName.text,
+            "pubName": pubName.text,
+            "price": int.tryParse(price.text),
+            "bookCatgName": bookCatgName.text,
+            "originalPrice": int.tryParse(mrpPrice.text),
+            "Book_Image": base64Image,
+            "extn": extn,
+            "postedBy": box.get("ID")
+          });
+
+          isPosted = await _api.registeredBook(body);
+          closeProgress(scaffoldKey);
+          if (isPosted) {
+            Navigator.pop(context);
+            showFlutterToast("Book Posted Successfully");
+          } else {
+            showFlutterToast("Somthing went wrong Please try again");
+          }
         }
       }
+    } else {
+      changeAutoValidate();
     }
   }
 
@@ -198,5 +204,10 @@ class PostedBookModel extends BaseModel {
         closeProgress(scaffoldKey);
       }
     }
+  }
+
+  changeAutoValidate() {
+    autoValidate = true;
+    notifyListeners();
   }
 }

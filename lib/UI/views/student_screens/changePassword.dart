@@ -22,6 +22,7 @@ class ChangePassword extends StatelessWidget {
             child: SafeArea(
               child: Form(
                 key: studentModel.changePassformKey,
+                autovalidate: studentModel.changePasswordAutoValidate,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -70,6 +71,8 @@ class ChangePassword extends StatelessWidget {
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter New Password';
+                          } else if (value.length < 5) {
+                            return 'Password must be more than five characters';
                           }
                           return null;
                         },

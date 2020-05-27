@@ -17,6 +17,8 @@ class PostedBook extends StatelessWidget {
         builder: (context, postedBookModel, child) {
           return SingleChildScrollView(
             child: Form(
+              autovalidate: postedBookModel.autoValidate,
+              key: postedBookModel.formKey,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(

@@ -74,41 +74,70 @@ class Search extends SearchDelegate {
             future: bookModel.searchOperation(query),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
-                  ? ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            final box = Hive.box("Student");
-                            bookModel.latestBooks[index].postedBy !=
-                                    box.get("ID")
-                                ? Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BookDetail(
-                                        book: snapshot.data[index],
-                                      ),
-                                    ),
-                                  )
-                                : Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (con) => MyPostedBookDetail(
-                                        book: bookModel.latestBooks[index],
-                                      ),
-                                    ),
-                                  );
+                  ? snapshot.data.length != 0
+                      ? ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: () {
+                                final box = Hive.box("Student");
+                                snapshot.data[index].postedBy != box.get("ID")
+                                    ? Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BookDetail(
+                                            book: snapshot.data[index],
+                                          ),
+                                        ),
+                                      )
+                                    : Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (con) => MyPostedBookDetail(
+                                            book: snapshot.data[index],
+                                          ),
+                                        ),
+                                      );
+                              },
+                              child: ListTile(
+                                title: Text(
+                                  snapshot.data[index].bookName.toString(),
+                                ),
+                              ),
+                            );
                           },
-                          child: ListTile(
-                            title: Text(
-                              snapshot.data[index].bookName.toString(),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 50,
                             ),
+                            Center(
+                              child: Text(
+                                "No results found for '$query'",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Center(
+                          child: Text(
+                            "No results found for '$query'",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
                           ),
-                        );
-                      },
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
+                        ),
+                      ],
                     );
             },
           );

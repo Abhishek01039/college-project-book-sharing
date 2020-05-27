@@ -10,46 +10,62 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
-  basicAuth() {
-    String username = 'abhishek';
-    String password = 'ABHI01039';
-    String basicAuth =
-        'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    return basicAuth;
-  }
+  String api = "http://192.168.43.182:8000/booksharing/";
+  // String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
+  // basicAuth() {
+  //   String username = 'abhishek';
+  //   String password = 'ABHI01039';
+  //   return 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+  // }
+
+  // Future<String> getJWT() async {
+  //   String username = 'abhishek';
+  //   String password = 'ABHI01039';
+  //   http.Response response = await http.post(
+  //       "http://192.168.43.182:8000/api/token/",
+  //       body: {"username": username, "password": password});
+  //    parsed = jsonDecode(response.body);
+  //   print(parsed);
+  //   return parsed;
+  // }
 
   Future<List<Book>> getBooks() async {
     List<Book> book = new List();
     // List<BookImage> image = new List();
-    var response =
-        await http.get(api + 'book/', headers: {'authorization': basicAuth()});
+    // log(getJWT());
+    var response = await http.get(api + 'book/', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
 
     var parsed = jsonDecode(response.body);
     // print(parsed);
     // return Book
-    for (var i in parsed) {
-      book.add(Book.fromJson(i));
+    if (parsed.length != 0) {
+      for (var i in parsed) {
+        book.add(Book.fromJson(i));
 
-      // for (var j in i['Book_Image']) {
-      //   // image.add(
-      //   //   BookImage.fromJson(j),
-      //   // );
+        // for (var j in i['Book_Image']) {
+        //   // image.add(
+        //   //   BookImage.fromJson(j),
+        //   // );
 
-      // }
+        // }
+      }
+      // await getBookImage();
+      // for (var i in )
+      // print(image[0].image);
+      // print(book);
+      return book;
     }
-    // await getBookImage();
-    // for (var i in )
-    // print(image[0].image);
-    // print(book);
-    return book;
+    return null;
   }
 
   getBooksById(int id) async {
     Book book = locator<Book>();
     // Student student = locator<Student>();
-    var response = await http
-        .get(api + 'book/$id', headers: {'authorization': basicAuth()});
+    var response = await http.get(api + 'book/$id', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
 
     var parsed = jsonDecode(response.body);
     // print(parsed);
@@ -66,8 +82,9 @@ class Api {
   Future<Student> getStudentById(int id) async {
     Student student = locator<Student>();
 
-    http.Response response = await http
-        .get(api + 'student/$id', headers: {'authorization': basicAuth()});
+    http.Response response = await http.get(api + 'student/$id', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
     // print(response.body);
     var parsed = jsonDecode(response.body);
 
@@ -83,8 +100,9 @@ class Api {
 
   getBookImage(int id) async {
     List<BookImage> image = List<BookImage>();
-    http.Response response = await http
-        .get(api + 'imagebyid/$id', headers: {'authorization': basicAuth()});
+    http.Response response = await http.get(api + 'imagebyid/$id', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
     // print(response.body);
     var parsed = jsonDecode(response.body);
 
@@ -105,9 +123,12 @@ class Api {
     // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     // SPHelper.setPref(sharedPreferences);
     // SPHelper.enrollmentNo=;
-    http.Response response = await http.post(api + 'login/',
-        body: {'enrollmentNo': enrollment, "password": pass},
-        headers: {'authorization': basicAuth()});
+    http.Response response = await http.post(api + 'login/', body: {
+      'enrollmentNo': enrollment,
+      "password": pass
+    }, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
     // print(response.body);
     var parsed = jsonDecode(response.body);
 
@@ -129,8 +150,11 @@ class Api {
   }
 
   getPurchasedBook(String studId) async {
-    http.Response response = await http.post(api + 'student/',
-        body: {'studentId': studId}, headers: {'authorization': basicAuth()});
+    http.Response response = await http.post(api + 'student/', body: {
+      'studentId': studId
+    }, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
     var parsed = jsonDecode(response.body);
 
     if (response.statusCode == 201) {
@@ -170,7 +194,7 @@ class Api {
       "photo": base64Image ?? "",
       "extansion": extn ?? ""
     }, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     var parsed = jsonDecode(response.body);
 
@@ -201,12 +225,11 @@ class Api {
   }
 
   Future<bool> registeredBook(String body) async {
-    http.Response response = await http.post(api + "postbook/",
-        body: body,
-        headers: {
-          'authorization': basicAuth(),
-          "Content-Type": "application/json"
-        });
+    http.Response response =
+        await http.post(api + "postbook/", body: body, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      "Content-Type": "application/json"
+    });
 
     var parsed = jsonDecode(response.body);
 
@@ -219,12 +242,11 @@ class Api {
   }
 
   Future<String> updateStudent(int id, String studentInfo) async {
-    http.Response response = await http.put(api + "student/$id/",
-        body: studentInfo,
-        headers: {
-          'authorization': basicAuth(),
-          "Content-Type": "application/json"
-        });
+    http.Response response =
+        await http.put(api + "student/$id/", body: studentInfo, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      "Content-Type": "application/json"
+    });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
       return "true";
@@ -236,12 +258,11 @@ class Api {
   }
 
   Future<bool> updateStudentPhoto(int id, String studentInfo) async {
-    http.Response response = await http.put(api + "updatestudentphoto/$id/",
-        body: studentInfo,
-        headers: {
-          'authorization': basicAuth(),
-          "Content-Type": "application/json"
-        });
+    http.Response response = await http
+        .put(api + "updatestudentphoto/$id/", body: studentInfo, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      "Content-Type": "application/json"
+    });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
       return true;
@@ -253,7 +274,7 @@ class Api {
     List<Book> bookList = new List();
     http.Response response =
         await http.get(api + 'bookbyposted/$id/', headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     var parsed = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -265,12 +286,11 @@ class Api {
   }
 
   Future<bool> editBook(int bookId, String editBookData) async {
-    http.Response response = await http.put(api + 'book/$bookId/',
-        body: editBookData,
-        headers: {
-          'authorization': basicAuth(),
-          "Content-Type": "application/json"
-        });
+    http.Response response =
+        await http.put(api + 'book/$bookId/', body: editBookData, headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      "Content-Type": "application/json"
+    });
     var parsed = jsonDecode(response.body);
     if (parsed == "Success") {
       return true;
@@ -284,7 +304,7 @@ class Api {
       "password": password,
       "newpassword": newpassword
     }, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
@@ -298,7 +318,7 @@ class Api {
   deleteStudent(int studId) async {
     http.Response response =
         await http.delete(api + 'student/$studId/', headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 204) {
@@ -309,7 +329,7 @@ class Api {
 
   deleteBook(int bookId) async {
     http.Response response = await http.delete(api + 'book/$bookId/', headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 204) {
@@ -322,7 +342,7 @@ class Api {
     http.Response response =
         await http.post(api + 'purchasedbook/', body: data, headers: {
       "Content-Type": "application/json",
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
     });
     var parsed = jsonDecode(response.body);
 
@@ -337,9 +357,10 @@ class Api {
 
   purchasedBookByUser(int studId) async {
     // List<PurchasedBook> purchasedBook = new List();
-    http.Response response = await http.get(
-        api + "purchasedbookbyuser/$studId/",
-        headers: {'authorization': basicAuth()});
+    http.Response response = await http
+        .get(api + "purchasedbookbyuser/$studId/", headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
     var parsed = jsonDecode(response.body);
 
     return parsed;
@@ -352,7 +373,7 @@ class Api {
       "email": email,
       "message": message
     }, headers: {
-      'authorization': basicAuth()
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
     });
     var parsed = jsonDecode(response.body);
 
@@ -362,8 +383,9 @@ class Api {
   Future<List<Book>> getHomeList() async {
     List<Book> book = new List();
 
-    http.Response response = await http
-        .get(api + 'homelist/', headers: {'authorization': basicAuth()});
+    http.Response response = await http.get(api + 'homelist/', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
 
     var parsed = jsonDecode(response.body);
     for (var i in parsed) {
@@ -375,8 +397,9 @@ class Api {
   Future<List<Book>> getLatestBook() async {
     List<Book> book = new List();
 
-    http.Response response = await http
-        .get(api + 'latestbook/', headers: {'authorization': basicAuth()});
+    http.Response response = await http.get(api + 'latestbook/', headers: {
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+    });
 
     var parsed = jsonDecode(response.body);
     for (var i in parsed) {
@@ -388,7 +411,7 @@ class Api {
   updateImagePhoto(String bookImageInfo) async {
     http.Response response =
         await http.put(api + 'updatebookimage/', body: bookImageInfo, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
       "Content-Type": "application/json",
     });
 
@@ -399,7 +422,7 @@ class Api {
   addImageList(String bookImageInfo) async {
     http.Response response =
         await http.post(api + 'addimagelist/', body: bookImageInfo, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
       "Content-Type": "application/json",
     });
 
@@ -410,7 +433,7 @@ class Api {
   sendEmail(String body) async {
     http.Response response =
         await http.post(api + 'sendemail/', body: body, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
       "Content-Type": "application/json",
     });
 
@@ -421,7 +444,7 @@ class Api {
   updatePassword(String body) async {
     http.Response response =
         await http.put(api + 'updatepassword/', body: body, headers: {
-      'authorization': basicAuth(),
+      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
       "Content-Type": "application/json",
     });
 

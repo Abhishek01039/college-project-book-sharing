@@ -1,3 +1,4 @@
+import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class FeedBack extends StatelessWidget {
         builder: (context, studentRegModel, _) {
           return SingleChildScrollView(
             child: Form(
+              autovalidate: studentRegModel.feedbackAutoValidate,
               key: studentRegModel.feedbackFormKey,
               child: Padding(
                 padding: const EdgeInsets.all(30),
@@ -47,6 +49,8 @@ class FeedBack extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter Email';
+                        } else if (!isEmail(value)) {
+                          return 'email invalid';
                         }
                         return null;
                       },

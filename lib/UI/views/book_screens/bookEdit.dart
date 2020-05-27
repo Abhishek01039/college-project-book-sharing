@@ -10,7 +10,10 @@ class BookEdit extends StatelessWidget {
   static final tag = "postedBook";
   final Book book;
 
-  BookEdit({Key key, this.book}) : super(key: key);
+  BookEdit({Key key, this.book})
+      : assert(book != null),
+        super(key: key);
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,8 @@ class BookEdit extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: postedBookEditModel.formKey,
+          autovalidate: postedBookEditModel.autoValidate,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(

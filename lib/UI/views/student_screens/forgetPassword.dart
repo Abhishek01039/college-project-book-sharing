@@ -67,7 +67,10 @@ class ForgetPassword extends StatelessWidget {
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Please enter Phone Number';
+                              return 'Please enter Email';
+                            }
+                            if (!isEmail(value)) {
+                              return "Please enter valid Email";
                             }
                             return null;
                           },

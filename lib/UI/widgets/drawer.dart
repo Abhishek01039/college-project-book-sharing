@@ -77,7 +77,8 @@ class DrawerMenu extends StatelessWidget {
                             child: FadeInImage(
                               placeholder: AssetImage("assets/book_logo.jpg"),
                               image: NetworkImage(
-                                "https://booksharingappdjango.herokuapp.com" +
+                                // "https://booksharingappdjango.herokuapp.com" +
+                                "http://192.168.43.182:8000" +
                                     box.get("studentPhoto"),
                               ),
                               fit: BoxFit.fill,
@@ -228,7 +229,10 @@ class DrawerMenu extends StatelessWidget {
                 Navigator.pop(context);
                 showAboutDialog(
                   context: context,
-                  applicationIcon: FlutterLogo(),
+                  applicationIcon: FlutterLogo(
+                    textColor: Colors.green,
+                    size: 50,
+                  ),
                   applicationName: 'Book Sharing',
                   applicationVersion: '1.0.0',
                   applicationLegalese: '© 2020 The Chromium Authors',

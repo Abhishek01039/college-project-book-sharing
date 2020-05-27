@@ -10,11 +10,9 @@ class Book extends Equatable {
   final String bookName;
   final String authorName;
   final String pubName;
-
   final String isbnNo;
   final int originalPrice;
   final int price;
-
   final String bookCatgName;
   final int postedBy;
   final List<BookImage> bookImage;
@@ -30,7 +28,11 @@ class Book extends Equatable {
       this.bookCatgName,
       this.postedBy,
       this.bookImage,
-      this.postedDate});
+      this.postedDate})
+      : assert(
+          bookName != null,
+          bookId != null,
+        );
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
   Map<String, dynamic> toJson() => _$BookToJson(this);

@@ -132,6 +132,8 @@ class PotraitLogInForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
+        autovalidate: studentModel.autoValidate,
+        key: studentModel.formKey,
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,6 +179,12 @@ class PotraitLogInForm extends StatelessWidget {
                 if (value.isEmpty) {
                   return 'Please enter Enrollement Number';
                 }
+                if (!value.startsWith("E17")) {
+                  return "Please enter valid Enrollment Number";
+                }
+                if (value.length < 13) {
+                  return "Please enter valid Enrollment Number";
+                }
                 return null;
               },
             ),
@@ -202,12 +210,16 @@ class PotraitLogInForm extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () async {
-                bool val = await studentModel.logIn(scaffoldKey);
-                if (val) {
-                  studentModel.username.clear();
-                  Navigator.pushReplacementNamed(context, 'home');
+                if (studentModel.formKey.currentState.validate()) {
+                  bool val = await studentModel.logIn(scaffoldKey);
+                  if (val) {
+                    studentModel.username.clear();
+                    Navigator.pushReplacementNamed(context, 'home');
+                  } else {
+                    showFlutterToast("Invalid Enrollment Number or Password");
+                  }
                 } else {
-                  showFlutterToast("Invalid Enrollment Number or Password");
+                  studentModel.changeAutoValidate();
                 }
                 // studentModel.username.clear();
                 studentModel.pass.clear();
@@ -271,6 +283,8 @@ class LandScapeLogInForm extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Form(
+          autovalidate: studentModel.autoValidate,
+          key: studentModel.formKey,
           child: Container(
             width: MediaQuery.of(context).size.width / 2,
             child: Column(
@@ -343,15 +357,20 @@ class LandScapeLogInForm extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () async {
-                    bool val = await studentModel.logIn(scaffoldKey);
-                    if (val) {
-                      studentModel.username.clear();
-                      Navigator.pushReplacementNamed(context, 'home');
-                    } else if (val == null) {
+                    if (studentModel.formKey.currentState.validate()) {
+                      bool val = await studentModel.logIn(scaffoldKey);
+                      if (val) {
+                        studentModel.username.clear();
+                        Navigator.pushReplacementNamed(context, 'home');
+                      } else if (val == null) {
+                      } else {
+                        showFlutterToast(
+                            "Invalid Enrollment Number or Password");
+                      }
+                      // studentModel.username.clear();
                     } else {
-                      showFlutterToast("Invalid Enrollment Number or Password");
+                      studentModel.changeAutoValidate();
                     }
-                    // studentModel.username.clear();
                     studentModel.pass.clear();
                   },
                   child: Text(

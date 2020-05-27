@@ -44,29 +44,35 @@ class PostedBookEditModel extends BaseModel {
   List<File> tmpFileList = [];
   // String isImageSelected = "";
   List<String> fileName = [];
+  bool autoValidate = false;
+  final formKey = GlobalKey<FormState>();
 
   editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
-    final box = Hive.box("Student");
-    String editBookData = jsonEncode({
-      "bookName": bookName.text,
-      "isbnNo": isbnNo.text,
-      "authorName": authorName.text,
-      "pubName": pubName.text,
-      "price": int.tryParse(price.text),
-      "bookCatgName": bookCatgName.text,
-      "originalPrice": int.tryParse(mrpPrice.text),
-      "postedBy": box.get("ID")
-    });
-    if (scaffoldKey != null) {
-      if (await checkConnection() == false) {
-        showFlutterToast("Please check internet connection");
-        return null;
-      }
+    if (formKey.currentState.validate()) {
+      final box = Hive.box("Student");
+      String editBookData = jsonEncode({
+        "bookName": bookName.text,
+        "isbnNo": isbnNo.text,
+        "authorName": authorName.text,
+        "pubName": pubName.text,
+        "price": int.tryParse(price.text),
+        "bookCatgName": bookCatgName.text,
+        "originalPrice": int.tryParse(mrpPrice.text),
+        "postedBy": box.get("ID")
+      });
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("Please check internet connection");
+          return null;
+        }
 
-      showProgress(scaffoldKey);
+        showProgress(scaffoldKey);
+      }
+      isEdited = await _api.editBook(bookid, editBookData);
+      closeProgress(scaffoldKey);
+    } else {
+      changeAutoValidate();
     }
-    isEdited = await _api.editBook(bookid, editBookData);
-    closeProgress(scaffoldKey);
   }
 
   chooseImage() async {
@@ -239,5 +245,10 @@ class PostedBookEditModel extends BaseModel {
 
       // showProgress(scaffoldKey);
     }
+  }
+
+  changeAutoValidate() {
+    autoValidate = true;
+    notifyListeners();
   }
 }

@@ -10,7 +10,8 @@ class StudentModel extends BaseModel {
 
   final TextEditingController username = TextEditingController();
   final TextEditingController pass = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
+  bool autoValidate = false;
   logIn(GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
@@ -32,5 +33,10 @@ class StudentModel extends BaseModel {
     }
     return;
     // print(_student);
+  }
+
+  changeAutoValidate() {
+    autoValidate = true;
+    notifyListeners();
   }
 }

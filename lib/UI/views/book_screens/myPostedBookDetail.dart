@@ -22,7 +22,10 @@ class MyPostedBookDetail extends StatelessWidget {
   final ContainerTransitionType _transitionType =
       ContainerTransitionType.fadeThrough;
 
-  const MyPostedBookDetail({Key key, this.book}) : super(key: key);
+  const MyPostedBookDetail({Key key, this.book})
+      : assert(book != null),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final darkTheme = Hive.box("DarkTheme");
@@ -56,8 +59,8 @@ class MyPostedBookDetail extends StatelessWidget {
                                     // fit: BoxFit.fill,
                                   )
                                 : NetworkImage(
-                                    "https://booksharingappdjango.herokuapp.com" +
-                                        image,
+                                    // "https://booksharingappdjango.herokuapp.com" +
+                                    "http://192.168.43.182:8000" + image,
                                     // fit: BoxFit.fill,
                                   ),
                           )
@@ -268,13 +271,15 @@ class MyPostedBookDetail extends StatelessWidget {
                                   child: FadeInImage(
                                     placeholder:
                                         AssetImage("assets/book_logo.jpg"),
-                                    image: v.image.startsWith("https://")
+                                    image: v.image.startsWith("http://")
                                         ? NetworkImage(
                                             v.image,
                                             // fit: BoxFit.fill,
                                           )
                                         : NetworkImage(
-                                            "https://booksharingappdjango.herokuapp.com" +
+                                            // "https://booksharingappdjango.herokuapp.com" +
+
+                                            "http://192.168.43.182:8000" +
                                                 v.image,
                                             // fit: BoxFit.fill,
                                           ),
@@ -330,11 +335,16 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 30,
                   ),
-                  Text(
-                    "₹" + "   " + book.price.toString(),
-                    // style: TextStyle(color: Colors.red),
-                    style: priceStyle,
-                  ),
+                  book.price == 0
+                      ? Text(
+                          "Free",
+                          style: freePrice,
+                        )
+                      : Text(
+                          "₹" + "   " + book.price.toString(),
+                          // style: TextStyle(color: Colors.red),
+                          style: freePrice,
+                        ),
                 ],
               ),
               SizedBox(

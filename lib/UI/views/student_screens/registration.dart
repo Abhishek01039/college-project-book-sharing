@@ -24,6 +24,7 @@ class Registration extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Form(
+              autovalidate: studentRegModel.autoValidate,
               key: studentRegModel.formKey,
               child: Column(
                 children: <Widget>[
@@ -39,7 +40,7 @@ class Registration extends StatelessWidget {
                         return 'Please enter Enrollement Number';
                       } else if (value.length < 13) {
                         return "Please enter Right Enrollment Number";
-                      } else if (!value.startsWith("E")) {
+                      } else if (!value.startsWith("E17")) {
                         return "Please enter Right Enrollment Number";
                       }
                       return null;
@@ -97,8 +98,8 @@ class Registration extends StatelessWidget {
                       if (value.isEmpty) {
                         return 'Please enter Email Address';
                       }
-                      if (!value.contains("@")) {
-                        return 'Please enter proper Email Address';
+                      if (!isEmail(value)) {
+                        return "Please enter valid Email";
                       }
                       return null;
                     },
@@ -114,11 +115,11 @@ class Registration extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
+                      // print(double.tryParse(value));
                       if (value.isEmpty) {
                         return 'Please enter Age';
-                      }
-                      if (int.tryParse(value) < 0 &&
-                          int.tryParse(value) > 112) {
+                      } else if (double.tryParse(value) <= 0.0 ||
+                          double.tryParse(value) > 112.0) {
                         return "Please enter valid Age";
                       }
                       return null;

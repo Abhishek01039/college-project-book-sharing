@@ -22,6 +22,7 @@ class ChangePasswordAfterOTP extends StatelessWidget {
           body: SingleChildScrollView(
             child: SafeArea(
               child: Form(
+                autovalidate: studentEditModel.changePasswordAutoValidate,
                 key: studentEditModel.changePassowdForm,
                 child: Padding(
                   padding: const EdgeInsets.all(12),

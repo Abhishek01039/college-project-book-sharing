@@ -47,6 +47,9 @@ class StudentEditModel extends BaseModel {
   String editNumber;
   String countryCode = "+91";
   int otp;
+  bool autoValidate = false;
+  bool changePasswordAutoValidate = false;
+
   setPhoneNumber(String value) {
     number = value;
     notifyListeners();
@@ -156,41 +159,47 @@ class StudentEditModel extends BaseModel {
 
   // update student details
   updateStudent(GlobalKey<ScaffoldState> scaffoldKey) async {
-    // _api.updateUser(id)
-    if (scaffoldKey != null) {
-      if (await checkConnection() == false) {
-        showFlutterToast("Please check internet connection");
+    if (formKey.currentState.validate()) {
+      // _api.updateUser(id)
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("Please check internet connection");
 
-        return "";
-      } else {
-        showProgress(scaffoldKey);
+          return "";
+        } else {
+          showProgress(scaffoldKey);
 
-        final box = Hive.box("Student");
-        String studentInfo = jsonEncode({
-          "enrollmentNo": enrollmentNo.text,
-          "firstName": firstName.text,
-          "lastName": lastName.text,
-          "email": email.text,
-          "age": int.tryParse(age.text),
-          "collegeName": collegeName.text,
-          "collegeYear": int.tryParse(collegeYear),
-          "course": course.text,
-          "address": address.text,
-          "contactNo": editNumber ?? number,
-        });
-        String isUpdated = await _api.updateStudent(box.get("ID"), studentInfo);
-        if (isUpdated == "true") {
-          box.put("enrollmentNo", enrollmentNo.text);
-          box.put("studentName", firstName.text);
-          // box.put("studentPhoto", student.photo);
+          final box = Hive.box("Student");
+          String studentInfo = jsonEncode({
+            "enrollmentNo": enrollmentNo.text,
+            "firstName": firstName.text,
+            "lastName": lastName.text,
+            "email": email.text,
+            "age": int.tryParse(age.text),
+            "collegeName": collegeName.text,
+            "collegeYear": int.tryParse(collegeYear),
+            "course": course.text,
+            "address": address.text,
+            "contactNo": editNumber ?? number,
+          });
+          String isUpdated =
+              await _api.updateStudent(box.get("ID"), studentInfo);
+          if (isUpdated == "true") {
+            box.put("enrollmentNo", enrollmentNo.text);
+            box.put("studentName", firstName.text);
+            // box.put("studentPhoto", student.photo);
+          }
+          closeProgress(scaffoldKey);
+          return isUpdated;
         }
-        closeProgress(scaffoldKey);
-        return isUpdated;
+      } else {
+        showFlutterToast("Something went wrong. Please try again");
       }
+      return "";
     } else {
-      showFlutterToast("Something went wrong. Please try again");
+      changeAutoValiate();
+      return null;
     }
-    return "";
   }
 
   // delete the student
@@ -261,33 +270,47 @@ class StudentEditModel extends BaseModel {
 
   updatePassword(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
-    if (scaffoldKey != null) {
-      if (await checkConnection() == false) {
-        showFlutterToast("Please check internet connection");
-        return null;
-      } else {
-        if (changePassowdForm.currentState.validate()) {
-          showProgress(scaffoldKey);
-          String body = jsonEncode(
-              {"email": emailOTP.text, "password": passwordAfterOTP.text});
-          String update = await _api.updatePassword(body);
+    if (changePassowdForm.currentState.validate()) {
+      if (scaffoldKey != null) {
+        if (await checkConnection() == false) {
+          showFlutterToast("Please check internet connection");
+          return null;
+        } else {
+          if (changePassowdForm.currentState.validate()) {
+            showProgress(scaffoldKey);
+            String body = jsonEncode(
+                {"email": emailOTP.text, "password": passwordAfterOTP.text});
+            String update = await _api.updatePassword(body);
 
-          closeProgress(scaffoldKey);
-          if (update == "success") {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              'login',
-              (Route<dynamic> route) => false,
-            );
-            emailOTP.clear();
-            passwordAfterOTP.clear();
-            confirmPasswordAfterOTP.clear();
-            showFlutterToast("Password has been updated");
-          } else {
-            showFlutterToast("Something went wrong");
+            closeProgress(scaffoldKey);
+            if (update == "success") {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                'login',
+                (Route<dynamic> route) => false,
+              );
+              emailOTP.clear();
+              passwordAfterOTP.clear();
+              confirmPasswordAfterOTP.clear();
+              showFlutterToast("Password has been updated");
+            } else {
+              showFlutterToast("Something went wrong");
+            }
           }
         }
       }
+    } else {
+      changeChangePasswordAutoValidate();
     }
+  }
+
+  changeAutoValiate() {
+    autoValidate = true;
+    notifyListeners();
+  }
+
+  changeChangePasswordAutoValidate() {
+    changePasswordAutoValidate = true;
+    notifyListeners();
   }
 }
