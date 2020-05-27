@@ -13,7 +13,6 @@ class PurchasedBook extends Equatable {
   PurchasedBook(
       {this.purId, this.studId, this.bookName, this.price, this.isbnNo})
       : assert(
-          purId != null,
           studId != null,
         );
 

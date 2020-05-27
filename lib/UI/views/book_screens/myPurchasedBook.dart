@@ -40,7 +40,12 @@ class MyPurchasedBook extends StatelessWidget {
                                 (value) => DataRow(
                                   cells: [
                                     DataCell(
-                                      Text(value.bookName),
+                                      Text(
+                                        value.bookName,
+                                        // overflow: TextOverflow.ellipsis,
+                                        maxLines: null,
+                                        softWrap: false,
+                                      ),
                                     ),
                                     DataCell(
                                       Text(value.price.toString()),

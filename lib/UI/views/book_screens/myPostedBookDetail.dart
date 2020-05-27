@@ -52,8 +52,8 @@ class MyPostedBookDetail extends StatelessWidget {
                             // height: double.infinity,
                             // width: double.infinity,
                             placeholder: AssetImage("assets/book_logo.jpg"),
-                            // image: image.startsWith("http://")
-                            image: image.startsWith("https://")
+                            image: image.startsWith("http")
+                                // image: image.startsWith("https://")
                                 ? NetworkImage(
                                     image,
                                     // fit: BoxFit.fill,
