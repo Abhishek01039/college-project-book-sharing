@@ -44,7 +44,7 @@ class ChangePassword extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
-                        controller: studentModel.changePassword,
+                        controller: studentModel.changePasswordTextController,
                         decoration: InputDecoration(
                           hintText: "Password",
                           suffixIcon: Icon(Icons.lock),

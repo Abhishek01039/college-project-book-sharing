@@ -54,7 +54,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BaseModel()),
-        ChangeNotifierProvider(create: (_) => BookModel()),
+        ListenableProvider<BookModel>(
+          create: (_) => BookModel(),
+        ),
         ChangeNotifierProvider(create: (_) => StudentModel()),
         ChangeNotifierProvider(create: (_) => StudentRegModel()),
         ChangeNotifierProvider(create: (_) => PostedBookModel()),

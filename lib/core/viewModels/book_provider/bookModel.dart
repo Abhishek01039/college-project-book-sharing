@@ -4,32 +4,45 @@ import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-class BookModel extends BaseModel {
+class BookModel extends BaseModel with Api {
   Stream<List<Book>> get book => _bookSubject.stream;
   StreamController<List<Book>> _bookSubject = BehaviorSubject<List<Book>>();
 
-  Api _api = locator<Api>();
+  // Api = locator<Api>();
   int selection;
-  List<Book> bookList = [];
-  List<Book> latestBooks = [];
-  List<Book> homeListBook = [];
+  List<Book> bookList = <Book>[];
+  List<Book> latestBooks = <Book>[];
+  List<Book> homeListBook = <Book>[];
   bool isSearching = false;
+
   // final TextEditingController controller = TextEditingController();
 
   // get all books detail and sink it into stream
   bookApi() async {
-    _api.getBooks().asStream().map((event) {
+    // final channel = IOWebSocketChannel.connect(
+    //   // Uri.parse(
+    // 'ws://$YOUR_SERVER_IP:$YOUR_SERVER_PORT',
+    //   // ),
+    //   "ws://echo.websocket.org"
+    // );
+    final channel = IOWebSocketChannel.connect('ws://192.168.43.182:8000/ws');
+    getBooks().asStream().map((event) {
       return event;
     }).listen((event) {
-      _bookSubject.sink.add(event);
+      // _bookSubject.sink.add(event);
+      channel.sink.add("hello");
     });
-    // _bookSubject.sink.add(await _api.getBooks());
-    // notifyListeners();
-    // print(_bookSubject.);
+    // _bookSubject.sink.add(await getBooks());
+    // notifnotifyChange();
+    await for (var i in channel.stream) {
+      print(i);
+    }
   }
 
   // Testing purpose
@@ -38,46 +51,77 @@ class BookModel extends BaseModel {
   }
 
   // get latest books according to posted date
-  getLatestBook() async {
-    latestBooks = await _api.getLatestBook();
-    // notifyListeners();
+  getLatestBookProvider() async {
+    // latestBooks = await getLatestBook();
+
+    await for (var i in book) {
+      i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
+      // i.forEach((e) {
+      //   log(e.postedDate);
+      // });
+
+      latestBooks = i.sublist(i.length - 5, i.length);
+      latestBooks = List.from(latestBooks.reversed);
+
+      print(latestBooks);
+      notifyListeners();
+    }
+
+    // notifyChange();
     // print("hello latest list");
-    notifyListeners();
   }
 
   // get books details from 7-12 books
-  getHomeList() async {
-    homeListBook = await _api.getHomeList();
-    notifyListeners();
+  getHomeListProvider() async {
+    // homeListBook = await getHomeList();
+
+    await for (var i in book) {
+      i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
+      // i.forEach((e) {
+      //   log(e.postedDate);
+      // });
+
+      homeListBook = i.sublist(0, i.length > 4 ? 5 : i.length);
+      // print(homeListBook);
+      notifyListeners();
+    }
+    // notifyChange();
+
     // return homeListBook;
   }
 
   Future<Null> refreshLocalGallery() async {
-    getHomeList();
-    getLatestBook();
+    getHomeListProvider();
+    getLatestBookProvider();
     bookApi();
+  }
+
+  callWhenGoBack() {
+    getHomeListProvider();
+    bookApi();
+    getLatestBookProvider();
   }
 
   BookModel() {
     // bookApi();
-    getHomeList();
+    getHomeListProvider();
     bookApi();
-    getLatestBook();
+    getLatestBookProvider();
   }
 
   getBookByCategory(String catg) async {}
 
   // get books by ID
   Future<List<Book>> getBookById(int id) async {
-    bookList = await _api.getBookByPosted(id);
-    // notifyListeners();
+    bookList = await getBookByPosted(id);
+    // notifnotifyChange();
     return bookList;
   }
 
   //
   popupmenuSelection(dynamic value) {
     selection = value;
-    notifyListeners();
+    notifyChange();
   }
 
   //  it create list from stream and show it into search delegate

@@ -126,8 +126,9 @@ class LandscapeModeProfilePage extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             // studented
-                                            studentEditModel.updateStudentPhoto(
-                                                context, scaffoldKey);
+                                            studentEditModel
+                                                .updateStudentPhotoProvider(
+                                                    context, scaffoldKey);
                                           },
                                           child: Row(
                                             mainAxisAlignment:
@@ -371,8 +372,9 @@ class PotraitModeProfilePage extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {
                                           // studented
-                                          studentEditModel.updateStudentPhoto(
-                                              context, scaffoldKey);
+                                          studentEditModel
+                                              .updateStudentPhotoProvider(
+                                                  context, scaffoldKey);
                                         },
                                         child: Row(
                                           mainAxisAlignment:

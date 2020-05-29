@@ -169,7 +169,7 @@ class PostedBook extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                        await postedBookModel.registeredBook(
+                        await postedBookModel.registeredBookProvider(
                             context, scaffoldKey);
                       },
                       child: Text("Post Book"),

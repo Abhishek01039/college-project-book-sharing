@@ -446,36 +446,55 @@ class MyPostedBookDetail extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: OpenContainer(
-        transitionDuration: Duration(seconds: 1),
-        transitionType: _transitionType,
-        openBuilder: (BuildContext context, VoidCallback _) {
-          return BookEdit(
-            book: book,
-          );
-        },
-        closedElevation: 6.0,
-        closedShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(_fabDimension / 2),
-          ),
-        ),
-        // closedColor: Theme.of(context).colorScheme.secondary,
-        closedBuilder: (BuildContext context, VoidCallback openContainer) {
-          return Container(
-            color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            child: SizedBox(
-              height: _fabDimension,
-              width: _fabDimension,
-              child: Center(
-                child: Icon(
-                  Icons.edit,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
+      // floatingActionButton: OpenContainer(
+      //   transitionDuration: Duration(seconds: 1),
+
+      //   transitionType: _transitionType,
+      //   openBuilder: (BuildContext context, VoidCallback action) {
+      //     return BookEdit(
+      //       book: book,
+      //     );
+      //     // return Navigator.of(context).pushNamed(context, "routeName");
+      //   },
+      //   closedElevation: 6.0,
+      //   closedShape: const RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.all(
+      //       Radius.circular(_fabDimension / 2),
+      //     ),
+      //   ),
+      //   // closedColor: Theme.of(context).colorScheme.secondary,
+      //   closedBuilder: (BuildContext context, VoidCallback openContainer) {
+      //     return Material(
+      //       type: MaterialType.transparency,
+      //       child: Container(
+      //         color:
+      //             Theme.of(context).floatingActionButtonTheme.backgroundColor,
+      //         child: SizedBox(
+      //           height: _fabDimension,
+      //           width: _fabDimension,
+      //           child: Center(
+      //             child: Icon(
+      //               Icons.edit,
+      //               color: Theme.of(context).colorScheme.onSecondary,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BookEdit(
+                book: book,
               ),
             ),
           );
         },
+        child: Icon(Icons.edit),
       ),
     );
   }

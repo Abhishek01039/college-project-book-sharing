@@ -90,7 +90,8 @@ class ChangePasswordAfterOTP extends StatelessWidget {
                           // studentEditModel.changePasswordModel(
                           //     context, box.get("ID"), scaffoldKey);
 
-                          studentEditModel.updatePassword(context, scaffoldKey);
+                          studentEditModel.updatePasswordProvider(
+                              context, scaffoldKey);
                         },
                         child: Text(
                           "Change Password",

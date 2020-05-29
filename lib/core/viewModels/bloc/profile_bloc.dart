@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/student.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
 
-class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> with Api {
   @override
   ProfileState get initialState => ProfileInitial();
   final box = Hive.box("Student");
@@ -40,8 +40,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Future<Student> getStudentProfile() async {
-    Api api = locator<Api>();
-    Student student = await api.getStudentById(box.get("ID"));
+    // Api api = locator<Api>();
+    Student student = await getStudentById(box.get("ID"));
     // print(box.get('studentPhoto'));
     return student;
   }

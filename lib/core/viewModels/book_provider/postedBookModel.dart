@@ -5,13 +5,13 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class PostedBookModel extends BaseModel {
+class PostedBookModel extends BaseModel with Api {
   TextEditingController bookName = TextEditingController();
   TextEditingController isbnNo = TextEditingController();
   TextEditingController authorName = TextEditingController();
@@ -23,21 +23,21 @@ class PostedBookModel extends BaseModel {
   // TextEditingController bookCatgName = TextEditingController();
   // TextEditingController bookCatgName = TextEditingController();
   String number;
-  List<File> bookImages = [];
+  List<File> bookImages = <File>[];
   FileType fileType = FileType.image;
-  List<String> base64Image = [];
-  List<File> tmpFile = [];
+  List<String> base64Image = <String>[];
+  List<File> tmpFile = <File>[];
   String isImageSelected = "";
-  List<String> fileName = [];
+  List<String> fileName = <String>[];
   String errMessage = 'Error Uploading Image';
   // File file;
   String status = '';
-  Api _api = locator<Api>();
+  // Api = locator<Api>();
   bool isPosted;
   bool autoValidate = false;
   final formKey = GlobalKey<FormState>();
 
-  List<String> extn = [];
+  List<String> extn = <String>[];
   chooseBookImage() async {
     bookImages.clear();
     await FilePicker.getMultiFile(type: fileType).then((value) {
@@ -96,7 +96,7 @@ class PostedBookModel extends BaseModel {
   }
 
   // post a _book
-  registeredBook(
+  registeredBookProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
       if (scaffoldKey != null) {
@@ -120,7 +120,7 @@ class PostedBookModel extends BaseModel {
             "postedBy": box.get("ID")
           });
 
-          isPosted = await _api.registeredBook(body);
+          isPosted = await registeredBook(body);
           closeProgress(scaffoldKey);
           if (isPosted) {
             Navigator.pop(context);
@@ -143,14 +143,14 @@ class PostedBookModel extends BaseModel {
   // edit the _book
 
   // delete the _book
-  deleteBook(BuildContext context, int bookId,
+  deleteBookProvider(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
       } else {
         showProgress(scaffoldKey);
-        bool isDeleted = await _api.deleteBook(bookId);
+        bool isDeleted = await deleteBook(bookId);
         closeProgress(scaffoldKey);
         if (isDeleted) {
           // Navigator.popUntil(
@@ -175,7 +175,7 @@ class PostedBookModel extends BaseModel {
   // ensure that you have sold your _book to other student
   deleteBookByTransaction(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
-    // await _api.
+    // await
     String body = jsonEncode(
       {"bookId": bookId, "contactNo": number},
     );
@@ -186,7 +186,7 @@ class PostedBookModel extends BaseModel {
         showFlutterToast("Please check internet connection");
         closeProgress(scaffoldKey);
       } else {
-        String response = await _api.deleteBookAndPost(body);
+        String response = await deleteBookAndPost(body);
         closeProgress(scaffoldKey);
         if (response == "Student doesn't exist with this contact Number") {
           showFlutterToast("Student doesn't exist with this contact Number");

@@ -1,4 +1,4 @@
-import 'package:booksharing/core/API/allAPIs.dart';
+// import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/models/image.dart';
 import 'package:booksharing/core/models/student.dart';
@@ -17,7 +17,7 @@ GetIt locator = GetIt.instance;
 // this all are the Lazy Singleton
 void setupLocator() {
   locator.registerLazySingleton(() => BaseModel());
-  locator.registerLazySingleton(() => Api());
+  // locator.registerLazySingleton(() => Api());
   locator.registerLazySingleton(() => Book());
   locator.registerLazySingleton(() => StudentModel());
   locator.registerLazySingleton(() => BookModel());

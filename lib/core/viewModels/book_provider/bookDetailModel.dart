@@ -10,19 +10,19 @@ import 'package:booksharing/locator.dart';
 // import 'package:file_picker/file_picker.dart';
 // import 'package:flutter/material.dart';
 
-class BookDetailModel extends BaseModel {
+class BookDetailModel extends BaseModel with Api {
   Student _student = locator<Student>();
-  Api _api = locator<Api>();
+  // Api _api = locator<Api>();
   String postedBy;
 
   getStudentDetail(int id) async {
-    _student = await _api.getStudentById(id);
+    _student = await getStudentById(id);
     return _student;
   }
 
   floatingActionButtonEnable() {
     postedBy = "You";
     // print("You");
-    notifyListeners();
+    notifyChange();
   }
 }

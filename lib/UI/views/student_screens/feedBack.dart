@@ -80,7 +80,8 @@ class FeedBack extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                        await studentRegModel.feedBack(context, scaffoldKey);
+                        await studentRegModel.feedBackProvider(
+                            context, scaffoldKey);
                       },
                       child: Text("Send Message"),
                     ),

@@ -9,7 +9,9 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
-class Api {
+const YOUR_SERVER_IP = '192.168.43.182';
+const YOUR_SERVER_PORT = 8000;
+mixin Api {
   String api = "http://192.168.43.182:8000/booksharing/";
   // String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
   // basicAuth() {
@@ -285,7 +287,7 @@ class Api {
     return bookList;
   }
 
-  Future<bool> editBook(int bookId, String editBookData) async {
+  Future<String> editBook(int bookId, String editBookData) async {
     http.Response response =
         await http.put(api + 'book/$bookId/', body: editBookData, headers: {
       'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
@@ -293,9 +295,9 @@ class Api {
     });
     var parsed = jsonDecode(response.body);
     if (parsed == "Success") {
-      return true;
+      return "true";
     }
-    return false;
+    return "false";
   }
 
   changePassword(int studId, String password, String newpassword) async {

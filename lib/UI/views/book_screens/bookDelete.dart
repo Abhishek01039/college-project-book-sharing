@@ -30,7 +30,7 @@ class BookDelete extends StatelessWidget {
                 onPressed: () {
                   // Navigator.pushNamed(context, 'bookdelete');
                   Navigator.pop(ctx);
-                  postedBookModel.deleteBook(ctx, bookId, scaffoldKey);
+                  postedBookModel.deleteBookProvider(ctx, bookId, scaffoldKey);
                 },
                 child: Text("Yes"),
               )

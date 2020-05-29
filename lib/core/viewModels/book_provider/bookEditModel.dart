@@ -14,7 +14,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class PostedBookEditModel extends BaseModel {
+class PostedBookEditModel extends BaseModel with Api {
   TextEditingController bookName = TextEditingController();
   TextEditingController isbnNo = TextEditingController();
   TextEditingController authorName = TextEditingController();
@@ -25,8 +25,8 @@ class PostedBookEditModel extends BaseModel {
   TextEditingController studentName = TextEditingController();
 
   Student _student = locator<Student>();
-  Api _api = locator<Api>();
-  bool isEdited;
+  // Api _api = locator<Api>();
+  String isEdited;
 
   String base64Image;
   File tmpFile;
@@ -35,19 +35,20 @@ class PostedBookEditModel extends BaseModel {
   File file;
   String status = '';
   FileType fileType = FileType.image;
-  List<String> extn = [];
+  List<String> extn = <String>[];
   String countryCode = "+91";
 
-  List<File> bookImages = [];
+  List<File> bookImages = <File>[];
 
-  List<String> base64ImageList = [];
-  List<File> tmpFileList = [];
+  List<String> base64ImageList = <String>[];
+  List<File> tmpFileList = <File>[];
   // String isImageSelected = "";
-  List<String> fileName = [];
+  List<String> fileName = <String>[];
   bool autoValidate = false;
   final formKey = GlobalKey<FormState>();
 
-  editBook(int bookid, GlobalKey<ScaffoldState> scaffoldKey) async {
+  editBookProvider(int bookid, GlobalKey<ScaffoldState> scaffoldKey,
+      BuildContext context) async {
     if (formKey.currentState.validate()) {
       final box = Hive.box("Student");
       String editBookData = jsonEncode({
@@ -68,8 +69,26 @@ class PostedBookEditModel extends BaseModel {
 
         showProgress(scaffoldKey);
       }
-      isEdited = await _api.editBook(bookid, editBookData);
+      isEdited = await editBook(bookid, editBookData);
       closeProgress(scaffoldKey);
+      if (isEdited == "true") {
+        isbnNo.clear();
+        bookName.clear();
+        authorName.clear();
+        pubName.clear();
+        mrpPrice.clear();
+        price.clear();
+        bookCatgName.clear();
+        // postedBookEditModel.bookName.clear();
+        // postedBookEditModel.bookName.clear();
+        Navigator.pushNamedAndRemoveUntil(
+            context, 'home', (Route<dynamic> route) => false);
+        showFlutterToast("Book Edit Successfully");
+      } else if (isEdited == null || isEdited == "") {
+        showFlutterToast("Please fill the form correctly");
+      } else {
+        showFlutterToast("Somthing went wrong Please try again");
+      }
     } else {
       changeAutoValidate();
     }
@@ -81,13 +100,13 @@ class PostedBookEditModel extends BaseModel {
     //   isImageSelected = "Image is Selected";
     // });
 
-    notifyListeners();
+    notifyChange();
     setStatus('');
   }
 
   setStatus(String message) {
     status = message;
-    notifyListeners();
+    notifyChange();
   }
 
   startUpload() async {
@@ -104,12 +123,12 @@ class PostedBookEditModel extends BaseModel {
     String fileName = tmpFile.path.split('/').last;
     // print(fileName);
     extn = fileName.split(".");
-    notifyListeners();
+    notifyChange();
   }
 
   // give book whole detail according to ID and show it into book detail page
   getStudentDetail(int id) async {
-    _student = await _api.getStudentById(id);
+    _student = await getStudentById(id);
     return _student;
   }
 
@@ -126,7 +145,7 @@ class PostedBookEditModel extends BaseModel {
         "extansion": extn[1],
       });
 
-      var parsed = await _api.updateImagePhoto(imageUpdateById);
+      var parsed = await updateImagePhoto(imageUpdateById);
       // closeProgress(scaffoldKey);
       if (parsed == "Success") {
         Navigator.pushNamedAndRemoveUntil(
@@ -153,7 +172,7 @@ class PostedBookEditModel extends BaseModel {
       }
       return true;
     });
-    notifyListeners();
+    notifyChange();
     if (isSelected) {
       return true;
     } else {
@@ -163,7 +182,7 @@ class PostedBookEditModel extends BaseModel {
 
   setStatusList(String message) {
     status = message;
-    notifyListeners();
+    notifyChange();
   }
 
   startUploadList() async {
@@ -204,7 +223,7 @@ class PostedBookEditModel extends BaseModel {
     // );
     // var b = book.toJson();
     // print(b);
-    notifyListeners();
+    notifyChange();
   }
 
   updateBookImageList(BuildContext context,
@@ -225,7 +244,7 @@ class PostedBookEditModel extends BaseModel {
               "extn": extn,
             });
 
-            String isPosted = await _api.addImageList(body);
+            String isPosted = await addImageList(body);
             // closeProgress(scaffoldKey);
             if (isPosted == "Success") {
               Navigator.pushNamedAndRemoveUntil(
@@ -249,6 +268,6 @@ class PostedBookEditModel extends BaseModel {
 
   changeAutoValidate() {
     autoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 }

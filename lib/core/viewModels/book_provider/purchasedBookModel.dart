@@ -2,15 +2,15 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/purchasedBook.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 
-class PurchasedBookModel extends BaseModel {
-  Api _api = locator<Api>();
+class PurchasedBookModel extends BaseModel with Api {
+  // Api = locator<Api>();
 
   // give tabular format of how many books student has purchased
   List<PurchasedBook> purchasedBook = [];
-  purchasedBookByUser(int studId) async {
-    var parsed = await _api.purchasedBookByUser(studId);
+  purchasedBookByUserProvider(int studId) async {
+    var parsed = await purchasedBookByUser(studId);
 
     if (parsed != null) {
       purchasedBook.clear();

@@ -172,7 +172,7 @@ class DrawerMenu extends StatelessWidget {
                         RaisedButton(
                           child: Text('Yes'),
                           onPressed: () async {
-                            await studentEditModel.deleteStudent(
+                            await studentEditModel.deleteStudentProvider(
                                 context, box.get('ID'));
                           },
                         ),

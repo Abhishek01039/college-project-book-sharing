@@ -18,17 +18,25 @@ class BookEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PostedBookEditModel postedBookEditModel = Provider.of(context);
-    postedBookEditModel.bookName.text = book.bookName;
-    postedBookEditModel.isbnNo.text = book.isbnNo;
-    postedBookEditModel.authorName.text = book.authorName;
-    postedBookEditModel.pubName.text = book.pubName;
-    postedBookEditModel.mrpPrice.text = book.originalPrice.toString();
-    postedBookEditModel.price.text = book.price.toString();
-    postedBookEditModel.bookCatgName.text = book.bookCatgName;
+    if (postedBookEditModel.autoValidate == false) {
+      postedBookEditModel.bookName.text = book.bookName;
+      postedBookEditModel.isbnNo.text = book.isbnNo;
+      postedBookEditModel.authorName.text = book.authorName;
+      postedBookEditModel.pubName.text = book.pubName;
+      postedBookEditModel.mrpPrice.text = book.originalPrice.toString();
+      postedBookEditModel.price.text = book.price.toString();
+      postedBookEditModel.bookCatgName.text = book.bookCatgName;
+    }
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Edit Book"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -181,25 +189,8 @@ class BookEdit extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () async {
-                    await postedBookEditModel.editBook(
-                        book.bookId, scaffoldKey);
-                    if (postedBookEditModel.isEdited) {
-                      postedBookEditModel.bookName.clear();
-                      postedBookEditModel.isbnNo.clear();
-                      postedBookEditModel.authorName.clear();
-                      postedBookEditModel.pubName.clear();
-                      postedBookEditModel.mrpPrice.clear();
-                      postedBookEditModel.price.clear();
-                      postedBookEditModel.bookCatgName.clear();
-                      // postedBookEditModel.bookName.clear();
-                      // postedBookEditModel.bookName.clear();
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'home', (Route<dynamic> route) => false);
-                      showFlutterToast("Book Edit Successfully");
-                    } else if (postedBookEditModel.isEdited == null) {
-                    } else {
-                      showFlutterToast("Somthing went wrong Please try again");
-                    }
+                    await postedBookEditModel.editBookProvider(
+                        book.bookId, scaffoldKey, context);
                   },
                   child: Text("Edit Book"),
                 )

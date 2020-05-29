@@ -16,14 +16,16 @@ class MyPurchasedBook extends StatelessWidget {
       ),
       // it gives the tabular format of book which is purchased by student who is logged in App
       body: FutureBuilder(
-        future: purchasedBookModel.purchasedBookByUser(box.get("ID")),
+        future: purchasedBookModel.purchasedBookByUserProvider(box.get("ID")),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? snapshot.data.length != 0
                   ? SingleChildScrollView(
+                      // scrollDirection: Axis.vertical,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: DataTable(
+                          dataRowHeight: kMinInteractiveDimension,
                           columns: [
                             DataColumn(
                               label: Text("Book Name"),
@@ -43,8 +45,8 @@ class MyPurchasedBook extends StatelessWidget {
                                       Text(
                                         value.bookName,
                                         // overflow: TextOverflow.ellipsis,
-                                        maxLines: null,
-                                        softWrap: false,
+                                        // maxLines: null,
+                                        // softWrap: false,
                                       ),
                                     ),
                                     DataCell(

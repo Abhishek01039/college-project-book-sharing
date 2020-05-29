@@ -8,6 +8,9 @@ import 'package:booksharing/UI/views/book_screens/postedBook.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
 
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
+// import 'package:booksharing/locator.dart';
+
+// import 'package:booksharing/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/book_screens/searchBook.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +35,17 @@ class _HomePageState extends State<HomePage> {
   int count = 0;
   var isListShimmerShown;
   int count1 = 0;
+
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
+    // final BookModel book1 = locator<BookModel>();
     final BookModel book = Provider.of(context);
 
+    // book1.bookApi();
+    // book.getHomeListProvider();
+    // book.getLatestBookProvider();
+    // book1.getBooks();
     // book.getHomeList();
     // book.getLatestBook();
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
@@ -217,6 +226,10 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAllBar(context),
       body: Consumer<BookModel>(
         builder: (context, bookModel, _) {
+          // bookModel.getHomeListProvider();
+          // bookModel.callWhenGoBack();
+          // bookModel.getLatestBookProvider();
+
           if (count == 0) {
             isShimmerShown = Shimmer.fromColors(
               baseColor: Colors.grey[300],

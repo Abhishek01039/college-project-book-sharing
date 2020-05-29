@@ -315,7 +315,9 @@ class StudentEdit extends StatelessWidget {
                   RaisedButton(
                     onPressed: () {
                       final box = Hive.box("Student");
-                      studentEditModel.updateStudent(scaffoldKey).then((value) {
+                      studentEditModel
+                          .updateStudentProvider(scaffoldKey)
+                          .then((value) {
                         if (value == "true") {
                           box.put("enrollmentNo",
                               studentEditModel.enrollmentNo.text);
@@ -347,7 +349,9 @@ class StudentEdit extends StatelessWidget {
                         } else if (value == "not valid") {
                           showFlutterToast("Contact Number is not Valid");
                         } else if (value == "") {
+                          showFlutterToast("Please fill the form correctly");
                         } else if (value == null) {
+                          showFlutterToast("Please fill the form correctly");
                         } else {
                           showFlutterToast(
                               "Somthing went wrong. Please try again");

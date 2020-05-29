@@ -5,12 +5,12 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-class StudentRegModel extends BaseModel {
-  Api _api = locator<Api>();
+class StudentRegModel extends BaseModel with Api {
+  // Api = locator<Api>();
   final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
@@ -24,7 +24,8 @@ class StudentRegModel extends BaseModel {
   final TextEditingController confirmPass = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
-  final TextEditingController changePassword = TextEditingController();
+  final TextEditingController changePasswordTextController =
+      TextEditingController();
   final TextEditingController changeNewPassword = TextEditingController();
   final TextEditingController feedBackMessage = TextEditingController();
   final TextEditingController feedBackEmail = TextEditingController();
@@ -72,12 +73,12 @@ class StudentRegModel extends BaseModel {
     // });
     setStatus('');
 
-    notifyListeners();
+    notifyChange();
   }
 
   setStatus(String message) {
     status = message;
-    notifyListeners();
+    notifyChange();
   }
 
   startUpload() async {
@@ -94,15 +95,15 @@ class StudentRegModel extends BaseModel {
     String fileName = tmpFile.path.split('/').last;
     // print(fileName);
     extn = fileName.split(".");
-    notifyListeners();
+    notifyChange();
   }
 
   chooseCollegeYear(String val) {
     collegeYear = val;
-    notifyListeners();
+    notifyChange();
   }
 
-  registerStudent(
+  registerStudentProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
       if (scaffoldKey != null) {
@@ -112,7 +113,7 @@ class StudentRegModel extends BaseModel {
           showProgress(scaffoldKey);
 
           await startUpload();
-          isRegistered = await _api.registerStudent(
+          isRegistered = await registerStudent(
             enrollmentNo.text,
             firstName.text,
             lastName.text,
@@ -164,13 +165,13 @@ class StudentRegModel extends BaseModel {
 
   setPhoneNumber(String value) {
     number = value;
-    notifyListeners();
+    notifyChange();
   }
 
   changeCountryCode(String value) {
     countryCode = "+" + value;
     setPhoneNumber("+" + value + number);
-    notifyListeners();
+    notifyChange();
   }
 
   changePasswordModel(BuildContext context, int studId,
@@ -185,11 +186,11 @@ class StudentRegModel extends BaseModel {
       } else {
         showProgress(scaffoldKey);
 
-        String value = await _api.changePassword(
-            studId, changePassword.text, changeNewPassword.text);
+        String value = await changePassword(
+            studId, changePasswordTextController.text, changeNewPassword.text);
         closeProgress(scaffoldKey);
         if (value == "Success") {
-          changePassword.clear();
+          changePasswordTextController.clear();
           changeNewPassword.clear();
           changeNewConfirmPassword.clear();
           Navigator.pushNamedAndRemoveUntil(
@@ -205,7 +206,8 @@ class StudentRegModel extends BaseModel {
     }
   }
 
-  feedBack(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+  feedBackProvider(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (feedbackFormKey.currentState.validate()) {
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
@@ -213,7 +215,7 @@ class StudentRegModel extends BaseModel {
         } else {
           showProgress(scaffoldKey);
 
-          _api.feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
+          feedBack(feedBackEmail.text, feedBackMessage.text).then((value) {
             closeProgress(scaffoldKey);
             if (value == "Success") {
               Navigator.pop(context);
@@ -231,16 +233,16 @@ class StudentRegModel extends BaseModel {
 
   changeAutoValidate() {
     autoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 
   changeChangePasswordAutoValidate() {
     changePasswordAutoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 
   changeFeedBackAutoValidate() {
     feedbackAutoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 }

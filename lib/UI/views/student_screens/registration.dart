@@ -327,7 +327,8 @@ class Registration extends StatelessWidget {
                       : Container(),
                   RaisedButton(
                     onPressed: () {
-                      studentRegModel.registerStudent(context, scaffoldKey);
+                      studentRegModel.registerStudentProvider(
+                          context, scaffoldKey);
                     },
                     child: Text(
                       "Register",

@@ -5,13 +5,13 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-import 'package:booksharing/locator.dart';
+// import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class StudentEditModel extends BaseModel {
-  Api _api = locator<Api>();
+class StudentEditModel extends BaseModel with Api {
+  // Api = locator<Api>();
   final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
@@ -52,7 +52,7 @@ class StudentEditModel extends BaseModel {
 
   setPhoneNumber(String value) {
     number = value;
-    notifyListeners();
+    notifyChange();
   }
 
   changeCountryCode(String value) {
@@ -63,12 +63,12 @@ class StudentEditModel extends BaseModel {
     //   updatePhoneNumber("+" + value + editNumber);
     // }
 
-    // notifyListeners();
+    // notifyChange();
   }
 
   updatePhoneNumber(String value) {
     editNumber = "+" + countryCode + value;
-    // notifyListeners();
+    // notifyChange();
   }
   // changeTheme(){
   //   if (super.isDarkTheme){
@@ -90,13 +90,13 @@ class StudentEditModel extends BaseModel {
       return false;
     }
 
-    notifyListeners();
+    notifyChange();
     return true;
   }
 
   setStatus(String message) {
     status = message;
-    notifyListeners();
+    notifyChange();
   }
 
   startUpload() async {
@@ -114,16 +114,16 @@ class StudentEditModel extends BaseModel {
     // print(fileName);
     extn = fileName.split(".");
 
-    notifyListeners();
+    notifyChange();
   }
 
   chooseCollegeYear(String val) {
     collegeYear = val;
-    notifyListeners();
+    notifyChange();
   }
 
   // update student photo
-  Future<void> updateStudentPhoto(
+  Future<void> updateStudentPhotoProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     chooseImage().then((value) async {
       final box = Hive.box("Student");
@@ -135,8 +135,7 @@ class StudentEditModel extends BaseModel {
           "photo": base64Image,
           "extansion": extn[1],
         });
-        bool isUpdated =
-            await _api.updateStudentPhoto(box.get("ID"), studentPhoto);
+        bool isUpdated = await updateStudentPhoto(box.get("ID"), studentPhoto);
         if (isUpdated) {
           box.put("studentPhoto",
               '/media/Student/' + box.get("enrollmentNo") + '.' + extn[1]);
@@ -158,9 +157,9 @@ class StudentEditModel extends BaseModel {
   }
 
   // update student details
-  updateStudent(GlobalKey<ScaffoldState> scaffoldKey) async {
+  updateStudentProvider(GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
-      // _api.updateUser(id)
+      // updateUser(id)
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
           showFlutterToast("Please check internet connection");
@@ -182,8 +181,7 @@ class StudentEditModel extends BaseModel {
             "address": address.text,
             "contactNo": editNumber ?? number,
           });
-          String isUpdated =
-              await _api.updateStudent(box.get("ID"), studentInfo);
+          String isUpdated = await updateStudent(box.get("ID"), studentInfo);
           if (isUpdated == "true") {
             box.put("enrollmentNo", enrollmentNo.text);
             box.put("studentName", firstName.text);
@@ -203,8 +201,8 @@ class StudentEditModel extends BaseModel {
   }
 
   // delete the student
-  deleteStudent(BuildContext context, int studId) async {
-    bool isDeleted = await _api.deleteStudent(studId);
+  deleteStudentProvider(BuildContext context, int studId) async {
+    bool isDeleted = await deleteStudent(studId);
     if (isDeleted) {
       final box = Hive.box("Student");
       showFlutterToast("Account Deleted Successfully");
@@ -221,7 +219,8 @@ class StudentEditModel extends BaseModel {
     }
   }
 
-  sendEmail(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
+  sendEmailProvider(
+      BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
@@ -230,7 +229,7 @@ class StudentEditModel extends BaseModel {
         if (sendOTPFrom.currentState.validate()) {
           showProgress(scaffoldKey);
           String value = jsonEncode({"email": emailOTP.text});
-          otp = await _api.sendEmail(value);
+          otp = await sendEmail(value);
           closeProgress(scaffoldKey);
           if (otp != null) {
             // varifyEmail(otp, context);
@@ -268,7 +267,7 @@ class StudentEditModel extends BaseModel {
     }
   }
 
-  updatePassword(
+  updatePasswordProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (changePassowdForm.currentState.validate()) {
       if (scaffoldKey != null) {
@@ -280,7 +279,7 @@ class StudentEditModel extends BaseModel {
             showProgress(scaffoldKey);
             String body = jsonEncode(
                 {"email": emailOTP.text, "password": passwordAfterOTP.text});
-            String update = await _api.updatePassword(body);
+            String update = await updatePassword(body);
 
             closeProgress(scaffoldKey);
             if (update == "success") {
@@ -306,11 +305,11 @@ class StudentEditModel extends BaseModel {
 
   changeAutoValiate() {
     autoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 
   changeChangePasswordAutoValidate() {
     changePasswordAutoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 }

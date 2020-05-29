@@ -211,7 +211,7 @@ class PotraitLogInForm extends StatelessWidget {
             RaisedButton(
               onPressed: () async {
                 if (studentModel.formKey.currentState.validate()) {
-                  bool val = await studentModel.logIn(scaffoldKey);
+                  bool val = await studentModel.logInProvider(scaffoldKey);
                   if (val) {
                     studentModel.username.clear();
                     Navigator.pushReplacementNamed(context, 'home');
@@ -358,7 +358,7 @@ class LandScapeLogInForm extends StatelessWidget {
                 RaisedButton(
                   onPressed: () async {
                     if (studentModel.formKey.currentState.validate()) {
-                      bool val = await studentModel.logIn(scaffoldKey);
+                      bool val = await studentModel.logInProvider(scaffoldKey);
                       if (val) {
                         studentModel.username.clear();
                         Navigator.pushReplacementNamed(context, 'home');

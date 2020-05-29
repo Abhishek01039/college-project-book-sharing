@@ -82,7 +82,8 @@ class ForgetPassword extends StatelessWidget {
                           onPressed: () {
                             // if (studentEditMode.sendOTPFrom.currentState
                             //     .validate()) {
-                            studentEditMode.sendEmail(context, scaffoldKey);
+                            studentEditMode.sendEmailProvider(
+                                context, scaffoldKey);
                             // }
                           },
                           child: Text(
