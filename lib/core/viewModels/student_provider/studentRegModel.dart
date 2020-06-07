@@ -146,6 +146,7 @@ class StudentRegModel extends BaseModel with Api {
             Navigator.pushNamedAndRemoveUntil(
                 context, 'home', (Route<dynamic> route) => false);
             showFlutterToast("Registration Successfully");
+            formKey.currentState.reset();
           } else if (isRegistered == "Student already Exist") {
             showFlutterToast("Student already exist");
           } else if (isRegistered == "Mobile Number is already exist") {
@@ -197,6 +198,7 @@ class StudentRegModel extends BaseModel with Api {
               context, 'home', (Route<dynamic> route) => false);
 
           showFlutterToast("Password Changed Successfully");
+          // changePassformKey.currentState.reset();
         } else if (value == "Enter Right Old Password") {
           showFlutterToast("Old Password does't match");
         } else {
@@ -220,6 +222,7 @@ class StudentRegModel extends BaseModel with Api {
             if (value == "Success") {
               Navigator.pop(context);
               showFlutterToast("Feed Back has been successfully submitted");
+              feedbackFormKey.currentState.reset();
             } else {
               showFlutterToast("Something went wrong");
             }

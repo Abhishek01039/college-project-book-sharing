@@ -1,3 +1,4 @@
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
@@ -12,6 +13,7 @@ class BookDelete extends StatelessWidget {
   String countryCode = "+91";
   @override
   Widget build(BuildContext context) {
+    BookModel _bookModel = Provider.of<BookModel>(context);
     Future<void> _deleteBook(BuildContext ctx, PostedBookModel postedBookModel,
         int bookId, GlobalKey<ScaffoldState> scaffoldKey) async {
       return showDialog(
@@ -30,7 +32,15 @@ class BookDelete extends StatelessWidget {
                 onPressed: () {
                   // Navigator.pushNamed(context, 'bookdelete');
                   Navigator.pop(ctx);
-                  postedBookModel.deleteBookProvider(ctx, bookId, scaffoldKey);
+                  postedBookModel
+                      .deleteBookProvider(ctx, bookId, scaffoldKey)
+                      .then((value) {
+                    if (value) {
+                      _bookModel.bookApi();
+                      _bookModel.getHomeListProvider();
+                      _bookModel.getLatestBookProvider();
+                    }
+                  });
                 },
                 child: Text("Yes"),
               )
@@ -132,8 +142,15 @@ class BookDelete extends StatelessWidget {
                   //     ),
                   //   ),
                   // );
-                  postedBookModel.deleteBookByTransaction(
-                      context, bookId, scaffoldKey);
+                  postedBookModel
+                      .deleteBookByTransaction(context, bookId, scaffoldKey)
+                      .then((value) {
+                    if (value) {
+                      _bookModel.bookApi();
+                      _bookModel.getHomeListProvider();
+                      _bookModel.getLatestBookProvider();
+                    }
+                  });
                 },
                 child: Text("Yes"),
               )

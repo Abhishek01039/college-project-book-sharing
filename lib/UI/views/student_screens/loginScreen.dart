@@ -201,6 +201,8 @@ class PotraitLogInForm extends StatelessWidget {
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter Password';
+                } else if (value.length < 5) {
+                  return 'Password must be more than five characters';
                 }
                 return null;
               },
@@ -348,6 +350,8 @@ class LandScapeLogInForm extends StatelessWidget {
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter Password';
+                    } else if (value.length < 5) {
+                      return 'Password must be more than five characters';
                     }
                     return null;
                   },

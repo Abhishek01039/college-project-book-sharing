@@ -1,3 +1,4 @@
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +9,7 @@ class PostedBook extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    BookModel _bookModel = Provider.of<BookModel>(context);
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -120,7 +122,7 @@ class PostedBook extends StatelessWidget {
                       textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.price,
                       decoration: InputDecoration(
-                        hintText: "Price",
+                        hintText: "Selling Price",
                         suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                       ),
                       validator: (value) {
@@ -169,8 +171,15 @@ class PostedBook extends StatelessWidget {
                     ),
                     RaisedButton(
                       onPressed: () async {
-                        await postedBookModel.registeredBookProvider(
-                            context, scaffoldKey);
+                        await postedBookModel
+                            .registeredBookProvider(context, scaffoldKey)
+                            .then((value) {
+                          if (value) {
+                            _bookModel.bookApi();
+                            _bookModel.getHomeListProvider();
+                            _bookModel.getLatestBookProvider();
+                          }
+                        });
                       },
                       child: Text("Post Book"),
                     )

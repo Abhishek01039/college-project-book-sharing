@@ -1,6 +1,7 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +18,7 @@ class BookEdit extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    BookModel _bookModel = Provider.of<BookModel>(context);
     PostedBookEditModel postedBookEditModel = Provider.of(context);
     if (postedBookEditModel.autoValidate == false) {
       postedBookEditModel.bookName.text = book.bookName;
@@ -189,8 +191,15 @@ class BookEdit extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () async {
-                    await postedBookEditModel.editBookProvider(
-                        book.bookId, scaffoldKey, context);
+                    await postedBookEditModel
+                        .editBookProvider(book.bookId, scaffoldKey, context)
+                        .then((value) {
+                      if (value) {
+                        _bookModel.bookApi();
+                        _bookModel.getHomeListProvider();
+                        _bookModel.getLatestBookProvider();
+                      }
+                    });
                   },
                   child: Text("Edit Book"),
                 )

@@ -7,8 +7,6 @@ import 'package:booksharing/core/viewModels/baseModel.dart';
 // import 'package:booksharing/locator.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class BookModel extends BaseModel with Api {
   Stream<List<Book>> get book => _bookSubject.stream;
@@ -31,18 +29,18 @@ class BookModel extends BaseModel with Api {
     //   // ),
     //   "ws://echo.websocket.org"
     // );
-    final channel = IOWebSocketChannel.connect('ws://192.168.43.182:8000/ws');
+    // final channel = IOWebSocketChannel.connect('ws://192.168.43.182:8000/ws');
     getBooks().asStream().map((event) {
       return event;
     }).listen((event) {
-      // _bookSubject.sink.add(event);
-      channel.sink.add("hello");
+      _bookSubject.sink.add(event);
+      // channel.sink.add("hello");
     });
     // _bookSubject.sink.add(await getBooks());
-    // notifnotifyChange();
-    await for (var i in channel.stream) {
-      print(i);
-    }
+    // notifyListeners();
+    // await for (var i in channel.stream) {
+    //   print(i);
+    // }
   }
 
   // Testing purpose
@@ -63,7 +61,7 @@ class BookModel extends BaseModel with Api {
       latestBooks = i.sublist(i.length - 5, i.length);
       latestBooks = List.from(latestBooks.reversed);
 
-      print(latestBooks);
+      // print(latestBooks);
       notifyListeners();
     }
 

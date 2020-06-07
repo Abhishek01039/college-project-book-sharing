@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         );
-        Timer(Duration(seconds: 5), () {
+        Timer(Duration(seconds: 10), () {
           if (bookModel.homeListBook.length == 0) {
             setState(() {
               count1 = 1;
@@ -277,7 +277,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 6,
               ),
             );
-            Timer(Duration(seconds: 2), () {
+            Timer(Duration(seconds: 10), () {
               if (bookModel.latestBooks.length == 0) {
                 setState(() {
                   count = 1;

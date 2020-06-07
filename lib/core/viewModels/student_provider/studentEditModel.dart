@@ -257,6 +257,7 @@ class StudentEditModel extends BaseModel with Api {
             oTP.clear();
             Navigator.pushNamed(context, 'changePasswordAfterOTP');
             // showFlutterToast("message")
+            verifyOTPFrom.currentState.reset();
           } else {
             closeProgress(scaffoldKey);
             oTP.clear();
@@ -292,6 +293,7 @@ class StudentEditModel extends BaseModel with Api {
               passwordAfterOTP.clear();
               confirmPasswordAfterOTP.clear();
               showFlutterToast("Password has been updated");
+              changePassowdForm.currentState.reset();
             } else {
               showFlutterToast("Something went wrong");
             }

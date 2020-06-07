@@ -14,8 +14,8 @@ class AllBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = Hive.box("Student");
-    final BookModel bookModel = Provider.of(context);
-    bookModel.bookApi();
+    // final BookModel bookModel = Provider.of(context);
+    // bookModel.bookApi();
     // all books show in list
     _firstStreamBuilder(book) {
       return StreamBuilder(
@@ -23,6 +23,7 @@ class AllBooks extends StatelessWidget {
         builder: (_, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? Scrollbar(
+                  isAlwaysShown: true,
                   child: Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: ListView.builder(

@@ -96,7 +96,7 @@ class PostedBookModel extends BaseModel with Api {
   }
 
   // post a _book
-  registeredBookProvider(
+  Future<bool> registeredBookProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
       if (scaffoldKey != null) {
@@ -125,14 +125,19 @@ class PostedBookModel extends BaseModel with Api {
           if (isPosted) {
             Navigator.pop(context);
             showFlutterToast("Book Posted Successfully");
+            formKey.currentState.reset();
+            return true;
           } else {
             showFlutterToast("Somthing went wrong Please try again");
+            return false;
           }
         }
       }
     } else {
       changeAutoValidate();
+      return true;
     }
+    return false;
   }
 
   setPhoneNumber(String value) {
@@ -143,7 +148,7 @@ class PostedBookModel extends BaseModel with Api {
   // edit the _book
 
   // delete the _book
-  deleteBookProvider(BuildContext context, int bookId,
+  Future<bool> deleteBookProvider(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
@@ -164,16 +169,19 @@ class PostedBookModel extends BaseModel with Api {
           );
 
           showFlutterToast("Book Deleted Successfully");
+          return true;
         } else {
           closeProgress(scaffoldKey);
           showFlutterToast("Something went wrong");
+          return false;
         }
       }
     }
+    return false;
   }
 
   // ensure that you have sold your _book to other student
-  deleteBookByTransaction(BuildContext context, int bookId,
+  Future<bool> deleteBookByTransaction(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     // await
     String body = jsonEncode(
@@ -198,12 +206,16 @@ class PostedBookModel extends BaseModel with Api {
             (Route<dynamic> route) => false,
           );
           showFlutterToast("delete Book Successfully");
+          return true;
         } else {
           showFlutterToast("Something went wrong");
+          return false;
         }
         closeProgress(scaffoldKey);
+        return false;
       }
     }
+    return false;
   }
 
   changeAutoValidate() {

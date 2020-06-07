@@ -44,7 +44,7 @@ dependencies:
   animations: ^1.0.0+5
   equatable: ^1.1.1
   web_socket_channel: ^1.1.0
-
+  flutter_launcher_icons: ^0.7.5
   mockito: ^4.1.1
   flutter_bloc: ^4.0.0
 
@@ -57,6 +57,12 @@ dev_dependencies:
 dependency_overrides:
   dartx: ^0.4.1
   path: 1.7.0
+
+# Application Icon
+flutter_icons:
+  image_path: "assets/book_logo.jpg"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

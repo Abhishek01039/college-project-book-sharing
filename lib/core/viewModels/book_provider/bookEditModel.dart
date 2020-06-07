@@ -9,6 +9,7 @@ import 'package:booksharing/core/models/student.dart';
 // import 'core/API/allAPIs.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
+import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class PostedBookEditModel extends BaseModel with Api {
   TextEditingController price = TextEditingController();
   TextEditingController bookCatgName = TextEditingController();
   TextEditingController studentName = TextEditingController();
-
+  // BookModel _bookModel = locator<BookModel>();
   Student _student = locator<Student>();
   // Api _api = locator<Api>();
   String isEdited;
@@ -47,8 +48,8 @@ class PostedBookEditModel extends BaseModel with Api {
   bool autoValidate = false;
   final formKey = GlobalKey<FormState>();
 
-  editBookProvider(int bookid, GlobalKey<ScaffoldState> scaffoldKey,
-      BuildContext context) async {
+  Future<bool> editBookProvider(int bookid,
+      GlobalKey<ScaffoldState> scaffoldKey, BuildContext context) async {
     if (formKey.currentState.validate()) {
       final box = Hive.box("Student");
       String editBookData = jsonEncode({
@@ -84,13 +85,18 @@ class PostedBookEditModel extends BaseModel with Api {
         Navigator.pushNamedAndRemoveUntil(
             context, 'home', (Route<dynamic> route) => false);
         showFlutterToast("Book Edit Successfully");
+        formKey.currentState.reset();
+        return true;
       } else if (isEdited == null || isEdited == "") {
         showFlutterToast("Please fill the form correctly");
+        return false;
       } else {
         showFlutterToast("Somthing went wrong Please try again");
+        return false;
       }
     } else {
       changeAutoValidate();
+      return false;
     }
   }
 
@@ -154,6 +160,7 @@ class PostedBookEditModel extends BaseModel with Api {
           (Route<dynamic> route) => false,
         );
         showFlutterToast("Book Image updated successfully");
+        formKey.currentState.reset();
       } else {
         showFlutterToast("Something went wrong");
       }
@@ -253,6 +260,7 @@ class PostedBookEditModel extends BaseModel with Api {
                 (Route<dynamic> route) => false,
               );
               showFlutterToast("Book Posted Successfully");
+              formKey.currentState.reset();
             } else {
               showFlutterToast("Somthing went wrong Please try again");
             }

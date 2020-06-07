@@ -4,6 +4,14 @@ import 'package:booksharing/core/models/student.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+Future<void> _makeEmail(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 Future<void> _makePhoneCall(String url) async {
   assert(url.isNotEmpty);
   if (await canLaunch(url)) {
@@ -81,11 +89,27 @@ class LandScaprPostedByProfilePage extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _makePhoneCall('tel:${student.contactNo}');
-          },
-          child: Icon(Icons.call),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              heroTag: 'mailButton',
+              onPressed: () {
+                _makeEmail("mailto:${student.email}");
+              },
+              child: Icon(Icons.email),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FloatingActionButton(
+              heroTag: 'CallBotton',
+              onPressed: () {
+                _makePhoneCall('tel:${student.contactNo}');
+              },
+              child: Icon(Icons.call),
+            ),
+          ],
         ),
       ),
     );
@@ -166,11 +190,29 @@ class ProtraitModePostedByProfilePage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _makePhoneCall('tel:${student.contactNo}');
-        },
-        child: Icon(Icons.call),
+      // floatingActionButtonLocation:
+      //     FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'mailButtonPotrait',
+            onPressed: () {
+              _makeEmail("mailto:${student.email}");
+            },
+            child: Icon(Icons.email),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FloatingActionButton(
+            heroTag: 'callButtonPotrait',
+            onPressed: () {
+              _makePhoneCall('tel:${student.contactNo}');
+            },
+            child: Icon(Icons.call),
+          ),
+        ],
       ),
     );
   }
