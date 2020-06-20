@@ -12,14 +12,14 @@ import 'package:hive/hive.dart';
 
 class StudentEditModel extends BaseModel with Api {
   // Api = locator<Api>();
-  final TextEditingController enrollmentNo = TextEditingController();
+  // final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController age = TextEditingController();
-  final TextEditingController collegeName = TextEditingController();
+  // final TextEditingController collegeName = TextEditingController();
   // final TextEditingController collegeYear = TextEditingController();
-  final TextEditingController course = TextEditingController();
+  // final TextEditingController course = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController emailOTP = TextEditingController();
   final TextEditingController oTP = TextEditingController();
@@ -41,7 +41,7 @@ class StudentEditModel extends BaseModel with Api {
   File file;
   String status = '';
   FileType fileType = FileType.image;
-  String collegeYear = "1";
+  // String collegeYear = "1";
   String fileName;
   List<String> extn;
   String editNumber;
@@ -117,10 +117,10 @@ class StudentEditModel extends BaseModel with Api {
     notifyChange();
   }
 
-  chooseCollegeYear(String val) {
-    collegeYear = val;
-    notifyChange();
-  }
+  // chooseCollegeYear(String val) {
+  //   collegeYear = val;
+  //   notifyChange();
+  // }
 
   // update student photo
   Future<void> updateStudentPhotoProvider(
@@ -131,14 +131,14 @@ class StudentEditModel extends BaseModel with Api {
         showProgress(scaffoldKey);
         await startUpload();
         String studentPhoto = jsonEncode({
-          "enrollmentNo": box.get("enrollmentNo"),
+          "studentName": box.get("studentName"),
           "photo": base64Image,
           "extansion": extn[1],
         });
         bool isUpdated = await updateStudentPhoto(box.get("ID"), studentPhoto);
         if (isUpdated) {
           box.put("studentPhoto",
-              '/media/Student/' + box.get("enrollmentNo") + '.' + extn[1]);
+              '/media/Student/' + box.get("studentName") + '.' + extn[1]);
 
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -170,20 +170,20 @@ class StudentEditModel extends BaseModel with Api {
 
           final box = Hive.box("Student");
           String studentInfo = jsonEncode({
-            "enrollmentNo": enrollmentNo.text,
+            // "enrollmentNo": enrollmentNo.text,
             "firstName": firstName.text,
             "lastName": lastName.text,
             "email": email.text,
             "age": int.tryParse(age.text),
-            "collegeName": collegeName.text,
-            "collegeYear": int.tryParse(collegeYear),
-            "course": course.text,
+            // "collegeName": collegeName.text,
+            // "collegeYear": int.tryParse(collegeYear),
+            // "course": course.text,
             "address": address.text,
             "contactNo": editNumber ?? number,
           });
           String isUpdated = await updateStudent(box.get("ID"), studentInfo);
           if (isUpdated == "true") {
-            box.put("enrollmentNo", enrollmentNo.text);
+            box.put("email", email.text);
             box.put("studentName", firstName.text);
             // box.put("studentPhoto", student.photo);
           }

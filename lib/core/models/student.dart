@@ -9,17 +9,13 @@ part 'student.g.dart';
 class Student extends Equatable {
   @HiveField(0)
   final int id;
-  @HiveField(1)
-  final String enrollmentNo;
+
   @HiveField(2)
   final String firstName;
   final String lastName;
-
+  @HiveField(1)
   final String email;
   final int age;
-  final String collegeName;
-  final int collegeYear;
-  final String course;
   final String password;
   @HiveField(3)
   final String photo;
@@ -28,14 +24,10 @@ class Student extends Equatable {
 
   Student(
       {this.id,
-      this.enrollmentNo,
       this.firstName,
       this.lastName,
       this.email,
       this.age,
-      this.collegeName,
-      this.collegeYear,
-      this.course,
       this.password,
       this.photo,
       this.contactNo,
@@ -48,14 +40,10 @@ class Student extends Equatable {
   @override
   List<Object> get props => [
         id,
-        enrollmentNo,
         firstName,
         lastName,
         email,
         age,
-        collegeName,
-        collegeYear,
-        course,
         password,
         photo,
         contactNo,

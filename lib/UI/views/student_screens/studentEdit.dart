@@ -18,7 +18,7 @@ class StudentEdit extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   StudentEdit({Key key, this.student})
       : assert(
-          student.enrollmentNo != null,
+          student.email != null,
           student.firstName != null,
         ),
         assert(student.lastName != null),
@@ -38,17 +38,17 @@ class StudentEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     StudentEditModel studentEditModel = Provider.of<StudentEditModel>(context);
     if (studentEditModel.autoValidate == false) {
-      studentEditModel.enrollmentNo.text = student.enrollmentNo;
+      // studentEditModel.enrollmentNo.text = student.email;
       studentEditModel.firstName.text = student.firstName;
       studentEditModel.lastName.text = student.lastName;
       studentEditModel.email.text = student.email;
       studentEditModel.age.text = student.age.toString();
-      studentEditModel.collegeName.text = student.collegeName;
-      studentEditModel.course.text = student.course;
+      // studentEditModel.collegeName.text = student.collegeName;
+      // studentEditModel.course.text = student.course;
       studentEditModel.address.text = student.address;
 
       studentEditModel.number = student.contactNo;
-      studentEditModel.collegeYear = student.collegeYear.toString();
+      // studentEditModel.collegeYear = student.collegeYear.toString();
       studentEditModel.countryCode = student.contactNo.substring(1, 3);
       country = getCountryByIsoCode(studentEditModel.countryCode);
     }
@@ -70,24 +70,24 @@ class StudentEdit extends StatelessWidget {
                   // const SizedBox(
                   //   height: 40,
                   // ),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.enrollmentNo,
-                    decoration: InputDecoration(
-                      hintText: "Enrollment Number",
-                      suffixIcon: Icon(FontAwesomeIcons.university),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter Enrollement Number';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentEditModel.enrollmentNo,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Enrollment Number",
+                  //     suffixIcon: Icon(FontAwesomeIcons.university),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter Enrollement Number';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   keyboardType: TextInputType.text,
+                  // ),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.firstName,
@@ -164,51 +164,51 @@ class StudentEdit extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.collegeName,
-                    decoration: InputDecoration(
-                      hintText: "College Name",
-                      suffixIcon: Icon(
-                        Icons.domain,
-                      ),
-                    ),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter College Name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text("Choose College Year"),
-                  CollegeYear(),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentEditModel.course,
-                    decoration: InputDecoration(
-                      hintText: "Course",
-                      suffixIcon: Icon(
-                        FontAwesomeIcons.graduationCap,
-                      ),
-                    ),
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter Course';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentEditModel.collegeName,
+                  //   decoration: InputDecoration(
+                  //     hintText: "College Name",
+                  //     suffixIcon: Icon(
+                  //       Icons.domain,
+                  //     ),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter College Name';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
+                  // Text("Choose College Year"),
+                  // CollegeYear(),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentEditModel.course,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Course",
+                  //     suffixIcon: Icon(
+                  //       FontAwesomeIcons.graduationCap,
+                  //     ),
+                  //   ),
+                  //   keyboardType: TextInputType.visiblePassword,
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter Course';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.address,
@@ -319,18 +319,17 @@ class StudentEdit extends StatelessWidget {
                           .updateStudentProvider(scaffoldKey)
                           .then((value) {
                         if (value == "true") {
-                          box.put("enrollmentNo",
-                              studentEditModel.enrollmentNo.text);
+                          box.put("email", studentEditModel.email.text);
                           box.put(
                               "studentName", studentEditModel.firstName.text);
 
-                          studentEditModel.enrollmentNo.clear();
+                          // studentEditModel.enrollmentNo.clear();
                           studentEditModel.firstName.clear();
                           studentEditModel.lastName.clear();
                           studentEditModel.email.clear();
                           studentEditModel.age.clear();
-                          studentEditModel.collegeName.clear();
-                          studentEditModel.course.clear();
+                          // studentEditModel.collegeName.clear();
+                          // studentEditModel.course.clear();
 
                           // studentEditModel.phoneNumber.clear();
                           studentEditModel.address.clear();
@@ -346,6 +345,7 @@ class StudentEdit extends StatelessWidget {
                           Navigator.pop(context);
                           Navigator.pop(context);
                           showFlutterToast("Update Successfully");
+                          studentEditModel.formKey.currentState.reset();
                         } else if (value == "not valid") {
                           showFlutterToast("Contact Number is not Valid");
                         } else if (value == "") {
@@ -373,31 +373,31 @@ class StudentEdit extends StatelessWidget {
   }
 }
 
-class CollegeYear extends StatelessWidget {
-  const CollegeYear({
-    Key key,
-  }) : super(key: key);
+// class CollegeYear extends StatelessWidget {
+//   const CollegeYear({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    StudentEditModel studentEditModel = Provider.of(context);
+//   @override
+//   Widget build(BuildContext context) {
+//     StudentEditModel studentEditModel = Provider.of(context);
 
-    return DropdownButton(
-        value: studentEditModel.collegeYear,
-        isExpanded: true,
-        // isDense: false,
-        hint: Text("Choose Year"),
-        items: ["1", "2", "3", "4"].map((e) {
-          return DropdownMenuItem(
-            child: Text(e.toString()),
-            value: e,
-          );
-        }).toList(),
-        onChanged: (val) {
-          studentEditModel.chooseCollegeYear(val);
-        });
-  }
-}
+//     return DropdownButton(
+//         value: studentEditModel.collegeYear,
+//         isExpanded: true,
+//         // isDense: false,
+//         hint: Text("Choose Year"),
+//         items: ["1", "2", "3", "4"].map((e) {
+//           return DropdownMenuItem(
+//             child: Text(e.toString()),
+//             value: e,
+//           );
+//         }).toList(),
+//         onChanged: (val) {
+//           studentEditModel.chooseCollegeYear(val);
+//         });
+//   }
+// }
 
 Widget _buildDropdownItem(Country country) => Container(
       child: Row(

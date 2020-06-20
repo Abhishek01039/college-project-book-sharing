@@ -4,7 +4,6 @@ enum Flavor { DEV, QA, PRODUCTION }
 
 class FlavorConfig {
   final Flavor flavor;
-
   static FlavorConfig _instance;
 
   factory FlavorConfig({

@@ -138,6 +138,18 @@ class PostedBook extends StatelessWidget {
                     ),
                     TextFormField(
                       textCapitalization: TextCapitalization.words,
+                      controller: postedBookModel.edition,
+                      decoration: InputDecoration(
+                        hintText: "Edition (Optional)",
+                        suffixIcon: Icon(FontAwesomeIcons.bookReader),
+                      ),
+                      keyboardType: TextInputType.text,
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: postedBookModel.bookCatgName,
                       decoration: InputDecoration(
                         hintText: "Book Category Name",

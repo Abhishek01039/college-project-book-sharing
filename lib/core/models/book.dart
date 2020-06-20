@@ -13,6 +13,7 @@ class Book extends Equatable {
   final String isbnNo;
   final int originalPrice;
   final int price;
+  final String edition;
   final String bookCatgName;
   final int postedBy;
   final List<BookImage> bookImage;
@@ -25,6 +26,7 @@ class Book extends Equatable {
       this.isbnNo,
       this.originalPrice,
       this.price,
+      this.edition,
       this.bookCatgName,
       this.postedBy,
       this.bookImage,
@@ -46,6 +48,7 @@ class Book extends Equatable {
         isbnNo,
         originalPrice,
         price,
+        edition,
         bookCatgName,
         postedBy,
         bookImage,

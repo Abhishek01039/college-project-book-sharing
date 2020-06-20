@@ -35,7 +35,7 @@ void main() async {
   // var path = Directory.current.path;
   // Hive
   //   ..init(path)
-  //   ..registerAdapter(StudentAdapter());
+  // //   ..registerAdapter(StudentAdapter());
   await Hive.initFlutter();
   await Hive.openBox('Student');
   await Hive.openBox('DarkTheme');
@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<BaseModel>(
           builder: (context, basemodel, _) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               // darkTheme: ThemeData(
 
               // ),

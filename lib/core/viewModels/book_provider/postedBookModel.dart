@@ -18,6 +18,7 @@ class PostedBookModel extends BaseModel with Api {
   TextEditingController pubName = TextEditingController();
   TextEditingController mrpPrice = TextEditingController();
   TextEditingController price = TextEditingController();
+  TextEditingController edition = TextEditingController();
   TextEditingController bookCatgName = TextEditingController();
   TextEditingController studentName = TextEditingController();
   // TextEditingController bookCatgName = TextEditingController();
@@ -113,6 +114,7 @@ class PostedBookModel extends BaseModel with Api {
             "authorName": authorName.text,
             "pubName": pubName.text,
             "price": int.tryParse(price.text),
+            "edition": edition.text ?? "",
             "bookCatgName": bookCatgName.text,
             "originalPrice": int.tryParse(mrpPrice.text),
             "Book_Image": base64Image,

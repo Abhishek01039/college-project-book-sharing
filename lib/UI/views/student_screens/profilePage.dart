@@ -351,7 +351,23 @@ class PotraitModeProfilePage extends StatelessWidget {
                                           ),
                                         ),
                                       )
-                                    : AssetImage("assets/book_logo.jpg"),
+                                    : Container(
+                                        width: 190.0,
+                                        height: 190.0,
+                                        foregroundDecoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          // borderRadius: BorderRadius.circular(30),
+                                        ),
+                                        child: Hero(
+                                          tag: 'studentPhoto',
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            child: Image.asset(
+                                                "assets/book_logo.jpg"),
+                                          ),
+                                        ),
+                                      ),
                                 Positioned(
                                   bottom: 0,
                                   // left: 80,

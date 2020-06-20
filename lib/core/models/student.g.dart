@@ -18,7 +18,7 @@ class StudentAdapter extends TypeAdapter<Student> {
     };
     return Student(
       id: fields[0] as int,
-      enrollmentNo: fields[1] as String,
+      email: fields[1] as String,
       firstName: fields[2] as String,
       photo: fields[3] as String,
     );
@@ -46,14 +46,14 @@ class StudentAdapter extends TypeAdapter<Student> {
 Student _$StudentFromJson(Map<String, dynamic> json) {
   return Student(
     id: json['id'] as int,
-    enrollmentNo: json['enrollmentNo'] as String,
+    // enrollmentNo: json['enrollmentNo'] as String,
     firstName: json['firstName'] as String,
     lastName: json['lastName'] as String,
     email: json['email'] as String,
     age: json['age'] as int,
-    collegeName: json['collegeName'] as String,
-    collegeYear: json['collegeYear'] as int,
-    course: json['course'] as String,
+    // collegeName: json['collegeName'] as String,
+    // collegeYear: json['collegeYear'] as int,
+    // course: json['course'] as String,
     password: json['password'] as String,
     photo: json['photo'] as String,
     contactNo: json['contactNo'] as String,
@@ -63,14 +63,14 @@ Student _$StudentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'id': instance.id,
-      'enrollmentNo': instance.enrollmentNo,
+      // 'enrollmentNo': instance.enrollmentNo,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'email': instance.email,
       'age': instance.age,
-      'collegeName': instance.collegeName,
-      'collegeYear': instance.collegeYear,
-      'course': instance.course,
+      // 'collegeName': instance.collegeName,
+      // 'collegeYear': instance.collegeYear,
+      // 'course': instance.course,
       'password': instance.password,
       'photo': instance.photo,
       'contactNo': instance.contactNo,

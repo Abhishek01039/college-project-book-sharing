@@ -35,7 +35,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
     if (kIsWeb) {
       Timer(Duration(seconds: 3), () {
         // print(SPHelper.getString("enrollmentNo"));
-        box.get("enrollmentNo") == null
+        box.get("email") == null
             ? Navigator.pushReplacementNamed(context, 'login')
             : Navigator.pushReplacementNamed(context, 'home');
       });
@@ -69,7 +69,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
         Timer(Duration(seconds: 3), () {
           // print(SPHelper.getString("enrollmentNo"));
           // print(box.get("studentName"));
-          box.get("enrollmentNo") == null
+          box.get("email") == null
               ? Navigator.pushReplacementNamed(context, 'login')
               : Navigator.pushReplacementNamed(context, 'home');
         });

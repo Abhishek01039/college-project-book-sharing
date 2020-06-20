@@ -28,29 +28,29 @@ class Registration extends StatelessWidget {
               key: studentRegModel.formKey,
               child: Column(
                 children: <Widget>[
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentRegModel.enrollmentNo,
-                    decoration: InputDecoration(
-                      hintText: "Enrollment Number",
-                      suffixIcon: Icon(FontAwesomeIcons.university),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter Enrollement Number';
-                      } else if (value.length < 13) {
-                        return "Please enter Right Enrollment Number";
-                      } else if (!value.startsWith("E17")) {
-                        return "Please enter Right Enrollment Number";
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentRegModel.enrollmentNo,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Enrollment Number",
+                  //     suffixIcon: Icon(FontAwesomeIcons.university),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter Enrollement Number';
+                  //     } else if (value.length < 13) {
+                  //       return "Please enter Right Enrollment Number";
+                  //     } else if (!value.startsWith("E17")) {
+                  //       return "Please enter Right Enrollment Number";
+                  //     }
+                  //     return null;
+                  //   },
+                  //   keyboardType: TextInputType.text,
+                  //   textInputAction: TextInputAction.next,
+                  // ),
+                  // SizedBox(
+                  //   height: 40,
+                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentRegModel.firstName,
@@ -128,51 +128,51 @@ class Registration extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentRegModel.collegeName,
-                    decoration: InputDecoration(
-                      hintText: "College Name",
-                      suffixIcon: Icon(
-                        Icons.domain,
-                      ),
-                    ),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter College Name';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text("Choose College Year"),
-                  CollegeYear(),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    controller: studentRegModel.course,
-                    decoration: InputDecoration(
-                      hintText: "Course",
-                      suffixIcon: Icon(
-                        FontAwesomeIcons.graduationCap,
-                      ),
-                    ),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter Course';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentRegModel.collegeName,
+                  //   decoration: InputDecoration(
+                  //     hintText: "College Name",
+                  //     suffixIcon: Icon(
+                  //       Icons.domain,
+                  //     ),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter College Name';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // SizedBox(
+                  //   height: 40,
+                  // ),
+                  // Text("Choose College Year"),
+                  // CollegeYear(),
+                  // SizedBox(
+                  //   height: 40,
+                  // ),
+                  // TextFormField(
+                  //   textCapitalization: TextCapitalization.words,
+                  //   controller: studentRegModel.course,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Course",
+                  //     suffixIcon: Icon(
+                  //       FontAwesomeIcons.graduationCap,
+                  //     ),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  //   validator: (value) {
+                  //     if (value.isEmpty) {
+                  //       return 'Please enter Course';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // SizedBox(
+                  //   height: 40,
+                  // ),
                   TextFormField(
                     controller: studentRegModel.password,
                     obscureText: true,
@@ -345,30 +345,30 @@ class Registration extends StatelessWidget {
   }
 }
 
-class CollegeYear extends StatelessWidget {
-  const CollegeYear({
-    Key key,
-  }) : super(key: key);
+// class CollegeYear extends StatelessWidget {
+//   const CollegeYear({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    StudentRegModel studentRegModel = Provider.of(context);
-    return DropdownButton(
-        value: studentRegModel.collegeYear,
-        isExpanded: true,
-        // isDense: false,
-        hint: Text("Choose Year"),
-        items: ["1", "2", "3", "4"].map((e) {
-          return DropdownMenuItem(
-            child: Text(e.toString()),
-            value: e,
-          );
-        }).toList(),
-        onChanged: (val) {
-          studentRegModel.chooseCollegeYear(val);
-        });
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     StudentRegModel studentRegModel = Provider.of(context);
+//     return DropdownButton(
+//         value: studentRegModel.collegeYear,
+//         isExpanded: true,
+//         // isDense: false,
+//         hint: Text("Choose Year"),
+//         items: ["1", "2", "3", "4"].map((e) {
+//           return DropdownMenuItem(
+//             child: Text(e.toString()),
+//             value: e,
+//           );
+//         }).toList(),
+//         onChanged: (val) {
+//           studentRegModel.chooseCollegeYear(val);
+//         });
+//   }
+// }
 
 Widget _buildDropdownItem(Country country) => Container(
       child: Row(

@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 
 class StudentRegModel extends BaseModel with Api {
   // Api = locator<Api>();
-  final TextEditingController enrollmentNo = TextEditingController();
+  // final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController age = TextEditingController();
-  final TextEditingController collegeName = TextEditingController();
+  // final TextEditingController collegeName = TextEditingController();
   // final TextEditingController collegeYear = TextEditingController();
-  final TextEditingController course = TextEditingController();
+  // final TextEditingController course = TextEditingController();
 
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPass = TextEditingController();
@@ -34,7 +34,7 @@ class StudentRegModel extends BaseModel with Api {
   final formKey = GlobalKey<FormState>();
   final feedbackFormKey = GlobalKey<FormState>();
   final changePassformKey = GlobalKey<FormState>();
-  String collegeYear = "1";
+  // String collegeYear = "1";
   String number;
   String photo;
   String isRegistered;
@@ -98,10 +98,10 @@ class StudentRegModel extends BaseModel with Api {
     notifyChange();
   }
 
-  chooseCollegeYear(String val) {
-    collegeYear = val;
-    notifyChange();
-  }
+  // chooseCollegeYear(String val) {
+  //   collegeYear = val;
+  //   notifyChange();
+  // }
 
   registerStudentProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
@@ -111,32 +111,33 @@ class StudentRegModel extends BaseModel with Api {
           showFlutterToast("Please check internet connection");
         } else {
           showProgress(scaffoldKey);
-
-          await startUpload();
+          if (file != null) {
+            await startUpload();
+          }
           isRegistered = await registerStudent(
-            enrollmentNo.text,
+            // enrollmentNo.text,
             firstName.text,
             lastName.text,
             email.text,
             age.text,
             password.text,
-            collegeName.text,
-            collegeYear,
-            course.text,
+            // collegeName.text,
+            // collegeYear,
+            // course.text,
             address.text,
             number,
-            base64Image,
-            extn[1],
+            base64Image ?? "",
+            extn == null ? "" : extn[1] ?? "",
           );
           closeProgress(scaffoldKey);
           if (isRegistered == "Success") {
-            enrollmentNo.clear();
+            // enrollmentNo.clear();
             firstName.clear();
             lastName.clear();
             email.clear();
             age.clear();
-            collegeName.clear();
-            course.clear();
+            // collegeName.clear();
+            // course.clear();
             password.clear();
             confirmPass.clear();
             phoneNumber.clear();

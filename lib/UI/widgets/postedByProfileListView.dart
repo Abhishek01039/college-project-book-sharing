@@ -17,11 +17,11 @@ Widget listView(Student student) {
     shrinkWrap: true,
     primary: false,
     children: <Widget>[
-      ListTile(
-        leading: Icon(FontAwesomeIcons.university),
-        title: Text("Enrollment Number"),
-        subtitle: Text(student.enrollmentNo),
-      ),
+      // ListTile(
+      //   leading: Icon(FontAwesomeIcons.university),
+      //   title: Text("Enrollment Number"),
+      //   subtitle: Text(student.em),
+      // ),
       ListTile(
         leading: Icon(Icons.person),
         title: Text("Name"),
@@ -35,26 +35,26 @@ Widget listView(Student student) {
           _makeEmail("mailto:${student.email}");
         },
       ),
-      ListTile(
-        leading: Icon(
-          Icons.domain,
-        ),
-        title: Text("College Name"),
-        subtitle: Text(student.collegeName),
-      ),
-      ListTile(
-        leading: Icon(
-          Icons.import_contacts,
-        ),
-        title: Text("College Year"),
-        subtitle: Text(student.collegeYear.toString()),
-      ),
+      // ListTile(
+      //   leading: Icon(
+      //     Icons.domain,
+      //   ),
+      //   title: Text("College Name"),
+      //   subtitle: Text(student.collegeName),
+      // ),
+      // ListTile(
+      //   leading: Icon(
+      //     Icons.import_contacts,
+      //   ),
+      //   title: Text("College Year"),
+      //   subtitle: Text(student.collegeYear.toString()),
+      // ),
       ListTile(
         leading: Icon(
           FontAwesomeIcons.graduationCap,
         ),
-        title: Text("College Course"),
-        subtitle: Text(student.course.toString()),
+        title: Text("Age"),
+        subtitle: Text(student.age.toString()),
       ),
       ListTile(
         leading: Icon(

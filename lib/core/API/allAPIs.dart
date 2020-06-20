@@ -36,7 +36,7 @@ mixin Api {
     // List<BookImage> image = new List();
     // log(getJWT());
     var response = await http.get(api + 'book/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
 
     var parsed = jsonDecode(response.body);
@@ -66,7 +66,7 @@ mixin Api {
     Book book = locator<Book>();
     // Student student = locator<Student>();
     var response = await http.get(api + 'book/$id', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
 
     var parsed = jsonDecode(response.body);
@@ -85,7 +85,7 @@ mixin Api {
     Student student = locator<Student>();
 
     http.Response response = await http.get(api + 'student/$id', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     // print(response.body);
     var parsed = jsonDecode(response.body);
@@ -103,7 +103,7 @@ mixin Api {
   getBookImage(int id) async {
     List<BookImage> image = List<BookImage>();
     http.Response response = await http.get(api + 'imagebyid/$id', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     // print(response.body);
     var parsed = jsonDecode(response.body);
@@ -120,16 +120,16 @@ mixin Api {
     return null;
   }
 
-  Future<Student> logIn(String enrollment, String pass) async {
+  Future<Student> logIn(String email, String pass) async {
     Student student = locator<Student>();
     // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     // SPHelper.setPref(sharedPreferences);
     // SPHelper.enrollmentNo=;
     http.Response response = await http.post(api + 'login/', body: {
-      'enrollmentNo': enrollment,
+      'email': email,
       "password": pass
     }, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     // print(response.body);
     var parsed = jsonDecode(response.body);
@@ -141,7 +141,7 @@ mixin Api {
       final box = Hive.box("Student");
 
       box.put("ID", student.id);
-      box.put("enrollmentNo", student.enrollmentNo);
+      box.put("email", student.email);
       box.put("studentName", student.firstName);
       box.put("studentPhoto", "/media/" + student.photo);
 
@@ -155,7 +155,7 @@ mixin Api {
     http.Response response = await http.post(api + 'student/', body: {
       'studentId': studId
     }, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     var parsed = jsonDecode(response.body);
 
@@ -166,15 +166,15 @@ mixin Api {
   }
 
   Future<String> registerStudent(
-    String enrollmentNo,
+    // String enrollmentNo,
     String firstName,
     String lastName,
     String email,
     String age,
     String password,
-    String collegeName,
-    String collegeYear,
-    String course,
+    // String collegeName,
+    // String collegeYear,
+    // String course,
     String address,
     String number,
     String base64Image,
@@ -182,21 +182,21 @@ mixin Api {
   ) async {
     Student student = locator<Student>();
     http.Response response = await http.post(api + 'student/', body: {
-      "enrollmentNo": enrollmentNo,
+      // "enrollmentNo": enrollmentNo,
       "firstName": firstName,
       "lastName": lastName,
       "email": email,
       "age": age,
       "password": password,
-      "collegeName": collegeName,
-      "collegeYear": collegeYear,
+      // "collegeName": collegeName,
+      // "collegeYear": collegeYear,
       "address": address,
-      "course": course ?? "",
+      // "course": course ?? "",
       "contactNo": number,
       "photo": base64Image ?? "",
       "extansion": extn ?? ""
     }, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     var parsed = jsonDecode(response.body);
 
@@ -206,19 +206,20 @@ mixin Api {
       final box = Hive.box("Student");
 
       box.put("ID", student.id);
-      box.put("enrollmentNo", student.enrollmentNo);
+      box.put("email", student.email);
       box.put("studentName", student.firstName);
       box.put("studentPhoto", student.photo);
 
       return "Success";
     }
-    print(parsed);
+    // print(parsed['contactNo'][0]);
     if (parsed == "Student already Exist") {
       return "Student already Exist";
     } else if (parsed['contactNo'] != null) {
-      return "Please provide valid mobile number";
-    } else if (parsed['contactNo'] != null) {
       return "Mobile Number is already exist";
+      // } else if (parsed['contactNo'][0] !=
+      //     "stud with this contactNo already exists.") {
+      //   return "Mobile Number is already exist";
     } else if (parsed['email'] != null) {
       return "Student with this email is already exist";
     }
@@ -229,7 +230,7 @@ mixin Api {
   Future<bool> registeredBook(String body) async {
     http.Response response =
         await http.post(api + "postbook/", body: body, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json"
     });
 
@@ -246,7 +247,7 @@ mixin Api {
   Future<String> updateStudent(int id, String studentInfo) async {
     http.Response response =
         await http.put(api + "student/$id/", body: studentInfo, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -262,7 +263,7 @@ mixin Api {
   Future<bool> updateStudentPhoto(int id, String studentInfo) async {
     http.Response response = await http
         .put(api + "updatestudentphoto/$id/", body: studentInfo, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -276,7 +277,7 @@ mixin Api {
     List<Book> bookList = new List();
     http.Response response =
         await http.get(api + 'bookbyposted/$id/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     var parsed = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -290,7 +291,7 @@ mixin Api {
   Future<String> editBook(int bookId, String editBookData) async {
     http.Response response =
         await http.put(api + 'book/$bookId/', body: editBookData, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -306,7 +307,7 @@ mixin Api {
       "password": password,
       "newpassword": newpassword
     }, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
@@ -320,7 +321,7 @@ mixin Api {
   deleteStudent(int studId) async {
     http.Response response =
         await http.delete(api + 'student/$studId/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 204) {
@@ -331,7 +332,7 @@ mixin Api {
 
   deleteBook(int bookId) async {
     http.Response response = await http.delete(api + 'book/$bookId/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 204) {
@@ -344,7 +345,7 @@ mixin Api {
     http.Response response =
         await http.post(api + 'purchasedbook/', body: data, headers: {
       "Content-Type": "application/json",
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     var parsed = jsonDecode(response.body);
 
@@ -361,7 +362,7 @@ mixin Api {
     // List<PurchasedBook> purchasedBook = new List();
     http.Response response = await http
         .get(api + "purchasedbookbyuser/$studId/", headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     var parsed = jsonDecode(response.body);
 
@@ -375,7 +376,7 @@ mixin Api {
       "email": email,
       "message": message
     }, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
     var parsed = jsonDecode(response.body);
 
@@ -386,7 +387,7 @@ mixin Api {
     List<Book> book = new List();
 
     http.Response response = await http.get(api + 'homelist/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
 
     var parsed = jsonDecode(response.body);
@@ -400,7 +401,7 @@ mixin Api {
     List<Book> book = new List();
 
     http.Response response = await http.get(api + 'latestbook/', headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661"
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
     });
 
     var parsed = jsonDecode(response.body);
@@ -413,7 +414,7 @@ mixin Api {
   updateImagePhoto(String bookImageInfo) async {
     http.Response response =
         await http.put(api + 'updatebookimage/', body: bookImageInfo, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json",
     });
 
@@ -424,7 +425,7 @@ mixin Api {
   addImageList(String bookImageInfo) async {
     http.Response response =
         await http.post(api + 'addimagelist/', body: bookImageInfo, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json",
     });
 
@@ -435,7 +436,7 @@ mixin Api {
   sendEmail(String body) async {
     http.Response response =
         await http.post(api + 'sendemail/', body: body, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json",
     });
 
@@ -446,7 +447,7 @@ mixin Api {
   updatePassword(String body) async {
     http.Response response =
         await http.put(api + 'updatepassword/', body: body, headers: {
-      'authorization': "Token c19a600c77f8633a0f79c737b1851bbbb4f5e661",
+      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
       "Content-Type": "application/json",
     });
 

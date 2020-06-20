@@ -11,8 +11,10 @@ import 'package:shimmer/shimmer.dart';
 
 class AllBooks extends StatelessWidget {
   static final tag = "allBooks";
+
   @override
   Widget build(BuildContext context) {
+    final ScrollController _scrollController = ScrollController();
     final box = Hive.box("Student");
     // final BookModel bookModel = Provider.of(context);
     // bookModel.bookApi();
@@ -23,12 +25,15 @@ class AllBooks extends StatelessWidget {
         builder: (_, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? Scrollbar(
+                  controller: _scrollController,
                   isAlwaysShown: true,
                   child: Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: ListView.builder(
                       // shrinkWrap: true,
                       // primary: false,
+                      controller: _scrollController,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data.length,
                       itemBuilder: (con, int index) {
                         return Card(

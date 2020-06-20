@@ -97,12 +97,14 @@ class ProtraitModeLogInPage extends StatelessWidget {
                 Container(
                   // height: MediaQuery.of(context).size.height / 2.5,
                   height: 200,
-                  child: ClipRRect(
-                    child: Hero(
-                      tag: "Logo",
-                      child: Image.asset('assets/book_logo.jpg'),
+                  child: Center(
+                    child: ClipRRect(
+                      child: Hero(
+                        tag: "Logo",
+                        child: Image.asset('assets/book_logo.jpg'),
+                      ),
+                      // borderRadius: BorderRadius.circular(20),
                     ),
-                    // borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 PotraitLogInForm(
@@ -170,21 +172,17 @@ class PotraitLogInForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentModel.username,
-              textCapitalization: TextCapitalization.words,
+              // textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
-                hintText: "Enrollment Number",
+                hintText: "Email",
                 suffixIcon: Icon(Icons.person),
               ),
+              keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter Enrollement Number';
                 }
-                if (!value.startsWith("E17")) {
-                  return "Please enter valid Enrollment Number";
-                }
-                if (value.length < 13) {
-                  return "Please enter valid Enrollment Number";
-                }
+
                 return null;
               },
             ),

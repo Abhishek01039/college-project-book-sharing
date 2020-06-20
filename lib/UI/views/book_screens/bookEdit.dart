@@ -27,6 +27,7 @@ class BookEdit extends StatelessWidget {
       postedBookEditModel.pubName.text = book.pubName;
       postedBookEditModel.mrpPrice.text = book.originalPrice.toString();
       postedBookEditModel.price.text = book.price.toString();
+      postedBookEditModel.edition.text = book.edition ?? "";
       postedBookEditModel.bookCatgName.text = book.bookCatgName;
     }
     return Scaffold(
@@ -154,6 +155,18 @@ class BookEdit extends StatelessWidget {
                     return null;
                   },
                   keyboardType: TextInputType.number,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                TextFormField(
+                  textCapitalization: TextCapitalization.words,
+                  controller: postedBookEditModel.edition,
+                  decoration: InputDecoration(
+                    hintText: "edition (optional)",
+                    suffixIcon: Icon(Icons.category),
+                  ),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 40,
