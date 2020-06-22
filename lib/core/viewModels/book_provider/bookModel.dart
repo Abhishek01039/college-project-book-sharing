@@ -89,7 +89,7 @@ class BookModel extends BaseModel with Api {
 
       homeListBook = i.sublist(0, i.length > 4 ? 5 : i.length);
       // print(homeListBook);
-      notifyListeners();
+      notifyChange();
     }
     // }
     // notifyChange();
