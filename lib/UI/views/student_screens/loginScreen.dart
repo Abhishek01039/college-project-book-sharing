@@ -172,17 +172,18 @@ class PotraitLogInForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentModel.username,
-              // textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 hintText: "Email",
-                suffixIcon: Icon(Icons.person),
+                suffixIcon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter Enrollement Number';
+                  return 'Please enter Email Address';
                 }
-
+                if (!isEmail(value)) {
+                  return "Please enter valid Email";
+                }
                 return null;
               },
             ),
@@ -323,14 +324,17 @@ class LandScapeLogInForm extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: studentModel.username,
-                  textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
-                    hintText: "Enrollment Number",
-                    suffixIcon: Icon(Icons.person),
+                    hintText: "Email",
+                    suffixIcon: Icon(Icons.email),
                   ),
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please enter Enrollement Number';
+                      return 'Please enter Email Address';
+                    }
+                    if (!isEmail(value)) {
+                      return "Please enter valid Email";
                     }
                     return null;
                   },

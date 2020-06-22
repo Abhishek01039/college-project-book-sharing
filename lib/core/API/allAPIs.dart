@@ -84,14 +84,16 @@ mixin Api {
   Future<Student> getStudentById(int id) async {
     Student student = locator<Student>();
 
-    http.Response response = await http.get(api + 'student/$id', headers: {
-      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
-    });
+    // http.Response response = await http.get(api + 'student/$id', headers: {
+    //   'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
+    // });
+    http.Response response =
+        await http.get("http://192.168.43.182:7700/denostud/$id");
     // print(response.body);
     var parsed = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      student = Student.fromJson(parsed);
+      student = Student.fromJson(parsed[0]);
       return student;
       // return parsed;
     } else if (response.statusCode == 400) {
@@ -360,10 +362,12 @@ mixin Api {
 
   purchasedBookByUser(int studId) async {
     // List<PurchasedBook> purchasedBook = new List();
-    http.Response response = await http
-        .get(api + "purchasedbookbyuser/$studId/", headers: {
-      'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
-    });
+    // http.Response response = await http
+    //     .get(api + "purchasedbookbyuser/$studId/", headers: {
+    //   'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69"
+    // });
+    http.Response response =
+        await http.get("http://192.168.43.182:7700/denopurchasedbook/$studId");
     var parsed = jsonDecode(response.body);
 
     return parsed;

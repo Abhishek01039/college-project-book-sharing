@@ -48,12 +48,12 @@ class PostedBookModel extends BaseModel with Api {
     });
     print(bookImages);
 
-    notifyListeners();
+    notifyChange();
   }
 
   setStatus(String message) {
     status = message;
-    notifyListeners();
+    notifyChange();
   }
 
   startUpload() async {
@@ -93,7 +93,7 @@ class PostedBookModel extends BaseModel with Api {
     // );
     // var b = _book.toJson();
     // print(b);
-    notifyListeners();
+    notifyChange();
   }
 
   // post a _book
@@ -144,7 +144,7 @@ class PostedBookModel extends BaseModel with Api {
 
   setPhoneNumber(String value) {
     number = value;
-    notifyListeners();
+    notifyChange();
   }
 
   // edit the _book
@@ -222,6 +222,6 @@ class PostedBookModel extends BaseModel with Api {
 
   changeAutoValidate() {
     autoValidate = true;
-    notifyListeners();
+    notifyChange();
   }
 }

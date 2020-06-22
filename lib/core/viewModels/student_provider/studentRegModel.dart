@@ -197,7 +197,7 @@ class StudentRegModel extends BaseModel with Api {
           changeNewConfirmPassword.clear();
           Navigator.pushNamedAndRemoveUntil(
               context, 'home', (Route<dynamic> route) => false);
-
+          changePassformKey.currentState.reset();
           showFlutterToast("Password Changed Successfully");
           // changePassformKey.currentState.reset();
         } else if (value == "Enter Right Old Password") {

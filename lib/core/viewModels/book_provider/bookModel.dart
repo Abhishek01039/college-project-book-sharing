@@ -55,23 +55,23 @@ class BookModel extends BaseModel with Api {
     // latestBooks = await getLatestBook();
     // var total = await _bookSubject.stream.length;
     // print(total);
-    if (await book.length != 0) {
-      await for (var i in book) {
-        i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
-        // i.forEach((e) {
-        //   log(e.postedDate);
-        // });
-        if (i.length < 5) {
-          latestBooks = i;
-        } else {
-          latestBooks = i.sublist(i.length - 5, i.length);
-        }
-
-        latestBooks = List.from(latestBooks.reversed);
-
-        // print(latestBooks);
-        notifyListeners();
+    // if (await book.length != 0) {
+    await for (var i in book) {
+      i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
+      // i.forEach((e) {
+      //   log(e.postedDate);
+      // });
+      if (i.length < 5) {
+        latestBooks = i;
+      } else {
+        latestBooks = i.sublist(i.length - 5, i.length);
       }
+
+      latestBooks = List.from(latestBooks.reversed);
+
+      // print(latestBooks);
+      notifyListeners();
+      // }
     }
     // notifyChange();
     // print("hello latest list");
@@ -80,18 +80,18 @@ class BookModel extends BaseModel with Api {
   // get books details from 7-12 books
   getHomeListProvider() async {
     // homeListBook = await getHomeList();
-    if (await book.length != 0) {
-      await for (var i in book) {
-        i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
-        // i.forEach((e) {
-        //   log(e.postedDate);
-        // });
+    // if (await book.length != 0) {
+    await for (var i in book) {
+      i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
+      // i.forEach((e) {
+      //   log(e.postedDate);
+      // });
 
-        homeListBook = i.sublist(0, i.length > 4 ? 5 : i.length);
-        // print(homeListBook);
-        notifyListeners();
-      }
+      homeListBook = i.sublist(0, i.length > 4 ? 5 : i.length);
+      // print(homeListBook);
+      notifyListeners();
     }
+    // }
     // notifyChange();
 
     // return homeListBook;
@@ -146,15 +146,15 @@ class BookModel extends BaseModel with Api {
     // var streamLength = await _bookSubject.stream.length;
     // print(streamLength);
     // if (streamLength != 0) {
-    if (await book.length != 0) {
-      book.forEach((e) {
-        for (int i = 0; i < e.length; i++) {
-          if (e[i].bookName.toLowerCase().contains(searchText.toLowerCase())) {
-            searchresult.add(e[i]);
-          }
+    // if (await book.length != 0) {
+    book.forEach((e) {
+      for (int i = 0; i < e.length; i++) {
+        if (e[i].bookName.toLowerCase().contains(searchText.toLowerCase())) {
+          searchresult.add(e[i]);
         }
-      });
-    }
+      }
+    });
+    // }
     // }
     // for (var i in books) {
     //   print(i);

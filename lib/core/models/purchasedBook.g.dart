@@ -8,8 +8,8 @@ part of 'purchasedBook.dart';
 
 PurchasedBook _$PurchasedBookFromJson(Map<String, dynamic> json) {
   return PurchasedBook(
-    purId: json['purId'] as int,
-    studId: json['studId'] as int,
+    purId: json['purid'] as int,
+    studId: json['studId_id'] as int,
     bookName: json['bookName'] as String,
     price: json['price'] as int,
     isbnNo: json['isbnNo'] as String,

@@ -1,6 +1,7 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
+import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:booksharing/locator.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     // Student student = locator<Student>();
     // print(student.firstName);
-
+    StudentRegModel _studentRegModel = Provider.of(context);
     // print(box.get('studentPhoto'));
     StudentEditModel studentEditModel = locator<StudentEditModel>();
     // var box = await Hive.openBox('Student');
@@ -102,7 +103,9 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, "changePassword");
+              Navigator.pushNamed(context, "changePassword").then((value) {
+                _studentRegModel.changePassformKey.currentState.reset();
+              });
             },
             leading: Icon(FontAwesomeIcons.key),
             title: Text("Change Password"),

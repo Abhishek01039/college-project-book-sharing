@@ -218,7 +218,7 @@ class PostedBookEditModel extends BaseModel with Api {
     for (var i in fileName) {
       extn.add(i.split(".")[1]);
     }
-    print(extn);
+    // print(extn);
     // bookImages bookImage=BookImage(
     //   image:
     // );

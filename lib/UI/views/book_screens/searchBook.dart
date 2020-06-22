@@ -84,6 +84,10 @@ class Search extends SearchDelegate {
                 //   break;
                 // case ConnectionState.done:
                 // case ConnectionState.active:
+                if (!snapshot.hasData)
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 return snapshot.hasData
                     ? snapshot.data.length != 0
                         ? ListView.builder(

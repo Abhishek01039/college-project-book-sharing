@@ -145,6 +145,7 @@ class StudentEditModel extends BaseModel with Api {
             'home',
             (Route<dynamic> route) => false,
           );
+
           showFlutterToast("Profile Image updated successfully");
         } else if (!isUpdated) {
           showFlutterToast("Profile Image not updated");
@@ -188,6 +189,7 @@ class StudentEditModel extends BaseModel with Api {
             // box.put("studentPhoto", student.photo);
           }
           closeProgress(scaffoldKey);
+          formKey.currentState.reset();
           return isUpdated;
         }
       } else {
