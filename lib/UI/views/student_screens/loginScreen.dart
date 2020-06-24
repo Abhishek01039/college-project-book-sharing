@@ -1,11 +1,12 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentLogInModel.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 class LogIn extends StatelessWidget {
-  static final tag = 'login';
+  static final tag = RoutePaths.Login;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -235,7 +236,7 @@ class PotraitLogInForm extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, 'forgetPassword');
+                Navigator.pushNamed(context, RoutePaths.ForgetPassword);
               },
               child: Text(
                 "Forget your password?",
@@ -251,7 +252,7 @@ class PotraitLogInForm extends StatelessWidget {
                 Text("Don't have an Account"),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, 'registration');
+                    Navigator.pushNamed(context, RoutePaths.Register);
                   },
                   child: Text(
                     "Sign Up",
@@ -390,7 +391,7 @@ class LandScapeLogInForm extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, 'forgetPassword');
+                    Navigator.pushNamed(context, RoutePaths.ForgetPassword);
                   },
                   child: Text(
                     "Forget your password?",
@@ -406,7 +407,7 @@ class LandScapeLogInForm extends StatelessWidget {
                     Text("Don't have an Account"),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'registration');
+                        Navigator.pushNamed(context, RoutePaths.Register);
                       },
                       child: Text(
                         "Sign Up",

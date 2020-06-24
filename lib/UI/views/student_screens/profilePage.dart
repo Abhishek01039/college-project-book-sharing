@@ -1,5 +1,6 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/views/student_screens/studentEdit.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 
 import 'package:booksharing/core/viewModels/bloc/profile_bloc.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
@@ -18,7 +19,7 @@ import 'package:hive/hive.dart';
 // }
 
 class ProfilePage extends StatelessWidget {
-  static final tag = "profile";
+  static final tag = RoutePaths.Profile;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {

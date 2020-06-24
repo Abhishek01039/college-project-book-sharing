@@ -1,5 +1,6 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/widgets/postedByProfileListView.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +24,7 @@ Future<void> _makePhoneCall(String url) async {
 
 class PostedByProfilePage extends StatelessWidget {
   final Student student;
-  static final tag = "postedByProfile";
+  static final tag = RoutePaths.PostedByProfile;
   const PostedByProfilePage({Key key, this.student}) : super(key: key);
 
   // Future<void> _makePhoneCall(String url) async {

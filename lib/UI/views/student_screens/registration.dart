@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:country_pickers/country.dart';
@@ -9,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class Registration extends StatelessWidget {
-  static final tag = 'registration';
+  static final tag = RoutePaths.Register;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

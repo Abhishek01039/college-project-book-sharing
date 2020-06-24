@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ import 'package:provider/provider.dart';
 
 // import 'package:flutter_otp/flutter_otp.dart';
 class ForgetPassword extends StatelessWidget {
-  static final tag = 'forgetPassword';
+  static final tag = RoutePaths.ForgetPassword;
   // final countryCode = "+91";
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override

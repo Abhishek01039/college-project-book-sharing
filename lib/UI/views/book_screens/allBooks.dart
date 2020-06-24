@@ -1,6 +1,7 @@
 import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/searchBook.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AllBooks extends StatelessWidget {
-  static final tag = "allBooks";
+  static final tag = RoutePaths.AllBook;
 
   @override
   Widget build(BuildContext context) {

@@ -326,7 +326,7 @@ mixin Api {
       'authorization': "Token 3617eb0a09fb41f8072584883ebf132f13783e69",
     });
     // var parsed = jsonDecode(response.body);
-    if (response.statusCode == 204) {
+    if (response.statusCode == 200) {
       return true;
     }
     return false;

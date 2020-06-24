@@ -1,3 +1,4 @@
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:country_pickers/country.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookDelete extends StatelessWidget {
-  static final tag = "bookdelete";
+  static final tag = RoutePaths.Bookdelete;
   final int bookId;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   BookDelete({Key key, this.bookId}) : super(key: key);

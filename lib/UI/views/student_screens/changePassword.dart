@@ -1,12 +1,13 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:hive/hive.dart';
 
 class ChangePassword extends StatelessWidget {
-  static final tag = "changePassword";
+  static final tag = RoutePaths.ChangePassword;
   final box = Hive.box("Student");
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override

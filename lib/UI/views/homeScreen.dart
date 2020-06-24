@@ -6,6 +6,7 @@ import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/postedBook.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 // import 'package:booksharing/locator.dart';
@@ -20,7 +21,7 @@ import 'package:hive/hive.dart';
 const double _fabDimension = 56.0;
 
 class HomePage extends StatefulWidget {
-  static final tag = "home";
+  static final tag = RoutePaths.Home;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -546,7 +547,8 @@ class _HomePageState extends State<HomePage> {
                             elevation: 3,
                             child: ListTile(
                               onTap: () {
-                                Navigator.pushNamed(context, 'allBooks');
+                                Navigator.pushNamed(
+                                    context, RoutePaths.AllBook);
                               },
                               title: Center(
                                 child: Text("All Books"),

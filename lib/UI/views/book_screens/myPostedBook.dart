@@ -4,6 +4,7 @@ import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
 
 import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
 import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MyPostedBook extends StatelessWidget {
-  static final tag = "myPostedBook";
+  static final tag = RoutePaths.MyPostedBook;
   @override
   Widget build(BuildContext context) {
     // show alert dialog box to ensure that you have to delete the book

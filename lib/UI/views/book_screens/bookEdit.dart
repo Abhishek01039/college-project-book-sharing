@@ -1,3 +1,4 @@
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
@@ -7,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class BookEdit extends StatelessWidget {
-  static final tag = "postedBook";
+  static final tag = RoutePaths.PostedBook;
   final Book book;
 
   BookEdit({Key key, this.book})

@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:animations/animations.dart';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
 import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 
 import 'package:booksharing/core/models/book.dart';
@@ -14,13 +14,13 @@ import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
-const double _fabDimension = 56.0;
+// const double _fabDimension = 56.0;
 
 class MyPostedBookDetail extends StatelessWidget {
-  static final tag = 'myPostedBookDetail';
+  static final tag = RoutePaths.MyPostedBookDetail;
   final Book book;
-  final ContainerTransitionType _transitionType =
-      ContainerTransitionType.fadeThrough;
+  // final ContainerTransitionType _transitionType =
+  //     ContainerTransitionType.fadeThrough;
 
   const MyPostedBookDetail({Key key, this.book})
       : assert(book != null),

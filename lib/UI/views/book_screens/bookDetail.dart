@@ -1,5 +1,6 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/book.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,7 +13,7 @@ import 'package:booksharing/UI/views/student_screens/postedByProfile.dart';
 import 'package:hive/hive.dart';
 
 class BookDetail extends StatefulWidget {
-  static final tag = 'bookDetail';
+  static final tag = RoutePaths.BookDetail;
   final Book book;
 
   const BookDetail({Key key, this.book})

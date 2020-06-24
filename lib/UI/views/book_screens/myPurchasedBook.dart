@@ -1,11 +1,12 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/book_provider/purchasedBookModel.dart';
 import 'package:hive/hive.dart';
 
 class MyPurchasedBook extends StatelessWidget {
-  static final tag = 'myPurchasedBook';
+  static final tag = RoutePaths.MyPurchasedBook;
   final box = Hive.box("Student");
   @override
   Widget build(BuildContext context) {

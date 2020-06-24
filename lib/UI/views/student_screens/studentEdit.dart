@@ -1,4 +1,5 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/student.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 
 class StudentEdit extends StatelessWidget {
-  static final tag = 'studentEdit';
+  static final tag = RoutePaths.StudentEdit;
   final Student student;
   Country country = new Country();
   final scaffoldKey = GlobalKey<ScaffoldState>();

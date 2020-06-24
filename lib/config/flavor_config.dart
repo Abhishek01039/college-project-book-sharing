@@ -1,6 +1,5 @@
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
-
-enum Flavor { DEV, QA, PRODUCTION }
 
 class FlavorConfig {
   final Flavor flavor;

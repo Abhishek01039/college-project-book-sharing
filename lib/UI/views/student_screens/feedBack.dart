@@ -1,11 +1,12 @@
 import 'package:booksharing/UI/shared/commonUtility.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FeedBack extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  static final tag = 'feedback';
+  static final tag = RoutePaths.Feedback;
 
   @override
   Widget build(BuildContext context) {

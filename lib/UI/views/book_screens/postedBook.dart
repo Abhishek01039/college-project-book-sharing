@@ -1,3 +1,4 @@
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class PostedBook extends StatelessWidget {
-  static final tag = "postedBook";
+  static final tag = RoutePaths.PostedBook;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {

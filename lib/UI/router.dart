@@ -16,6 +16,7 @@ import 'package:booksharing/UI/views/student_screens/profilePage.dart';
 import 'package:booksharing/UI/views/student_screens/registration.dart';
 import 'package:booksharing/UI/views/splashScreen.dart';
 import 'package:booksharing/UI/views/student_screens/studentEdit.dart';
+import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/student_screens/changePassword.dart';
 import 'package:booksharing/UI/views/student_screens/feedBack.dart';
@@ -26,67 +27,67 @@ const String initialRoute = "/";
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case RoutePaths.Splash:
         return MaterialPageRoute(builder: (_) => MySpalshScreen());
-      case 'home':
+      case RoutePaths.Home:
         return MaterialPageRoute(builder: (_) {
           return HomePage();
         });
         break;
-      case 'allBooks':
+      case RoutePaths.AllBook:
         return MaterialPageRoute(builder: (context) {
           return AllBooks();
         });
         break;
-      case 'login':
+      case RoutePaths.Login:
         return MaterialPageRoute(builder: (_) => LogIn());
         break;
-      case 'registration':
+      case RoutePaths.Register:
         return MaterialPageRoute(builder: (_) => Registration());
         break;
-      case 'bookDetail':
+      case RoutePaths.BookDetail:
         return MaterialPageRoute(builder: (_) => BookDetail());
         break;
-      case 'profile':
+      case RoutePaths.Profile:
         return MaterialPageRoute(builder: (_) => ProfilePage());
         break;
-      case 'postedByProfile':
+      case RoutePaths.PostedByProfile:
         return MaterialPageRoute(builder: (_) => PostedByProfilePage());
         break;
-      case 'myPostedBook':
+      case RoutePaths.MyPostedBook:
         return MaterialPageRoute(builder: (_) => MyPostedBook());
         break;
-      case 'postedBook':
+      case RoutePaths.PostedBook:
         return MaterialPageRoute(builder: (_) => PostedBook());
         break;
-      case 'studentEdit':
+      case RoutePaths.StudentEdit:
         return MaterialPageRoute(builder: (_) => StudentEdit());
         break;
-      case 'bookedit':
+      case RoutePaths.Bookedit:
         return MaterialPageRoute(builder: (_) => BookEdit());
         break;
-      case 'changePassword':
+      case RoutePaths.ChangePassword:
         return MaterialPageRoute(builder: (_) => ChangePassword());
         break;
-      case 'bookdelete':
+      case RoutePaths.Bookdelete:
         return MaterialPageRoute(builder: (_) => BookDelete());
         break;
-      case 'myPurchasedBook':
+      case RoutePaths.MyPurchasedBook:
         return MaterialPageRoute(builder: (_) => MyPurchasedBook());
         break;
-      case 'feedback':
+      case RoutePaths.Feedback:
         return MaterialPageRoute(builder: (_) => FeedBack());
         break;
-      case 'myPostedBookDetail':
+      case RoutePaths.MyPostedBookDetail:
         return MaterialPageRoute(builder: (_) => MyPostedBookDetail());
         break;
-      case 'forgetPassword':
+      case RoutePaths.ForgetPassword:
         return MaterialPageRoute(builder: (_) => ForgetPassword());
         break;
-      case 'enterOTP':
+      case RoutePaths.EnterOTP:
         return MaterialPageRoute(builder: (_) => EnterOTP());
         break;
-      case 'changePasswordAfterOTP':
+      case RoutePaths.ChangePasswordAfterOTP:
         return MaterialPageRoute(builder: (_) => ChangePasswordAfterOTP());
         break;
       default:
