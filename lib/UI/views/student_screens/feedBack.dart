@@ -2,6 +2,7 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class FeedBack extends StatelessWidget {
@@ -10,6 +11,9 @@ class FeedBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StudentRegModel _studentRegModel = Provider.of(context);
+    _studentRegModel.feedBackEmail.text =
+        _studentRegModel.box.get("email", defaultValue: "");
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -26,18 +30,27 @@ class FeedBack extends StatelessWidget {
                 child: Column(
                   // mainAxisAlign`/ment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width / 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            "assets/book_logo.jpg",
-                          ),
-                        ),
-                      ),
+                    // Container(
+                    //   height: 200,
+                    //   width: MediaQuery.of(context).size.width / 2,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(30),
+                    //     image: DecorationImage(
+                    //       fit: BoxFit.cover,
+                    //       image: AssetImage(
+                    //         "assets/book_logo.jpg",
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    SvgPicture.asset(
+                      "assets/svg/undraw_anonymous_feedback_y3co.svg",
+                      width: 250,
+                      semanticsLabel: 'Acme Logo',
+                      // color: Color(0xFF313457),
+                      allowDrawingOutsideViewBox: true,
+                      // fit: BoxFit.fill,
+                      height: 250,
                     ),
                     const SizedBox(
                       height: 20,

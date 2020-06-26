@@ -1,6 +1,7 @@
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/book_provider/purchasedBookModel.dart';
 import 'package:hive/hive.dart';
@@ -22,45 +23,62 @@ class MyPurchasedBook extends StatelessWidget {
           return snapshot.hasData
               ? snapshot.data.length != 0
                   ? SingleChildScrollView(
-                      // scrollDirection: Axis.vertical,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: DataTable(
-                          dataRowHeight: kMinInteractiveDimension,
-                          columns: [
-                            DataColumn(
-                              label: Text("Book Name"),
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        // width: MediaQuery.of(context).size.width,
+
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              "assets/svg/undraw_successful_purchase_uyin.svg",
+                              width: MediaQuery.of(context).size.width / 2,
+                              // color: Color(0xFF313457),
+                              allowDrawingOutsideViewBox: true,
+                              // fit: BoxFit.fill,
+                              height: 250,
                             ),
-                            DataColumn(
-                              label: Text("Price"),
-                            ),
-                            DataColumn(
-                              label: Text("ISBN number"),
-                            ),
-                          ],
-                          rows: purchasedBookModel.purchasedBook
-                              .map(
-                                (value) => DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Text(
-                                        value.bookName,
-                                        // overflow: TextOverflow.ellipsis,
-                                        // maxLines: null,
-                                        // softWrap: false,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          DataTable(
+                            dataRowHeight: kMinInteractiveDimension,
+                            columns: [
+                              DataColumn(
+                                label: Text("Book Name"),
+                              ),
+                              DataColumn(
+                                label: Text("Price"),
+                              ),
+                              DataColumn(
+                                label: Text("ISBN number"),
+                              ),
+                            ],
+                            rows: purchasedBookModel.purchasedBook
+                                .map(
+                                  (value) => DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Text(
+                                          value.bookName,
+                                          // overflow: TextOverflow.ellipsis,
+                                          // maxLines: null,
+                                          // softWrap: false,
+                                        ),
                                       ),
-                                    ),
-                                    DataCell(
-                                      Text(value.price.toString()),
-                                    ),
-                                    DataCell(
-                                      Text(value.isbnNo),
-                                    )
-                                  ],
-                                ),
-                              )
-                              .toList(),
-                        ),
+                                      DataCell(
+                                        Text(value.price.toString()),
+                                      ),
+                                      DataCell(
+                                        Text(value.isbnNo),
+                                      )
+                                    ],
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ],
                       ),
                     )
                   : Center(

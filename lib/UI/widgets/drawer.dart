@@ -21,7 +21,7 @@ class DrawerMenu extends StatelessWidget {
     // var box = await Hive.openBox('Student');
     final box = Hive.box("Student");
     var darkTheme = Hive.box("DarkTheme");
-    print(box.get('studentPhoto'));
+    // print(box.get('studentPhoto'));
     BaseModel baseModel = Provider.of(context);
     return Drawer(
       elevation: 20,

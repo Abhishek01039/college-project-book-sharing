@@ -2,6 +2,7 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -33,11 +34,19 @@ class EnterOTP extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              Icon(
-                FontAwesomeIcons.paperPlane,
-                // size: MediaQuery.of(context).size.width - 100,
-                size: 100,
-                color: Theme.of(context).primaryColor,
+              // Icon(
+              //   FontAwesomeIcons.paperPlane,
+              //   // size: MediaQuery.of(context).size.width - 100,
+              //   size: 100,
+              //   color: Theme.of(context).primaryColor,
+              // ),
+              SvgPicture.asset(
+                "assets/svg/undraw_Mail_sent_qwwx.svg",
+                width: 80,
+                // color: Color(0xFF313457),
+                allowDrawingOutsideViewBox: true,
+                // fit: BoxFit.fill,
+                height: 80,
               ),
               Form(
                 key: studentEditMode.verifyOTPFrom,

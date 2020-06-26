@@ -2,6 +2,7 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentLogInModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:provider/provider.dart';
 
@@ -50,12 +51,20 @@ class LandScapeModeLogInPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 1.2,
                   child: Center(
                     child: ClipRRect(
-                      child: Hero(
-                        tag: "Logo",
-                        child: Image.asset(
-                          'assets/book_logo.jpg',
-                          fit: BoxFit.fill,
-                        ),
+                      // child: Hero(
+                      //   tag: "Logo",
+                      //   child: Image.asset(
+                      //     'assets/book_logo.jpg',
+                      //     fit: BoxFit.fill,
+                      //   ),
+                      // ),
+                      child: SvgPicture.asset(
+                        "assets/svg/undraw_Login_v483.svg",
+                        width: 250,
+                        // color: Color(0xFF313457),
+                        allowDrawingOutsideViewBox: true,
+                        // fit: BoxFit.fill,
+                        height: 250,
                       ),
                       // borderRadius: BorderRadius.circular(20),
                     ),
@@ -100,10 +109,18 @@ class ProtraitModeLogInPage extends StatelessWidget {
                   height: 200,
                   child: Center(
                     child: ClipRRect(
-                      child: Hero(
-                        tag: "Logo",
-                        child: Image.asset('assets/book_logo.jpg'),
+                      // child: Hero(
+                      //   tag: "Logo",
+                      //   // child: Image.asset('assets/book_logo.jpg'),
+                      child: SvgPicture.asset(
+                        "assets/svg/undraw_Login_v483.svg",
+                        width: 250,
+                        // color: Color(0xFF313457),
+                        allowDrawingOutsideViewBox: true,
+                        // fit: BoxFit.fill,
+                        height: 250,
                       ),
+                      // ),
                       // borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -160,14 +177,14 @@ class PotraitLogInForm extends StatelessWidget {
             //   ),
             // ),
 
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Log In",
-              style: textStyle,
-              textAlign: TextAlign.center,
-            ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Text(
+            //   "Log In",
+            //   style: textStyle,
+            //   textAlign: TextAlign.center,
+            // ),
             const SizedBox(
               height: 30,
             ),
@@ -232,7 +249,7 @@ class PotraitLogInForm extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 25,
+              height: 30,
             ),
             InkWell(
               onTap: () {
@@ -244,7 +261,7 @@ class PotraitLogInForm extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -312,14 +329,14 @@ class LandScapeLogInForm extends StatelessWidget {
                 //   ),
                 // ),
 
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Log In",
-                  style: textStyle,
-                  textAlign: TextAlign.center,
-                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Text(
+                //   "Log In",
+                //   style: textStyle,
+                //   textAlign: TextAlign.center,
+                // ),
                 const SizedBox(
                   height: 30,
                 ),

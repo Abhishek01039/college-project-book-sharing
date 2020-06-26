@@ -8,6 +8,7 @@ import 'package:booksharing/core/viewModels/baseModel.dart';
 // import 'package:booksharing/locator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class StudentRegModel extends BaseModel with Api {
   // Api = locator<Api>();
@@ -41,6 +42,7 @@ class StudentRegModel extends BaseModel with Api {
   bool autoValidate = false;
   bool changePasswordAutoValidate = false;
   bool feedbackAutoValidate = false;
+  final box = Hive.box("Student");
 
   // studentRegistration() async {
   //   if (formKey.currentState.validate()) {

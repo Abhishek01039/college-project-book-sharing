@@ -14,6 +14,7 @@ import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 // import 'package:booksharing/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/book_screens/searchBook.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hive/hive.dart';
@@ -29,13 +30,57 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final box = Hive.box("Student");
-
+  OverlayEntry _overlayEntry;
   final ContainerTransitionType _transitionType =
       ContainerTransitionType.fadeThrough;
   var isShimmerShown;
   int count = 0;
   var isListShimmerShown;
   int count1 = 0;
+  final LayerLink _layerLink = LayerLink();
+  @override
+  void initState() {
+    super.initState();
+    // this._overlayEntry = this._createOverlayEntry(context);
+  }
+
+  //overlay for sorting
+  OverlayEntry _createOverlayEntry(BuildContext context) {
+    RenderBox renderBox = context.findRenderObject();
+    var size = renderBox.size;
+    var offset = renderBox.localToGlobal(Offset.zero);
+
+    return OverlayEntry(
+        builder: (context) => Positioned(
+              width: size.width,
+              child: CompositedTransformFollower(
+                link: this._layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(0.0, size.height + 5.0),
+                child: Material(
+                  elevation: 4.0,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      ListTile(
+                        title: Text('Syria'),
+                        onTap: () {
+                          print('Syria Tapped');
+                        },
+                      ),
+                      ListTile(
+                        title: Text('Lebanon'),
+                        onTap: () {
+                          print('Lebanon Tapped');
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,42 +172,47 @@ class _HomePageState extends State<HomePage> {
                         dense: false,
                         // leading: bookImage != null
 
-                        leading:
-                            bookModel.homeListBook[index].bookImage.length != 0
-                                ? ClipRRect(
-                                    child: FadeInImage(
-                                      fit: BoxFit.cover,
-                                      width: 70,
-                                      placeholder:
-                                          AssetImage("assets/book_logo.jpg"),
-                                      image: NetworkImage(bookModel
-                                          .homeListBook[index]
-                                          .bookImage[0]
-                                          .image
-                                          .toString()),
-                                    ),
-                                  )
-                                // : Container(width: 70,height: 40,),
-                                // : ClipRRect(
+                        leading: bookModel
+                                    .homeListBook[index].bookImage.length !=
+                                0
+                            ? ClipRRect(
+                                child: FadeInImage(
+                                  fit: BoxFit.fill,
+                                  width: 70,
+                                  height: 50,
+                                  placeholder:
+                                      AssetImage("assets/book_logo.jpg"),
+                                  image: NetworkImage(bookModel
+                                      .homeListBook[index].bookImage[0].image
+                                      .toString()),
+                                ),
+                              )
+                            // : Container(width: 70,height: 40,),
+                            // : ClipRRect(
 
-                                //     child: Image.asset(
-                                //       "assets/book_logo.jpg",
-                                //       height: 40,
-                                //       width: 70,
-                                //     ),
-                                //   )
-                                : Container(
-                                    width: 70,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image:
-                                            AssetImage("assets/book_logo.jpg"),
-                                      ),
-                                    ),
-                                  ),
-                        //     : Image.asset("assets/book_logo.jpg"),
+                            //     child: Image.asset(
+                            //       "assets/book_logo.jpg",
+                            //       height: 40,
+                            //       width: 70,
+                            //     ),
+                            //   )
+                            // : Container(
+                            //     // width: 70,
+                            //     // height: 40,
+                            //     decoration: BoxDecoration(
+                            //       image: DecorationImage(
+                            //         fit: BoxFit.fill,
+                            //         image:
+                            //             AssetImage("assets/book_logo.jpg",),
+                            //       ),
+                            //     ),
+                            //   ),
+                            : Image.asset(
+                                "assets/book_logo.jpg",
+                                fit: BoxFit.fill,
+                                width: 70,
+                                height: 50,
+                              ),
                         title: Text(
                           bookModel.homeListBook[index].bookName,
                         ),
@@ -205,20 +255,33 @@ class _HomePageState extends State<HomePage> {
 
     // final globalKey = GlobalKey<ScaffoldState>();
     Widget buildAllBar(BuildContext context) {
-      return AppBar(
-        title: appBarTitle,
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              book.bookApi();
-              // search delegate
+      return CompositedTransformTarget(
+        link: this._layerLink,
+        child: AppBar(
+          title: appBarTitle,
+          centerTitle: true,
+          actions: <Widget>[
+            // IconButton(
+            //   icon: Icon(
+            //     FontAwesomeIcons.filter,
+            //     size: 20,
+            //   ),
+            //   onPressed: () {
+            //     this._overlayEntry = this._createOverlayEntry(context);
+            //     Overlay.of(context).insert(this._overlayEntry);
+            //   },
+            // ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                book.bookApi();
+                // search delegate
 
-              showSearch(context: context, delegate: Search());
-            },
-          ),
-        ],
+                showSearch(context: context, delegate: Search());
+              },
+            ),
+          ],
+        ),
       );
     }
 

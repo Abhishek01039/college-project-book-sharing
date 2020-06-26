@@ -50,12 +50,19 @@ class BookModel extends BaseModel with Api {
     return "Unit Testing";
   }
 
+  Future<int> checkLength() async {
+    int value = await book.length;
+    return value;
+  }
+
   // get latest books according to posted date
   getLatestBookProvider() async {
     // latestBooks = await getLatestBook();
     // var total = await _bookSubject.stream.length;
     // print(total);
     // if (await book.length != 0) {
+    // checkLength().then((value) async {
+    //   if (value != 0) {
     await for (var i in book) {
       i.sort((a, b) => a.postedDate.compareTo(b.postedDate));
       // i.forEach((e) {
@@ -73,6 +80,8 @@ class BookModel extends BaseModel with Api {
       notifyListeners();
       // }
     }
+    // });
+
     // notifyChange();
     // print("hello latest list");
   }

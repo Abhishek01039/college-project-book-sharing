@@ -2,6 +2,7 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentEditModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:provider/provider.dart';
 
@@ -33,12 +34,20 @@ class ForgetPassword extends StatelessWidget {
                       height: 200,
                       child: Center(
                         child: ClipRRect(
-                          child: Hero(
-                            tag: "Logo",
-                            child: Image.asset(
-                              'assets/book_logo.jpg',
-                              fit: BoxFit.fill,
-                            ),
+                          // child: Hero(
+                          //   tag: "Logo",
+                          //   child: Image.asset(
+                          //     'assets/book_logo.jpg',
+                          //     fit: BoxFit.fill,
+                          //   ),
+                          // ),
+                          child: SvgPicture.asset(
+                            "assets/svg/undraw_mail_2_tqip.svg",
+                            width: 250,
+                            // color: Color(0xFF313457),
+                            allowDrawingOutsideViewBox: true,
+                            // fit: BoxFit.fill,
+                            height: 250,
                           ),
                           // borderRadius: BorderRadius.circular(20),
                         ),

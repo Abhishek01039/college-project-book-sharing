@@ -2,6 +2,7 @@
 
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:hive/hive.dart';
@@ -28,18 +29,26 @@ class ChangePassword extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        height: 200,
-                        width: MediaQuery.of(context).size.width / 2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              "assets/book_logo.jpg",
-                            ),
-                          ),
-                        ),
+                      // Container(
+                      //   height: 200,
+                      //   width: MediaQuery.of(context).size.width / 2,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(30),
+                      //     image: DecorationImage(
+                      //       fit: BoxFit.cover,
+                      //       image: AssetImage(
+                      //         "assets/book_logo.jpg",
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      SvgPicture.asset(
+                        "assets/svg/undraw_forgot_password_gi2d.svg",
+                        width: 250,
+                        // color: Color(0xFF313457),
+                        allowDrawingOutsideViewBox: true,
+                        // fit: BoxFit.fill,
+                        height: 250,
                       ),
                       const SizedBox(
                         height: 20,

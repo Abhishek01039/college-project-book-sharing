@@ -4,6 +4,7 @@ import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -46,9 +47,23 @@ class BookEdit extends StatelessWidget {
           key: postedBookEditModel.formKey,
           autovalidate: postedBookEditModel.autoValidate,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(
+              left: 12,
+              right: 12,
+            ),
             child: Column(
               children: <Widget>[
+                SvgPicture.asset(
+                  "assets/svg/undraw_Books_l33t.svg",
+                  width: MediaQuery.of(context).size.width / 2,
+                  // color: Color(0xFF313457),
+                  allowDrawingOutsideViewBox: true,
+                  // fit: BoxFit.fill,
+                  height: 250,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.bookName,
