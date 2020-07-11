@@ -18,6 +18,7 @@ class RoutePaths {
   static const String MyPostedBookDetail = "myPostedBookDetail";
   static const String ForgetPassword = "forgetPassword";
   static const String EnterOTP = "enterOTP";
+  static const String FilterBook = "filterBook";
   static const String ChangePasswordAfterOTP = "changePasswordAfterOTP";
 }
 

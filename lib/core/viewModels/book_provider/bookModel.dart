@@ -4,6 +4,7 @@ import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/book.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
+
 // import 'package:booksharing/locator.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,8 +13,12 @@ class BookModel extends BaseModel with Api {
   Stream<List<Book>> get book => _bookSubject.stream;
   StreamController<List<Book>> _bookSubject = BehaviorSubject<List<Book>>();
 
+  Stream<List<Book>> get filterBook => _filterBookSubject.stream;
+  final _filterBookSubject = BehaviorSubject<List<Book>>();
+
   // Api = locator<Api>();
   int selection;
+  int choiceChipSelection = 0;
   List<Book> bookList = <Book>[];
   List<Book> latestBooks = <Book>[];
   List<Book> homeListBook = <Book>[];
@@ -53,6 +58,58 @@ class BookModel extends BaseModel with Api {
   Future<int> checkLength() async {
     int value = await book.length;
     return value;
+  }
+
+  //get the list of books regarding the chips is selected by user
+  Future<void> filterBookRegardingChips(int index) async {
+    bookApi();
+    List<Book> filterBooksList = <Book>[];
+    Future.delayed(Duration(seconds: 5));
+    Timer(Duration(seconds: 10), () async {
+      await for (var i in book) {
+        filterBooksList.clear();
+        print(i);
+        for (var j in i) {
+          if (index == 0) {
+            filterBooksList.add(j);
+          } else if (index == 1) {
+            if (j.price > 0 && j.price <= 150) {
+              filterBooksList.add(j);
+            }
+          } else if (index == 2) {
+            if (j.price > 150 && j.price <= 500) {
+              filterBooksList.add(j);
+            }
+          } else if (index == 3) {
+            if (j.price > 500) {
+              filterBooksList.add(j);
+            }
+          }
+        }
+        // i.map((e) {
+        //   if (index == 0) {
+        //     filterBooksList.add(e);
+        //   } else if (index == 1) {
+        //     if (e.price > 0 && e.price <= 150) {
+        //       filterBooksList.add(e);
+        //     }
+        //   } else if (index == 2) {
+        //     if (e.price > 150 && e.price <= 500) {
+        //       filterBooksList.add(e);
+        //     }
+        //   } else if (index == 3) {
+        //     if (e.price > 500) {
+        //       filterBooksList.add(e);
+        //     }
+        //   }
+        // });
+
+        // latestBooks = List.from(latestBooks.reversed);
+        _filterBookSubject.sink.add(filterBooksList);
+
+        notifyListeners();
+      }
+    });
   }
 
   // get latest books according to posted date
@@ -180,9 +237,17 @@ class BookModel extends BaseModel with Api {
   @override
   void dispose() {
     _bookSubject?.close();
+    _filterBookSubject?.close();
     // _bookImageSubject?.close();
     super.dispose();
   }
+
+  changeChoiceChip(bool value, int index) {
+    // if(value){
+    choiceChipSelection = value ? index : -1;
+    notifyListeners();
+    // }
+  }
 }
 
-class MockBookModel extends Mock implements BookModel {}
+class MockBookModel extends Mock with Api implements BookModel {}

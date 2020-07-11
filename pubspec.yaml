@@ -42,12 +42,12 @@ dependencies:
   hive_flutter: ^0.3.0+2
   intl: ^0.16.1
   animations: ^1.0.0+5
-  equatable: ^1.1.1
+  equatable: ^1.2.0
   web_socket_channel: ^1.1.0
   flutter_launcher_icons: ^0.7.5
   mockito: ^4.1.1
-  flutter_bloc: ^4.0.0
-  flutter_svg: ^0.17.4
+  flutter_bloc: ^5.0.1
+  flutter_svg: ^0.18.0
 
 dev_dependencies:
   hive_generator: ^0.7.0+2
@@ -58,6 +58,8 @@ dev_dependencies:
 dependency_overrides:
   dartx: ^0.4.1
   path: 1.7.0
+  image: ^2.1.13
+  xml: ^4.1.0
 
 # Application Icon
 flutter_icons:

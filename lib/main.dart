@@ -42,7 +42,7 @@ void main() async {
   await Hive.openBox('DarkTheme');
   FlavorConfig(flavor: Flavor.PRODUCTION);
   setupLocator();
-  BlocSupervisor.delegate = locator<SimpleBlocDelegate>();
+  Bloc.observer = SimpleBlocObserver();
   runApp(MyApp());
 
   // });
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PurchasedBookModel()),
       ],
       child: BlocProvider(
-        create: (_) => ProfileBloc(),
+        create: (_) => ProfileBloc(ProfileLoading()),
         // lazy: ,
         child: Consumer<BaseModel>(
           builder: (context, basemodel, _) {

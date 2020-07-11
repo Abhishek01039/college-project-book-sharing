@@ -27,10 +27,10 @@ void setupLocator() {
   locator.registerLazySingleton(() => BookImage());
   locator.registerLazySingleton(() => PostedBookEditModel());
   locator.registerLazySingleton(() => PurchasedBookModel());
-  locator.registerLazySingleton(() => ProfileBloc());
+  locator.registerLazySingleton(() => ProfileBloc(ProfileLoading()));
   locator.registerLazySingleton(() => ProfileLoading());
   locator.registerLazySingleton(() => ProfileLoaded());
   locator.registerLazySingleton(() => ProfileInitial());
-  locator.registerLazySingleton(() => SimpleBlocDelegate());
+  locator.registerLazySingleton(() => SimpleBlocObserver());
   locator.registerLazySingleton(() => ProfileInitialEvent());
 }

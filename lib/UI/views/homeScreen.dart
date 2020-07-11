@@ -6,6 +6,8 @@ import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/postedBook.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
+import 'package:booksharing/UI/widgets/filter.dart';
+
 import 'package:booksharing/core/constant/app_constant.dart';
 
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
@@ -37,63 +39,93 @@ class _HomePageState extends State<HomePage> {
   int count = 0;
   var isListShimmerShown;
   int count1 = 0;
-  final LayerLink _layerLink = LayerLink();
-  @override
-  void initState() {
-    super.initState();
-    // this._overlayEntry = this._createOverlayEntry(context);
-  }
+
+  // final LayerLink _layerLink = LayerLink();
 
   //overlay for sorting
-  OverlayEntry _createOverlayEntry(BuildContext context) {
-    RenderBox renderBox = context.findRenderObject();
-    var size = renderBox.size;
-    var offset = renderBox.localToGlobal(Offset.zero);
-
-    return OverlayEntry(
-        builder: (context) => Positioned(
-              width: size.width,
-              child: CompositedTransformFollower(
-                link: this._layerLink,
-                showWhenUnlinked: false,
-                offset: Offset(0.0, size.height + 5.0),
-                child: Material(
-                  elevation: 4.0,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      ListTile(
-                        title: Text('Syria'),
-                        onTap: () {
-                          print('Syria Tapped');
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Lebanon'),
-                        onTap: () {
-                          print('Lebanon Tapped');
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ));
-  }
 
   @override
   Widget build(BuildContext context) {
     // show list of books from 7 to 12
     // final BookModel book1 = locator<BookModel>();
     final BookModel book = Provider.of(context);
+    OverlayEntry _createOverlayEntry(BuildContext context) {
+      RenderBox renderBox = context.findRenderObject();
+      var size = renderBox.size;
+      // var offset = renderBox.localToGlobal(Offset.zero);
 
-    // book1.bookApi();
-    // book.getHomeListProvider();
-    // book.getLatestBookProvider();
-    // book1.getBooks();
-    // book.getHomeList();
-    // book.getLatestBook();
+      return OverlayEntry(
+        builder: (context) => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            _overlayEntry.remove();
+          },
+          child: Stack(
+            children: [
+              Positioned(
+                width: size.width,
+                height: 200,
+                top: AppBar().preferredSize.height +
+                    MediaQuery.of(context).padding.top,
+                child: Material(
+                  elevation: 4.0,
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Book Price"),
+                      ),
+                      Filter(),
+                      // ListTile(
+                      //   title: Text('Lebanon'),
+                      //   onTap: () {
+                      //     // _overlayEntry = _createOverlayEntry(context);
+                      //     _overlayEntry.remove();
+                      //     print('Lebanon Tapped');
+                      //   },
+                      // ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // RaisedButton(
+                          //   onPressed: () {
+                          //     _overlayEntry.remove();
+                          //   },
+                          //   child: Text("Clear Filter"),
+                          // ),
+                          // SizedBox(
+                          //   width: 20,
+                          // ),
+                          RaisedButton(
+                            onPressed: () {
+                              book.filterBookRegardingChips(
+                                  book.choiceChipSelection);
+                              _overlayEntry.remove();
+                              Navigator.pushNamed(context, 'filterBook');
+                            },
+                            child: Text("Ok"),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     _firstFutureBuilder(BuildContext context, BookModel bookModel) {
       if (count1 == 0) {
         isListShimmerShown = Container(
@@ -255,33 +287,30 @@ class _HomePageState extends State<HomePage> {
 
     // final globalKey = GlobalKey<ScaffoldState>();
     Widget buildAllBar(BuildContext context) {
-      return CompositedTransformTarget(
-        link: this._layerLink,
-        child: AppBar(
-          title: appBarTitle,
-          centerTitle: true,
-          actions: <Widget>[
-            // IconButton(
-            //   icon: Icon(
-            //     FontAwesomeIcons.filter,
-            //     size: 20,
-            //   ),
-            //   onPressed: () {
-            //     this._overlayEntry = this._createOverlayEntry(context);
-            //     Overlay.of(context).insert(this._overlayEntry);
-            //   },
-            // ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                book.bookApi();
-                // search delegate
-
-                showSearch(context: context, delegate: Search());
-              },
+      return AppBar(
+        title: appBarTitle,
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.filter,
+              size: 20,
             ),
-          ],
-        ),
+            onPressed: () {
+              _overlayEntry = _createOverlayEntry(context);
+              Overlay.of(context).insert(_overlayEntry);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              book.bookApi();
+              // search delegate
+
+              showSearch(context: context, delegate: Search());
+            },
+          ),
+        ],
       );
     }
 

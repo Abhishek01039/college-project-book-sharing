@@ -11,7 +11,8 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> with Api {
-  @override
+  ProfileBloc(ProfileState initialState) : super(initialState);
+
   ProfileState get initialState => ProfileInitial();
   final box = Hive.box("Student");
 

@@ -2,6 +2,7 @@ import 'package:booksharing/UI/views/book_screens/allBooks.dart';
 import 'package:booksharing/UI/views/book_screens/bookDelete.dart';
 import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
+import 'package:booksharing/UI/views/book_screens/filterBook.dart';
 import 'package:booksharing/UI/views/student_screens/changePasswordAfterOTP.dart';
 import 'package:booksharing/UI/views/student_screens/enterOTP.dart';
 import 'package:booksharing/UI/views/student_screens/forgetPassword.dart';
@@ -89,6 +90,9 @@ class Router {
         break;
       case RoutePaths.ChangePasswordAfterOTP:
         return MaterialPageRoute(builder: (_) => ChangePasswordAfterOTP());
+        break;
+      case RoutePaths.FilterBook:
+        return MaterialPageRoute(builder: (_) => FilterBook());
         break;
       default:
         return MaterialPageRoute(
