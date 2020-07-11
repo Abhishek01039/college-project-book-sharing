@@ -29,7 +29,9 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.Splash:
-        return MaterialPageRoute(builder: (_) => MySpalshScreen());
+        return MaterialPageRoute(builder: (_) {
+          return MySpalshScreen();
+        });
       case RoutePaths.Home:
         return MaterialPageRoute(builder: (_) {
           return HomePage();
@@ -41,58 +43,94 @@ class Router {
         });
         break;
       case RoutePaths.Login:
-        return MaterialPageRoute(builder: (_) => LogIn());
+        return MaterialPageRoute(builder: (_) {
+          return LogIn();
+        });
         break;
       case RoutePaths.Register:
-        return MaterialPageRoute(builder: (_) => Registration());
+        return MaterialPageRoute(builder: (_) {
+          return Registration();
+        });
         break;
       case RoutePaths.BookDetail:
-        return MaterialPageRoute(builder: (_) => BookDetail());
+        return MaterialPageRoute(builder: (_) {
+          return BookDetail();
+        });
         break;
       case RoutePaths.Profile:
-        return MaterialPageRoute(builder: (_) => ProfilePage());
+        return MaterialPageRoute(builder: (_) {
+          return ProfilePage();
+        });
         break;
       case RoutePaths.PostedByProfile:
-        return MaterialPageRoute(builder: (_) => PostedByProfilePage());
+        return MaterialPageRoute(builder: (_) {
+          return PostedByProfilePage();
+        });
         break;
       case RoutePaths.MyPostedBook:
-        return MaterialPageRoute(builder: (_) => MyPostedBook());
+        return MaterialPageRoute(builder: (_) {
+          return MyPostedBook();
+        });
         break;
       case RoutePaths.PostedBook:
-        return MaterialPageRoute(builder: (_) => PostedBook());
+        return MaterialPageRoute(builder: (_) {
+          return PostedBook();
+        });
         break;
       case RoutePaths.StudentEdit:
-        return MaterialPageRoute(builder: (_) => StudentEdit());
+        return MaterialPageRoute(builder: (_) {
+          return StudentEdit();
+        });
         break;
       case RoutePaths.Bookedit:
-        return MaterialPageRoute(builder: (_) => BookEdit());
+        return MaterialPageRoute(builder: (_) {
+          return BookEdit();
+        });
         break;
       case RoutePaths.ChangePassword:
-        return MaterialPageRoute(builder: (_) => ChangePassword());
+        return MaterialPageRoute(builder: (_) {
+          return ChangePassword();
+        });
         break;
       case RoutePaths.Bookdelete:
-        return MaterialPageRoute(builder: (_) => BookDelete());
+        return MaterialPageRoute(builder: (_) {
+          return BookDelete();
+        });
         break;
       case RoutePaths.MyPurchasedBook:
-        return MaterialPageRoute(builder: (_) => MyPurchasedBook());
+        return MaterialPageRoute(builder: (_) {
+          return MyPurchasedBook();
+        });
         break;
       case RoutePaths.Feedback:
-        return MaterialPageRoute(builder: (_) => FeedBack());
+        return MaterialPageRoute(builder: (_) {
+          return FeedBack();
+        });
         break;
       case RoutePaths.MyPostedBookDetail:
-        return MaterialPageRoute(builder: (_) => MyPostedBookDetail());
+        return MaterialPageRoute(builder: (_) {
+          return MyPostedBookDetail();
+        });
         break;
       case RoutePaths.ForgetPassword:
-        return MaterialPageRoute(builder: (_) => ForgetPassword());
+        return MaterialPageRoute(builder: (_) {
+          return ForgetPassword();
+        });
         break;
       case RoutePaths.EnterOTP:
-        return MaterialPageRoute(builder: (_) => EnterOTP());
+        return MaterialPageRoute(builder: (_) {
+          return EnterOTP();
+        });
         break;
       case RoutePaths.ChangePasswordAfterOTP:
-        return MaterialPageRoute(builder: (_) => ChangePasswordAfterOTP());
+        return MaterialPageRoute(builder: (_) {
+          return ChangePasswordAfterOTP();
+        });
         break;
       case RoutePaths.FilterBook:
-        return MaterialPageRoute(builder: (_) => FilterBook());
+        return MaterialPageRoute(builder: (_) {
+          return FilterBook();
+        });
         break;
       default:
         return MaterialPageRoute(
