@@ -161,7 +161,7 @@ class AllBooks extends StatelessWidget {
     }
 
     Widget appBarTitle = Text(
-      "Book Shearing",
+      "Book Sharing",
       // style: TextStyle(color: Colors.white),
     );
 

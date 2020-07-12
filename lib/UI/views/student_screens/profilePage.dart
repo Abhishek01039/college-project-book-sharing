@@ -53,8 +53,8 @@ class LandscapeModeProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<ProfileBloc>(context);
-    bloc.add(ProfileInitialEvent());
+    // final bloc = ;
+    BlocProvider.of<ProfileBloc>(context).add(ProfileInitialEvent());
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
@@ -226,8 +226,8 @@ class PotraitModeProfilePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<ProfileBloc>(context);
-    bloc.add(ProfileInitialEvent());
+    // final bloc = ;
+    BlocProvider.of<ProfileBloc>(context).add(ProfileInitialEvent());
     return Scaffold(
       key: scaffoldKey,
       body: SingleChildScrollView(

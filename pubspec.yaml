@@ -48,7 +48,9 @@ dependencies:
   mockito: ^4.1.1
   flutter_bloc: ^5.0.1
   flutter_svg: ^0.18.0
-
+  device_preview: ^0.4.3
+  
+  
 dev_dependencies:
   hive_generator: ^0.7.0+2
   build_runner: ^1.8.1

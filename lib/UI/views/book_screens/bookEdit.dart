@@ -35,12 +35,12 @@ class BookEdit extends StatelessWidget {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Edit Book"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
       ),
       body: SingleChildScrollView(
         child: Form(

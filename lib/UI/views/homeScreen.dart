@@ -196,12 +196,11 @@ class _HomePageState extends State<HomePage> {
                   itemCount: bookModel.homeListBook.length > 6
                       ? 6
                       : bookModel.homeListBook.length,
-                  scrollDirection: Axis.vertical,
                   itemBuilder: (con, int index) {
                     return Card(
                       elevation: 3,
                       child: ListTile(
-                        dense: false,
+                        // dense: false,
                         // leading: bookImage != null
 
                         leading: bookModel
@@ -281,7 +280,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     Widget appBarTitle = Text(
-      "Book Shearing",
+      "Book Sharing",
       // style: TextStyle(color: Colors.white),
     );
 

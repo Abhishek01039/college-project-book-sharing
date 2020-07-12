@@ -133,43 +133,44 @@ class PotraitModesplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: ClipRRect(
-                    child: Hero(
-                      tag: "Logo",
-                      child: Image.asset(
-                        "assets/book_logo.jpg",
-                        fit: BoxFit.cover,
-                      ),
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ClipRRect(
+                  child: Hero(
+                    tag: "Logo",
+                    child: Image.asset(
+                      "assets/book_logo.jpg",
+                      fit: BoxFit.cover,
                     ),
-                    borderRadius: BorderRadius.circular(50),
                   ),
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Text("book sharing".toUpperCase()),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text("book sharing".toUpperCase()),
+            ),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            ],
-          ),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
-      ),
+            )
+          ],
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

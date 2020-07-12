@@ -12,6 +12,8 @@ import 'package:booksharing/core/viewModels/student_provider/studentLogInModel.d
 import 'package:booksharing/core/viewModels/student_provider/studentRegModel.dart';
 import 'package:booksharing/locator.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookDetailModel.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,19 +39,24 @@ void main() async {
   // Hive
   //   ..init(path)
   // //   ..registerAdapter(StudentAdapter());
+  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   await Hive.initFlutter();
   await Hive.openBox('Student');
   await Hive.openBox('DarkTheme');
   FlavorConfig(flavor: Flavor.PRODUCTION);
   setupLocator();
   Bloc.observer = SimpleBlocObserver();
-  runApp(MyApp());
+  runApp(
+    DevicePreview(
+      // enabled: kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
 
   // });
 }
 
 class MyApp extends StatelessWidget {
-  final darkTheme = Hive.box("DarkTheme");
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -71,70 +78,79 @@ class MyApp extends StatelessWidget {
         // lazy: ,
         child: Consumer<BaseModel>(
           builder: (context, basemodel, _) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              // darkTheme: ThemeData(
-
-              // ),
-              // Theme and color choosen by the article of google material design
-              theme: darkTheme.get("darkTheme", defaultValue: false)
-                  ? ThemeData(
-                      // backgroundColor: Colors.,
-                      primaryColor: Color(0xFF121212),
-                      // accentColor: Colors.blue[300],
-                      buttonTheme: ButtonThemeData(
-                          // buttonColor: Colors.teal[200],
-                          ),
-                      textTheme: TextTheme(
-                        bodyText1: TextStyle(
-                          color: Color(0xFFFFFF).withOpacity(0.87),
-                        ),
-                        headline2: TextStyle(
-                          color: Color(0xFFFFFF).withOpacity(0.87),
-                        ),
-                        caption: TextStyle(
-                          color: Color(0xFFFFFF).withOpacity(0.6),
-                        ),
-                        subtitle2: TextStyle(color: Colors.white),
-                      ),
-                      errorColor: Colors.red.withOpacity(0.80),
-                      floatingActionButtonTheme: FloatingActionButtonThemeData(
-                        backgroundColor: Colors.teal[200],
-                      ),
-                      brightness: Brightness.dark)
-
-                  // TODO choose color properly
-                  : ThemeData(
-                      primaryColor: Color(0xFF313457),
-                      accentColor: Color(0xFF5888D9),
-
-                      textTheme: TextTheme(
-                        button: TextStyle(
-                            // fontSize: 50,
-                            // foreground: Paint()..color = Colors.white,
-                            // color: Colors.blue,
-                            ),
-                      ),
-                      // buttonColor: Color(0xFF313457),
-                      backgroundColor: Color(0xfffffffff),
-                      buttonTheme: ButtonThemeData(
-                        textTheme: ButtonTextTheme.primary,
-                        buttonColor: Color(0xFF313457),
-                      ),
-                      floatingActionButtonTheme: FloatingActionButtonThemeData(
-                        backgroundColor: Color(0xFF313457),
-                      ),
-                      brightness: Brightness.light,
-                    ),
-
-              title: 'Book Sharing',
-              // home: LogIn(),
-              initialRoute: '/',
-              onGenerateRoute: Router.generateRoute,
-            );
+            return MaterialAppWidget();
           },
         ),
       ),
+    );
+  }
+}
+
+class MaterialAppWidget extends StatelessWidget {
+  final darkTheme = Hive.box("DarkTheme");
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      supportedLocales: const [
+        Locale('en', 'US'),
+      ],
+
+      locale: DevicePreview.of(context)?.locale, // <--- Add the locale
+      builder: DevicePreview.appBuilder,
+      debugShowCheckedModeBanner: false,
+
+      theme: darkTheme.get("darkTheme", defaultValue: false)
+          ? ThemeData(
+              // backgroundColor: Colors.,
+              primaryColor: Color(0xFF121212),
+              // accentColor: Colors.blue[300],
+              buttonTheme: ButtonThemeData(
+                  // buttonColor: Colors.teal[200],
+                  ),
+              textTheme: TextTheme(
+                bodyText1: TextStyle(
+                  color: Color(0xFFFFFF).withOpacity(0.87),
+                ),
+                headline2: TextStyle(
+                  color: Color(0xFFFFFF).withOpacity(0.87),
+                ),
+                caption: TextStyle(
+                  color: Color(0xFFFFFF).withOpacity(0.6),
+                ),
+                subtitle2: TextStyle(color: Colors.white),
+              ),
+              errorColor: Colors.red.withOpacity(0.80),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.teal[200],
+              ),
+              brightness: Brightness.dark)
+          : ThemeData(
+              primaryColor: Color(0xFF313457),
+              accentColor: Color(0xFF5888D9),
+
+              textTheme: TextTheme(
+                button: TextStyle(
+                    // fontSize: 50,
+                    // foreground: Paint()..color = Colors.white,
+                    // color: Colors.blue,
+                    ),
+              ),
+              // buttonColor: Color(0xFF313457),
+              backgroundColor: Color(0xfffffffff),
+              buttonTheme: ButtonThemeData(
+                textTheme: ButtonTextTheme.primary,
+                buttonColor: Color(0xFF313457),
+              ),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Color(0xFF313457),
+              ),
+              brightness: Brightness.light,
+            ),
+
+      title: 'Book Sharing',
+      // home: LogIn(),
+      initialRoute: '/',
+      onGenerateRoute: Router.generateRoute,
     );
   }
 }
