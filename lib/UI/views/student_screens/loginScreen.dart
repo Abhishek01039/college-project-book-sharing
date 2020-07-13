@@ -106,7 +106,7 @@ class ProtraitModeLogInPage extends StatelessWidget {
               children: <Widget>[
                 Container(
                   // height: MediaQuery.of(context).size.height / 2.5,
-                  height: 200,
+                  height: MediaQuery.of(context).size.height / 3.5,
                   child: Center(
                     child: ClipRRect(
                       // child: Hero(
@@ -114,11 +114,11 @@ class ProtraitModeLogInPage extends StatelessWidget {
                       //   // child: Image.asset('assets/book_logo.jpg'),
                       child: SvgPicture.asset(
                         "assets/svg/undraw_Login_v483.svg",
-                        width: 250,
+                        width: MediaQuery.of(context).size.width - 200,
                         // color: Color(0xFF313457),
                         allowDrawingOutsideViewBox: true,
                         // fit: BoxFit.fill,
-                        height: 250,
+                        height: MediaQuery.of(context).size.height / 3.5,
                       ),
                       // ),
                       // borderRadius: BorderRadius.circular(20),
@@ -206,7 +206,7 @@ class PotraitLogInForm extends StatelessWidget {
               },
             ),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
             TextFormField(
               controller: studentModel.pass,

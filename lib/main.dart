@@ -47,11 +47,11 @@ void main() async {
   setupLocator();
   Bloc.observer = SimpleBlocObserver();
   runApp(
-    DevicePreview(
-      // enabled: kReleaseMode,
-      builder: (context) => MyApp(),
-    ),
-  );
+      // DevicePreview(
+      //   // enabled: kReleaseMode,
+      //   builder: (context) => MyApp(),
+      // ),
+      MyApp());
 
   // });
 }

@@ -64,52 +64,52 @@ class BookModel extends BaseModel with Api {
   Future<void> filterBookRegardingChips(int index) async {
     bookApi();
     List<Book> filterBooksList = <Book>[];
-    Future.delayed(Duration(seconds: 5));
-    Timer(Duration(seconds: 10), () async {
-      await for (var i in book) {
-        filterBooksList.clear();
-        print(i);
-        for (var j in i) {
-          if (index == 0) {
+    // Future.delayed(Duration(seconds: 5));
+    // Timer(Duration(seconds: 10), () async {
+    await for (var i in book) {
+      filterBooksList.clear();
+      print(i);
+      for (var j in i) {
+        if (index == 0) {
+          filterBooksList.add(j);
+        } else if (index == 1) {
+          if (j.price > 0 && j.price <= 150) {
             filterBooksList.add(j);
-          } else if (index == 1) {
-            if (j.price > 0 && j.price <= 150) {
-              filterBooksList.add(j);
-            }
-          } else if (index == 2) {
-            if (j.price > 150 && j.price <= 500) {
-              filterBooksList.add(j);
-            }
-          } else if (index == 3) {
-            if (j.price > 500) {
-              filterBooksList.add(j);
-            }
+          }
+        } else if (index == 2) {
+          if (j.price > 150 && j.price <= 500) {
+            filterBooksList.add(j);
+          }
+        } else if (index == 3) {
+          if (j.price > 500) {
+            filterBooksList.add(j);
           }
         }
-        // i.map((e) {
-        //   if (index == 0) {
-        //     filterBooksList.add(e);
-        //   } else if (index == 1) {
-        //     if (e.price > 0 && e.price <= 150) {
-        //       filterBooksList.add(e);
-        //     }
-        //   } else if (index == 2) {
-        //     if (e.price > 150 && e.price <= 500) {
-        //       filterBooksList.add(e);
-        //     }
-        //   } else if (index == 3) {
-        //     if (e.price > 500) {
-        //       filterBooksList.add(e);
-        //     }
-        //   }
-        // });
-
-        // latestBooks = List.from(latestBooks.reversed);
-        _filterBookSubject.sink.add(filterBooksList);
-
-        notifyListeners();
       }
-    });
+      // i.map((e) {
+      //   if (index == 0) {
+      //     filterBooksList.add(e);
+      //   } else if (index == 1) {
+      //     if (e.price > 0 && e.price <= 150) {
+      //       filterBooksList.add(e);
+      //     }
+      //   } else if (index == 2) {
+      //     if (e.price > 150 && e.price <= 500) {
+      //       filterBooksList.add(e);
+      //     }
+      //   } else if (index == 3) {
+      //     if (e.price > 500) {
+      //       filterBooksList.add(e);
+      //     }
+      //   }
+      // });
+
+      // latestBooks = List.from(latestBooks.reversed);
+      _filterBookSubject.sink.add(filterBooksList);
+
+      notifyListeners();
+    }
+    // });
   }
 
   // get latest books according to posted date

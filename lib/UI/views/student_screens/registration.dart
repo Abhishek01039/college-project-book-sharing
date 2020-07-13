@@ -249,7 +249,7 @@ class Registration extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: CountryPickerDropdown(
                           initialValue: 'in',
                           itemBuilder: _buildDropdownItem,
