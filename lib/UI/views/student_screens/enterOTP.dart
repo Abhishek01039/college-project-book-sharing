@@ -16,7 +16,7 @@ class EnterOTP extends StatelessWidget {
       appBar: AppBar(
         title: Text("Enter OTP"),
       ),
-      body: Consumer<StudentEditModel>(builder: (context, studentEditMode, _) {
+      body: Consumer<StudentEditModel>(builder: (context, studentEditModel, _) {
         return SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -48,53 +48,68 @@ class EnterOTP extends StatelessWidget {
                 // fit: BoxFit.fill,
                 height: 80,
               ),
-              Form(
-                key: studentEditMode.verifyOTPFrom,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: studentEditMode.oTP,
-                        keyboardType: TextInputType.phone,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          hintText: "OTP",
-                          suffixIcon: Icon(Icons.vpn_key),
-                        ),
-                        onChanged: (val) {
-                          studentEditMode.verifyOTP = int.tryParse(val);
-                        },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter OTP';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          // if (studentEditMode.verifyOTPFrom.currentState
-                          //     .validate()) {
-                          studentEditMode.varifyEmail(context, scaffoldKey);
-                          // }
-                        },
-                        child: Text(
-                          "Verify OTP",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              EnterOTPForm(
+                scaffoldKey: scaffoldKey,
+                studentEditModel: studentEditModel,
               ),
             ],
           ),
         );
       }),
+    );
+  }
+}
+
+class EnterOTPForm extends StatelessWidget {
+  final StudentEditModel studentEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const EnterOTPForm({Key key, this.studentEditModel, this.scaffoldKey})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: studentEditModel.verifyOTPFrom,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: studentEditModel.oTP,
+              keyboardType: TextInputType.phone,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                hintText: "OTP",
+                suffixIcon: Icon(Icons.vpn_key),
+              ),
+              onChanged: (val) {
+                studentEditModel.verifyOTP = int.tryParse(val);
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter OTP';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            RaisedButton(
+              onPressed: () {
+                // if (studentEditMode.verifyOTPFrom.currentState
+                //     .validate()) {
+                studentEditModel.varifyEmail(context, scaffoldKey);
+                // }
+              },
+              child: Text(
+                "Verify OTP",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

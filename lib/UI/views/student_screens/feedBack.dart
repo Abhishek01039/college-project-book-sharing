@@ -22,89 +22,102 @@ class FeedBack extends StatelessWidget {
       body: Consumer<StudentRegModel>(
         builder: (context, studentRegModel, _) {
           return SingleChildScrollView(
-            child: Form(
-              autovalidate: studentRegModel.feedbackAutoValidate,
-              key: studentRegModel.feedbackFormKey,
-              child: Padding(
-                padding: const EdgeInsets.all(30),
-                child: Column(
-                  // mainAxisAlign`/ment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Container(
-                    //   height: 200,
-                    //   width: MediaQuery.of(context).size.width / 2,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(30),
-                    //     image: DecorationImage(
-                    //       fit: BoxFit.cover,
-                    //       image: AssetImage(
-                    //         "assets/book_logo.jpg",
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    SvgPicture.asset(
-                      "assets/svg/undraw_anonymous_feedback_y3co.svg",
-                      width: 250,
-                      semanticsLabel: 'Acme Logo',
-                      // color: Color(0xFF313457),
-                      allowDrawingOutsideViewBox: true,
-                      // fit: BoxFit.fill,
-                      height: 250,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: studentRegModel.feedBackEmail,
-                      decoration: InputDecoration(
-                        hintText: "Enter Email",
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter Email';
-                        } else if (!isEmail(value)) {
-                          return 'email invalid';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    TextFormField(
-                      controller: studentRegModel.feedBackMessage,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        hintText: "Enter Message",
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter Message';
-                        }
-                        return null;
-                      },
-                      // maxLength: 2s
-
-                      keyboardType: TextInputType.text,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    RaisedButton(
-                      onPressed: () async {
-                        await studentRegModel.feedBackProvider(
-                            context, scaffoldKey);
-                      },
-                      child: Text("Send Message"),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+              child: FeedBackForm(
+            scaffoldKey: scaffoldKey,
+            studentRegModel: studentRegModel,
+          ));
         },
+      ),
+    );
+  }
+}
+
+class FeedBackForm extends StatelessWidget {
+  final StudentRegModel studentRegModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const FeedBackForm({Key key, this.studentRegModel, this.scaffoldKey})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      autovalidate: studentRegModel.feedbackAutoValidate,
+      key: studentRegModel.feedbackFormKey,
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          // mainAxisAlign`/ment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Container(
+            //   height: 200,
+            //   width: MediaQuery.of(context).size.width / 2,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(30),
+            //     image: DecorationImage(
+            //       fit: BoxFit.cover,
+            //       image: AssetImage(
+            //         "assets/book_logo.jpg",
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SvgPicture.asset(
+              "assets/svg/undraw_anonymous_feedback_y3co.svg",
+              width: 250,
+              semanticsLabel: 'Acme Logo',
+              // color: Color(0xFF313457),
+              allowDrawingOutsideViewBox: true,
+              // fit: BoxFit.fill,
+              height: 250,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: studentRegModel.feedBackEmail,
+              decoration: InputDecoration(
+                hintText: "Enter Email",
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter Email';
+                } else if (!isEmail(value)) {
+                  return 'email invalid';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.emailAddress,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            TextFormField(
+              controller: studentRegModel.feedBackMessage,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                hintText: "Enter Message",
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter Message';
+                }
+                return null;
+              },
+              // maxLength: 2s
+
+              keyboardType: TextInputType.text,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            RaisedButton(
+              onPressed: () async {
+                await studentRegModel.feedBackProvider(context, scaffoldKey);
+              },
+              child: Text("Send Message"),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -29,9 +29,11 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.Splash:
-        return MaterialPageRoute(builder: (_) {
-          return MySpalshScreen();
-        });
+        return MaterialPageRoute(
+          builder: (_) {
+            return MySpalshScreen();
+          },
+        );
       case RoutePaths.Home:
         return MaterialPageRoute(builder: (_) {
           return HomePage();

@@ -22,93 +22,107 @@ class ForgetPassword extends StatelessWidget {
         builder: (context, studentEditMode, _) {
           studentEditMode.emailOTP.clear();
           return SingleChildScrollView(
-            child: Form(
-              key: studentEditMode.sendOTPFrom,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Container(
-                      // height: MediaQuery.of(context).size.height / 1.2,
-                      width: double.infinity,
-                      height: 200,
-                      child: Center(
-                        child: ClipRRect(
-                          // child: Hero(
-                          //   tag: "Logo",
-                          //   child: Image.asset(
-                          //     'assets/book_logo.jpg',
-                          //     fit: BoxFit.fill,
-                          //   ),
-                          // ),
-                          child: SvgPicture.asset(
-                            "assets/svg/undraw_mail_2_tqip.svg",
-                            width: 250,
-                            // color: Color(0xFF313457),
-                            allowDrawingOutsideViewBox: true,
-                            // fit: BoxFit.fill,
-                            height: 250,
-                          ),
-                          // borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Enter email address associated with your account.",
-                          style: textStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        TextFormField(
-                          // controller: studentModel.username,
-                          controller: studentEditMode.emailOTP,
-                          // textCapitalization: TextCapitalization.words,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: "Email",
-                            suffixIcon: Icon(Icons.email),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter Email';
-                            }
-                            if (!isEmail(value)) {
-                              return "Please enter valid Email";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            // if (studentEditMode.sendOTPFrom.currentState
-                            //     .validate()) {
-                            studentEditMode.sendEmailProvider(
-                                context, scaffoldKey);
-                            // }
-                          },
-                          child: Text(
-                            "Send OTP",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            child: ForgetPasswordForm(
+              scaffoldKey: scaffoldKey,
+              studentEditModel: studentEditMode,
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class ForgetPasswordForm extends StatelessWidget {
+  final StudentEditModel studentEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ForgetPasswordForm({Key key, this.studentEditModel, this.scaffoldKey})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: studentEditModel.sendOTPFrom,
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Container(
+              // height: MediaQuery.of(context).size.height / 1.2,
+              width: double.infinity,
+              height: 200,
+              child: Center(
+                child: ClipRRect(
+                  // child: Hero(
+                  //   tag: "Logo",
+                  //   child: Image.asset(
+                  //     'assets/book_logo.jpg',
+                  //     fit: BoxFit.fill,
+                  //   ),
+                  // ),
+                  child: SvgPicture.asset(
+                    "assets/svg/undraw_mail_2_tqip.svg",
+                    width: 250,
+                    // color: Color(0xFF313457),
+                    allowDrawingOutsideViewBox: true,
+                    // fit: BoxFit.fill,
+                    height: 250,
+                  ),
+                  // borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Enter email address associated with your account.",
+                  style: textStyle,
+                  textAlign: TextAlign.center,
+                ),
+                TextFormField(
+                  // controller: studentModel.username,
+                  controller: studentEditModel.emailOTP,
+                  // textCapitalization: TextCapitalization.words,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                    suffixIcon: Icon(Icons.email),
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter Email';
+                    }
+                    if (!isEmail(value)) {
+                      return "Please enter valid Email";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    // if (studentEditMode.sendOTPFrom.currentState
+                    //     .validate()) {
+                    studentEditModel.sendEmailProvider(context, scaffoldKey);
+                    // }
+                  },
+                  child: Text(
+                    "Send OTP",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

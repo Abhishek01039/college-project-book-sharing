@@ -159,89 +159,10 @@ class MyPostedBookDetail extends StatelessWidget {
     // BookDetailModel bookDetailModel = Provider.of(context);
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          "Book Sharing",
-          // style: textStyle,
-        ),
-        actions: <Widget>[
-          // IconButton(
-          //   icon: Icon(Icons.add),
-          //   onPressed: () async {
-          //     // final RenderBox box = context.findRenderObject();
-          //     // Share.share(
-          //     //   book.bookImage[0].image,
-          //     //   // subject: subject,
-          //     //   sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-          //     // );
-          //     await postedBookEditModel.updateBookImageList(
-          //         context, scaffoldKey, book.bookId, book.bookName);
-          //   },
-          // )
-
-          PopupMenuButton(
-            padding: EdgeInsets.only(right: 30, bottom: 30, left: 30),
-            onCanceled: () {
-              log("cancel Pop up menu");
-            },
-            onSelected: (value) async {
-              if (value == 1) {
-                await postedBookEditModel.updateBookImageList(
-                    context, scaffoldKey, book.bookId, book.bookName);
-              } else if (value == 2) {
-                // _deleteBook(book.bookId);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookDelete(
-                      bookId: book.bookId,
-                    ),
-                  ),
-                );
-              }
-            },
-            offset: Offset(0, 0),
-            child: Icon(Icons.more_vert),
-            itemBuilder: (context) {
-              return [
-                PopupMenuItem(
-                  value: 1,
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.add,
-                        color: Colors.black26,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("Add Book Image"),
-                    ],
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 2,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Icon(
-                        Icons.delete,
-                        color: Colors.black26,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("Delete"),
-                    ],
-                  ),
-                ),
-              ];
-            },
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
+      appBar: PostedBookAppBar(
+        book: book,
+        scaffoldKey: scaffoldKey,
+        postedBookEditModel: postedBookEditModel,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -498,4 +419,111 @@ class MyPostedBookDetail extends StatelessWidget {
       ),
     );
   }
+}
+
+class PostedBookAppBar extends StatelessWidget implements PreferredSize {
+  final dynamic postedBookEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final Book book;
+
+  const PostedBookAppBar({
+    Key key,
+    this.postedBookEditModel,
+    this.scaffoldKey,
+    this.book,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(
+        "Book Sharing",
+        // style: textStyle,
+      ),
+      actions: <Widget>[
+        // IconButton(
+        //   icon: Icon(Icons.add),
+        //   onPressed: () async {
+        //     // final RenderBox box = context.findRenderObject();
+        //     // Share.share(
+        //     //   book.bookImage[0].image,
+        //     //   // subject: subject,
+        //     //   sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+        //     // );
+        //     await postedBookEditModel.updateBookImageList(
+        //         context, scaffoldKey, book.bookId, book.bookName);
+        //   },
+        // )
+
+        PopupMenuButton(
+          padding: EdgeInsets.only(right: 30, bottom: 30, left: 30),
+          onCanceled: () {
+            log("cancel Pop up menu");
+          },
+          onSelected: (value) async {
+            if (value == 1) {
+              await postedBookEditModel.updateBookImageList(
+                  context, scaffoldKey, book.bookId, book.bookName);
+            } else if (value == 2) {
+              // _deleteBook(book.bookId);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookDelete(
+                    bookId: book.bookId,
+                  ),
+                ),
+              );
+            }
+          },
+          offset: Offset(0, 0),
+          child: Icon(Icons.more_vert),
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: 1,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.add,
+                      color: Colors.black26,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Add Book Image"),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Icon(
+                      Icons.delete,
+                      color: Colors.black26,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Delete"),
+                  ],
+                ),
+              ),
+            ];
+          },
+        ),
+        SizedBox(
+          width: 10,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget get child => throw UnimplementedError();
+
+  @override
+  Size get preferredSize => throw UnimplementedError();
 }

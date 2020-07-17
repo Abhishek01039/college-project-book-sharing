@@ -23,99 +23,113 @@ class ChangePasswordAfterOTP extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: SafeArea(
-              child: Form(
-                autovalidate: studentEditModel.changePasswordAutoValidate,
-                key: studentEditModel.changePassowdForm,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    children: <Widget>[
-                      // Container(
-                      //   height: 200,
-                      //   width: MediaQuery.of(context).size.width / 2,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(30),
-                      //     image: DecorationImage(
-                      //       fit: BoxFit.cover,
-                      //       image: AssetImage(
-                      //         "assets/book_logo.jpg",
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      SvgPicture.asset(
-                        "assets/svg/undraw_forgot_password_gi2d.svg",
-                        width: 250,
-                        // color: Color(0xFF313457),
-                        allowDrawingOutsideViewBox: true,
-                        // fit: BoxFit.fill,
-                        height: 250,
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: studentEditModel.passwordAfterOTP,
-                        decoration: InputDecoration(
-                          hintText: "New Password",
-                          suffixIcon: Icon(Icons.lock),
-                        ),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter New Password';
-                          } else if (value.length < 5) {
-                            return 'Password must be more than five characters';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.text,
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: studentEditModel.confirmPasswordAfterOTP,
-                        decoration: InputDecoration(
-                          hintText: "Confirm Password",
-                          suffixIcon: Icon(Icons.lock),
-                        ),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter Confirm Password';
-                          } else if (value !=
-                              studentEditModel.passwordAfterOTP.text) {
-                            return 'Password is not same';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.text,
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          // studentEditModel.changePasswordModel(
-                          //     context, box.get("ID"), scaffoldKey);
-
-                          studentEditModel.updatePasswordProvider(
-                              context, scaffoldKey);
-                        },
-                        child: Text(
-                          "Change Password",
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+              child: ChangePasswordAfterOTPForm(
+                scaffoldKey: scaffoldKey,
+                studentEditModel: studentEditModel,
               ),
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class ChangePasswordAfterOTPForm extends StatelessWidget {
+  final StudentEditModel studentEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ChangePasswordAfterOTPForm(
+      {Key key, this.studentEditModel, this.scaffoldKey})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      autovalidate: studentEditModel.changePasswordAutoValidate,
+      key: studentEditModel.changePassowdForm,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: <Widget>[
+            // Container(
+            //   height: 200,
+            //   width: MediaQuery.of(context).size.width / 2,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(30),
+            //     image: DecorationImage(
+            //       fit: BoxFit.cover,
+            //       image: AssetImage(
+            //         "assets/book_logo.jpg",
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SvgPicture.asset(
+              "assets/svg/undraw_forgot_password_gi2d.svg",
+              width: 250,
+              // color: Color(0xFF313457),
+              allowDrawingOutsideViewBox: true,
+              // fit: BoxFit.fill,
+              height: 250,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            TextFormField(
+              controller: studentEditModel.passwordAfterOTP,
+              decoration: InputDecoration(
+                hintText: "New Password",
+                suffixIcon: Icon(Icons.lock),
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter New Password';
+                } else if (value.length < 5) {
+                  return 'Password must be more than five characters';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.text,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            TextFormField(
+              controller: studentEditModel.confirmPasswordAfterOTP,
+              decoration: InputDecoration(
+                hintText: "Confirm Password",
+                suffixIcon: Icon(Icons.lock),
+              ),
+              obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter Confirm Password';
+                } else if (value != studentEditModel.passwordAfterOTP.text) {
+                  return 'Password is not same';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.text,
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            RaisedButton(
+              onPressed: () {
+                // studentEditModel.changePasswordModel(
+                //     context, box.get("ID"), scaffoldKey);
+
+                studentEditModel.updatePasswordProvider(context, scaffoldKey);
+              },
+              child: Text(
+                "Change Password",
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
