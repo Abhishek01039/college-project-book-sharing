@@ -101,6 +101,7 @@ class MaterialAppWidget extends StatelessWidget {
 
       theme: darkTheme.get("darkTheme", defaultValue: false)
           ? ThemeData(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
               // backgroundColor: Colors.,
               primaryColor: Color(0xFF121212),
               // accentColor: Colors.blue[300],
@@ -125,6 +126,7 @@ class MaterialAppWidget extends StatelessWidget {
               ),
               brightness: Brightness.dark)
           : ThemeData(
+              visualDensity: VisualDensity.adaptivePlatformDensity,
               primaryColor: Color(0xFF313457),
               accentColor: Color(0xFF5888D9),
 
@@ -150,7 +152,7 @@ class MaterialAppWidget extends StatelessWidget {
       title: 'Book Sharing',
       // home: LogIn(),
       initialRoute: '/',
-      onGenerateRoute: Router.generateRoute,
+      onGenerateRoute: RouterCustome.generateRoute,
     );
   }
 }

@@ -9,25 +9,22 @@ import 'package:hive/hive.dart';
 class Search extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
-    // TODO: implement appBarTheme
     final ThemeData theme = Theme.of(context);
     final darkTheme = Hive.box("DarkTheme");
     assert(theme != null);
     return darkTheme.get("darkTheme", defaultValue: false)
-        ? theme.copyWith(
-            primaryColor: Colors.black38,
-            primaryIconTheme:
-                theme.primaryIconTheme.copyWith(color: Colors.grey),
-            primaryColorBrightness: Brightness.dark,
-            primaryTextTheme: theme.textTheme,
-          )
+          ? theme.copyWith(
+              primaryColor: Colors.black38,
+              primaryIconTheme:
+                  theme.primaryIconTheme.copyWith(color: Colors.grey),
+              primaryColorBrightness: Brightness.dark,
+              primaryTextTheme: theme.textTheme,
+            )
         : super.appBarTheme(context);
   }
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
-
     // clear icon in tralling
     return [
       IconButton(
@@ -41,8 +38,6 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-
     // back arrow icon at leading
     return IconButton(
       icon: AnimatedIcon(
@@ -57,16 +52,15 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // BookModel bookModel = Provider.of(context);
-    // TODO: implement buildSuggestions
-    if (query.isEmpty) {
-      return Container();
-    } else {
+
+    if (query.isNotEmpty)
+
       // return list of books which student wants to search
       return Consumer<BookModel>(
         builder: (_, bookModel, __) {
@@ -161,6 +155,6 @@ class Search extends SearchDelegate {
               );
         },
       );
-    }
+    return Container();
   }
 }

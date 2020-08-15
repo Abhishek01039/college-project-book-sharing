@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 const YOUR_SERVER_IP = '192.168.43.182';
 const YOUR_SERVER_PORT = 8000;
 mixin Api {
-  String api = "http://192.168.43.182:8000/booksharing/";
+  String api = "http://192.168.43.183:8000/booksharing/";
   // String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
   // basicAuth() {
   //   String username = 'abhishek';
@@ -36,7 +36,7 @@ mixin Api {
     // List<BookImage> image = new List();
     // log(getJWT());
     var response = await http.get(api + 'book/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
 
     var parsed = jsonDecode(response.body);
@@ -72,7 +72,7 @@ mixin Api {
     Book book = locator<Book>();
     // Student student = locator<Student>();
     var response = await http.get(api + 'book/$id', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
 
     var parsed = jsonDecode(response.body);
@@ -91,7 +91,7 @@ mixin Api {
     Student student = locator<Student>();
 
     // http.Response response = await http.get(api + 'student/$id', headers: {
-    //   'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+    //   'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     // });
     http.Response response =
         await http.get("http://192.168.43.182:7700/denostud/$id");
@@ -111,7 +111,7 @@ mixin Api {
   getBookImage(int id) async {
     List<BookImage> image = List<BookImage>();
     http.Response response = await http.get(api + 'imagebyid/$id', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
     // print(response.body);
     var parsed = jsonDecode(response.body);
@@ -137,7 +137,7 @@ mixin Api {
       'email': email,
       "password": pass
     }, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
     // print(response.body);
     var parsed = jsonDecode(response.body);
@@ -163,7 +163,7 @@ mixin Api {
     http.Response response = await http.post(api + 'student/', body: {
       'studentId': studId
     }, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
     var parsed = jsonDecode(response.body);
 
@@ -204,7 +204,7 @@ mixin Api {
       "photo": base64Image ?? "",
       "extansion": extn ?? ""
     }, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     var parsed = jsonDecode(response.body);
 
@@ -238,7 +238,7 @@ mixin Api {
   Future<bool> registeredBook(String body) async {
     http.Response response =
         await http.post(api + "postbook/", body: body, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json"
     });
 
@@ -255,7 +255,7 @@ mixin Api {
   Future<String> updateStudent(int id, String studentInfo) async {
     http.Response response =
         await http.put(api + "student/$id/", body: studentInfo, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -271,7 +271,7 @@ mixin Api {
   Future<bool> updateStudentPhoto(int id, String studentInfo) async {
     http.Response response = await http
         .put(api + "updatestudentphoto/$id/", body: studentInfo, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -285,7 +285,7 @@ mixin Api {
     List<Book> bookList = new List();
     http.Response response =
         await http.get(api + 'bookbyposted/$id/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     var parsed = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -299,7 +299,7 @@ mixin Api {
   Future<String> editBook(int bookId, String editBookData) async {
     http.Response response =
         await http.put(api + 'book/$bookId/', body: editBookData, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json"
     });
     var parsed = jsonDecode(response.body);
@@ -315,7 +315,7 @@ mixin Api {
       "password": password,
       "newpassword": newpassword
     }, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     var parsed = jsonDecode(response.body);
     if (parsed == "success") {
@@ -329,7 +329,7 @@ mixin Api {
   deleteStudent(int studId) async {
     http.Response response =
         await http.delete(api + 'student/$studId/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -340,7 +340,7 @@ mixin Api {
 
   deleteBook(int bookId) async {
     http.Response response = await http.delete(api + 'book/$bookId/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     // var parsed = jsonDecode(response.body);
     if (response.statusCode == 204) {
@@ -353,7 +353,7 @@ mixin Api {
     http.Response response =
         await http.post(api + 'purchasedbook/', body: data, headers: {
       "Content-Type": "application/json",
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
     });
     var parsed = jsonDecode(response.body);
 
@@ -370,7 +370,7 @@ mixin Api {
     // List<PurchasedBook> purchasedBook = new List();
     // http.Response response = await http
     //     .get(api + "purchasedbookbyuser/$studId/", headers: {
-    //   'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+    //   'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     // });
     http.Response response =
         await http.get("http://192.168.43.182:7700/denopurchasedbook/$studId");
@@ -386,7 +386,7 @@ mixin Api {
       "email": email,
       "message": message
     }, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
     var parsed = jsonDecode(response.body);
 
@@ -397,7 +397,7 @@ mixin Api {
     List<Book> book = new List();
 
     http.Response response = await http.get(api + 'homelist/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
 
     var parsed = jsonDecode(response.body);
@@ -411,7 +411,7 @@ mixin Api {
     List<Book> book = new List();
 
     http.Response response = await http.get(api + 'latestbook/', headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f"
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     });
 
     var parsed = jsonDecode(response.body);
@@ -424,7 +424,7 @@ mixin Api {
   updateImagePhoto(String bookImageInfo) async {
     http.Response response =
         await http.put(api + 'updatebookimage/', body: bookImageInfo, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json",
     });
 
@@ -435,7 +435,7 @@ mixin Api {
   addImageList(String bookImageInfo) async {
     http.Response response =
         await http.post(api + 'addimagelist/', body: bookImageInfo, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json",
     });
 
@@ -446,7 +446,7 @@ mixin Api {
   sendEmail(String body) async {
     http.Response response =
         await http.post(api + 'sendemail/', body: body, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json",
     });
 
@@ -457,7 +457,7 @@ mixin Api {
   updatePassword(String body) async {
     http.Response response =
         await http.put(api + 'updatepassword/', body: body, headers: {
-      'authorization': "Token 56acbb8791303258fed1749c188637afa8756d9f",
+      'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93",
       "Content-Type": "application/json",
     });
 

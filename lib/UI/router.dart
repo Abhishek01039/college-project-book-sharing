@@ -25,7 +25,7 @@ import 'package:booksharing/UI/views/student_screens/feedBack.dart';
 const String initialRoute = "/";
 
 // This all are the Routers
-class Router {
+class RouterCustome {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.Splash:

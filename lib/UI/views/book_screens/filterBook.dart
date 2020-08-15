@@ -174,7 +174,7 @@ class FilterBook extends StatelessWidget {
     }
 
     Widget appBarTitle = Text(
-      "Book Sharing",
+      "Filter Books",
       // style: TextStyle(color: Colors.white),
     );
 

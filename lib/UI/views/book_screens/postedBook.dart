@@ -2,7 +2,7 @@ import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -52,14 +52,14 @@ class PostedBookForm extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Column(
           children: <Widget>[
-            SvgPicture.asset(
-              "assets/svg/undraw_book_lover_mkck.svg",
-              width: MediaQuery.of(context).size.width / 3,
-              // color: Color(0xFF313457),
-              allowDrawingOutsideViewBox: true,
-              // fit: BoxFit.fill,
-              height: 250,
-            ),
+            // SvgPicture.asset(
+            //   "assets/svg/undraw_book_lover_mkck.svg",
+            //   width: MediaQuery.of(context).size.width / 3,
+            //   // color: Color(0xFF313457),
+            //   allowDrawingOutsideViewBox: true,
+            //   // fit: BoxFit.fill,
+            //   height: 250,
+            // ),
             const SizedBox(
               height: 20,
             ),

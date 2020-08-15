@@ -525,5 +525,5 @@ class PostedBookAppBar extends StatelessWidget implements PreferredSize {
   Widget get child => throw UnimplementedError();
 
   @override
-  Size get preferredSize => throw UnimplementedError();
+  Size get preferredSize => const Size.fromHeight(50);
 }
