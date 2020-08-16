@@ -3,6 +3,7 @@ import 'package:booksharing/UI/views/book_screens/bookEdit.dart';
 import 'package:booksharing/core/constant/app_constant.dart';
 // import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/core/models/book.dart';
+import 'package:booksharing/core/models/student.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -69,7 +70,7 @@ class _BookDetailState extends State<BookDetail> {
                                             )
                                           : NetworkImage(
                                               //https://booksharingappdjango.herokuapp.com
-                                              "http://192.168.43.182:8000" +
+                                              "http://192.168.43.183:8000" +
                                                   v.image,
                                               // fit: BoxFit.fill,
                                             ),
@@ -221,23 +222,40 @@ class _BookDetailState extends State<BookDetail> {
                       )
                     ],
                   ),
+                  if (widget.book.edition != null)
+                    SizedBox(
+                      height: 20,
+                    ),
+                  if (widget.book.edition != null)
+                    Row(
+                      children: <Widget>[
+                        Text("Edition  :"),
+                        // Text(book.pos)
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          widget.book.edition.toString(),
+                        )
+                      ],
+                    ),
                   Divider(
                     thickness: 3,
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text("posted By"),
                       // this ensure that perticular book posted by whom
-                      FutureBuilder(
+                      FutureBuilder<Student>(
                         future: bookDetailModel
                             .getStudentDetail(widget.book.postedBy),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Student> snapshot) {
                           final box = Hive.box("Student");
                           if (snapshot.hasData) {
-                            if (snapshot.data.enrollmentNo !=
-                                box.get("enrollmentNo")) {
+                            if (snapshot.data.email != box.get("email")) {
                               return GestureDetector(
                                 child: Text(
                                   snapshot.data.firstName,

@@ -79,7 +79,7 @@ class DrawerMenu extends StatelessWidget {
                             placeholder: AssetImage("assets/book_logo.jpg"),
                             image: NetworkImage(
                               // "https://booksharingappdjango.herokuapp.com" +
-                              "http://192.168.43.182:8000" +
+                              "http://192.168.43.183:8000" +
                                   box.get("studentPhoto"),
                             ),
                             fit: BoxFit.fill,

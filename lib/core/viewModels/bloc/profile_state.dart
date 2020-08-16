@@ -11,7 +11,7 @@ class ProfileInitial extends ProfileState {
 
 class ProfileLoading extends ProfileState {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
 
 class ProfileLoaded extends ProfileState {
@@ -20,5 +20,5 @@ class ProfileLoaded extends ProfileState {
   ProfileLoaded({this.student});
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }

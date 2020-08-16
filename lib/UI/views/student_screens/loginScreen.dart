@@ -235,7 +235,7 @@ class PotraitLogInForm extends StatelessWidget {
                     studentModel.username.clear();
                     Navigator.pushReplacementNamed(context, 'home');
                   } else {
-                    showFlutterToast("Invalid Enrollment Number or Password");
+                    showFlutterToast("Invalid Email or Password");
                   }
                 } else {
                   studentModel.changeAutoValidate();
@@ -388,8 +388,7 @@ class LandScapeLogInForm extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, 'home');
                       } else if (val == null) {
                       } else {
-                        showFlutterToast(
-                            "Invalid Enrollment Number or Password");
+                        showFlutterToast("Invalid Email or Password");
                       }
                       // studentModel.username.clear();
                     } else {

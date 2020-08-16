@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 
 // const double _fabDimension = 56.0;
 
-class MyPostedBookDetail extends StatelessWidget {
+class MyPostedBookDetail extends StatefulWidget {
   static final tag = RoutePaths.MyPostedBookDetail;
   final Book book;
   // final ContainerTransitionType _transitionType =
@@ -27,11 +27,18 @@ class MyPostedBookDetail extends StatelessWidget {
         super(key: key);
 
   @override
+  _MyPostedBookDetailState createState() => _MyPostedBookDetailState();
+}
+
+class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     final darkTheme = Hive.box("DarkTheme");
 
     PostedBookEditModel postedBookEditModel = Provider.of(context);
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+
     _showImageDialog(PostedBookEditModel postedBookEditModel, BuildContext con,
         String image, int count, GlobalKey<ScaffoldState> _key) {
       return showDialog(
@@ -60,7 +67,7 @@ class MyPostedBookDetail extends StatelessWidget {
                                   )
                                 : NetworkImage(
                                     // "https://booksharingappdjango.herokuapp.com" +
-                                    "http://192.168.43.182:8000" + image,
+                                    "http://192.168.43.183:8000" + image,
                                     // fit: BoxFit.fill,
                                   ),
                           )
@@ -137,8 +144,8 @@ class MyPostedBookDetail extends StatelessWidget {
                       // );
                       // postedBookModel.deleteBookByTransaction(
                       //     context, bookId, scaffoldKey);
-                      postedBookEditModel.updateImage(
-                          con, book.bookName, book.bookId, count, _key);
+                      postedBookEditModel.updateImage(con, widget.book.bookName,
+                          widget.book.bookId, count, _key);
                     },
                     child: Text("Yes"),
                   )
@@ -160,7 +167,7 @@ class MyPostedBookDetail extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: PostedBookAppBar(
-        book: book,
+        book: widget.book,
         scaffoldKey: scaffoldKey,
         postedBookEditModel: postedBookEditModel,
       ),
@@ -171,13 +178,13 @@ class MyPostedBookDetail extends StatelessWidget {
             children: <Widget>[
               // this is carousel of book image
               // Text("If you want to change the image then click on the photo/")
-              book.bookImage.length != 0
+              widget.book.bookImage.length != 0
                   ? CarouselSlider(
                       height: 300,
                       autoPlayCurve: Curves.easeIn,
 
                       pauseAutoPlayOnTouch: Duration(seconds: 10),
-                      items: book.bookImage
+                      items: widget.book.bookImage
                           .asMap()
                           .map(
                             (e, v) {
@@ -200,7 +207,7 @@ class MyPostedBookDetail extends StatelessWidget {
                                         : NetworkImage(
                                             // "https://booksharingappdjango.herokuapp.com" +
 
-                                            "http://192.168.43.182:8000" +
+                                            "http://192.168.43.183:8000" +
                                                 v.image,
                                             // fit: BoxFit.fill,
                                           ),
@@ -223,14 +230,14 @@ class MyPostedBookDetail extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  book.bookName,
+                  widget.book.bookName,
                   style: textStyle,
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              Text("BY" + "  " + book.authorName),
+              Text("BY" + "  " + widget.book.authorName),
               SizedBox(
                 height: 20,
               ),
@@ -241,7 +248,7 @@ class MyPostedBookDetail extends StatelessWidget {
                     width: 30,
                   ),
                   Text(
-                    "₹" + "   " + book.originalPrice.toString(),
+                    "₹" + "   " + widget.book.originalPrice.toString(),
                     // style: TextStyle(color: Colors.red),
                     style: orginialpriceStyle,
                   ),
@@ -256,13 +263,13 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 30,
                   ),
-                  book.price == 0
+                  widget.book.price == 0
                       ? Text(
                           "Free",
                           style: freePrice,
                         )
                       : Text(
-                          "₹" + "   " + book.price.toString(),
+                          "₹" + "   " + widget.book.price.toString(),
                           // style: TextStyle(color: Colors.red),
                           style: freePrice,
                         ),
@@ -291,7 +298,7 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(book.pubName)
+                  Text(widget.book.pubName)
                 ],
               ),
               SizedBox(
@@ -303,7 +310,7 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(book.isbnNo)
+                  Text(widget.book.isbnNo)
                 ],
               ),
               SizedBox(
@@ -315,7 +322,7 @@ class MyPostedBookDetail extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(book.bookCatgName)
+                  Text(widget.book.bookCatgName)
                 ],
               ),
               SizedBox(
@@ -330,7 +337,7 @@ class MyPostedBookDetail extends StatelessWidget {
                   ),
                   Text(
                     DateFormat("yMMMMd").format(
-                      DateTime.parse(book.postedDate),
+                      DateTime.parse(widget.book.postedDate),
                     ),
                   )
                 ],
@@ -347,11 +354,28 @@ class MyPostedBookDetail extends StatelessWidget {
                   ),
                   Text(
                     DateFormat("j").format(
-                      DateTime.parse(book.postedDate),
+                      DateTime.parse(widget.book.postedDate),
                     ),
                   )
                 ],
               ),
+              if (widget.book.edition != null)
+                SizedBox(
+                  height: 20,
+                ),
+              if (widget.book.edition != null)
+                Row(
+                  children: <Widget>[
+                    Text("Edition  :"),
+                    // Text(book.pos)
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      widget.book.edition.toString(),
+                    )
+                  ],
+                ),
               Divider(
                 thickness: 3,
               ),
@@ -410,7 +434,7 @@ class MyPostedBookDetail extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => BookEdit(
-                book: book,
+                book: widget.book,
               ),
             ),
           );

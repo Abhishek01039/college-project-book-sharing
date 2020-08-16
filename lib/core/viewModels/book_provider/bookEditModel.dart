@@ -59,7 +59,7 @@ class PostedBookEditModel extends BaseModel with Api {
         "authorName": authorName.text,
         "pubName": pubName.text,
         "price": int.tryParse(price.text),
-        "edition": edition ?? "",
+        "edition": edition.text ?? "",
         "bookCatgName": bookCatgName.text,
         "originalPrice": int.tryParse(mrpPrice.text),
         "postedBy": box.get("ID")
@@ -263,7 +263,7 @@ class PostedBookEditModel extends BaseModel with Api {
                 (Route<dynamic> route) => false,
               );
               showFlutterToast("Book Posted Successfully");
-              formKey.currentState.reset();
+              // formKey.currentState.reset();
             } else {
               showFlutterToast("Somthing went wrong Please try again");
             }

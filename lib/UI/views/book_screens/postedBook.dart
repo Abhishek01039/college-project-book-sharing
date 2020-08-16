@@ -60,9 +60,9 @@ class PostedBookForm extends StatelessWidget {
             //   // fit: BoxFit.fill,
             //   height: 250,
             // ),
-            const SizedBox(
-              height: 20,
-            ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.bookName,

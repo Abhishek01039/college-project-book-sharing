@@ -27,14 +27,14 @@ class AllBooks extends StatelessWidget {
           return snapshot.hasData
               ? Scrollbar(
                   controller: _scrollController,
-                  isAlwaysShown: true,
+                  // isAlwaysShown: true,
                   child: Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: ListView.builder(
                       // shrinkWrap: true,
                       // primary: false,
                       controller: _scrollController,
-                      physics: NeverScrollableScrollPhysics(),
+                      // physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data.length,
                       itemBuilder: (con, int index) {
                         return Card(
@@ -188,7 +188,7 @@ class AllBooks extends StatelessWidget {
       body: Consumer<BookModel>(
         builder: (context, bookModel, _) {
           return Padding(
-            padding: const EdgeInsets.only(top: 12, bottom: 12, left: 12),
+            padding: const EdgeInsets.only(top: 2, bottom: 2, left: 8),
             child: _firstStreamBuilder(bookModel.book),
           );
         },

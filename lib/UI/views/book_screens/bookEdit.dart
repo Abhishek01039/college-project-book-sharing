@@ -4,7 +4,7 @@ import 'package:booksharing/core/viewModels/book_provider/bookEditModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -53,17 +53,17 @@ class BookEdit extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                SvgPicture.asset(
-                  "assets/svg/undraw_Books_l33t.svg",
-                  width: MediaQuery.of(context).size.width / 2,
-                  // color: Color(0xFF313457),
-                  allowDrawingOutsideViewBox: true,
-                  // fit: BoxFit.fill,
-                  height: 250,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                // SvgPicture.asset(
+                //   "assets/svg/undraw_Books_l33t.svg",
+                //   width: MediaQuery.of(context).size.width / 2,
+                //   // color: Color(0xFF313457),
+                //   allowDrawingOutsideViewBox: true,
+                //   // fit: BoxFit.fill,
+                //   height: 250,
+                // ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.bookName,

@@ -8,7 +8,7 @@ import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/countries.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
@@ -90,17 +90,17 @@ class StudentEdit extends StatelessWidget {
                   // const SizedBox(
                   //   height: 40,
                   // ),
-                  SvgPicture.asset(
-                    "assets/svg/undraw_profile_6l1l.svg",
-                    width: MediaQuery.of(context).size.width / 2,
-                    // color: Color(0xFF313457),
-                    allowDrawingOutsideViewBox: true,
-                    // fit: BoxFit.fill,
-                    height: 250,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  // SvgPicture.asset(
+                  //   "assets/svg/undraw_profile_6l1l.svg",
+                  //   width: MediaQuery.of(context).size.width / 2,
+                  //   // color: Color(0xFF313457),
+                  //   allowDrawingOutsideViewBox: true,
+                  //   // fit: BoxFit.fill,
+                  //   height: 250,
+                  // ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.firstName,

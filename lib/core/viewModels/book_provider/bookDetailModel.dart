@@ -15,7 +15,7 @@ class BookDetailModel extends BaseModel with Api {
   // Api _api = locator<Api>();
   String postedBy;
 
-  getStudentDetail(int id) async {
+  Future<Student> getStudentDetail(int id) async {
     _student = await getStudentById(id);
     return _student;
   }

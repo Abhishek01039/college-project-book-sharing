@@ -9,7 +9,7 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
-const YOUR_SERVER_IP = '192.168.43.182';
+const YOUR_SERVER_IP = '192.168.43.183';
 const YOUR_SERVER_PORT = 8000;
 mixin Api {
   String api = "http://192.168.43.183:8000/booksharing/";
@@ -94,7 +94,7 @@ mixin Api {
     //   'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     // });
     http.Response response =
-        await http.get("http://192.168.43.182:7700/denostud/$id");
+        await http.get("http://192.168.43.183:7700/denostud/$id");
     // print(response.body);
     var parsed = jsonDecode(response.body);
 
@@ -373,7 +373,7 @@ mixin Api {
     //   'authorization': "Token 3157284fc6e1c38c9f3aa7e8ff659ef4ed03ef93"
     // });
     http.Response response =
-        await http.get("http://192.168.43.182:7700/denopurchasedbook/$studId");
+        await http.get("http://192.168.43.183:7700/denopurchasedbook/$studId");
     var parsed = jsonDecode(response.body);
 
     return parsed;
