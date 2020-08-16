@@ -22,27 +22,27 @@ class MyPurchasedBook extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? snapshot.data.length != 0
-                  ? SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Column(
-                        // width: MediaQuery.of(context).size.width,
+                  ? Column(
+                      // width: MediaQuery.of(context).size.width,
 
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                              "assets/svg/undraw_successful_purchase_uyin.svg",
-                              width: MediaQuery.of(context).size.width / 2,
-                              // color: Color(0xFF313457),
-                              allowDrawingOutsideViewBox: true,
-                              // fit: BoxFit.fill,
-                              height: 250,
-                            ),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset(
+                            "assets/svg/undraw_successful_purchase_uyin.svg",
+                            width: MediaQuery.of(context).size.width / 2,
+                            // color: Color(0xFF313457),
+                            // allowDrawingOutsideViewBox: true,
+                            // fit: BoxFit.fill,
+                            height: 250,
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          DataTable(
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
                             dataRowHeight: kMinInteractiveDimension,
                             columns: [
                               DataColumn(
@@ -78,8 +78,8 @@ class MyPurchasedBook extends StatelessWidget {
                                 )
                                 .toList(),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     )
                   : Center(
                       child: Column(
