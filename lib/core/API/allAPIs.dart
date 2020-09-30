@@ -40,7 +40,7 @@ mixin Api {
     });
 
     var parsed = jsonDecode(response.body);
-    // print(parsed);
+    print(parsed);
     // return Book
     if (parsed is Map) {
       if (parsed["detail"] == "Invalid token.") {

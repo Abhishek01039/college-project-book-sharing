@@ -6,5 +6,5 @@ abstract class ProfileEvent extends Equatable {
 
 class ProfileInitialEvent extends ProfileEvent {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }

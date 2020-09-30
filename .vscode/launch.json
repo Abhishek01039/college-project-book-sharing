@@ -10,8 +10,8 @@
             "type": "dart",
             "args": [
                 "--flavor",
-                "prod",
-                "--release"
+                "prod"
+                // "--release"
             ]
         }
     ]
