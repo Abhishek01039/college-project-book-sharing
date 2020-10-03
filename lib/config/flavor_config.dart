@@ -1,7 +1,7 @@
 import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:async';
+
 
 class FlavorConfig {
   final Flavor flavor;
@@ -22,5 +22,7 @@ class FlavorConfig {
 
   static bool isProduction() => _instance.flavor == Flavor.PRODUCTION;
   static bool isDevelopment() => _instance.flavor == Flavor.DEV;
+
+  
   static bool isQA() => _instance.flavor == Flavor.QA;
 }
