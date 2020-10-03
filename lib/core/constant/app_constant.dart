@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 class RoutePaths {
   static const String Splash = '/';
   static const String Login = 'login';
@@ -23,3 +26,11 @@ class RoutePaths {
 }
 
 enum Flavor { DEV, QA, PRODUCTION }
+
+class ColorMaterial {
+  static const LinearGradient storyGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [Colors.transparent, Colors.black26],
+  );
+}
