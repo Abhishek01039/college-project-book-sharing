@@ -6,9 +6,6 @@ class FlavorConfig {
   static FlavorConfig _instance;
 
   factory FlavorConfig({
-
-    
-
     @required Flavor flavor,
     Color color: Colors.blue,
   }) {
