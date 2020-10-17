@@ -9,10 +9,10 @@ import 'package:booksharing/core/models/book.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
-const YOUR_SERVER_IP = '192.168.43.183';
+const YOUR_SERVER_IP = '192.168.43.182';
 const YOUR_SERVER_PORT = 8000;
 mixin Api {
-  String api = "http://192.168.43.183:8000/booksharing/";
+  String api = "http://192.168.43.182:8000/booksharing/";
   // String api = "https://booksharingappdjango.herokuapp.com/booksharing/";
   // basicAuth() {
   //   String username = 'abhishek';
