@@ -82,7 +82,9 @@ class RegistrationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      autovalidate: studentRegModel.autoValidate,
+      autovalidateMode: studentRegModel.autoValidate
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
       key: studentRegModel.formKey,
       child: Column(
         children: <Widget>[

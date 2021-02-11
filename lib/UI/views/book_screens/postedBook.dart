@@ -46,7 +46,9 @@ class PostedBookForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      autovalidate: postedBookModel.autoValidate,
+      autovalidateMode: postedBookModel.autoValidate
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
       key: postedBookModel.formKey,
       child: Padding(
         padding: const EdgeInsets.all(15),

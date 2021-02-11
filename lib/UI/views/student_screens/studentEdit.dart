@@ -64,7 +64,9 @@ class StudentEdit extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Form(
-              autovalidate: studentEditModel.autoValidate,
+              autovalidateMode: studentEditModel.autoValidate
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
               key: studentEditModel.formKey,
               child: Column(
                 children: <Widget>[
