@@ -1,23 +1,31 @@
+# Name of our workflow which will act as an identifier when have multilple workflows.
 name: dart
 
+# Define trigger point, on push on master branch, this workflow will be triggered.
 on:
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
+# The job(s) you want to do when the workflow is triggered
+# We will be using an ubuntu-latest virtual machine to perform these processes
 jobs:
-  test:
-    name: Flutter Tests
+  build:
     runs-on: ubuntu-latest
 
+    # Job consists of instructions that you want to trigger
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      # Checkout our code
       - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
+
+      # Switching to Flutter dev branch
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '1.7.8+hotfix.4'
-      - run: flutter doctor
+          channel: 'dev'
+      
+      # Get the latst dependencies
       - run: flutter pub get
+      
+      # flutter test
       - run: flutter test
