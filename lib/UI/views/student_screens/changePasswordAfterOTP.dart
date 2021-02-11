@@ -45,7 +45,9 @@ class ChangePasswordAfterOTPForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      autovalidate: studentEditModel.changePasswordAutoValidate,
+      autovalidateMode: studentEditModel.autoValidate
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
       key: studentEditModel.changePassowdForm,
       child: Padding(
         padding: const EdgeInsets.all(12),

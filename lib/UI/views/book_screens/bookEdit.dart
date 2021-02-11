@@ -45,7 +45,9 @@ class BookEdit extends StatelessWidget {
       body: SingleChildScrollView(
         child: Form(
           key: postedBookEditModel.formKey,
-          autovalidate: postedBookEditModel.autoValidate,
+          autovalidateMode: postedBookEditModel.autoValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 12,

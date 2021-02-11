@@ -41,7 +41,9 @@ class FeedBackForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      autovalidate: studentRegModel.feedbackAutoValidate,
+      autovalidateMode: studentRegModel.autoValidate
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
       key: studentRegModel.feedbackFormKey,
       child: Padding(
         padding: const EdgeInsets.all(30),

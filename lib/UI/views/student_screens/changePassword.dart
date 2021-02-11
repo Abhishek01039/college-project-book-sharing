@@ -52,7 +52,9 @@ class ChangePasswordForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: studentModel.changePassformKey,
-      autovalidate: studentModel.changePasswordAutoValidate,
+      autovalidateMode: studentModel.autoValidate
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

@@ -152,7 +152,9 @@ class PotraitLogInForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
-        autovalidate: studentModel.autoValidate,
+        autovalidateMode: studentModel.autoValidate
+            ? AutovalidateMode.always
+            : AutovalidateMode.disabled,
         key: studentModel.formKey,
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
@@ -302,7 +304,9 @@ class LandScapeLogInForm extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Form(
-          autovalidate: studentModel.autoValidate,
+          autovalidateMode: studentModel.autoValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           key: studentModel.formKey,
           child: Container(
             width: MediaQuery.of(context).size.width / 2,
