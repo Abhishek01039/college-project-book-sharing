@@ -19,6 +19,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        
+      # The flutter action needs java so include it
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'  
 
       - name: Print Dart SDK version
         run: flutter --version
