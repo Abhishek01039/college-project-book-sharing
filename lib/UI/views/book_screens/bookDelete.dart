@@ -7,21 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookDelete extends StatelessWidget {
+  BookDelete({Key key, this.bookId}) : super(key: key);
+
   static final tag = RoutePaths.Bookdelete;
   final int bookId;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  BookDelete({Key key, this.bookId}) : super(key: key);
   String countryCode = "+91";
+
   @override
   Widget build(BuildContext context) {
     BookModel _bookModel = Provider.of<BookModel>(context);
+
     Future<void> _deleteBook(BuildContext ctx, PostedBookModel postedBookModel,
         int bookId, GlobalKey<ScaffoldState> scaffoldKey) async {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Want to delete Book?'),
+            title: const Text('Want to delete Book?'),
             actions: <Widget>[
               FlatButton(
                 child: Text('Cancel'),
@@ -66,7 +69,7 @@ class BookDelete extends StatelessWidget {
                   TextFormField(
                     controller: postedBookModel.studentName,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Student Name",
                       suffixIcon: Icon(Icons.person),
                     ),
@@ -78,12 +81,12 @@ class BookDelete extends StatelessWidget {
                     },
                     keyboardType: TextInputType.text,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   // TextFormField(
                   //   // controller: studentRegModel.lastName,
-                  //   decoration: InputDecoration(
+                  //   decoration: const InputDecoration(
                   //     hintText: "",
                   //     suffixIcon: Icon(Icons.person),
                   //   ),
@@ -95,7 +98,7 @@ class BookDelete extends StatelessWidget {
                   //   },
                   //   keyboardType: TextInputType.text,
                   // ),
-                  // SizedBox(
+                  // const SizedBox(
                   //   height: 40,
                   // ),
                   CountryPickerDropdown(
@@ -106,13 +109,13 @@ class BookDelete extends StatelessWidget {
                       print("${country.name}");
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     // controller: studentEditModel.phoneNumber,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(hintText: "Phone Number"),
+                    decoration: const InputDecoration(hintText: "Phone Number"),
                     // initialValue: postedBookModel.number.substring(3),
                     onChanged: (val) {
                       postedBookModel.number = "";
@@ -225,7 +228,7 @@ Widget _buildDropdownItem(Country country) => Container(
       child: Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(
+          const SizedBox(
             width: 8.0,
           ),
           Text("+${country.phoneCode}(${country.isoCode})"),

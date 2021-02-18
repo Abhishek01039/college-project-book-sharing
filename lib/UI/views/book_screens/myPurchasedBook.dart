@@ -89,7 +89,7 @@ class MyPurchasedBook extends StatelessWidget {
                             Icons.add_shopping_cart,
                             size: 40,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Text("No Purchased Book"),

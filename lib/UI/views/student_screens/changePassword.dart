@@ -59,19 +59,6 @@ class ChangePasswordForm extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: <Widget>[
-            // Container(
-            //   height: 200,
-            //   width: MediaQuery.of(context).size.width / 2,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(30),
-            //     image: DecorationImage(
-            //       fit: BoxFit.cover,
-            //       image: AssetImage(
-            //         "assets/book_logo.jpg",
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SvgPicture.asset(
               "assets/svg/undraw_forgot_password_gi2d.svg",
               width: 250,
@@ -85,7 +72,7 @@ class ChangePasswordForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentModel.changePasswordTextController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Password",
                 suffixIcon: Icon(Icons.lock),
               ),
@@ -103,7 +90,7 @@ class ChangePasswordForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentModel.changeNewPassword,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "New Password",
                 suffixIcon: Icon(Icons.lock),
               ),
@@ -123,7 +110,7 @@ class ChangePasswordForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentModel.changeNewConfirmPassword,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Confirm Password",
                 suffixIcon: Icon(Icons.lock),
               ),

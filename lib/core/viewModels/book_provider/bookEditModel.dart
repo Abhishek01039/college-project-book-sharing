@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/models/student.dart';
-// import 'package:booksharing/UI/views/shared_pref.dart';
-// import 'core/API/allAPIs.dart';
 
 import 'package:booksharing/core/viewModels/baseModel.dart';
 
@@ -16,18 +14,18 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class PostedBookEditModel extends BaseModel with Api {
-  TextEditingController bookName = TextEditingController();
-  TextEditingController isbnNo = TextEditingController();
-  TextEditingController authorName = TextEditingController();
-  TextEditingController pubName = TextEditingController();
-  TextEditingController mrpPrice = TextEditingController();
-  TextEditingController price = TextEditingController();
-  TextEditingController edition = TextEditingController();
-  TextEditingController bookCatgName = TextEditingController();
-  TextEditingController studentName = TextEditingController();
-  // BookModel _bookModel = locator<BookModel>();
+  final TextEditingController bookName = TextEditingController();
+  final TextEditingController isbnNo = TextEditingController();
+  final TextEditingController authorName = TextEditingController();
+  final TextEditingController pubName = TextEditingController();
+  final TextEditingController mrpPrice = TextEditingController();
+  final TextEditingController price = TextEditingController();
+  final TextEditingController edition = TextEditingController();
+  final TextEditingController bookCatgName = TextEditingController();
+  final TextEditingController studentName = TextEditingController();
+
   Student _student = locator<Student>();
-  // Api _api = locator<Api>();
+
   String isEdited;
 
   String base64Image;
@@ -44,7 +42,7 @@ class PostedBookEditModel extends BaseModel with Api {
 
   List<String> base64ImageList = <String>[];
   List<File> tmpFileList = <File>[];
-  // String isImageSelected = "";
+
   List<String> fileName = <String>[];
   bool autoValidate = false;
   final formKey = GlobalKey<FormState>();
@@ -83,8 +81,7 @@ class PostedBookEditModel extends BaseModel with Api {
         price.clear();
         edition.clear();
         bookCatgName.clear();
-        // postedBookEditModel.bookName.clear();
-        // postedBookEditModel.bookName.clear();
+
         Navigator.pushNamedAndRemoveUntil(
             context, 'home', (Route<dynamic> route) => false);
         showFlutterToast("Book Edit Successfully");
@@ -105,9 +102,6 @@ class PostedBookEditModel extends BaseModel with Api {
 
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
-    // file.then((value) {
-    //   isImageSelected = "Image is Selected";
-    // });
 
     notifyChange();
     setStatus('');
@@ -119,23 +113,21 @@ class PostedBookEditModel extends BaseModel with Api {
   }
 
   startUpload() async {
-    // print("presseed");
     setStatus('Uploading Image...');
     tmpFile = file;
     base64Image = base64Encode(tmpFile.readAsBytesSync());
     if (null == tmpFile) {
       setStatus(errMessage);
-      // print("htllo");
+
       return;
     }
 
     String fileName = tmpFile.path.split('/').last;
-    // print(fileName);
+
     extn = fileName.split(".");
     notifyChange();
   }
 
-  // give book whole detail according to ID and show it into book detail page
   getStudentDetail(int id) async {
     _student = await getStudentById(id);
     return _student;
@@ -143,7 +135,6 @@ class PostedBookEditModel extends BaseModel with Api {
 
   updateImage(BuildContext context, String bookName, int imageId, int count,
       GlobalKey<ScaffoldState> scaffoldKey) async {
-    // showProgress(scaffoldKey);
     if (file != null) {
       await startUpload();
       String imageUpdateById = jsonEncode({
@@ -155,7 +146,7 @@ class PostedBookEditModel extends BaseModel with Api {
       });
 
       var parsed = await updateImagePhoto(imageUpdateById);
-      // closeProgress(scaffoldKey);
+
       if (parsed == "Success") {
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -206,39 +197,21 @@ class PostedBookEditModel extends BaseModel with Api {
       base64ImageList.add(base64Encode(tmpFileList[i].readAsBytesSync()));
       if (null == tmpFileList) {
         setStatus(errMessage);
-        // print("htllo");
+
         return;
       }
 
       fileName.add(tmpFileList[i].path.split('/').last);
-      // print(fileName);
-
-      // print(base64Image);
     }
     for (var i in fileName) {
       extn.add(i.split(".")[1]);
     }
-    // print(extn);
-    // bookImages bookImage=BookImage(
-    //   image:
-    // );
-    //     Book book = Book(
-    //   bookName: bookName.text,
-    //   isbnNo: isbnNo.text,
-    //   pubName: pubName.text,
-    //   orginialPrice: int.parse(mrpPrice.text),
-    //   price: int.parse(price.text),
-    //   bookCatgName: bookCatgName.text,
-    //   bookImage:
-    // );
-    // var b = book.toJson();
-    // print(b);
+
     notifyChange();
   }
 
   updateBookImageList(BuildContext context,
       GlobalKey<ScaffoldState> scaffoldKey, int bookId, String bookName) async {
-    // showProgress(scaffoldKey);
     if (scaffoldKey != null) {
       if (await checkConnection() == false) {
         showFlutterToast("Please check internet connection");
@@ -255,7 +228,7 @@ class PostedBookEditModel extends BaseModel with Api {
             });
 
             String isPosted = await addImageList(body);
-            // closeProgress(scaffoldKey);
+
             if (isPosted == "Success") {
               Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -263,7 +236,6 @@ class PostedBookEditModel extends BaseModel with Api {
                 (Route<dynamic> route) => false,
               );
               showFlutterToast("Book Posted Successfully");
-              // formKey.currentState.reset();
             } else {
               showFlutterToast("Somthing went wrong Please try again");
             }
@@ -272,8 +244,6 @@ class PostedBookEditModel extends BaseModel with Api {
           }
         });
       }
-
-      // showProgress(scaffoldKey);
     }
   }
 

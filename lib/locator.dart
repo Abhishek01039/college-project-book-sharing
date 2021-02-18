@@ -17,7 +17,6 @@ GetIt locator = GetIt.instance;
 // this all are the Lazy Singleton
 void setupLocator() {
   locator.registerLazySingleton(() => BaseModel());
-  // locator.registerLazySingleton(() => Api());
   locator.registerLazySingleton(() => Book());
   locator.registerLazySingleton(() => StudentModel());
   locator.registerLazySingleton(() => BookModel());

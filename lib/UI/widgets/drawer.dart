@@ -13,15 +13,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Student student = locator<Student>();
-    // print(student.firstName);
-    StudentRegModel _studentRegModel = Provider.of(context);
-    // print(box.get('studentPhoto'));
-    StudentEditModel studentEditModel = locator<StudentEditModel>();
-    // var box = await Hive.openBox('Student');
+    final StudentRegModel _studentRegModel = Provider.of(context);
+    final StudentEditModel studentEditModel = locator<StudentEditModel>();
     final box = Hive.box("Student");
     var darkTheme = Hive.box("DarkTheme");
-    // print(box.get('studentPhoto'));
+
     BaseModel baseModel = Provider.of(context);
     return Drawer(
       elevation: 20,
@@ -29,9 +25,7 @@ class DrawerMenu extends StatelessWidget {
         padding: EdgeInsets.all(0),
         children: <Widget>[
           InkWell(
-            onTap: () {
-              // Navigator.pushNamed(context, 'profile');
-            },
+            onTap: () {},
             child: UserAccountsDrawerHeader(
               arrowColor: Colors.red,
               accountName: box.get('email').isEmpty
@@ -40,24 +34,6 @@ class DrawerMenu extends StatelessWidget {
               accountEmail: box.get('studentName').isEmpty
                   ? Text('Test123')
                   : Text(box.get('studentName')),
-              // currentAccountPicture: CircleAvatar(
-              //   foregroundColor: Colors.transparent,
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(100),
-              //     child: FittedBox(
-              //       fit: BoxFit.fill,
-              //       child: Image.network(
-              //         box.get('studentPhoto').isNotEmpty != null
-              //             ? "http://192.168.43.182:8000/media/" +
-              //                 box.get('studentPhoto')
-              //                     .toLowerCase()
-              //             : Image.asset("assets/book_logo.jpg"),
-              //         fit: BoxFit.fitWidth,
-              //         matchTextDirection: true,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               currentAccountPicture: box.get('studentPhoto') == null ||
                       box.get('studentPhoto') == "/media/" ||
                       box.get('studentPhoto') == ""
@@ -183,10 +159,6 @@ class DrawerMenu extends StatelessWidget {
                   );
                 },
               );
-              // Navigator.pop(context);
-              // SPHelper.logout();
-
-              // Navigator.pushNamed(context, "myPostedBook");
             },
             child: ListTile(
               leading: Icon(FontAwesomeIcons.userTimes),
@@ -239,7 +211,6 @@ class DrawerMenu extends StatelessWidget {
                 applicationName: 'Book Sharing',
                 applicationVersion: '1.0.0',
                 applicationLegalese: '© 2020 The Chromium Authors',
-                //  children: aboutBoxChildren,
               );
             },
             leading: Icon(Icons.info),

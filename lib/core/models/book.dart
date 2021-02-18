@@ -6,18 +6,6 @@ part 'book.g.dart';
 
 @JsonSerializable(nullable: false)
 class Book extends Equatable {
-  final int bookId;
-  final String bookName;
-  final String authorName;
-  final String pubName;
-  final String isbnNo;
-  final int originalPrice;
-  final int price;
-  final String edition;
-  final String bookCatgName;
-  final int postedBy;
-  final List<BookImage> bookImage;
-  final String postedDate;
   Book(
       {this.bookId,
       this.bookName,
@@ -35,6 +23,19 @@ class Book extends Equatable {
           bookName != null,
           bookId != null,
         );
+
+  final int bookId;
+  final String bookName;
+  final String authorName;
+  final String pubName;
+  final String isbnNo;
+  final int originalPrice;
+  final int price;
+  final String edition;
+  final String bookCatgName;
+  final int postedBy;
+  final List<BookImage> bookImage;
+  final String postedDate;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
   Map<String, dynamic> toJson() => _$BookToJson(this);

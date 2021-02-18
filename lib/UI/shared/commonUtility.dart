@@ -42,7 +42,7 @@ showProgress(GlobalKey<ScaffoldState> scaffoldKey) {
       content: Row(
         children: <Widget>[
           CircularProgressIndicator(),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(

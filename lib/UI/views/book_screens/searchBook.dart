@@ -13,13 +13,13 @@ class Search extends SearchDelegate {
     final darkTheme = Hive.box("DarkTheme");
     assert(theme != null);
     return darkTheme.get("darkTheme", defaultValue: false)
-          ? theme.copyWith(
-              primaryColor: Colors.black38,
-              primaryIconTheme:
-                  theme.primaryIconTheme.copyWith(color: Colors.grey),
-              primaryColorBrightness: Brightness.dark,
-              primaryTextTheme: theme.textTheme,
-            )
+        ? theme.copyWith(
+            primaryColor: Colors.black38,
+            primaryIconTheme:
+                theme.primaryIconTheme.copyWith(color: Colors.grey),
+            primaryColorBrightness: Brightness.dark,
+            primaryTextTheme: theme.textTheme,
+          )
         : super.appBarTheme(context);
   }
 
@@ -67,17 +67,6 @@ class Search extends SearchDelegate {
           return FutureBuilder(
               future: bookModel.searchOperation(query),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                // switch (snapshot.connectionState) /{
-                // case ConnectionState.waiting:
-                //   return Center(
-                //     child: CircularProgressIndicator(),
-                //   );
-                //   break;
-                // case ConnectionState.none:
-                //   return Text("Something went wrong");
-                //   break;
-                // case ConnectionState.done:
-                // case ConnectionState.active:
                 if (!snapshot.hasData)
                   return Center(
                     child: CircularProgressIndicator(),
@@ -121,7 +110,7 @@ class Search extends SearchDelegate {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              SizedBox(
+                              const SizedBox(
                                 height: 50,
                               ),
                               Center(
@@ -137,7 +126,7 @@ class Search extends SearchDelegate {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           ),
                           Center(
@@ -149,10 +138,7 @@ class Search extends SearchDelegate {
                           ),
                         ],
                       );
-                // break;
-              }
-              // },
-              );
+              });
         },
       );
     return Container();

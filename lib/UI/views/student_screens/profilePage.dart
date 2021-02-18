@@ -10,22 +10,13 @@ import 'package:provider/provider.dart';
 import 'package:booksharing/UI/widgets/profilePageList.dart';
 import 'package:hive/hive.dart';
 
-// final box = Hive.box("Student");
-// Future<Student> getstudent() async {
-//   Api api = locator<Api>();
-//   Student student = await api.getStudentById(box.get("ID"));
-//   // print(box.get('studentPhoto'));
-//   return student;
-// }
-
 class ProfilePage extends StatelessWidget {
   static final tag = RoutePaths.Profile;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final darkTheme = Hive.box("DarkTheme");
-    // Student student = getstudent();
-
     StudentEditModel studentEditModel = Provider.of(context);
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? PotraitModeProfilePage(
@@ -47,13 +38,13 @@ class LandscapeModeProfilePage extends StatelessWidget {
     @required this.studentEditModel,
     @required this.scaffoldKey,
   }) : super(key: key);
+
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Box darkTheme;
   final StudentEditModel studentEditModel;
 
   @override
   Widget build(BuildContext context) {
-    // final bloc = ;
     BlocProvider.of<ProfileBloc>(context).add(ProfileInitialEvent());
     return SafeArea(
       child: Scaffold(
@@ -196,17 +187,6 @@ class LandscapeModeProfilePage extends StatelessWidget {
               );
             },
           ),
-          // child: FutureBuilder(
-          //   future: getstudent(),
-          //   // initialData: InitialData,
-          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //     return snapshot.hasData
-          //         ?
-          //         : Center(
-          //             child: CircularProgressIndicator(),
-          //           );
-          //   },
-          // ),
         ),
       ),
     );
@@ -226,7 +206,6 @@ class PotraitModeProfilePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   Widget build(BuildContext context) {
-    // final bloc = ;
     BlocProvider.of<ProfileBloc>(context).add(ProfileInitialEvent());
     return Scaffold(
       key: scaffoldKey,
@@ -238,10 +217,6 @@ class PotraitModeProfilePage extends StatelessWidget {
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(),
                 color: Theme.of(context).primaryColor,
-                // borderRadius: BorderRadius.only(
-                //   bottomLeft: Radius.circular(80),
-                //   bottomRight: Radius.circular(80),
-                // ),
               ),
             ),
             Padding(
@@ -265,7 +240,6 @@ class PotraitModeProfilePage extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height / 8,
                   ),
-
                   BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
                       // ProfileBloc.add(ProfileInitialEvent());
@@ -292,38 +266,6 @@ class PotraitModeProfilePage extends StatelessWidget {
                               height: MediaQuery.of(context).size.height / 8,
                               // height: 100,
                             ),
-                            // Container(
-                            //   height:
-                            //       MediaQuery.of(context).size.height / 3,
-                            //   child: Stack(
-                            //     children: [
-                            //       Center(
-                            //         child: ClipRRect(
-                            //           borderRadius:
-                            //               BorderRadius.circular(32),
-                            //           child: Image.network(
-                            //             "http://192.168.43.182:8000" +
-                            //                 snapshot.data.photo
-                            //                     .toLowerCase(),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Positioned(
-                            //         // width: double.infinity,
-                            //         bottom: 0,
-                            //         left: MediaQuery.of(context).size.width/3,
-
-                            //         child: Center(
-                            //           child: Container(
-
-                            //             color: Colors.red,
-                            //             child: Icon(Icons.edit),
-                            //           ),
-                            //         ),
-                            //       )
-                            //     ],
-                            //   ),
-                            // ),
                             Stack(
                               children: <Widget>[
                                 state.student.photo != null
@@ -419,7 +361,6 @@ class PotraitModeProfilePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-
                             profilePagelistView(state.student),
                             const SizedBox(
                               height: 20,
@@ -445,15 +386,6 @@ class PotraitModeProfilePage extends StatelessWidget {
                       );
                     },
                   ),
-
-                  // future: getstudent(),
-                  // builder:
-                  //     (BuildContext context, AsyncSnapshot snapshot) {
-                  //   return snapshot.hasData
-                  //       ?
-                  //       : Center(
-                  //           child: CircularProgressIndicator(),
-                  //         );
                 ],
               ),
             ),

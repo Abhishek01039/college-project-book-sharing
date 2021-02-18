@@ -5,43 +5,34 @@ import 'package:booksharing/UI/shared/commonUtility.dart';
 
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-// import 'package:booksharing/locator.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class StudentEditModel extends BaseModel with Api {
-  // Api = locator<Api>();
-  // final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController age = TextEditingController();
-  // final TextEditingController collegeName = TextEditingController();
-  // final TextEditingController collegeYear = TextEditingController();
-  // final TextEditingController course = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController emailOTP = TextEditingController();
   final TextEditingController oTP = TextEditingController();
   final TextEditingController passwordAfterOTP = TextEditingController();
   final TextEditingController confirmPasswordAfterOTP = TextEditingController();
   int verifyOTP;
-  // final TextEditingController phoneNumber = new TextEditingController();
   String number;
   final formKey = GlobalKey<FormState>();
   final sendOTPFrom = GlobalKey<FormState>();
   final verifyOTPFrom = GlobalKey<FormState>();
-  // final corfirmFrom = GlobalKey<FormState>();
   final changePassowdForm = GlobalKey<FormState>();
   String base64Image;
-
   File tmpFile;
   String isImageSelected = "";
   String errMessage = 'Error Uploading Image';
   File file;
   String status = '';
   FileType fileType = FileType.image;
-  // String collegeYear = "1";
   String fileName;
   List<String> extn;
   String editNumber;
@@ -57,36 +48,17 @@ class StudentEditModel extends BaseModel with Api {
 
   changeCountryCode(String value) {
     countryCode = value;
-    // if (editNumber == null) {
-    //   updatePhoneNumber("+" + value + number.substring(3));
-    // } else {
-    //   updatePhoneNumber("+" + value + editNumber);
-    // }
-
-    // notifyChange();
   }
 
   updatePhoneNumber(String value) {
     editNumber = "+" + countryCode + value;
-    // notifyChange();
   }
-  // changeTheme(){
-  //   if (super.isDarkTheme){
-  //     super.isDarkTheme=false;
-  //   }else{
-  //     super.isDarkTheme=true;
-  //   }
-  //   notifyChange();
-  // }
 
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
-    // file.then((value) {
-    //   isImageSelected = "Image is Selected";
-    // });
+
     setStatus('');
     if (file == null) {
-      // showFlutterToast("Please select Image");
       return false;
     }
 
@@ -100,29 +72,22 @@ class StudentEditModel extends BaseModel with Api {
   }
 
   startUpload() async {
-    // print("presseed");
     setStatus('Uploading Image...');
     tmpFile = file;
     base64Image = base64Encode(tmpFile.readAsBytesSync());
     if (null == tmpFile) {
       setStatus(errMessage);
-      // print("htllo");
+
       return;
     }
 
     fileName = tmpFile.path.split('/').last;
-    // print(fileName);
+
     extn = fileName.split(".");
 
     notifyChange();
   }
 
-  // chooseCollegeYear(String val) {
-  //   collegeYear = val;
-  //   notifyChange();
-  // }
-
-  // update student photo
   Future<void> updateStudentPhotoProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     chooseImage().then((value) async {
@@ -157,10 +122,8 @@ class StudentEditModel extends BaseModel with Api {
     closeProgress(scaffoldKey);
   }
 
-  // update student details
   updateStudentProvider(GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
-      // updateUser(id)
       if (scaffoldKey != null) {
         if (await checkConnection() == false) {
           showFlutterToast("Please check internet connection");
@@ -171,14 +134,10 @@ class StudentEditModel extends BaseModel with Api {
 
           final box = Hive.box("Student");
           String studentInfo = jsonEncode({
-            // "enrollmentNo": enrollmentNo.text,
             "firstName": firstName.text,
             "lastName": lastName.text,
             "email": email.text,
             "age": int.tryParse(age.text),
-            // "collegeName": collegeName.text,
-            // "collegeYear": int.tryParse(collegeYear),
-            // "course": course.text,
             "address": address.text,
             "contactNo": editNumber ?? number,
           });
@@ -186,7 +145,6 @@ class StudentEditModel extends BaseModel with Api {
           if (isUpdated == "true") {
             box.put("email", email.text);
             box.put("studentName", firstName.text);
-            // box.put("studentPhoto", student.photo);
           }
           closeProgress(scaffoldKey);
           formKey.currentState.reset();
@@ -202,7 +160,6 @@ class StudentEditModel extends BaseModel with Api {
     }
   }
 
-  // delete the student
   deleteStudentProvider(BuildContext context, int studId) async {
     bool isDeleted = await deleteStudent(studId);
     if (isDeleted) {
@@ -234,7 +191,6 @@ class StudentEditModel extends BaseModel with Api {
           otp = await sendEmail(value);
           closeProgress(scaffoldKey);
           if (otp != null) {
-            // varifyEmail(otp, context);
             Navigator.pushNamed(context, 'enterOTP');
           } else {
             showFlutterToast("Something went wrong");
@@ -258,7 +214,7 @@ class StudentEditModel extends BaseModel with Api {
             closeProgress(scaffoldKey);
             oTP.clear();
             Navigator.pushNamed(context, 'changePasswordAfterOTP');
-            // showFlutterToast("message")
+
             verifyOTPFrom.currentState.reset();
           } else {
             closeProgress(scaffoldKey);

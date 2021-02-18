@@ -55,15 +55,6 @@ class AllBooks extends StatelessWidget {
                                           .toString()),
                                     ),
                                   )
-                                // : Container(width: 70,height: 40,),
-                                // : ClipRRect(
-
-                                //     child: Image.asset(
-                                //       "assets/book_logo.jpg",
-                                //       height: 40,
-                                //       width: 70,
-                                //     ),
-                                //   )
                                 : Container(
                                     width: 70,
                                     height: 40,
@@ -162,10 +153,8 @@ class AllBooks extends StatelessWidget {
 
     Widget appBarTitle = Text(
       "Book Sharing",
-      // style: TextStyle(color: Colors.white),
     );
 
-    // final globalKey = GlobalKey<ScaffoldState>();
     Widget buildAllBar(BuildContext context) {
       return AppBar(
         title: appBarTitle,

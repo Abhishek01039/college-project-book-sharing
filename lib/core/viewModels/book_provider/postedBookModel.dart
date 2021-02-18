@@ -2,27 +2,25 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:booksharing/UI/shared/commonUtility.dart';
-// import 'package:booksharing/UI/views/shared_pref.dart';
+
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-// import 'package:booksharing/locator.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class PostedBookModel extends BaseModel with Api {
-  TextEditingController bookName = TextEditingController();
-  TextEditingController isbnNo = TextEditingController();
-  TextEditingController authorName = TextEditingController();
-  TextEditingController pubName = TextEditingController();
-  TextEditingController mrpPrice = TextEditingController();
-  TextEditingController price = TextEditingController();
-  TextEditingController edition = TextEditingController();
-  TextEditingController bookCatgName = TextEditingController();
-  TextEditingController studentName = TextEditingController();
-  // TextEditingController bookCatgName = TextEditingController();
-  // TextEditingController bookCatgName = TextEditingController();
+  final TextEditingController bookName = TextEditingController();
+  final TextEditingController isbnNo = TextEditingController();
+  final TextEditingController authorName = TextEditingController();
+  final TextEditingController pubName = TextEditingController();
+  final TextEditingController mrpPrice = TextEditingController();
+  final TextEditingController price = TextEditingController();
+  final TextEditingController edition = TextEditingController();
+  final TextEditingController bookCatgName = TextEditingController();
+  final TextEditingController studentName = TextEditingController();
   String number;
   List<File> bookImages = <File>[];
   FileType fileType = FileType.image;
@@ -31,9 +29,7 @@ class PostedBookModel extends BaseModel with Api {
   String isImageSelected = "";
   List<String> fileName = <String>[];
   String errMessage = 'Error Uploading Image';
-  // File file;
   String status = '';
-  // Api = locator<Api>();
   bool isPosted;
   bool autoValidate = false;
   final formKey = GlobalKey<FormState>();
@@ -66,37 +62,20 @@ class PostedBookModel extends BaseModel with Api {
       base64Image.add(base64Encode(tmpFile[i].readAsBytesSync()));
       if (null == tmpFile) {
         setStatus(errMessage);
-        // print("htllo");
+
         return;
       }
 
       fileName.add(tmpFile[i].path.split('/').last);
-      // print(fileName);
-
-      // print(base64Image);
     }
     for (var i in fileName) {
       extn.add(i.split(".")[1]);
     }
     print(extn);
-    // bookImages bookImage=BookImage(
-    //   image:
-    // );
-    //     Book _book = Book(
-    //   bookName: bookName.text,
-    //   isbnNo: isbnNo.text,
-    //   pubName: pubName.text,
-    //   orginialPrice: int.parse(mrpPrice.text),
-    //   price: int.parse(price.text),
-    //   bookCatgName: bookCatgName.text,
-    //   bookImage:
-    // );
-    // var b = _book.toJson();
-    // print(b);
+
     notifyChange();
   }
 
-  // post a _book
   Future<bool> registeredBookProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
     if (formKey.currentState.validate()) {
@@ -147,9 +126,6 @@ class PostedBookModel extends BaseModel with Api {
     notifyChange();
   }
 
-  // edit the _book
-
-  // delete the _book
   Future<bool> deleteBookProvider(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
     if (scaffoldKey != null) {
@@ -160,10 +136,6 @@ class PostedBookModel extends BaseModel with Api {
         bool isDeleted = await deleteBook(bookId);
         closeProgress(scaffoldKey);
         if (isDeleted) {
-          // Navigator.popUntil(
-          //   context,
-          //   ModalRoute.withName('myPostedBook'),
-          // );
           Navigator.pushNamedAndRemoveUntil(
             context,
             'home',
@@ -182,10 +154,8 @@ class PostedBookModel extends BaseModel with Api {
     return false;
   }
 
-  // ensure that you have sold your _book to other student
   Future<bool> deleteBookByTransaction(BuildContext context, int bookId,
       GlobalKey<ScaffoldState> scaffoldKey) async {
-    // await
     String body = jsonEncode(
       {"bookId": bookId, "contactNo": number},
     );
@@ -201,7 +171,6 @@ class PostedBookModel extends BaseModel with Api {
         if (response == "Student doesn't exist with this contact Number") {
           showFlutterToast("Student doesn't exist with this contact Number");
         } else if (response == "Success") {
-          // Navigator.pop(context);
           Navigator.pushNamedAndRemoveUntil(
             context,
             'home',

@@ -4,17 +4,17 @@ part 'purchasedBook.g.dart';
 
 @JsonSerializable(nullable: false)
 class PurchasedBook extends Equatable {
-  final int purId;
-  final int studId;
-  final String bookName;
-  final int price;
-  final String isbnNo;
-
   PurchasedBook(
       {this.purId, this.studId, this.bookName, this.price, this.isbnNo})
       : assert(
           studId != null,
         );
+
+  final int purId;
+  final int studId;
+  final String bookName;
+  final int price;
+  final String isbnNo;
 
   factory PurchasedBook.fromJson(Map<String, dynamic> json) =>
       _$PurchasedBookFromJson(json);

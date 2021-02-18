@@ -14,12 +14,12 @@ import 'package:booksharing/UI/views/student_screens/postedByProfile.dart';
 import 'package:hive/hive.dart';
 
 class BookDetail extends StatefulWidget {
-  static final tag = RoutePaths.BookDetail;
-  final Book book;
-
   const BookDetail({Key key, this.book})
       : assert(book != null),
         super(key: key);
+
+  static final tag = RoutePaths.BookDetail;
+  final Book book;
 
   @override
   _BookDetailState createState() => _BookDetailState();
@@ -28,14 +28,6 @@ class BookDetail extends StatefulWidget {
 class _BookDetailState extends State<BookDetail> {
   @override
   Widget build(BuildContext context) {
-    // Student student = locator<Student>();
-    // BookDetailModel bookDetailModel = Provider.of(context);
-    // student = bookDetailModel.getStudentDetail(book.postedBy);
-    // Widget getUserData(){
-    //   return  ;
-    // }
-    // BookDetailModel bookDetailModel = Provider.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -87,7 +79,7 @@ class _BookDetailState extends State<BookDetail> {
                           // reverse: true,
                         )
                       : Container(),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Center(
@@ -97,17 +89,17 @@ class _BookDetailState extends State<BookDetail> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text("BY" + "  " + widget.book.authorName),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Text("MRP  :"),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       Text(
@@ -117,13 +109,13 @@ class _BookDetailState extends State<BookDetail> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: <Widget>[
                       Text("Price  :"),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       widget.book.price == 0
@@ -138,7 +130,7 @@ class _BookDetailState extends State<BookDetail> {
                             ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Divider(
@@ -152,50 +144,50 @@ class _BookDetailState extends State<BookDetail> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: <Widget>[
                       Text("Publisher Name  :"),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(widget.book.pubName)
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Text("ISBN Number  :"),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(widget.book.isbnNo)
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Text("Book Category  :"),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(widget.book.bookCatgName)
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Text("Posted Date  :"),
                       // Text(book.pos)
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -205,14 +197,14 @@ class _BookDetailState extends State<BookDetail> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Text("Posted Time  :"),
                       // Text(book.pos)
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -223,7 +215,7 @@ class _BookDetailState extends State<BookDetail> {
                     ],
                   ),
                   if (widget.book.edition != null)
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   if (widget.book.edition != null)
@@ -231,7 +223,7 @@ class _BookDetailState extends State<BookDetail> {
                       children: <Widget>[
                         Text("Edition  :"),
                         // Text(book.pos)
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
@@ -282,7 +274,7 @@ class _BookDetailState extends State<BookDetail> {
                               return Row(
                                 children: <Widget>[
                                   Text("You"),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   OutlineButton(

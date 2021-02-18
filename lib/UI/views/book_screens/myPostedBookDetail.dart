@@ -17,14 +17,12 @@ import 'package:intl/intl.dart';
 // const double _fabDimension = 56.0;
 
 class MyPostedBookDetail extends StatefulWidget {
-  static final tag = RoutePaths.MyPostedBookDetail;
-  final Book book;
-  // final ContainerTransitionType _transitionType =
-  //     ContainerTransitionType.fadeThrough;
-
   const MyPostedBookDetail({Key key, this.book})
       : assert(book != null),
         super(key: key);
+
+  static final tag = RoutePaths.MyPostedBookDetail;
+  final Book book;
 
   @override
   _MyPostedBookDetailState createState() => _MyPostedBookDetailState();
@@ -55,15 +53,10 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                     postedBookEditModel.file == null
                         ? FadeInImage(
                             fit: BoxFit.fitWidth,
-
-                            // height: double.infinity,
-                            // width: double.infinity,
                             placeholder: AssetImage("assets/book_logo.jpg"),
                             image: image.startsWith("http")
-                                // image: image.startsWith("https://")
                                 ? NetworkImage(
                                     image,
-                                    // fit: BoxFit.fill,
                                   )
                                 : NetworkImage(
                                     // "https://booksharingappdjango.herokuapp.com" +
@@ -86,13 +79,8 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                                 ? Colors.black87
                                 : Color(0xFF313457),
                         height: 40,
-                        // width: ,
-                        // width: 250,
-                        // color: Colors.black45,
                         child: InkWell(
                           onTap: () async {
-                            // studented
-                            // studentEditModel.updateStudentPhoto(context);
                             await postedBookEditModel.chooseImage();
                             setState(() {});
                           },
@@ -106,9 +94,6 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                                   "Edit",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                // SizedBox(
-                                //   width: 20,
-                                // ),
                                 Icon(
                                   Icons.edit,
                                   color: Colors.white,
@@ -134,16 +119,6 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                       // Navigator.pushNamed(context, 'bookdelete');
 
                       Navigator.pop(context);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => BookDelete(
-                      //       bookId: bookId,
-                      //     ),
-                      //   ),
-                      // );
-                      // postedBookModel.deleteBookByTransaction(
-                      //     context, bookId, scaffoldKey);
                       postedBookEditModel.updateImage(con, widget.book.bookName,
                           widget.book.bookId, count, _key);
                     },
@@ -157,13 +132,6 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
       );
     }
 
-    // Student student = locator<Student>();
-    // BookDetailModel bookDetailModel = Provider.of(context);
-    // student = bookDetailModel.getStudentDetail(book.postedBy);
-    // Widget getUserData(){
-    //   return  ;
-    // }
-    // BookDetailModel bookDetailModel = Provider.of(context);
     return Scaffold(
       key: scaffoldKey,
       appBar: PostedBookAppBar(
@@ -225,7 +193,7 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                       // reverse: true,
                     )
                   : Container(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
@@ -234,17 +202,17 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                   style: textStyle,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text("BY" + "  " + widget.book.authorName),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: <Widget>[
                   Text("MRP  :"),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   Text(
@@ -254,13 +222,13 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 children: <Widget>[
                   Text("Price  :"),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   widget.book.price == 0
@@ -275,7 +243,7 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                         ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Divider(
@@ -289,50 +257,50 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 children: <Widget>[
                   Text("Publisher Name  :"),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(widget.book.pubName)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: <Widget>[
                   Text("ISBN Number  :"),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(widget.book.isbnNo)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: <Widget>[
                   Text("Book Category  :"),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(widget.book.bookCatgName)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: <Widget>[
                   Text("Posted Date  :"),
                   // Text(book.pos)
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
@@ -342,14 +310,14 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: <Widget>[
                   Text("Posted Time  :"),
                   // Text(book.pos)
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
@@ -360,7 +328,7 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                 ],
               ),
               if (widget.book.edition != null)
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               if (widget.book.edition != null)
@@ -368,7 +336,7 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
                   children: <Widget>[
                     Text("Edition  :"),
                     // Text(book.pos)
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
@@ -391,43 +359,6 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
           ),
         ),
       ),
-      // floatingActionButton: OpenContainer(
-      //   transitionDuration: Duration(seconds: 1),
-
-      //   transitionType: _transitionType,
-      //   openBuilder: (BuildContext context, VoidCallback action) {
-      //     return BookEdit(
-      //       book: book,
-      //     );
-      //     // return Navigator.of(context).pushNamed(context, "routeName");
-      //   },
-      //   closedElevation: 6.0,
-      //   closedShape: const RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.all(
-      //       Radius.circular(_fabDimension / 2),
-      //     ),
-      //   ),
-      //   // closedColor: Theme.of(context).colorScheme.secondary,
-      //   closedBuilder: (BuildContext context, VoidCallback openContainer) {
-      //     return Material(
-      //       type: MaterialType.transparency,
-      //       child: Container(
-      //         color:
-      //             Theme.of(context).floatingActionButtonTheme.backgroundColor,
-      //         child: SizedBox(
-      //           height: _fabDimension,
-      //           width: _fabDimension,
-      //           child: Center(
-      //             child: Icon(
-      //               Icons.edit,
-      //               color: Theme.of(context).colorScheme.onSecondary,
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     );
-      //   },
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -446,16 +377,16 @@ class _MyPostedBookDetailState extends State<MyPostedBookDetail> {
 }
 
 class PostedBookAppBar extends StatelessWidget implements PreferredSize {
-  final dynamic postedBookEditModel;
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final Book book;
-
   const PostedBookAppBar({
     Key key,
     this.postedBookEditModel,
     this.scaffoldKey,
     this.book,
   }) : super(key: key);
+
+  final dynamic postedBookEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -465,20 +396,6 @@ class PostedBookAppBar extends StatelessWidget implements PreferredSize {
         // style: textStyle,
       ),
       actions: <Widget>[
-        // IconButton(
-        //   icon: Icon(Icons.add),
-        //   onPressed: () async {
-        //     // final RenderBox box = context.findRenderObject();
-        //     // Share.share(
-        //     //   book.bookImage[0].image,
-        //     //   // subject: subject,
-        //     //   sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-        //     // );
-        //     await postedBookEditModel.updateBookImageList(
-        //         context, scaffoldKey, book.bookId, book.bookName);
-        //   },
-        // )
-
         PopupMenuButton(
           padding: EdgeInsets.only(right: 30, bottom: 30, left: 30),
           onCanceled: () {
@@ -512,7 +429,7 @@ class PostedBookAppBar extends StatelessWidget implements PreferredSize {
                       Icons.add,
                       color: Colors.black26,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text("Add Book Image"),
@@ -528,7 +445,7 @@ class PostedBookAppBar extends StatelessWidget implements PreferredSize {
                       Icons.delete,
                       color: Colors.black26,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text("Delete"),
@@ -538,7 +455,7 @@ class PostedBookAppBar extends StatelessWidget implements PreferredSize {
             ];
           },
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
       ],

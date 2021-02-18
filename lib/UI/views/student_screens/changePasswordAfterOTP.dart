@@ -36,12 +36,13 @@ class ChangePasswordAfterOTP extends StatelessWidget {
 }
 
 class ChangePasswordAfterOTPForm extends StatelessWidget {
-  final StudentEditModel studentEditModel;
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
   const ChangePasswordAfterOTPForm(
       {Key key, this.studentEditModel, this.scaffoldKey})
       : super(key: key);
+
+  final StudentEditModel studentEditModel;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -53,19 +54,6 @@ class ChangePasswordAfterOTPForm extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: <Widget>[
-            // Container(
-            //   height: 200,
-            //   width: MediaQuery.of(context).size.width / 2,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(30),
-            //     image: DecorationImage(
-            //       fit: BoxFit.cover,
-            //       image: AssetImage(
-            //         "assets/book_logo.jpg",
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SvgPicture.asset(
               "assets/svg/undraw_forgot_password_gi2d.svg",
               width: 250,
@@ -79,7 +67,7 @@ class ChangePasswordAfterOTPForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentEditModel.passwordAfterOTP,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "New Password",
                 suffixIcon: Icon(Icons.lock),
               ),
@@ -99,7 +87,7 @@ class ChangePasswordAfterOTPForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentEditModel.confirmPasswordAfterOTP,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Confirm Password",
                 suffixIcon: Icon(Icons.lock),
               ),
@@ -119,9 +107,6 @@ class ChangePasswordAfterOTPForm extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                // studentEditModel.changePasswordModel(
-                //     context, box.get("ID"), scaffoldKey);
-
                 studentEditModel.updatePasswordProvider(context, scaffoldKey);
               },
               child: Text(
