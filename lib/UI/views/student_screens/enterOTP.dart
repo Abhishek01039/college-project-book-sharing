@@ -20,7 +20,7 @@ class EnterOTP extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -31,15 +31,9 @@ class EnterOTP extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
-              // Icon(
-              //   FontAwesomeIcons.paperPlane,
-              //   // size: MediaQuery.of(context).size.width - 100,
-              //   size: 100,
-              //   color: Theme.of(context).primaryColor,
-              // ),
               SvgPicture.asset(
                 "assets/svg/undraw_Mail_sent_qwwx.svg",
                 width: 80,
@@ -61,11 +55,12 @@ class EnterOTP extends StatelessWidget {
 }
 
 class EnterOTPForm extends StatelessWidget {
+  const EnterOTPForm({Key key, this.studentEditModel, this.scaffoldKey})
+      : super(key: key);
+
   final StudentEditModel studentEditModel;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const EnterOTPForm({Key key, this.studentEditModel, this.scaffoldKey})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -78,7 +73,7 @@ class EnterOTPForm extends StatelessWidget {
               controller: studentEditModel.oTP,
               keyboardType: TextInputType.phone,
               textCapitalization: TextCapitalization.words,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "OTP",
                 suffixIcon: Icon(Icons.vpn_key),
               ),

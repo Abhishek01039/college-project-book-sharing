@@ -2,22 +2,15 @@ import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Filter extends StatefulWidget {
-  @override
-  _FilterState createState() => _FilterState();
-}
-
-class _FilterState extends State<Filter> {
+class Filter extends StatelessWidget {
   OverlayEntry _overlayEntry;
-  int choiceChipSelection = 0;
+  final int choiceChipSelection = 0;
 
   OverlayEntry showOverlay(context) {
     RenderBox renderBox = context.findRenderObject();
     var size = renderBox.size;
     return OverlayEntry(
       builder: (context) => Positioned(
-        // left: offset.dx,
-        // top: offset.dy + size.height + 5.0,
         width: size.width,
         child: Material(
           elevation: 4.0,
@@ -34,8 +27,6 @@ class _FilterState extends State<Filter> {
               ListTile(
                 title: Text('Lebanon'),
                 onTap: () {
-                  // _overlayEntry = _createOverlayEntry(context);
-                  // Overlay.of(context).();
                   _overlayEntry.remove();
                   print('Lebanon Tapped');
                 },
@@ -66,10 +57,7 @@ class _FilterState extends State<Filter> {
               selected: _bookModel.choiceChipSelection == 0,
               selectedColor: Colors.teal[200],
               onSelected: (value) {
-                // setState(() {
                 _bookModel.changeChoiceChip(value, 0);
-                // _bookModel.choiceChipSelection = value ? 0 : -1;
-                // });
               },
             ),
           ),
@@ -79,10 +67,7 @@ class _FilterState extends State<Filter> {
               selected: _bookModel.choiceChipSelection == 1,
               selectedColor: Colors.teal[200],
               onSelected: (value) {
-                // setState(() {
                 _bookModel.changeChoiceChip(value, 1);
-                // _bookModel.choiceChipSelection = value ? 1 : -1;
-                // });
               },
             ),
           ),
@@ -92,10 +77,7 @@ class _FilterState extends State<Filter> {
               selected: _bookModel.choiceChipSelection == 2,
               selectedColor: Colors.teal[200],
               onSelected: (value) {
-                // setState(() {
-                // choiceChipSelection = value ? 2 : -1;
                 _bookModel.changeChoiceChip(value, 2);
-                // });
               },
             ),
           ),
@@ -105,10 +87,7 @@ class _FilterState extends State<Filter> {
               selected: _bookModel.choiceChipSelection == 3,
               selectedColor: Colors.teal[200],
               onSelected: (value) {
-                // setState(() {
-                // choiceChipSelection = value ? 3 : -1;
                 _bookModel.changeChoiceChip(value, 3);
-                // });
               },
             ),
           ),

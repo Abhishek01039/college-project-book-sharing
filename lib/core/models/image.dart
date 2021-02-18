@@ -4,14 +4,14 @@ part 'image.g.dart';
 
 @JsonSerializable(nullable: false)
 class BookImage extends Equatable {
-  final int bookId;
-  final String image;
-
   BookImage({this.bookId, this.image})
       : assert(
           bookId != null,
           image != null,
         );
+
+  final int bookId;
+  final String image;
 
   factory BookImage.fromJson(Map<String, dynamic> json) =>
       _$BookImageFromJson(json);

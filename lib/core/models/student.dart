@@ -7,6 +7,17 @@ part 'student.g.dart';
 @JsonSerializable(nullable: false)
 @HiveType(typeId: 1)
 class Student extends Equatable {
+  Student(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.age,
+      this.password,
+      this.photo,
+      this.contactNo,
+      this.address});
+
   @HiveField(0)
   final int id;
 
@@ -21,17 +32,6 @@ class Student extends Equatable {
   final String photo;
   final String contactNo;
   final String address;
-
-  Student(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.age,
-      this.password,
-      this.photo,
-      this.contactNo,
-      this.address});
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);

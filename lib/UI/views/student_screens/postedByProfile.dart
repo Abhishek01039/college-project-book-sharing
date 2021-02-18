@@ -23,21 +23,13 @@ Future<void> _makePhoneCall(String url) async {
 }
 
 class PostedByProfilePage extends StatelessWidget {
-  final Student student;
-  static final tag = RoutePaths.PostedByProfile;
   const PostedByProfilePage({Key key, this.student}) : super(key: key);
 
-  // Future<void> _makePhoneCall(String url) async {
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
-  @override
+  final Student student;
+  static final tag = RoutePaths.PostedByProfile;
 
   // it show the detail of student who posted the interested book
+  @override
   Widget build(BuildContext context) {
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? ProtraitModePostedByProfilePage(student: student)
@@ -100,7 +92,7 @@ class LandScaprPostedByProfilePage extends StatelessWidget {
               },
               child: Icon(Icons.email),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             FloatingActionButton(
@@ -203,7 +195,7 @@ class ProtraitModePostedByProfilePage extends StatelessWidget {
             },
             child: Icon(Icons.email),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           FloatingActionButton(

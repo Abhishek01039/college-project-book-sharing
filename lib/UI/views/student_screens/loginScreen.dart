@@ -37,6 +37,7 @@ class LandScapeModeLogInPage extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> scaffoldKey;
   final StudentModel studentModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,42 +158,13 @@ class PotraitLogInForm extends StatelessWidget {
             : AutovalidateMode.disabled,
         key: studentModel.formKey,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Stack(
-            //   children: <Widget>[
-            //     Positioned(
-            //       top: 10,
-            //       left: 20,
-            //       child: Icon(Icons.arrow_back_ios),
-            //     ),
-            //   ],
-            // ),
-            // Align(
-            //   alignment: Alignment.topLeft,
-            //   child: InkWell(
-            //     onTap: () {
-            //       Navigator.pop(context);
-            //     },
-            //     child: Icon(Icons.arrow_back_ios),
-            //   ),
-            // ),
-
-            // const SizedBox(
-            //   height: 10,
-            // ),
-            // Text(
-            //   "Log In",
-            //   style: textStyle,
-            //   textAlign: TextAlign.center,
-            // ),
             const SizedBox(
               height: 30,
             ),
             TextFormField(
               controller: studentModel.username,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Email",
                 suffixIcon: Icon(Icons.email),
               ),
@@ -213,7 +185,7 @@ class PotraitLogInForm extends StatelessWidget {
             TextFormField(
               controller: studentModel.pass,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Password",
                 suffixIcon: Icon(Icons.lock_open),
               ),
@@ -311,42 +283,13 @@ class LandScapeLogInForm extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width / 2,
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Stack(
-                //   children: <Widget>[
-                //     Positioned(
-                //       top: 10,
-                //       left: 20,
-                //       child: Icon(Icons.arrow_back_ios),
-                //     ),
-                //   ],
-                // ),
-                // Align(
-                //   alignment: Alignment.topLeft,
-                //   child: InkWell(
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     },
-                //     child: Icon(Icons.arrow_back_ios),
-                //   ),
-                // ),
-
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // Text(
-                //   "Log In",
-                //   style: textStyle,
-                //   textAlign: TextAlign.center,
-                // ),
                 const SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   controller: studentModel.username,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Email",
                     suffixIcon: Icon(Icons.email),
                   ),
@@ -367,7 +310,7 @@ class LandScapeLogInForm extends StatelessWidget {
                 TextFormField(
                   controller: studentModel.pass,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Password",
                     suffixIcon: Icon(Icons.lock_open),
                   ),
@@ -405,7 +348,6 @@ class LandScapeLogInForm extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-
                 const SizedBox(
                   height: 25,
                 ),

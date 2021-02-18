@@ -33,11 +33,12 @@ class FeedBack extends StatelessWidget {
 }
 
 class FeedBackForm extends StatelessWidget {
+  const FeedBackForm({Key key, this.studentRegModel, this.scaffoldKey})
+      : super(key: key);
+
   final StudentRegModel studentRegModel;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const FeedBackForm({Key key, this.studentRegModel, this.scaffoldKey})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,21 +49,7 @@ class FeedBackForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          // mainAxisAlign`/ment: MainAxisAlignment.center,
           children: <Widget>[
-            // Container(
-            //   height: 200,
-            //   width: MediaQuery.of(context).size.width / 2,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(30),
-            //     image: DecorationImage(
-            //       fit: BoxFit.cover,
-            //       image: AssetImage(
-            //         "assets/book_logo.jpg",
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SvgPicture.asset(
               "assets/svg/undraw_anonymous_feedback_y3co.svg",
               width: 250,
@@ -77,7 +64,7 @@ class FeedBackForm extends StatelessWidget {
             ),
             TextFormField(
               controller: studentRegModel.feedBackEmail,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Enter Email",
               ),
               validator: (value) {
@@ -96,7 +83,7 @@ class FeedBackForm extends StatelessWidget {
             TextFormField(
               controller: studentRegModel.feedBackMessage,
               textCapitalization: TextCapitalization.words,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Enter Message",
               ),
               validator: (value) {

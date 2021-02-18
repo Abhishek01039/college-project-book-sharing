@@ -15,9 +15,9 @@ class ProfileLoading extends ProfileState {
 }
 
 class ProfileLoaded extends ProfileState {
-  final Student student;
+  const ProfileLoaded({this.student});
 
-  ProfileLoaded({this.student});
+  final Student student;
 
   @override
   List<Object> get props => [];

@@ -34,11 +34,12 @@ class ForgetPassword extends StatelessWidget {
 }
 
 class ForgetPasswordForm extends StatelessWidget {
+  const ForgetPasswordForm({Key key, this.studentEditModel, this.scaffoldKey})
+      : super(key: key);
+
   final StudentEditModel studentEditModel;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const ForgetPasswordForm({Key key, this.studentEditModel, this.scaffoldKey})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -90,7 +91,7 @@ class ForgetPasswordForm extends StatelessWidget {
                   controller: studentEditModel.emailOTP,
                   // textCapitalization: TextCapitalization.words,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Email",
                     suffixIcon: Icon(Icons.email),
                   ),

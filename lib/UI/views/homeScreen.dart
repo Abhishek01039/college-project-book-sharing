@@ -4,16 +4,10 @@ import 'package:animations/animations.dart';
 import 'package:booksharing/UI/views/book_screens/bookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/myPostedBookDetail.dart';
 import 'package:booksharing/UI/views/book_screens/postedBook.dart';
-// import 'package:booksharing/UI/views/shared_pref.dart';
 import 'package:booksharing/UI/widgets/drawer.dart';
 import 'package:booksharing/UI/widgets/filter.dart';
-
 import 'package:booksharing/core/constant/app_constant.dart';
-
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
-// import 'package:booksharing/locator.dart';
-
-// import 'package:booksharing/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:booksharing/UI/views/book_screens/searchBook.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -78,30 +72,13 @@ class _HomePageState extends State<HomePage> {
                         child: Text("Book Price"),
                       ),
                       Filter(),
-                      // ListTile(
-                      //   title: Text('Lebanon'),
-                      //   onTap: () {
-                      //     // _overlayEntry = _createOverlayEntry(context);
-                      //     _overlayEntry.remove();
-                      //     print('Lebanon Tapped');
-                      //   },
-                      // ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          // RaisedButton(
-                          //   onPressed: () {
-                          //     _overlayEntry.remove();
-                          //   },
-                          //   child: Text("Clear Filter"),
-                          // ),
-                          // SizedBox(
-                          //   width: 20,
-                          // ),
                           RaisedButton(
                             onPressed: () {
                               book.filterBookRegardingChips(
@@ -111,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: Text("Ok"),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                         ],
@@ -200,50 +177,28 @@ class _HomePageState extends State<HomePage> {
                     return Card(
                       elevation: 3,
                       child: ListTile(
-                        // dense: false,
-                        // leading: bookImage != null
-
-                        leading: bookModel
-                                    .homeListBook[index].bookImage.length !=
-                                0
-                            ? ClipRRect(
-                                child: FadeInImage(
-                                  fit: BoxFit.fill,
-                                  width: 70,
-                                  height: 50,
-                                  placeholder:
-                                      AssetImage("assets/book_logo.jpg"),
-                                  image: NetworkImage(bookModel
-                                      .homeListBook[index].bookImage[0].image
-                                      .toString()),
-                                ),
-                              )
-                            // : Container(width: 70,height: 40,),
-                            // : ClipRRect(
-
-                            //     child: Image.asset(
-                            //       "assets/book_logo.jpg",
-                            //       height: 40,
-                            //       width: 70,
-                            //     ),
-                            //   )
-                            // : Container(
-                            //     // width: 70,
-                            //     // height: 40,
-                            //     decoration: BoxDecoration(
-                            //       image: DecorationImage(
-                            //         fit: BoxFit.fill,
-                            //         image:
-                            //             AssetImage("assets/book_logo.jpg",),
-                            //       ),
-                            //     ),
-                            //   ),
-                            : Image.asset(
-                                "assets/book_logo.jpg",
-                                fit: BoxFit.fill,
-                                width: 70,
-                                height: 50,
-                              ),
+                        leading:
+                            bookModel.homeListBook[index].bookImage.length != 0
+                                ? ClipRRect(
+                                    child: FadeInImage(
+                                      fit: BoxFit.fill,
+                                      width: 70,
+                                      height: 50,
+                                      placeholder:
+                                          AssetImage("assets/book_logo.jpg"),
+                                      image: NetworkImage(bookModel
+                                          .homeListBook[index]
+                                          .bookImage[0]
+                                          .image
+                                          .toString()),
+                                    ),
+                                  )
+                                : Image.asset(
+                                    "assets/book_logo.jpg",
+                                    fit: BoxFit.fill,
+                                    width: 70,
+                                    height: 50,
+                                  ),
                         title: Text(
                           bookModel.homeListBook[index].bookName,
                         ),
@@ -281,10 +236,8 @@ class _HomePageState extends State<HomePage> {
 
     Widget appBarTitle = Text(
       "Book Sharing",
-      // style: TextStyle(color: Colors.white),
     );
 
-    // final globalKey = GlobalKey<ScaffoldState>();
     Widget buildAllBar(BuildContext context) {
       return AppBar(
         title: appBarTitle,
@@ -318,10 +271,6 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAllBar(context),
       body: Consumer<BookModel>(
         builder: (context, bookModel, _) {
-          // bookModel.getHomeListProvider();
-          // bookModel.callWhenGoBack();
-          // bookModel.getLatestBookProvider();
-
           if (count == 0) {
             isShimmerShown = Shimmer.fromColors(
               baseColor: Colors.grey[300],
@@ -355,12 +304,6 @@ class _HomePageState extends State<HomePage> {
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 5.0),
                           ),
-
-                          // Container(
-                          //   width: 40.0,
-                          //   height: 8.0,
-                          //   color: Colors.white,
-                          // ),
                         ],
                       ),
                     ],
@@ -373,21 +316,13 @@ class _HomePageState extends State<HomePage> {
               if (bookModel.latestBooks.length == 0) {
                 setState(() {
                   count = 1;
-                  isShimmerShown =
-                      //  Column(
-                      //   children: <Widget>[
-                      // SizedBox(
-                      //   height: MediaQuery.of(context).size.height / 2.5,
-                      // ),
-                      Center(
+                  isShimmerShown = Center(
                     child: Text(
                       "No posted Book yet",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 18),
                     ),
                   );
-                  //   ],
-                  // );
                 });
               } else {
                 isShimmerShown = Shimmer.fromColors(
@@ -422,12 +357,6 @@ class _HomePageState extends State<HomePage> {
                               const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 5.0),
                               ),
-
-                              // Container(
-                              //   width: 40.0,
-                              //   height: 8.0,
-                              //   color: Colors.white,
-                              // ),
                             ],
                           ),
                         ],
@@ -503,11 +432,8 @@ class _HomePageState extends State<HomePage> {
                                             child: Container(
                                               height: 100,
                                               width: 120,
-                                              // color: Colors.transparent,
                                               child: ClipRRect(
                                                 child: FadeInImage(
-                                                  // fit: BoxFit.cover,
-                                                  // width: 70,
                                                   placeholder: AssetImage(
                                                       "assets/book_logo.jpg"),
                                                   image: bookModel
@@ -543,7 +469,6 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           Positioned(
                                             bottom: 15,
-                                            // left: 30,
                                             child: Center(
                                               child: Text(
                                                 bookModel.latestBooks[index]
@@ -553,7 +478,6 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           )
-                                          // Text("This is book")
                                         ],
                                       ),
                                     ),
@@ -561,76 +485,8 @@ class _HomePageState extends State<HomePage> {
                                 );
                               },
                             )
-                          // : Shimmer.fromColors(
-                          //     baseColor: Colors.grey[300],
-                          //     highlightColor: Colors.grey[100],
-                          //     enabled: true,
-                          //     child: ListView.builder(
-                          //       scrollDirection: Axis.horizontal,
-                          //       shrinkWrap: true,
-                          //       primary: false,
-                          //       itemBuilder: (_, __) => Padding(
-                          //         padding: const EdgeInsets.only(
-                          //             bottom: 2.0, top: 10),
-                          //         child: Row(
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           children: [
-                          //             Container(
-                          //               width: 150.0,
-                          //               height: 130.0,
-                          //               color: Colors.white,
-                          //             ),
-                          //             const Padding(
-                          //               padding: EdgeInsets.symmetric(
-                          //                   horizontal: 8.0),
-                          //             ),
-                          //             Column(
-                          //               crossAxisAlignment:
-                          //                   CrossAxisAlignment.start,
-                          //               children: <Widget>[
-                          //                 Container(
-                          //                   // width: double.infinity,
-                          //                   height: 38.0,
-                          //                   color: Colors.white,
-                          //                 ),
-                          //                 const Padding(
-                          //                   padding: EdgeInsets.symmetric(
-                          //                       vertical: 5.0),
-                          //                 ),
-
-                          //                 // Container(
-                          //                 //   width: 40.0,
-                          //                 //   height: 8.0,
-                          //                 //   color: Colors.white,
-                          //                 // ),
-                          //               ],
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       itemCount: 6,
-                          //     ),
-                          //   )
                           : isShimmerShown,
-
-                      // : Center(
-                      //     child: CircularProgressIndicator(),
-                      //   ),
                     ),
-                    // : Column(
-                    //     children: <Widget>[
-                    //       SizedBox(
-                    //         height:
-                    //             MediaQuery.of(context).size.height / 2.5,
-                    //       ),
-                    //       Center(
-                    //         child: Text("no posted Book yet"),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // : widget,
-
                     _firstFutureBuilder(context, bookModel),
                     bookModel.homeListBook.length != 0 ||
                             bookModel.latestBooks.length != 0
@@ -655,13 +511,6 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       drawer: DrawerMenu(),
-      // floatingActionButton: FloatingActionButton(
-      //   tooltip: "Post Your Book",
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, "postedBook");
-      //   },
-      //   child: Icon(Icons.add),
-      // ),
       floatingActionButton: OpenContainer(
         transitionDuration: Duration(seconds: 1),
         transitionType: _transitionType,

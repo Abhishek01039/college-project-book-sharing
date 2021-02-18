@@ -14,10 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 
 class StudentEdit extends StatelessWidget {
-  static final tag = RoutePaths.StudentEdit;
-  final Student student;
-  Country country = new Country();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   StudentEdit({Key key, this.student})
       : assert(
           student.email != null,
@@ -25,6 +21,11 @@ class StudentEdit extends StatelessWidget {
         ),
         assert(student.lastName != null),
         super(key: key);
+
+  static final tag = RoutePaths.StudentEdit;
+  final Student student;
+  Country country = new Country();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   Country getCountryByIsoCode(String countryCode) {
     try {
@@ -70,43 +71,10 @@ class StudentEdit extends StatelessWidget {
               key: studentEditModel.formKey,
               child: Column(
                 children: <Widget>[
-                  // Text("Registration", style: textStyle),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
-                  // TextFormField(
-                  //   textCapitalization: TextCapitalization.words,
-                  //   controller: studentEditModel.enrollmentNo,
-                  //   decoration: InputDecoration(
-                  //     hintText: "Enrollment Number",
-                  //     suffixIcon: Icon(FontAwesomeIcons.university),
-                  //   ),
-                  //   validator: (value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Please enter Enrollement Number';
-                  //     }
-                  //     return null;
-                  //   },
-                  //   keyboardType: TextInputType.text,
-                  // ),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
-                  // SvgPicture.asset(
-                  //   "assets/svg/undraw_profile_6l1l.svg",
-                  //   width: MediaQuery.of(context).size.width / 2,
-                  //   // color: Color(0xFF313457),
-                  //   allowDrawingOutsideViewBox: true,
-                  //   // fit: BoxFit.fill,
-                  //   height: 250,
-                  // ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.firstName,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "First Name",
                       suffixIcon: Icon(Icons.person),
                     ),
@@ -124,7 +92,7 @@ class StudentEdit extends StatelessWidget {
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.lastName,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Last Name",
                       suffixIcon: Icon(Icons.person),
                     ),
@@ -141,7 +109,7 @@ class StudentEdit extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: studentEditModel.email,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Email",
                       suffixIcon: Icon(Icons.email),
                     ),
@@ -161,7 +129,7 @@ class StudentEdit extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: studentEditModel.age,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Age",
                       suffixIcon: Icon(Icons.person),
                     ),
@@ -179,55 +147,10 @@ class StudentEdit extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  // TextFormField(
-                  //   textCapitalization: TextCapitalization.words,
-                  //   controller: studentEditModel.collegeName,
-                  //   decoration: InputDecoration(
-                  //     hintText: "College Name",
-                  //     suffixIcon: Icon(
-                  //       Icons.domain,
-                  //     ),
-                  //   ),
-                  //   keyboardType: TextInputType.text,
-                  //   validator: (value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Please enter College Name';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
-                  // Text("Choose College Year"),
-                  // CollegeYear(),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
-                  // TextFormField(
-                  //   textCapitalization: TextCapitalization.words,
-                  //   controller: studentEditModel.course,
-                  //   decoration: InputDecoration(
-                  //     hintText: "Course",
-                  //     suffixIcon: Icon(
-                  //       FontAwesomeIcons.graduationCap,
-                  //     ),
-                  //   ),
-                  //   keyboardType: TextInputType.visiblePassword,
-                  //   validator: (value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Please enter Course';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // const SizedBox(
-                  //   height: 40,
-                  // ),
                   TextFormField(
                     textCapitalization: TextCapitalization.words,
                     controller: studentEditModel.address,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Address",
                       suffixIcon: Icon(
                         FontAwesomeIcons.addressBook,
@@ -244,22 +167,6 @@ class StudentEdit extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  // InternationalPhoneNumberInput(
-                  //   onInputChanged: (PhoneNumber number) {
-                  //     // print(number.p`honeNumber);
-                  //     studentEditModel.setPhoneNumber(number.phoneNumber);
-                  //   },
-                  //   textFieldController: studentEditModel.phoneNumber,
-                  //   isEnabled: true,
-
-                  //   locale: studentEditModel.number,
-                  //   countries: ["IN"],
-                  //   initialCountry2LetterCode: "+91",
-                  //   autoValidate: true,
-                  //   formatInput: false,
-
-                  //   ignoreBlank: true,
-                  // ),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -277,38 +184,6 @@ class StudentEdit extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 3,
-                        // child: TextFormField(
-                        //   controller: new TextEditingController.fromValue(
-                        //       new TextEditingValue(
-                        //           text: studentEditModel.number,
-                        //           selection: new TextSelection.collapsed(
-                        //               offset:
-                        //                   studentEditModel.number.length - 1))),
-                        //   keyboardType: TextInputType.text,
-                        //   onChanged: (value) {
-                        //     studentEditModel.setPhoneNumber(value);
-                        //     // var sel = studentEditModel.phoneNumber.selection;
-                        //     // studentEditModel.phoneNumber.selection = sel;
-                        //     // final val = TextSelection.collapsed(
-                        //     //     offset: studentEditModel.phoneNumber.text.length);
-                        //     // studentEditModel.phoneNumber.selection = val;
-                        //     var cursorPos =
-                        //         studentEditModel.phoneNumber.selection;
-
-                        //     studentEditModel.phoneNumber.text = value ?? '';
-
-                        //     if (cursorPos.start >
-                        //         studentEditModel.phoneNumber.text.length) {
-                        //       cursorPos = new TextSelection.fromPosition(
-                        //           new TextPosition(
-                        //               offset: studentEditModel
-                        //                   .phoneNumber.text.length));
-                        //     }
-                        //     studentEditModel.phoneNumber.selection = cursorPos;
-                        //     studentEditModel.setPhoneNumber(value);
-                        //     print(value);
-                        //   },
-                        // ),
                         child: TextFormField(
                           // controller: studentEditModel.phoneNumber,
                           keyboardType: TextInputType.number,
@@ -338,25 +213,14 @@ class StudentEdit extends StatelessWidget {
                           box.put(
                               "studentName", studentEditModel.firstName.text);
 
-                          // studentEditModel.enrollmentNo.clear();
                           studentEditModel.firstName.clear();
                           studentEditModel.lastName.clear();
                           studentEditModel.email.clear();
                           studentEditModel.age.clear();
-                          // studentEditModel.collegeName.clear();
-                          // studentEditModel.course.clear();
 
-                          // studentEditModel.phoneNumber.clear();
                           studentEditModel.address.clear();
                           studentEditModel.number = "";
 
-                          // Navigator.pushReplacementNamed(context, 'home');
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //   context,
-                          //   'home',
-                          //   (Route<dynamic> route) => false,
-
-                          // );
                           Navigator.pop(context);
                           Navigator.pop(context);
                           showFlutterToast("Update Successfully");
@@ -373,7 +237,7 @@ class StudentEdit extends StatelessWidget {
                         }
                       });
                     },
-                    child: Text(
+                    child: const Text(
                       "Update Profile",
                       textAlign: TextAlign.center,
                     ),
@@ -387,32 +251,6 @@ class StudentEdit extends StatelessWidget {
     );
   }
 }
-
-// class CollegeYear extends StatelessWidget {
-//   const CollegeYear({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     StudentEditModel studentEditModel = Provider.of(context);
-
-//     return DropdownButton(
-//         value: studentEditModel.collegeYear,
-//         isExpanded: true,
-//         // isDense: false,
-//         hint: Text("Choose Year"),
-//         items: ["1", "2", "3", "4"].map((e) {
-//           return DropdownMenuItem(
-//             child: Text(e.toString()),
-//             value: e,
-//           );
-//         }).toList(),
-//         onChanged: (val) {
-//           studentEditModel.chooseCollegeYear(val);
-//         });
-//   }
-// }
 
 Widget _buildDropdownItem(Country country) => Container(
       child: Row(

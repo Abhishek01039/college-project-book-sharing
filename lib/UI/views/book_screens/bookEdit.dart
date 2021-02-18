@@ -9,12 +9,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class BookEdit extends StatelessWidget {
-  static final tag = RoutePaths.PostedBook;
-  final Book book;
-
   BookEdit({Key key, this.book})
       : assert(book != null),
         super(key: key);
+
+  static final tag = RoutePaths.PostedBook;
+  final Book book;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -35,12 +35,6 @@ class BookEdit extends StatelessWidget {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Edit Book"),
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back_ios),
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // ),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -55,21 +49,10 @@ class BookEdit extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                // SvgPicture.asset(
-                //   "assets/svg/undraw_Books_l33t.svg",
-                //   width: MediaQuery.of(context).size.width / 2,
-                //   // color: Color(0xFF313457),
-                //   allowDrawingOutsideViewBox: true,
-                //   // fit: BoxFit.fill,
-                //   height: 250,
-                // ),
-                // const SizedBox(
-                //   height: 20,
-                // ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.bookName,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Book Name",
                     suffixIcon: Icon(FontAwesomeIcons.book),
                   ),
@@ -87,7 +70,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.isbnNo,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "ISBN Number",
                     suffixIcon: Icon(FontAwesomeIcons.barcode),
                   ),
@@ -107,7 +90,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.authorName,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Author Name",
                     suffixIcon: Icon(FontAwesomeIcons.userEdit),
                   ),
@@ -125,7 +108,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.pubName,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Publisher Name",
                     suffixIcon: Icon(FontAwesomeIcons.book),
                   ),
@@ -143,7 +126,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.mrpPrice,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "MRP price",
                     suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                   ),
@@ -161,7 +144,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.price,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Price",
                     suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
                   ),
@@ -179,7 +162,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.edition,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "edition (optional)",
                     suffixIcon: Icon(Icons.category),
                   ),
@@ -191,7 +174,7 @@ class BookEdit extends StatelessWidget {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   controller: postedBookEditModel.bookCatgName,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Book Category Name",
                     suffixIcon: Icon(Icons.category),
                   ),
@@ -203,19 +186,6 @@ class BookEdit extends StatelessWidget {
                   },
                   keyboardType: TextInputType.text,
                 ),
-
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: <Widget>[
-                //     Text("Choose Book Image"),
-                //     InkWell(
-                //       onTap: () {
-                //         postedBookEditModel.chooseBookImage();
-                //       },
-                //       child: Icon(Icons.image),
-                //     )
-                //   ],
-                // ),
                 const SizedBox(
                   height: 40,
                 ),

@@ -5,22 +5,16 @@ import 'dart:io';
 import 'package:booksharing/UI/shared/commonUtility.dart';
 import 'package:booksharing/core/API/allAPIs.dart';
 import 'package:booksharing/core/viewModels/baseModel.dart';
-// import 'package:booksharing/locator.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class StudentRegModel extends BaseModel with Api {
-  // Api = locator<Api>();
-  // final TextEditingController enrollmentNo = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController age = TextEditingController();
-  // final TextEditingController collegeName = TextEditingController();
-  // final TextEditingController collegeYear = TextEditingController();
-  // final TextEditingController course = TextEditingController();
-
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPass = TextEditingController();
   final TextEditingController address = TextEditingController();
@@ -35,7 +29,6 @@ class StudentRegModel extends BaseModel with Api {
   final formKey = GlobalKey<FormState>();
   final feedbackFormKey = GlobalKey<FormState>();
   final changePassformKey = GlobalKey<FormState>();
-  // String collegeYear = "1";
   String number;
   String photo;
   String isRegistered;
@@ -43,21 +36,6 @@ class StudentRegModel extends BaseModel with Api {
   bool changePasswordAutoValidate = false;
   bool feedbackAutoValidate = false;
   final box = Hive.box("Student");
-
-  // studentRegistration() async {
-  //   if (formKey.currentState.validate()) {
-  //     log(enrollmentNo.text.toString());
-  //     log(firstName.text.toString());
-  //     log(lastName.text.toString());
-  //     log(email.text.toString());
-  //     log(age.text.toString());
-  //     log(password.text.toString());
-  //     log(collegeYear.toString());
-  //     // log(number);
-  //     print("number is" + number);
-  //   }
-  // }
-
   String base64Image;
   File tmpFile;
   String isImageSelected = "";
@@ -70,9 +48,7 @@ class StudentRegModel extends BaseModel with Api {
 
   chooseImage() async {
     file = await FilePicker.getFile(type: fileType);
-    // file.then((value) {
-    //   isImageSelected = "Image is Selected";
-    // });
+
     setStatus('');
 
     notifyChange();
@@ -90,20 +66,15 @@ class StudentRegModel extends BaseModel with Api {
     base64Image = base64Encode(tmpFile.readAsBytesSync());
     if (null == tmpFile) {
       setStatus(errMessage);
-      // print("htllo");
+
       return;
     }
 
     String fileName = tmpFile.path.split('/').last;
-    // print(fileName);
+
     extn = fileName.split(".");
     notifyChange();
   }
-
-  // chooseCollegeYear(String val) {
-  //   collegeYear = val;
-  //   notifyChange();
-  // }
 
   registerStudentProvider(
       BuildContext context, GlobalKey<ScaffoldState> scaffoldKey) async {
@@ -117,15 +88,11 @@ class StudentRegModel extends BaseModel with Api {
             await startUpload();
           }
           isRegistered = await registerStudent(
-            // enrollmentNo.text,
             firstName.text,
             lastName.text,
             email.text,
             age.text,
             password.text,
-            // collegeName.text,
-            // collegeYear,
-            // course.text,
             address.text,
             number,
             base64Image ?? "",
@@ -133,13 +100,11 @@ class StudentRegModel extends BaseModel with Api {
           );
           closeProgress(scaffoldKey);
           if (isRegistered == "Success") {
-            // enrollmentNo.clear();
             firstName.clear();
             lastName.clear();
             email.clear();
             age.clear();
-            // collegeName.clear();
-            // course.clear();
+
             password.clear();
             confirmPass.clear();
             phoneNumber.clear();
@@ -201,7 +166,6 @@ class StudentRegModel extends BaseModel with Api {
               context, 'home', (Route<dynamic> route) => false);
           changePassformKey.currentState.reset();
           showFlutterToast("Password Changed Successfully");
-          // changePassformKey.currentState.reset();
         } else if (value == "Enter Right Old Password") {
           showFlutterToast("Old Password does't match");
         } else {

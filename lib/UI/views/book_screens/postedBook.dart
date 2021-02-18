@@ -2,7 +2,6 @@ import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:booksharing/core/viewModels/book_provider/bookModel.dart';
 import 'package:booksharing/core/viewModels/book_provider/postedBookModel.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -54,21 +53,10 @@ class PostedBookForm extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Column(
           children: <Widget>[
-            // SvgPicture.asset(
-            //   "assets/svg/undraw_book_lover_mkck.svg",
-            //   width: MediaQuery.of(context).size.width / 3,
-            //   // color: Color(0xFF313457),
-            //   allowDrawingOutsideViewBox: true,
-            //   // fit: BoxFit.fill,
-            //   height: 250,
-            // ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.bookName,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Book Name",
                 suffixIcon: Icon(FontAwesomeIcons.book),
               ),
@@ -87,7 +75,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.isbnNo,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "ISBN Number",
                 suffixIcon: Icon(FontAwesomeIcons.barcode),
               ),
@@ -107,7 +95,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.authorName,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Author Name",
                 suffixIcon: Icon(FontAwesomeIcons.userEdit),
               ),
@@ -125,7 +113,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.pubName,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Publisher Name",
                 suffixIcon: Icon(FontAwesomeIcons.book),
               ),
@@ -143,7 +131,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.mrpPrice,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "MRP price",
                 suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
               ),
@@ -161,7 +149,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.price,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Selling Price",
                 suffixIcon: Icon(FontAwesomeIcons.rupeeSign),
               ),
@@ -179,7 +167,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.edition,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Edition (Optional)",
                 suffixIcon: Icon(FontAwesomeIcons.bookReader),
               ),
@@ -191,7 +179,7 @@ class PostedBookForm extends StatelessWidget {
             TextFormField(
               textCapitalization: TextCapitalization.words,
               controller: postedBookModel.bookCatgName,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Book Category Name",
                 suffixIcon: Icon(Icons.category),
               ),

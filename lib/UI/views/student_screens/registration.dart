@@ -36,36 +36,11 @@ class Registration extends StatelessWidget {
   }
 }
 
-// class CollegeYear extends StatelessWidget {
-//   const CollegeYear({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     StudentRegModel studentRegModel = Provider.of(context);
-//     return DropdownButton(
-//         value: studentRegModel.collegeYear,
-//         isExpanded: true,
-//         // isDense: false,
-//         hint: Text("Choose Year"),
-//         items: ["1", "2", "3", "4"].map((e) {
-//           return DropdownMenuItem(
-//             child: Text(e.toString()),
-//             value: e,
-//           );
-//         }).toList(),
-//         onChanged: (val) {
-//           studentRegModel.chooseCollegeYear(val);
-//         });
-//   }
-// }
-
 Widget _buildDropdownItem(Country country) => Container(
       child: Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(
+          const SizedBox(
             width: 8.0,
           ),
           Text("+${country.phoneCode}(${country.isoCode})"),
@@ -74,11 +49,12 @@ Widget _buildDropdownItem(Country country) => Container(
     );
 
 class RegistrationForm extends StatelessWidget {
+  const RegistrationForm({Key key, this.studentRegModel, this.scaffoldKey})
+      : super(key: key);
+
   final StudentRegModel studentRegModel;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const RegistrationForm({Key key, this.studentRegModel, this.scaffoldKey})
-      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -91,7 +67,7 @@ class RegistrationForm extends StatelessWidget {
           // TextFormField(
           //   textCapitalization: TextCapitalization.words,
           //   controller: studentRegModel.enrollmentNo,
-          //   decoration: InputDecoration(
+          //   decoration: const InputDecoration(
           //     hintText: "Enrollment Number",
           //     suffixIcon: Icon(FontAwesomeIcons.university),
           //   ),
@@ -108,7 +84,7 @@ class RegistrationForm extends StatelessWidget {
           //   keyboardType: TextInputType.text,
           //   textInputAction: TextInputAction.next,
           // ),
-          // SizedBox(
+          // const SizedBox(
           //   height: 40,
           // ),
           // SvgPicture.asset(
@@ -119,13 +95,13 @@ class RegistrationForm extends StatelessWidget {
           //   // fit: BoxFit.fill,
           //   height: 250,
           // ),
-          // const SizedBox(
+          // const const SizedBox(
           //   height: 20,
           // ),
           TextFormField(
             textCapitalization: TextCapitalization.words,
             controller: studentRegModel.firstName,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "First Name",
               suffixIcon: Icon(Icons.person),
             ),
@@ -137,13 +113,13 @@ class RegistrationForm extends StatelessWidget {
             },
             keyboardType: TextInputType.text,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           TextFormField(
             textCapitalization: TextCapitalization.words,
             controller: studentRegModel.lastName,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Last Name",
               suffixIcon: Icon(Icons.person),
             ),
@@ -155,12 +131,12 @@ class RegistrationForm extends StatelessWidget {
             },
             keyboardType: TextInputType.text,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           TextFormField(
             controller: studentRegModel.email,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Email",
               suffixIcon: Icon(Icons.email),
             ),
@@ -175,12 +151,12 @@ class RegistrationForm extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           TextFormField(
             controller: studentRegModel.age,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Age",
               suffixIcon: Icon(Icons.person),
             ),
@@ -196,13 +172,13 @@ class RegistrationForm extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           // TextFormField(
           //   textCapitalization: TextCapitalization.words,
           //   controller: studentRegModel.collegeName,
-          //   decoration: InputDecoration(
+          //   decoration: const InputDecoration(
           //     hintText: "College Name",
           //     suffixIcon: Icon(
           //       Icons.domain,
@@ -216,18 +192,18 @@ class RegistrationForm extends StatelessWidget {
           //     return null;
           //   },
           // ),
-          // SizedBox(
+          // const SizedBox(
           //   height: 40,
           // ),
           // Text("Choose College Year"),
           // CollegeYear(),
-          // SizedBox(
+          // const SizedBox(
           //   height: 40,
           // ),
           // TextFormField(
           //   textCapitalization: TextCapitalization.words,
           //   controller: studentRegModel.course,
-          //   decoration: InputDecoration(
+          //   decoration: const InputDecoration(
           //     hintText: "Course",
           //     suffixIcon: Icon(
           //       FontAwesomeIcons.graduationCap,
@@ -241,13 +217,13 @@ class RegistrationForm extends StatelessWidget {
           //     return null;
           //   },
           // ),
-          // SizedBox(
+          // const SizedBox(
           //   height: 40,
           // ),
           TextFormField(
             controller: studentRegModel.password,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Password",
               suffixIcon: Icon(Icons.lock),
             ),
@@ -261,13 +237,13 @@ class RegistrationForm extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           TextFormField(
             controller: studentRegModel.confirmPass,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Confirm Password",
               suffixIcon: Icon(Icons.lock_open),
             ),
@@ -281,13 +257,13 @@ class RegistrationForm extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           TextFormField(
             controller: studentRegModel.address,
             textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Address",
               suffixIcon: Icon(
                 FontAwesomeIcons.addressBook,
@@ -301,7 +277,7 @@ class RegistrationForm extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Row(
@@ -367,7 +343,7 @@ class RegistrationForm extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Row(

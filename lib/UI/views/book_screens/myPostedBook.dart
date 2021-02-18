@@ -14,62 +14,9 @@ import 'package:shimmer/shimmer.dart';
 
 class MyPostedBook extends StatelessWidget {
   static final tag = RoutePaths.MyPostedBook;
+
   @override
   Widget build(BuildContext context) {
-    // show alert dialog box to ensure that you have to delete the book
-    // Future<void> _deleteBook(int bookId) async {
-    //   return showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: Text('Want to delete Book?'),
-    //         actions: <Widget>[
-    //           FlatButton(
-    //             child: Text('Cancel'),
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //           RaisedButton(
-    //             onPressed: () {
-    //               // Navigator.pushNamed(context, 'bookdelete');
-    //               Navigator.pop(context);
-    //               Navigator.push(
-    //                 context,
-    //                 MaterialPageRoute(
-    //                   builder: (context) => BookDelete(
-    //                     bookId: bookId,
-    //                   ),
-    //                 ),
-    //               );
-    //             },
-    //             child: Text("Yes"),
-    //           )
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
-
-    // Widget _selectPopup() => PopupMenuButton<int>(
-    //     itemBuilder: (context) => [
-    //           PopupMenuItem(
-    //             value: 1,
-    //             child: Text("Show"),
-    //           ),
-    //           PopupMenuItem(
-    //             value: 2,
-    //             child: Text("Delete"),
-    //           ),
-    //         ],
-    //     initialValue: 2,
-    //     onCanceled: () {
-    //       print("You have canceled the menu.");
-    //     },
-    //     onSelected: (value) {}
-    //     // print("value:$value");
-
-    //     );
     return Scaffold(
       appBar: AppBar(
         title: Text("My Posted Book"),
@@ -112,15 +59,6 @@ class MyPostedBook extends StatelessWidget {
                                                             .toString()),
                                               ),
                                             )
-                                          // : Container(width: 70,height: 40,),
-                                          // : ClipRRect(
-
-                                          //     child: Image.asset(
-                                          //       "assets/book_logo.jpg",
-                                          //       height: 40,
-                                          //       width: 70,
-                                          //     ),
-                                          //   )
                                           : Container(
                                               width: 70,
                                               height: 40,
@@ -137,24 +75,8 @@ class MyPostedBook extends StatelessWidget {
                                   subtitle: Text("by" +
                                       "  " +
                                       snapshot.data[index].authorName),
-                                  // enabled: true,
                                   dense: false,
                                   isThreeLine: true,
-                                  // isThreeLine: true,
-                                  // trailing: Flexible(
-                                  //   child: Row(
-                                  //     children: <Widget>[
-                                  //       Icon(Icons.edit),
-                                  //       SizedBox(
-                                  //         width: 10,
-                                  //       ),
-                                  //       Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.red,
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                   trailing: PopupMenuButton(
                                     itemBuilder: (context) => [
                                       PopupMenuItem(
@@ -164,7 +86,7 @@ class MyPostedBook extends StatelessWidget {
                                             Icon(
                                               Icons.edit,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Text("Edit"),
@@ -179,7 +101,7 @@ class MyPostedBook extends StatelessWidget {
                                             Icon(
                                               Icons.delete,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Text("Delete"),

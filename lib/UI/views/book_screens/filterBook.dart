@@ -66,15 +66,6 @@ class FilterBook extends StatelessWidget {
                                                   .toString()),
                                             ),
                                           )
-                                        // : Container(width: 70,height: 40,),
-                                        // : ClipRRect(
-
-                                        //     child: Image.asset(
-                                        //       "assets/book_logo.jpg",
-                                        //       height: 40,
-                                        //       width: 70,
-                                        //     ),
-                                        //   )
                                         : Container(
                                             width: 70,
                                             height: 40,
@@ -183,15 +174,6 @@ class FilterBook extends StatelessWidget {
       return AppBar(
         title: appBarTitle,
         centerTitle: true,
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Icon(Icons.search),
-        //     onPressed: () {
-        //       // search delegate
-        //       showSearch(context: context, delegate: Search());
-        //     },
-        //   ),
-        // ],
       );
     }
 

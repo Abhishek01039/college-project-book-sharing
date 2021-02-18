@@ -67,8 +67,6 @@ class _MySpalshScreenState extends State<MySpalshScreen>
       if (_connectionStatus == ConnectivityResult.mobile ||
           _connectionStatus == ConnectivityResult.wifi) {
         Timer(Duration(seconds: 3), () {
-          // print(SPHelper.getString("enrollmentNo"));
-          // print(box.get("studentName"));
           box.get("email") == null
               ? Navigator.pushReplacementNamed(context, 'login')
               : Navigator.pushReplacementNamed(context, 'home');
@@ -120,7 +118,7 @@ class _MySpalshScreenState extends State<MySpalshScreen>
                     )
                   ],
                 ),
-              ), // This trailing comma makes auto-formatting nicer for build methods.
+              ),
             ),
           );
   }
@@ -139,7 +137,7 @@ class PotraitModesplashScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -170,7 +168,7 @@ class PotraitModesplashScreen extends StatelessWidget {
             )
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

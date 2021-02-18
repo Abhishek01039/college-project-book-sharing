@@ -27,18 +27,6 @@ import 'package:booksharing/core/viewModels/bloc/profile_bloc_delegate.dart';
 // import '';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // // run app if and if only device in protrait mode not landscape mode
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]).then((_) {
-  // WidgetsFlutterBinding.ensureInitialized();
-
-  //  get the shared preference instance
-  // var path = Directory.current.path;
-  // Hive
-  //   ..init(path)
-  // //   ..registerAdapter(StudentAdapter());
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   await Hive.initFlutter();
   await Hive.openBox('Student');
@@ -46,14 +34,7 @@ void main() async {
   FlavorConfig(flavor: Flavor.PRODUCTION);
   setupLocator();
   Bloc.observer = SimpleBlocObserver();
-  runApp(
-      // DevicePreview(
-      //   // enabled: kReleaseMode,
-      //   builder: (context) => MyApp(),
-      // ),
-      MyApp());
-
-  // });
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -148,9 +129,7 @@ class MaterialAppWidget extends StatelessWidget {
               ),
               brightness: Brightness.light,
             ),
-
       title: 'Book Sharing',
-      // home: LogIn(),
       initialRoute: '/',
       onGenerateRoute: RouterCustome.generateRoute,
     );

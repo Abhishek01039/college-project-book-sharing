@@ -2,11 +2,7 @@ import 'package:booksharing/core/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 class FlavorConfig {
-  final Flavor flavor;
-  static FlavorConfig _instance;
-
   factory FlavorConfig({
     @required Flavor flavor,
     Color color: Colors.blue,
@@ -20,9 +16,11 @@ class FlavorConfig {
     return _instance;
   }
 
+  final Flavor flavor;
+  static FlavorConfig _instance;
+
   static bool isProduction() => _instance.flavor == Flavor.PRODUCTION;
   static bool isDevelopment() => _instance.flavor == Flavor.DEV;
 
-  
   static bool isQA() => _instance.flavor == Flavor.QA;
 }
